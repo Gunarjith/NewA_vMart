@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="{% static 'css/index1.css' %}"> -->
+    <link rel="shortcut icon" href="{% static 'img/tabLogo.png' %}">
+    <meta name="description" content="Vailo Reaches Your Business everywhere through Whats app,
+                    No Website & App required for shopping,and Increase your sale with Win Win situation">
+    <title>
+
+        Brillion.one
+        <!-- {% block title %} {% endblock title %} -->
+
+    </title>
+    <!-- 31-7-23  -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+ <!-- 31-7-23  -->
+    <meta name="keywords" content="Vailo, WhatsApp, Online Shopping, Accelerate,Conversions" />
+    <link rel="canonical" href="https://vailo.ai/">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+    <!-- ___ new dashLinks __  -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+    <!-- ___ new dashLinks __  -->
+    {% block header %}
+
+
+    {% endblock header %}
+
+
+</head>
+
+<body style="height:100% ;background-color: #ffff;" id="bodyId">
+
+{% if user.is_authenticated %}
+<section id="sidebar">
+    <a href="" class="brand">
+        <img src="{% static 'img/appointmentnew.png' %}" alt="VailoLogo" >
+    </a>
+    <ul class="side-menu top">
+        {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+        <li>
+            <a href="{% url 'hotelmarketplacemain' %}">
+                <i class='bx bx-tachometer'></i>
+
+                <span class="text">Market Place</span>
+            </a> 
+        </li>
+
+    {% endif %}
+
+
+        {% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+        <li>
+            <a href="{% url 'hotelmaininfo' %}">
+                <i class='bx bxs-message-dots'></i>
+                <span class="text">Configuration</span>
+            </a>
+        </li>
+        {% endif %}
+       
+
+        <li>
+            <a href="{% url 'guestinfo' %}" id="clientListLink">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Guests</span>
+            </a>
+        </li>
+        
+        <li>
+            <a href="{% url 'roominfo' %}" id="clientListLink">
+                <i class='bx bxs-hotel'></i>
+                <span class="text">Room</span>
+            </a>
+        </li>
+
+        {% include 'common/settingSide.html' %}
+    </ul>
+
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <span class="spanNavLeft">
+            <i class='bx bx-menu'></i>
+            <a href="#" id="categoriesLink" class="nav-link"> </a>
+        </span>
+        <span class="spanNavRight">
+            <a href="#" class="profile">
+                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="userImage" alt="profile_pic">
+            </a>
+            <a href="{% url 'logout' %}">
+                <img class="imgDashSetting" style="width: 20px;" src="{% static 'img/dash11.png' %}">
+            </a>
+        </span>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <div class="mainContent" id="mainContent">
+        {% block rightcontent %}
+
+        {% endblock rightcontent %}
+    </div>
+    {% endif %}
+    <!-- MAIN -->
+</section>
+
+{% block bottumcontent %}
+
+{% endblock bottumcontent %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Add a click event listener to the special link
+        $("#specialLink").click(function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Load content into the main content area
+            $("#mainContent").load("{% url 'UpdateProfileCommon' %}", function () {
+                // Add a click event listener to links within the loaded content using event delegation
+                $("#mainContent").on("click", "a", function (e) {
+                    e.preventDefault(); // Prevent the default link behavior
+
+                    // Load the clicked link's content within the main content area
+                    var linkUrl = $(this).attr("href");
+                    $("#mainContent").load(linkUrl);
+                });
+            });
+            
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+    // Intercept form submissions for forms with the "ajax-form" class
+    $(".ajax-form").submit(function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
+        // Serialize form data (convert form fields to a format suitable for submission)
+        var formData1 = $(this).serialize();
+
+        // Define the URL where you want to submit the form data
+        var formUrl1 = $(this).attr("action");
+
+        // Reference to the current form element
+        var currentForm1 = $(this);
+
+        // Send the form data using AJAX POST request
+        $.ajax({
+            type: "POST", // Use POST method
+            url: formUrl1, // The URL to submit to
+            data: formData1, // The serialized form data
+            success: function (response) {
+                // Load the response content into the parent container of the current form
+                currentForm1.closest(".mainContent").html(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
+
+<script>
+    const categoriesLink = document.getElementById('categoriesLink');
+    const sidebarLinks = document.querySelectorAll('#sidebar li a');
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const selectedText = event.target.innerText;
+            localStorage.setItem('selectedText', selectedText);
+        });
+    });
+
+    // Retrieve selected text from localStorage on page load
+    const storedText = localStorage.getItem('selectedText');
+    if (storedText) {
+        categoriesLink.innerText = storedText;
+    }
+</script>
+
+
+    <script>
+
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll('.sideBarDashBoardVailoUl li a');
+
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].href === currentUrl) {
+                links[i].parentNode.classList.add('active');
+            }
+        }
+
+
+    </script>
+
+    <!-- ____ new dashScript___  -->
+    <script>
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        const configSidemenu = document.querySelectorAll('#sidebar .side-menu.top li .dropbtn #myDropdownCon a')
+
+
+        configSidemenu.forEach(item => {
+            let li = item.parentElement;
+            if (item.href === window.location.href) {
+                li.classList.add('active');
+            }
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            if (item.href === window.location.href) {
+                li.classList.add('active');
+            }
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+            const brandImg = document.querySelector('#sidebar .brand img');
+            if (sidebar.classList.contains('hide')) {
+                brandImg.style.width = '200px';
+                brandImg.style.padding = '12px';
+            } else {
+                brandImg.style.width = '80%';
+                brandImg.style.padding = '20px';
+            }
+        });
+
+
+
+
+
+
+
+
+        const switchMode = document.getElementById('switch-mode');
+
+        switchMode.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        })
+
+    </script>
+
+    <!-- __ endOfNewDashScript__  -->
+
+    {% block script %}
+
+
+
+    {% endblock script %}
+    <!-- <script type="text/javascript" src="{% static 'js/image.js' %}"></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+</body>
+
+</html>

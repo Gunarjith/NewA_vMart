@@ -1,0 +1,262 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block header %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'css/neworder.css' %}" />
+
+{% endblock header %}
+
+    {% block rightcontent %}
+
+            <div class="container mb-4" style="color:black;margin-top:10px;font-weight:500;" id="formContain">
+               <div class="container-fluid mt--7">
+                  <div class="row">
+
+
+                    <div class="col-xl-12 order-xl-1" id="firdtDiv">
+                      <div class="card bg-secondary shadow" id="firstDivShadow">
+                        <div class="card-header bg-white border-0">
+                          <div class="row align-items-center">
+                            <div class="col-8">
+                              <h3 class="mb-0">Order</h3>
+                            </div>
+
+                          </div>
+                          </div>
+
+                        <div id="innerbody">
+
+                            <div id="mycontainer">
+                                <div class="leftbody">
+                                    <div class="leftbodyHeader">
+                                        <div class="userimage">
+                                            <img src="https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg" class="img-cover">
+                                        </div>
+                                        <ul class="userIcons">
+                                            <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+                                            <li><ion-icon name="chatbox"></ion-icon></li>
+                                            <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="userSearch">
+                                        <div>
+                                            <input type="text" placeholder="search">
+                                            <ion-icon name="search-outline"></ion-icon>
+                                        </div>
+                                    </div>
+
+                                    <div class="userChats">
+
+                                        <div class="userBlock">
+                                            <div class="imageSender">
+                                                <img src="https://mybluerobot.com/wp-content/plugins/svg-avatars-generator/data/custom-img/boy.png" class="img-cover">
+                                            </div>
+                                            <div class="senderDetails">
+                                                <div class="sendHead">
+                                                    <h4>Order1</h4>
+                                                    <p class="senderTime">10:30pm</p>
+                                                </div>
+                                                <div class="senderNumber">
+                                                    <p>91 99999 88888</p>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="userBlock" style="background:#94FFB9;">
+                                            <div class="imageSender">
+                                                <img src="https://i.pinimg.com/originals/4b/5d/19/4b5d1954fbb5b6bad18f0ac25c4ab3c3.png" class="img-cover">
+                                            </div>
+                                            <div class="senderDetails">
+                                                <div class="sendHead">
+                                                    <h4>Order2</h4>
+                                                    <p class="senderTime">10:20pm</p>
+                                                </div>
+                                                <div class="senderNumber">
+                                                    <p>91 99999 88888</p>
+                                                    <ion-icon name="checkmark-circle-outline" style="font-size:40px;"></ion-icon>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="userBlock">
+                                            <div class="imageSender">
+                                                <img src="https://mybluerobot.com/wp-content/uploads/2015/04/myAvatar-29.png" class="img-cover">
+                                            </div>
+                                            <div class="senderDetails">
+                                                <div class="sendHead">
+                                                    <h4>Order3</h4>
+                                                    <p class="senderTime">10:00pm</p>
+                                                </div>
+                                                <div class="senderNumber">
+                                                    <p>91 99999 88888</p>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="userBlock">
+                                            <div class="imageSender">
+                                                <img src="https://i.pinimg.com/originals/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4.png" class="img-cover">
+                                            </div>
+                                            <div class="senderDetails">
+                                                <div class="sendHead">
+                                                    <h4>Order4</h4>
+                                                    <p class="senderTime">9:57pm</p>
+                                                </div>
+                                                <div class="senderNumber">
+                                                    <p>91 99999 88888</p>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="userBlock">
+                                            <div class="imageSender">
+                                                <img src="https://pickaface.net/assets/images/slides/slide4.png" class="img-cover">
+                                            </div>
+                                            <div class="senderDetails">
+                                                <div class="sendHead">
+                                                    <h4>Order5</h4>
+                                                    <p class="senderTime">9:55pm</p>
+                                                </div>
+                                                <div class="senderNumber">
+                                                    <p>91 99999 88888</p>
+                                                    <div class="spinner-grow text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class=rightBody>
+
+                                    <div class="leftbodyHeader">
+                                        <div class="userimage">
+                                            <img src="https://i.pinimg.com/originals/4b/5d/19/4b5d1954fbb5b6bad18f0ac25c4ab3c3.png" class="img-cover" class="img-cover">
+
+                                        </div>
+                                        <div>
+                                             <h4>9585958595</h4>
+                                        </div>
+                                        <ul class="userIcons">
+
+                                            <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+                                            <li><ion-icon name="chatbox"></ion-icon></li>
+                                            <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="productHead">
+                                            <strong class="d-none d-md-block h6 my-2">
+                                                Product Details
+                                                <hr class="d-none d-md-block my-2">
+                                            </strong>
+                                        </div>
+
+                                        <div class="productData">
+                                            <table class="table table-stripeds table-bordereds">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Qty</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="tableTd1">
+                                                        <img src="http://127.0.0.1:8005/media/E_product/static/images/a1_fzef7Tz.jpeg" alt="imge" class="me-2" height="50" width="50">
+                                                        Apple
+                                                    </td>
+                                                    <td class="tableTd2">1</td>
+                                                    <td class="tableTd3">40</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        </div>
+
+                                        <div class="totalPrice">
+                                            <h6 >Total Price
+                                            <span> Rs. 40</span>
+                                        </h6>
+                                        </div>
+
+                                        <div class="productHead">
+                                            <hr class="d-none d-md-block my-2">
+                                            <strong class="d-none d-md-block h6 my-2">
+                                                User Details
+                                                <hr class="d-none d-md-block my-2">
+                                            </strong>
+                                        </div>
+
+                                        <div class="productData">
+                                            <address class="address text-end">
+                                                <p>Raju</p>
+                                                <p>krpura</p>
+                                                <p>bangalore</p>
+                                                <p>316326</p>
+                                                <p>9585958595</p>
+                                            </address>
+                                        </div>
+
+                                        <hr class="d-none d-md-block my-2">
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+{% endblock rightcontent %}
+
+
+
+{% block bottumcontent %}
+
+{% endblock bottumcontent %}
+
+
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'js/order.js' %}"></script>
+{% endblock script %}
+

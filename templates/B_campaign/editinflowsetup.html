@@ -1,0 +1,230 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+    {% for data in inflowsetupdata %}
+    <form class="profileForm myForm" action="{% url 'editsubmitflowdata' data.id %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="leve1Name">Parent Name</label>
+                <input type="text"  name="reParentID" class="nameInput" value="{{data.Parent_ID}}" >
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="leve1ShortDes"> Button Type</label>
+                <input type="text" id="leve1ShortDes" name="reopenbuttontype" value="{{data.open_button_type}}">
+            </span>
+            <span>
+                <label for="leve1Name">Button Name</label>
+                <input type="text"  name="reopenbuttonname" class="nameInput" value="{{data.open_button_name}}">
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="leve1ShortDes">Title </label>
+                <input type="text" id="leve1ShortDes" name="reshorttitle" value="{{data.short_title}}">
+            </span>
+
+            <span>
+                <label for="leve1Descrip">Description</label>
+                <input type="text" id="leve1Descrip" name="reshortdescription" value="{{data.short_description}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="campaign_link_text">Additional Info</label>
+                <input type="text" id="leve1Descrip" name="readditionalinfo" value="{{data.additional_info}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_link_text">Additional Info1</label>
+                <input type="text" id="leve1Descrip" name="readditionalinfo1" value="{{data.additional_info1}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_link_text">Additional Info2</label>
+                <input type="text" id="leve1Descrip" name="readditionalinfo2" value="{{data.additional_info2}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="campaign_id">Header text </label>
+                <input type="text" id="leve1Descrip" name="reinflowheadertext" value="{{data.inflow_header_text}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_id">Header Type </label>
+                <input type="text" id="leve1Descrip" name="reinflowheadertype" value="{{data.inflow_header_type}}"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="key">Body text</label>
+                <textarea id="leve1Descrip" name="reinflowbodytext" 
+                rows="8" cols="60">{{data.inflow_body_text}}</textarea>
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="key">Footer text</label>
+                <input type="text" id="leve1Descrip" name="reinflowfootertext" value="{{data.inflow_footer_text}}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label>Additional File</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{data.additional_file_path}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.additional_file_path %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="reAdditionalFile" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+            </span>
+            <span>
+                <label>Additional File1</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{data.additional_file_path1}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.additional_file_path1 %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="reAdditionalFile1" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+            </span>
+            <span>
+                <label>Additional File2</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{data.additional_file_path2}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.additional_file_path2 %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="reAdditionalFile2" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+            </span>
+            <span>
+                <label>Header Type</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{data.inflow_header_file_path}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.inflow_header_file_path %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="reHeaderType" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+    {% endfor %}
+
+</div>
+
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+
+{% endblock script %}

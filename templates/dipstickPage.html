@@ -1,0 +1,243 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .sectionOneMainDIv {
+        background: url("{% static 'img/dipstickbg.png' %}") center no-repeat;
+    }
+
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+
+
+<div class="bg1">
+    <div class="section2" style="    margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Brillion1 Dipstick
+
+                        </h1>
+                        <img src="{% static 'img/headerImgDip.png' %}" alt="" style="width: fit-content;">
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Reach wider audience for an inclusive survey
+
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/dipstickImg.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        By leveraging the popularity of WhatsApp, businesses can create surveys that are not only simple and intuitive
+        but also non-invasive. This shift to a more familiar and comfortable channel significantly increases the
+        likelihood of customer participation, ensuring a higher response rate and more accurate feedback. Conducting
+        surveys through WhatsApp also offers a dynamic and user-friendly method to gather valuable insights and
+        feedback.
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            Traditional survey methods utilizing web and SMS channels are encountering difficulties in obtaining timely
+            and valuable feedback. This is mainly due to a lack of interest from customers towards these outdated
+            communication channels, which may be seen as invasive or burdensome. To address the need for a more
+            efficient and user-friendly solution, Brillion1 Dipstick has been developed as an alternative. Every
+            touchpoint between a customer and a business presents a unique opportunity to influence the customer's
+            perception and, consequently, their loyalty. Successful enterprises understand the significance of these
+            moments and actively seek timely feedback to ensure that they consistently meet and exceed customer
+            expectations.
+
+        </p>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/dipstickImg1.png' %}" alt="">
+    </div>
+
+</div>
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img id="myImage1D" src="{% static 'img/myImage1D(2).png' %}" alt="">
+    </div>
+    <div class="dcOneLeftSection widthSixty" style="padding-right: 0 !important;">
+
+
+        <p>
+            Brillion1 Dipstick allows businesses to create engaging survey questions and share them directly with their
+            audience through WhatsApp. Transitioning to a familiar and comfortable channel boosts customer engagement,
+            leading to higher response rates and more accurate feedback.
+
+        </p>
+        <!-- <div class="dcOneLeftSection marginZero" style="width: 57% !important;">
+                            <h3>Brillion1 Ticket</h3> -->
+        <ul>
+            <li>
+                Transition to a more familiar and comfortable channel boosts the chances of customer engagement,
+                guaranteeing an elevated response rate and more precise feedback.
+
+            </li>
+            <li>
+                The platform's multimedia capabilities allow for the inclusion of images, videos, or even interactive
+                elements to enhance the survey experience.
+
+            </li>
+            <li>
+                The privacy and security features of WhatsApp contribute to a sense of trust, encouraging users to share
+                their opinions openly.
+
+            </li>
+
+
+
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+
+<div class="sectionParagraph">
+    <p style="font-size: 16px; line-height: 21.82px;">
+        Brillion1 Dipstick goes beyond just collecting feedback - it turns feedback into a valuable strategic asset. By
+        leveraging WhatsApp and advanced analytics, businesses can stay attuned to their customer's evolving
+        expectations, ensuring a proactive and customer-centric approach toward their products and services.
+
+    </p>
+</div>
+
+
+
+
+
+
+
+<script>
+
+    var imageElements = [
+        document.getElementById('myImage1D'),
+
+
+    ];
+
+    var imagePaths = [
+        [
+            "{% static 'img/myImage2D.png' %}",
+            "{% static 'img/myImage3D.png' %}",
+            "{% static 'img/myImage1D(2).png' %}",
+        ],
+
+
+
+    ];
+
+    var currentIndex = [0, 0, 0, 0, 0];
+
+    // Change the images every 5 seconds
+    setInterval(function () {
+        for (var i = 0; i < imageElements.length; i++) {
+            imageElements[i].src = imagePaths[i][currentIndex[i]];
+            currentIndex[i] = (currentIndex[i] + 1) % imagePaths[i].length;
+        }
+    }, 3000);
+</script>
+
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

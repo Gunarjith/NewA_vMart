@@ -1,0 +1,14 @@
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLeve1">
+            <a href="{% url 'forminfo' %}">
+                <button class="{% if 'forminfo' in request.path %}activeNavDash{% endif %}">Forms</button>
+            </a>
+            <a href="{% url 'formdata' %}">
+                <button class="{% if 'formdata' in request.path %}activeNavDash{% endif %}">Submited Form</button>
+            </a>
+
+            <br>
+        </div>
+    </div>
+</div>

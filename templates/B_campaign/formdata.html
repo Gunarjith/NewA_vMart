@@ -1,0 +1,62 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block rightcontent %}
+{% include 'B_campaign/formconfig.html' %}
+
+<div style="margin-bottom: 20px;">
+   <h2>All forms</h2>
+<form method="POST" action="{% url 'getformdata' %}">
+    {% csrf_token %}
+    <select name="form_select">
+        {% for form in formdata %}
+        <option hidden>Select Form</option>
+        <option value="{{ form.id }}">{{ form.form_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Submit</button>
+</form>
+</div>
+
+<div style="margin-top: 40px;">
+    <h2>{{ message }}</h2>
+    <table border="1">
+        <thead>
+            <tr>
+
+                {% if formdataobj %}
+
+                    {% for key, value in formdataobj.0.Campaign_Form_data.items %}
+
+                        {% if key != 'flow_token' %}
+                            <th>{{ key }}</th>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if formdataobj %}
+                {% for record in formdataobj %}
+                    <tr>
+                        {% for key, value in record.Campaign_Form_data.items %}
+                            {% if key != 'flow_token' %}
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <td colspan="{% if formdataobj %}{{ formdataobj.0.Campaign_Form_data|length }}{% else %}1{% endif %}">No form data available.</td>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock rightcontent %}

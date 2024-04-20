@@ -1,0 +1,84 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_authenticated %}
+    {{ user.username }}
+  {% else %}
+    Your Title Here
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+<style>
+    #addButton1 {
+        display: block;
+        margin-top: 20px;
+        
+        cursor: pointer;
+    }
+    #submitButton1{
+        display: none;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+    #submitButton {
+        display: none; /* Hide the Submit button initially */
+    }
+</style>
+{% endblock header %}
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Consultant</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'AddAvailablity' id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'AddAvailablity' id %}{% endif %}">
+            <button>
+                Add Availability
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <p>Marketplace ID: {{marketplace_id }}</p>
+    <table>
+        <thead>
+            <tr>  
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in ConsultantAvailablity %}
+                <tr>
+                    <td>{{a.day_of_week }}</td>
+                    <td>{{ a.start_time }}</td>
+                    <td>{{ a.end_time }}</td>
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editavailablity' a.id %}?marketplace_id={{ marketplace_id }}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deleteavailablity' a.id %}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock rightcontent %}
+
+{% block script %}
+{% endblock script %}
+

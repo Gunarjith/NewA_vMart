@@ -1,0 +1,227 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% block title %} {{ user.username }} {% endblock title %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="mT15">
+    <div class="headFlex">
+        <h3>Hotel Room Information</h3>
+        {% if admin_permission_obj and admin_permission_obj.client_marketplace  == 'yes' %}
+        {% if subclient_preferences == None %}
+        <select name="hotels" id="hotels" style="width:120px;">
+            <option hidden>Select Hotel</option>
+            {% for hotel in allhotels%}
+            <option value="{{hotel.marketplace_id}}_{{hotel.id}}">{{hotel.hotel_name}}</option>
+            {%endfor%}
+          </select>
+          {%endif%}
+          {%endif%}
+    </div>
+</div>
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+{% if hotelDash %}
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+        <form class="profileForm" action="{% if marketplace_id %}{% url 'updatemaindata' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'updatemaindata' %}{% endif %}" method="POST" enctype="multipart/form-data" style="position: relative; width: 100%;">
+            {% csrf_token %}
+            <div style="display: flex; gap: 25px; margin-bottom:10px;">
+                <input type="hidden" name="marketplace_id" value="{{ donationDash.marketplace_id }}">
+                <div class="profileForm profileForm1">
+                    <span class="headFlex">
+                        <h4>Welcome to {{hotelDash.hotel_name}}</h4>
+                       
+                    </span>
+                    <!-- <p style="margin-left:30px">{{hotelDash.hotel_name}}</p> -->
+                    
+                    <span class="formOne inputGridThree" style="padding-bottom:0 ;">
+                        <span>
+                            <label for="hotelname">Hotel Name</label>
+                            <input type="text" id="hotelname" name="rename" value="{{ hotelDash.hotel_name }}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="hotel_address">Hotel Address</label>
+                            <input type="text" id="hotel_address" name="readdress" value="{{ hotelDash.hotel_address }}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="contact_us">Contact Us</label>
+                            <input type="number" id="contact_us" name="recontactus" value="{{ hotelDash.contact_us }}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="contact_one">Contact one</label>
+                            <input type="number" id="contact_one" name="recontactone" value="{{ hotelDash.contact_one }}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="contact_two">Contact Number Two</label>
+                            <input type="number" id="contact_two" name="recontacttwo" value="{{ hotelDash.contact_two }}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="contact_three">Contact Number Three</label>
+                            <input type="number" id="contact_three" name="recontactthree" value="{{hotelDash.contact_three}}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="checkIn">Check In Time</label>
+                            <input type="time" id="checkIn" name="recheckIntime" value="{{hotelDash.checkIn|time:'H:i'}}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="checkout">Check out Time</label>
+                            <input type="time" id="checkout" name="recheckouttime" value="{{hotelDash.checkout|time:'H:i'}}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span></span>
+                        <span class="formOne inputGridThree">
+                            <span>
+                                <label for="rehotelserviceimage">Hotel Image</label>
+                                <span class="formImgFlex">
+                                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{ hotelDash.hotel_image }}">
+                                    <span class="formImgFlexDelete">
+                                        <img src="" id="output1">
+                                        {% if hotelDash.hotel_image %}
+                                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}" onclick="clearFileInputInfo1('{{hotelDash.id}}','image')">
+                                        {% endif %}
+                                    </span>
+                                    <!-- <input type="file" name="hotel_image" id="hotel_image" accept="image/*"> -->
+                                    <input type="file" id="rehotelserviceimage" name="reimage" class="imageInput" accept="image/*" onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                                    <span class="validationMessageImg"></span>
+                                </span>
+                                <span></span>
+                            </span>
+                        </span>
+                        <span class="formOne inputGridTwo">
+                            <span>
+                                <label for="rehotelservicevideo">Hotel Video</label>
+                                <span class="formImgFlex">
+                                    <video width="220" height="140" controls>
+                                        <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{ hotelDash.hotel_video }}" type="video/mp4">
+                                    </video>
+                                    <span class="formImgFlexDelete">
+                                        <img src="" id="output2">
+                                        {% if hotelDash.hotel_video %}
+                                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}" onclick="clearFileInputInfo1('{{hotelDash.id}}','video')">
+                                        {% endif %}
+                                    </span>
+                                    <!-- <input type="file" name="hotel_video" accept="video/*"> -->
+                                    <input type="file" id="rehotelservicevideo" name="replacevideo" class="videoInput" accept="video/*" onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                                    <span class="validationMessageImg"></span>
+                                </span>
+                                <span></span>
+                            </span>
+                        </span>
+                    </span>
+                    <h3>Hotel Services</h3>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span class="overflow-y: scroll;">    
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Key</th>
+                              <th>Services Name</th>
+                              <th>Description</th>
+                              <th>Support Number</th>
+                              <th>Escalation Number</th>
+                              <th>Escalation Hours</th>
+                              <th>Control</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            {% for data in modifyservice %}
+                            <tr>
+                                
+                                <td>{{ data.key }}</td>
+                                <td> 
+                                <input type="text" name="names_{{ data.id }}" id="leve1EndDate" value="{{ data.name }}">
+                                </td>
+                                <td><input type="text" name="discription_{{ data.id }}" id="leve1EndDate" value="{{ data.description }}"></td>
+                                <td><input type="text" name="support_number_{{ data.id }}" id="leve1EndDate" value="{{ data.support_number }}"></td>
+                                <td><input type="text" name="Escalation_number_{{ data.id }}" id="leve1EndDate" value="{{ data.escalation_number }}"></td>
+                                <td><input type="time" name="Escalation_hours_{{ data.id }}" id="leve1EndDate" value="{{ data.escalation_hours|time:'H:i' }}"></td>
+                                <td> 
+                                    <select id="control" name="control_{{ data.id }}" aria-placeholder="select a control">
+                                        <option value="{{ data.control }}" hidden >{{ data.control }}</option>
+                                        <option value="ENABLE" >Enable</option>
+                                        <option value="DISABLE">Disable</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                          </tbody>
+                        </table><br><br>
+                    </span>
+
+                <span></span>
+                <span class="spanSubmitForm">
+                    <input type="submit" value="Submit"  id="submit" style="margin-left: 47%;" onclick="">
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+        if (this.files && this.files[0]) {
+            // Display the message inside the corresponding span
+            $(this).siblings(".validationMessageImg").text("Image selected.");
+        } else {
+            // Clear the message
+            $(this).siblings(".validationMessageImg").text("");
+        }
+    });
+    });
+    $(document).on('change', '#hotels', function () {
+        // Generate URL without "id" bit
+        var marketplace_hotel_idstr = $(this).val();
+        var marketplace_hotel_idarr = marketplace_hotel_idstr.split("_").map(function(item) {
+            console.log(item,typeof(item, 10))
+            return parseInt(item, 10); // Use parseInt() to convert string to integer
+            // or parseFloat(item) if the numbers can have decimal points
+        });
+        console.log(marketplace_hotel_idarr)
+          
+        var url = "{% url 'hotelmaininfo'  %}" +"/" +marketplace_hotel_idarr[0]+"/";
+        console.log(url)
+    
+    // Construct the full URL with "id"
+        document.location.href = url; 
+        
+        
+    });
+   
+</script>
+<script>
+    function clearFileInputInfo1(id,videoOrImage){
+        console.log("hello",id);
+        url="{% url 'hotelmaininfo' %}"+'/'+id+'/'+ videoOrImage;
+        window.location=url
+    }
+</script>
+<!-- <script>
+    getdata(){
+        var getdata=document.getElementById('hotel_image')
+    }
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+{% endblock rightcontent %}

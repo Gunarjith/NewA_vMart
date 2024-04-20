@@ -1,0 +1,202 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+{% for a in modifyevents %}
+<div class="ticketLevelFlex" style="margin: 15px;">
+<!-- <div class="frmCenter"> -->
+    <!-- <div class="ticketLevelFlex"> -->
+        <div class="ticketLevelFlexLeft profileForm">
+            <span class="headFlex">
+                <h3>Edit Level-1</h3>
+            </span>
+
+            <form action="{% url 'updateevent' a.id %}" method="POST" enctype="multipart/form-data"
+                style="position: relative;">
+                {% csrf_token %}
+                <span class="formOne inputGridTwo">
+                    <span>
+                        <label>Name</label>
+                        <input type="text" name="reeventname" class="nameInput" value="{{a.Event_Name}}">
+                        <span class="charCount"></span>
+                    </span>
+                    <span>
+                        <label>Description</label>
+                        <input type="text" name="reeventdesc" class="descriptionInput" value="{{a.Event_Description}}">
+                     
+                        <span class="charCount"></span>
+                    </span>
+
+
+
+                    <span>
+                        <label>Start Date</label>
+                        <input type="text" name="restartdate" placeholder="{{a.Start_Date}}"
+                            onfocus="(this.type='date')">
+                    </span>
+                    <span>
+                        <label>End Date</label>
+                        <input type="text" name="reenddate" placeholder="{{a.End_Date}}" onfocus="(this.type='date')">
+                    </span>
+
+
+
+
+                    <!-- <span class="eventImgFileFlexGridImg">
+                <label>Event Logo</label>
+                <input type="file" name="relogo"
+                onchange="document.getElementById('output').src=window.URL.createObjectURL(this.files[0])">
+                <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_Logo}}">
+                <img src="" id="output">
+           
+            </span>
+            -->
+
+
+                    <!-- <span class="eventImgFileFlexGridImg">
+                <label>Event Ticket Image</label>
+                <input type="file" name="reticket"
+                onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+
+                <img class="eventImgFileGridTicketImg" src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_ticket_image}}">
+                <img class="eventImgFileGridTicketImg" src="" id="output1">
+               
+            </span> -->
+
+                    <span>
+                        <label>Header</label>
+                        <input type="text" name="reeventmessageheadertext" class="headerInput" value="{{a.Event_Message_Header_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Body</label>
+                        <input type="text" name="reeventmessagebodytext" class="mainInput" value="{{a.Event_Message_Body_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Footer</label>
+                        <input type="text" name="reeventmessagefootertext" class="footerInput" value="{{a.Event_Message_Footer_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>level-2 Button Name</label>
+                        <input type="text" name="reeventslotbuttonname" class="buttonInput" value="{{a.Event_slots_button_name}}">
+                        <span class="charCount"></span>
+                    </span>
+                </span>
+                <span class="formOne">
+                    <span>
+                        <label>Image</label>
+                        <span class="formImgFlex">
+                            <img class="eventImgFileGridTicketImg"
+                                src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_Message_Header_Image}}">
+                            <span class="formImgFlexDelete">
+                                <img class="eventImgFileGridTicketImg" src="" id="output2">
+                                {% if a.Event_Message_Header_Image %}
+                                <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                    onclick="clearFileInput('id_reEventMessageHeaderImage')"></img>
+                                {% endif %}
+                            </span>
+                        </span>
+                        <input type="file" name="reEventMessageHeaderImage" class="imageInput" accept="image/*" id="id_reEventMessageHeaderImage"
+                            onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+                    <span>
+                        <label>Status</label>
+                        <select name="status">
+                            <option value="1" {% if a.status == 1 %}selected{% endif %}>Active</option>
+                            <option value="2" {% if a.status == 2 %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </span>
+
+                </span>
+
+                <span class="spanSubmitForm" style="margin-top: 50px;">
+
+                    <input type="submit" value="Update">
+                </span>
+            </form>
+        </div>
+        {% endfor %}
+
+
+        <div class="ticketLevelFlexRight profileFormTable">
+            <span class="headFlex">
+                <h3>Level-2 List</h3>
+                <a href="{{BASE_DIR}}/Eventmaster/submitslot/{{eventId}}/">
+                    <button class="eventAddSloBtn"> Add Level-2</button>
+                </a>
+            </span>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th style="text-align: center;"> Edit / Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for b in eventslot %}
+                    <tr>
+                        <td>{{b.Slot_Name}}</td>
+                        <td>{{b.Slot_Description}}</td>
+                        <td>
+
+                            <span class="editDeleteTd">
+                                <a href="{% url 'slotOFcategory' b.id %}">
+                                    <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                                </a>
+                                <a href="{% url 'deleteslot' b.id %}">
+                                    <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                                </a>
+                            </span>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <!-- </div> -->
+</div>
+
+<script>
+    function clearFileInput(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output2');
+        img.src = '';
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

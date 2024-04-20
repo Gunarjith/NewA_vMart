@@ -1,0 +1,155 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block body %}
+
+<div class="loginSection">
+
+    <div class="loginSectionLeft">
+        <img class="loginSectionLeftImg" style="object-fit: scale-down !important; width:75% ;"
+            src="{% static 'img/contactFormImg.png' %}" alt="">
+
+    </div>
+    <div class="loginSectionRight">
+
+        <h2 style="margin-top: 10px;">Welcome !</h2>
+
+        <form action="{% url 'demo' %}" method="post">
+            {% csrf_token %}
+            <div class="demoFIrstName">
+                <span style="width: -webkit-fill-available;">
+                    <label for="FirstName">First Name</label>
+                    <input type="text" id="FirstName" placeholder="First Name" name="FirstName" required>
+                </span>
+
+                <span style="width: -webkit-fill-available;">
+                    <label for="LastName">Last Name</label>
+                    <input type="text" id="LastName" placeholder="Last Name" name="LastName" required>
+                </span>
+
+            </div>
+            <div class="demoFIrstName">
+                <span style="width: -webkit-fill-available;">
+                    <label for="emailFrom">Business Email ID</label>
+
+                    <input type="email" id="emailFrom" placeholder="Business Email ID" name="emailFrom" required>
+                </span>
+                <span style="width: -webkit-fill-available;">
+                    <label for="txtPhone">Contact Number</label>
+                    <input type="tel" id="txtPhone" style="width:100% ;" placeholder="Contact Number"
+                        name="mobileNumber" required>
+                </span>
+
+
+
+
+            </div>
+            <span>
+                <label for="CompanyName">Company Name</label>
+                <input type="text" id="CompanyName" placeholder="Company Name" name="CompanyName" required>
+            </span>
+
+
+
+            <!-- <span>
+                <label for="JobTitle">Job Title</label>
+                <input type="text" placeholder="Job Title" name="JobTitle" required>
+            </span> -->
+            <p>By signing up you agree to the Terms and Privacy policy</p>
+
+            <span style="position: relative;">
+                <input type="submit" value="Sign Up" style="position: relative;">
+            </span>
+
+        </form>
+        <p style="margin-top: -30px;">Do have an account ? <a href="{% url 'login' %}"><b style="color: #000079;">login</b></a></p>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock body %}
+
+{% block script %}
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var inputs = document.querySelectorAll('input');
+
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            var label = document.querySelector('label[for="' + input.id + '"]');
+
+            if (label) { // Add a null check for the label element
+
+                if (input.hasAttribute('required')) {
+                    var asteriskSpan = document.createElement('span'); // Create a <span> element
+                    asteriskSpan.textContent = ' *';
+                    asteriskSpan.classList.add('required-asterisk'); // Add class to the <span> element
+                    label.appendChild(asteriskSpan); // Append the <span> element to the label
+
+
+                } else {
+                    label.textContent += ' (optional)';
+                }
+            }
+        }
+    });
+
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+    togglePassword.addEventListener('click', function () {
+        password.type = password.type === 'password' ? 'text' : 'password';
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    });
+</script> -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function refreshCSRFToken() {
+            const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]');
+            console.log(csrfToken); // Debugging statement
+            if (csrfToken) {
+                const csrfInput = document.querySelector('#csrf_input');
+                console.log(csrfInput); // Debugging statement
+                csrfInput.value = csrfToken.value;
+            }
+        }
+
+        refreshCSRFToken();
+    });
+</script>
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

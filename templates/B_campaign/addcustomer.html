@@ -1,0 +1,101 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm" action="{% url 'submitcustomer' %}" method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Contact</h3>
+        </span>
+        <span class="formOne inputGridThree" >
+            <span>
+                <label for="cName">customer Name:</label>
+                <input type="text" name=" CustomerName" class="nameInput1" placeholder="Enter Name" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer Email:</label>
+                <input type="text" name="CustomerEmail" class="nameInput1" placeholder=" Enter Email" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer Number:</label>
+                <input type="number" name="Customernumber" class="nameInput1" placeholder="Enter number" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer City:</label>
+                <input type="text" name="Customercity" class="nameInput1" placeholder="Enter city" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <!-- <span>
+                <label for="cName">coustomer Status:</label>
+                <input type="number" name=" editCustomerstatus" class="nameInput1" value="{{a.Customer_Status}}" id="cName">
+                <span class="charCount"></span>
+            </span> -->
+            <span>
+                <label for="cName">customer address1:</label>
+                <input type="text" name="Customeraddr1" class="nameInput1" placeholder="Enter Address1" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer address2:</label>
+                <input type="text" name="Customeraddr2" class="nameInput1" placeholder="Enter Address2" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <!-- <span>
+                <label for="cName">customer landmark:</label>
+                <input type="text" name=" editCustomerlandmark" class="nameInput1" value="{{a.Customer_Address_Landmark}}" id="cName">
+                <span class="charCount"></span>
+            </span> -->
+            <span>
+                <label for="cName">customer Pincode:</label>
+                <input type="number" name="Customerpincode" class="nameInput1" placeholder="Enter pincode" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer state:</label>
+                <input type="text" name=" Customerstate" class="nameInput1" placeholder="Enter state" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <!-- <span>
+                <label for="cName">customer country:</label>
+                <input type="text" name="Customercountry" class="nameInput1" placeholder="Enetr country" id="cName">
+                <span class="charCount"></span>
+            </span> -->
+            <span>
+                <label for="cName">Alternate Number:</label>
+                <input type="number" name="Customeralterna" class="nameInput1" placeholder="Enter number" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+    </form>
+
+</div>
+
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+{% endblock script %}

@@ -1,0 +1,71 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block title %}login{% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+
+<link rel="stylesheet" href="{% static 'css/product.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+
+<link rel="stylesheet" href="{% static 'css/profile2.css' %}" />
+{% endblock header %}
+
+<!--__________________________________________If Start______________________________________________________-->
+
+
+    {% block body %}
+
+    
+
+
+
+
+<section class="login">
+    <div class="container">
+        <div class="login-form">
+        <h2>Lorem Ipsum is normal eaque ipsa distribution</h2>
+        <h3>Sed ut perspiciatis unde omnis iste  totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</h3>
+
+            <form action="{% url 'login' %}" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="col-md-10">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+                    <div class="valid-feedback">is valid!</div>
+                    <div class="invalid-feedback">field cannot be blank!</div>
+                </div>
+
+                <div class="col-md-10">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" required>
+                    <div class="valid-feedback">is valid!</div>
+                    <div class="invalid-feedback">field cannot be blank!</div>
+                </div>
+                <div class="col-md-6 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+                    <div class="{{invalid}}">{{tex}}</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+                <div class="login_sign_butn"><p>Don't have an account ? </p><a href="{% url 'registerPage' %}">SignUp</a></div>
+            </form>
+
+    </div>
+
+</div>
+
+</section>
+{% endblock body %}
+<!--__________________________________________endIf______________________________________________________-->
+{% block script %}
+         <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock script %}

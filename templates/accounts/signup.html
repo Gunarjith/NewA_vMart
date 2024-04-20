@@ -1,0 +1,91 @@
+{% extends "admindash.html" %}
+{% load static %}
+
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+<div style="margin: 15px;">
+    <span class="headFlex">
+        <h3>Add Client </h3>
+    </span>
+
+    {% load crispy_forms_tags %}
+    <form method="post" style="position: relative;" novalidate>
+        {% csrf_token %}
+
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="registerName">Name</label>
+                {{form.username}}
+            </span>
+
+
+            <span>
+                <label for="Email">Email</label>
+                {{form.email}}
+            </span>
+
+            <span>
+                <label for="Password">Password</label>
+                {{form.password1}}
+            </span>
+
+            <span style="position: relative;">
+                <label for="password">Re-Enter Password</label>
+                {{form.password2}}
+                <i class="far fa-eye-slash" id="togglePassword"
+                    style="cursor: pointer; position: absolute; right:10px; bottom: 5px;"></i>
+            </span>
+            {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </span>
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Register">
+        </span>
+
+    </form>
+
+
+</div>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+
+
+
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,111 @@
+{% extends "hotelDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+<style>
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+</style>
+
+
+
+
+
+{% block rightcontent %}
+
+{% include 'H_hotel/marketplaceConfig.html' %}
+
+
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Group Name </h3>
+        <a href="{% if marketplace_id %}{% url 'addhotelgroup' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addhotelgroup' %}{% endif %}">
+            <button>
+                Add  Group
+            </button>
+        </a>
+    </div>
+</div>
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Hotel Name</th>
+                <th>Hotel Type</th>
+                <th>Hotel Category</th>
+                <th>Hotel Location</th>
+                <th>Hotel Description</th>
+       
+                <th>Hotel Id</th>
+                <th>Hotel Key</th>
+                <th>Hotel Contact Number</th>
+                <th>Configuration</th>
+                <th style="text-align: center;">Edit / Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+        {% for a in listofhotels %}
+            <tr>
+                <td>{{a.hotel_name}}</td>
+                <td>{{a.hotel_type}}</td>
+                <td>{{a.hotel_category}}</td>
+                <td>{{a.hotel_location}}</td>
+                <td>{{a.hotel_description}}</td>
+                <td>{{a.hotel_id}}</td>
+                <td>{{a.hotel_key}}</td>
+                <td>{{a.hotel_contact_number}}</td>
+                <td><a href="{% url 'hotelmaininfo' a.id %}"><button>Edit</button></a></td>
+                <td>              
+                    <span class="editDeleteTd">
+                        <a href="{% url 'edithotelsgroups' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deletelisthotels' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

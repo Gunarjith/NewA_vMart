@@ -1,0 +1,55 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block rightcontent %}
+
+<div class="mT15">
+<div style="background-color: white;">
+    <h2>Button Instructions</h2>
+    <br>
+            <p>Buttons must be organised into two groups: Quick reply buttons and Call to Action reply buttons.</p><br>
+             
+            <b>Quick reply Buttons</b> <br>
+                <p>• Images</p> 
+                <p>• Video</p> 
+                <p>• Documents</p>
+                <p>• Form</p> 
+                <p>• Inflow</p>
+                <p>• Campaign</p>
+                <br>
+           <b> Call-to-Action buttons</b><br>
+           <p> • Phone number</p>
+           <p> • URL</p>
+       <br>
+            
+        <b>    Examples of valid groupings:</b>
+            
+            <p>• Image, Video</p>
+            <p>• Image, video, URL, Phone</p> 
+            <p> • URL, Phone, Image, Video, Document</p>
+            <p> • Image, Document, Phone, URL, URL</p>
+            <br>
+            <b>Examples of invalid groupings:</b>
+            <p>• Image, URL, Video</p>
+            <p>•URL, Image, Phone</p>
+            <br>
+            <b>Notice:</b>
+           <p> • Buttons are optional interactive components.</p>
+           <p>•	Templates are limited to one phone number button.</p>
+            <p>• Templates are limited to two URL buttons.</p>
+            <p>• Templates can have a mixture of up to 10 button components total, although there are limits to individual buttons of the same type as well as combination limits.</p>
+            <p>• If a template has more than three buttons, two buttons will appear in the delivered message and the remaining buttons will be replaced with a ‘See all’ options button.</p>
+            <p>•Templates composed of 4 or more buttons, or a quick reply button and one or more buttons of another type, cannot be viewed on WhatsApp desktop clients.</p>
+            <br>
+            <h4>Ensure that your button groupings adhere to these guidelines to ensure compatibility and functionality within the messaging platform.</h4>
+        </div>
+</div>
+
+
+{% endblock rightcontent %}

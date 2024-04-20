@@ -1,0 +1,142 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+{% include 'N_donation/ConfigNav.html' %}
+
+<div class="frmCenter" style="margin: 0 10px;">
+    
+    <form class="profileForm myForm" action="{% if marketplace_id %}{% url 'submitDonation' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitDonation' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Donation Type</h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="leve1Name">Name</label>
+                <input type="text"  name="donationName" class="nameInput" placeholder="Name" required>
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="leve1ShortDes">Short Description</label>
+                <input type="text" id="leve1ShortDes" name="donationShortDescription" required>
+            </span>
+
+            <span>
+                <label for="leve1Descrip">Description</label>
+                <input type="text" id="leve1Descrip" name="donationDescription" placeholder="descriptions"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="leve1EndDate">Amount</label>
+                <input type="number" name="donationAmount" id="leve1EndDate">
+            </span>
+            <span>
+            <span>
+                <label for="leve1Img">Image</label>
+                <input type="file" id="leve1Img" name="donationTypeImage" class="imageInput" accept="image/*">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+        </span>
+
+
+        <span class="spanSubmitForm">
+
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $(".nameInput").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#leve1Descrip").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#leve1ShortDes").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        // $("#leve1Descrip").emojioneArea({
+        //     pickerPosition: "bottom"
+        // });
+    });
+</script>
+
+{% endblock script %}

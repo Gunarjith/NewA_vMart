@@ -1,0 +1,111 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Configuration </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/foodconfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of catalogue</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'addcatalogue' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addcatalogue' %}{% endif %}">
+            <button>
+                Add catalogue
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th> Name</th>
+                <th>Discription  </th>
+                <th> Set Id</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th> Image</th>
+                <th>Food List</th>
+
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in cataloguedata %}
+                <tr>
+                    <td>{{a.catalogue_name}}</td>
+                    <td>{{a.catalogue_discription}}</td>
+                    <td>{{a.catalogue_set_id}}</td>
+                    <td>{{a.start_time}}</td>
+                    <td>{{a.end_time}}</td>
+                    <td class="imgTd">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.catalogue_image}}">
+                    </td>    
+                    <td><a href="{% if marketplace_id %}{% url 'insertfood' a.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'insertfood' a.id %}{% endif %}"><button>Item</button></a> </td>                
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editcataloguelist' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deletecataloguelist' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

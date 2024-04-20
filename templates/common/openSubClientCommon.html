@@ -1,0 +1,95 @@
+{% extends "common/commonSetting.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block bodyCommon %}
+
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <form method="post" class="profileForm specialForm ajax-form" id="specialLink1" action="{% url 'openSubClientCommon' %}" style="position: relative;" novalidate>
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add User</h3>
+        </span>
+        <span class="formOne inputGridTwo">
+            <span>
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="subclientname" placeholder="name" required>
+            </span>
+            <span>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="emailid" placeholder="example@email.com" required>
+            </span>
+            <span>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </span>
+            <span style="position: relative;">
+                <label for="re_password">Re-Enter Password:</label>
+                <input type="password" id="re_password" name="re_password" placeholder="re enter password" required>
+                <i class="far fa-eye-slash" id="togglePassword" style="cursor: pointer; position: absolute; right:10px; bottom: 5px;"></i>
+            </span>
+            {% if messages %}
+                {% for message in messages %}
+                    <span class="error">{{ message }}</span>
+                {% endfor %}
+            {% endif %}
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Register">
+        </span>
+    </form>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+    // Intercept form submissions for forms with the "ajax-form" class
+    $(".ajax-form").submit(function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
+        // Serialize form data (convert form fields to a format suitable for submission)
+        var formData = $(this).serialize();
+
+        // Define the URL where you want to submit the form data
+        var formUrl = $(this).attr("action");
+
+        // Reference to the current form element
+        var currentForm = $(this);
+
+        // Send the form data using AJAX POST request
+        $.ajax({
+            type: "POST", // Use POST method
+            url: formUrl, // The URL to submit to
+            data: formData, // The serialized form data
+            success: function (response) {
+                // Load the response content into the parent container of the current form
+                currentForm.closest(".mainContent").html(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
+
+{% endblock bodyCommon %}
+
+
+{% block script %}
+
+{% endblock script %}
+

@@ -1,0 +1,121 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm myForm"  action="{% url 'submitGroupsForm' %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Groups</h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="leve1Name">Group Name</label>
+                <input type="text"  name="groupName" class="nameInput" placeholder="Enter you group Name" required>
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve1ShortDes">Group Type</label>
+                <input type="text" id="leve1ShortDes" name="groupType" placeholder="Entre Your group type" required>
+            </span>
+            <span>
+                <label for="leve1Name">Group Category</label>
+                <input type="text"  name="groupCategory" class="nameInput" placeholder="Enter your Group Category" required>
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="leve1ShortDes">Group Location</label>
+                <input type="text" id="leve1ShortDes" name="groupLocation" placeholder="Enter Your Group Location" prequired>
+            </span>
+
+            <span>
+                <label for="leve1Descrip">Group Description</label>
+                <input type="text" id="leve1Descrip" name="groupDescription" placeholder=" Enter your group descriptions"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="leve1EndDate">Group Contact Number</label>
+                <input type="number" name="groupContactNumber" id="leve1EndDate" placeholder="Enter your group Contact Number ">
+            </span>
+           
+        </span>
+        </span>
+        <span></span><br><br>
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

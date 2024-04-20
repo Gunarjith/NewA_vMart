@@ -1,0 +1,108 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>Type of help lists</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'addselphelp' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addselphelp' %}{% endif %}">
+            <button>
+                Add helps
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Self Help Name</th>
+                <th>Self Help Discription  </th>
+                <th>Self Help  Image</th>
+                <th>Self Help Video</th>
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in helplistdata %}
+                <tr>
+                    <td>{{a.selfhelp_name}}</td>
+                    <td>{{a.selfhelp_discription}}</td>
+                    <td class="imgTd">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.selfhelp_image}}">
+                    </td>
+                    <td class="videoTd">
+                        <video width="50" height="50" controls>
+                            <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.selfhelp_video}}" type="video/mp4">
+                        </video>
+                    </td>
+                    
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'edithelplist' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deletehelpsdata' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

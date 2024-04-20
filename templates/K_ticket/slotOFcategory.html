@@ -1,0 +1,176 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+{% block rightcontent %}
+
+
+{% for a in modifyslot %}
+<div class="ticketLevelFlex" style="margin: 15px;">
+
+    <div class="ticketLevelFlexLeft profileForm">
+        <span class="headFlex">
+            <h3>Edit Level-2</h3>
+        </span>
+        <form action="{% url 'updateslot' a.id %}" method="POST" enctype="multipart/form-data"
+            style="position: relative;">
+            {% csrf_token %}
+            <!-- <span class="formOne"> -->
+                <span class="formOne inputGridTwo">
+                    <span>
+                        <label>Name</label>
+                        <input type="text" name="reslotname" class="nameInput" value="{{a.Slot_Name}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Description</label>
+                        <input type="text" name="reslotdesc" class="descriptionInput" value="{{a.Slot_Description}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <!-- <span>
+                    <label>Header Image</label>
+                    
+                    <img class="eventImgFileGridTicketImg" src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Slot_message_Header_Image}}">
+                    <img class="eventImgFileGridTicketImg" src="" id="output1">
+                    <input type="file" name="reSlotmessageHeaderImage" id="id_reSlotMessageHeaderImage"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])"> -->
+
+                    <!-- </span> -->
+
+                    <span>
+                        <label>Header Text</label>
+                        <input type="text" name="reslotmessageheadertext" class="headerInput"
+                            value="{{a.Slot_Message_Header_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Body Text</label>
+                        <input type="text" name="reslotmessagebodytext" class="mainInput"
+                            value="{{a.Slot_Message_Body_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Footer Text</label>
+                        <input type="text" name="reslotmessagefootertext" class="footerInput"
+                            value="{{a.Slot_Message_Footer_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>Level-3 Button Name</label>
+                        <input type="text" name="reslotcategorybuttonname" class="buttonInput"
+                            value="{{a.slot_category_button_name}}">
+                        <span class="charCount"></span>
+                    </span>
+                </span>
+                <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img class="eventImgFileGridTicketImg"
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Slot_message_Header_Image}}">
+                        <span class="formImgFlexDelete">
+                            <img class="eventImgFileGridTicketImg" src="" id="output1">
+                            {% if a.Slot_message_Header_Image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputSlot('id_reSlotMessageHeaderImage')">
+                            </img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reSlotmessageHeaderImage" id="id_reSlotMessageHeaderImage"
+                        class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+
+            </span>
+            <span class="spanSubmitForm" style="margin-top: 50px;">
+                <input type="submit" value="Update">
+            </span>
+        </form>
+    </div>
+
+    {% endfor %}
+
+
+    <div class="ticketLevelFlexRight profileForm">
+        <span class="headFlex">
+            <h3>Level-3 List</h3>
+            <a href="{% url 'addcateINslot' slotID=eventId %}">
+                <button class="eventCatAddBtn">Add Level-3</button>
+            </a>
+        </span>
+
+        <table>
+            <thead>
+                <tr>
+                    <!-- <th></th> -->
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th style="text-align: center;">Edit / Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for a in slotOFcategory %}
+                <tr>
+                    <!-- <td></td> -->
+                    <!-- <td style="text-align: center;">{{a.Category_Name}}</td> -->
+                    <td>{{a.Category_Name}}</td>
+                    <td>{{a.Category_Description}}</td>
+                    <td>{{a.Category_Price}}</td>
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'modifycategory' a.id %}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deletecategory' a.id %}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+</div>
+<script>
+    function clearFileInputSlot(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

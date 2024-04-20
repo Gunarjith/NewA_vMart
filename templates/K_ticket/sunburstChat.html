@@ -1,0 +1,71 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% else %}
+        Sunburst Chart
+    {% endif %}
+{% endblock title %}
+
+
+
+{% block header %}
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.plot.ly/plotly-latest.min.css">
+
+
+
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+           <a href="{% url 'eventmaster' %}"> <button >Classic</button></a>
+           <a href="{% url 'hierarchical' %}"> <button>Hierarchical</button></a>
+           <a href="{% url 'sunburst' %}"> <button>Graph</button>
+        </div>
+        <div>
+            <label class="switchT">
+                <input type="checkbox">
+                <span class="sliderT roundT"></span>
+
+                
+              </label>
+        </div>
+        </div>
+    <div class="headFlex">
+        <!-- <h3>Events View</h3> -->
+        <a href="{% url 'addevents' %}">
+            <button class="eventmasterAddbtn">
+                Add Level-1
+            </button>
+        </a>
+    </div>
+
+
+<!-- <center><h1>Events view</h1></center> -->
+  <div id="sunburst-chart"></div>
+        {{ plot_html|safe }}
+</div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

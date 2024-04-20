@@ -1,0 +1,143 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+<style>
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+</style>
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+<div class="mT15">
+<form method="POST" action="{% url 'getmarketplace' %}">
+    {% csrf_token %}
+    <label for="marketplace">Select a Group name:</label>
+    <select name="marketplacename" id="marketplace">
+        <option>Select Select group :</option>
+        {% for visitores in groupname %}
+            <option value="{{ visitores.id }}">{{ visitores.group_name }}</option>
+        {% endfor %}
+    </select><br><br>   
+    <div class="row">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</div>
+
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>                
+                <th>Visitor Name</th>
+                <th>Visitor email</th>
+                <th>Whatsapp Number</th>
+                <th>Visitor City</th>
+                <th>Visitor Address Line1</th>
+                <th>Visitor Address Line2</th>
+                <th>Visitor Address Landmark</th>
+                <th>Visitor Address Pincode</th>
+                <th>Visitor State</th>
+                <th>Visitor Country</th>
+                <th>Visitor Phone Number</th>
+            </tr>
+        </thead>
+         <tbody id="mytable">           
+            {% for a in visitors %}
+            <tr>
+                <td>{{a.Visitor_Name}}</td>
+                <td>{{a.Visitor_email}}</td>
+                <td>{{a.Visitor_Whatsapp_Number}}</td>
+                <td>{{a.Visitor_City}}</td>
+                <td>{{a.Visitor_Address_Line1}}</td>
+                <td>{{a.Visitor_Address_Line2}}</td>
+                <td>{{a.Visitor_Address_Landmark}}</td>
+                <td>{{a.Visitor_Address_Pincode}}</td>
+                <td>{{a.Visitor_State}}</td>
+                <td>{{a.Visitor_Country}}</td> 
+                <td>{{a.Visitor_Phone_Number}}</td>
+            </tr>
+            {% endfor %} 
+        </tbody> 
+    </table>
+</div>
+
+{% endif %}
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>                
+                <th>Visitor Name</th>
+                <th>Visitor email</th>
+                <th>Whatsapp Number</th>
+                <th>Visitor City</th>
+                <th>Visitor Address Line1</th>
+                <th>Visitor Address Line2</th>
+                <th>Visitor Address Landmark</th>
+                <th>Visitor Address Pincode</th>
+                <th>Visitor State</th>
+                <th>Visitor Country</th>
+                <th>Visitor Phone Number</th>
+
+            </tr>
+        </thead>
+        
+
+         <tbody id="mytable">           
+            {% for a in visitores %}
+            <tr>
+                <td>{{a.Visitor_Name}}</td>
+                <td>{{a.Visitor_email}}</td>
+                <td>{{a.Visitor_Whatsapp_Number}}</td>
+                <td>{{a.Visitor_City}}</td>
+                <td>{{a.Visitor_Address_Line1}}</td>
+                <td>{{a.Visitor_Address_Line2}}</td>
+                <td>{{a.Visitor_Address_Landmark}}</td>
+                <td>{{a.Visitor_Address_Pincode}}</td>
+                <td>{{a.Visitor_State}}</td>
+                <td>{{a.Visitor_Country}}</td> 
+                <td>{{a.Visitor_Phone_Number}}</td>
+            </tr>
+            {% endfor %} 
+        </tbody> 
+    </table>
+</div>
+{% endif %}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,411 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<style>
+    /* Styles for input fields and buttons */
+    .form-control {
+        width: calc(50% - 100px); /* Adjust width to accommodate two fields */
+        padding: 6px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        background-color: #2d07d6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px; 
+    }
+
+    .btn:hover {
+        background-color: #0c27ef;
+    }
+
+    .input-field {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .delete-icon {
+        position: absolute;
+        top: 50%;
+        right: 450px; 
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #ff0000; /* Red color */
+    }
+
+    .option-field {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .add-option-btn {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .horizontal-line {
+        border-top: 1px solid #ccc;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Style for label and type inputs in one line */
+    .input-field.inline label {
+        display: inline-block;
+        width: 20%; /* Adjust as needed */
+        margin-right: 10px;
+    }
+
+    .input-field.inline input[type="text"],
+    .input-field.inline select {
+        display: inline-block;
+        width: calc(80% - 10px); /* Adjust as needed */
+    }
+</style>
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory"></h3>
+        <span id="createFormBtn" class="btn"></span>
+    </div>
+</div>
+
+   
+
+    <div id="formContainer" class="mT15">
+        <div id="inputFieldContainer" style="display: none;">
+            <button id="addSectionBtn" class="btn">Add Section</button>
+            <button id="createBtn" class="btn">Save form</button>  
+        </div>
+    </div>
+</span>
+
+<script>
+    var sectionCounter = 1; // Counter for sections
+
+    function createInputField(type) {
+        var container = document.createElement("div"); // Create a container div
+        container.className = "input-field"; // Add class for styling
+
+        if (type === "section") {
+            var labelDiv = document.createElement("div"); // Create a div for label
+            var inputDiv = document.createElement("div"); // Create a div for input field
+
+            var label = document.createElement("label"); // Create label element
+            var inputField = document.createElement("input"); // Create input field
+
+            inputField.type = "text";
+            inputField.className = "form-control"; // Add class for styling
+            inputField.placeholder = "Enter section name";
+
+            label.innerHTML = "Section Name:";
+            label.setAttribute("for", inputField.id);
+
+            // Create delete icon
+            var deleteIcon = document.createElement("i");
+            deleteIcon.className = "fas fa-trash delete-icon";
+            deleteIcon.title = "Delete";
+            deleteIcon.addEventListener("click", function() {
+                // Remove the container when the delete icon is clicked
+                container.parentNode.removeChild(container);
+            });
+
+            // Append label, input field to inputDiv
+            labelDiv.appendChild(label);
+            inputDiv.appendChild(inputField);
+            inputDiv.appendChild(deleteIcon); // Append delete icon to inputDiv
+
+            // Append label, input field, delete icon to container
+            container.appendChild(labelDiv);
+            container.appendChild(inputDiv);
+
+            // Insert container above the "Add Input" button
+            var addButton = type === "form" ? document.getElementById("createFormBtn") : document.getElementById("addSectionBtn");
+            addButton.parentNode.insertBefore(container, addButton);
+
+            // Add Field button for sections only
+            var addFieldBtn = document.createElement("button"); // Create Add Field button
+            addFieldBtn.innerHTML = "Add Field";
+            addFieldBtn.className = "btn add-field-btn"; // Add class for styling
+            addFieldBtn.addEventListener("click", function() {
+                createField(inputDiv);
+            });
+            container.appendChild(addFieldBtn); // Append Add Field button to container
+
+            // Create a div to hold the delete button
+            var deleteFieldBtnDiv = document.createElement("div");
+            deleteFieldBtnDiv.className = "delete-field-btn-div";
+
+            // Create the delete button
+            var deleteFieldBtn = document.createElement("i");
+            deleteFieldBtn.className = "fas fa-trash delete-icon"; // Add class for styling
+            deleteFieldBtn.title = "Delete";
+            deleteFieldBtn.addEventListener("click", function() {
+                // Remove the field container when the delete button is clicked
+                container.parentNode.removeChild(container);
+            });
+
+            // Append delete button to the div
+            deleteFieldBtnDiv.appendChild(deleteFieldBtn);
+
+            // Append the delete button div to the container
+            container.appendChild(deleteFieldBtnDiv);
+
+            // Add horizontal line after each section
+            var hr = document.createElement("hr");
+            hr.className = "horizontal-line";
+            container.parentNode.insertBefore(hr, container.nextSibling);
+        }
+    }
+
+    // Function to create field
+    function createField(container) {
+        var fieldContainer = document.createElement("div"); // Create field container
+        fieldContainer.className = "input-field inline"; // Add class for styling
+
+        var fieldLabel = document.createElement("label"); // Create label for field
+        fieldLabel.innerHTML = "Label";
+        fieldLabel.style.width = "25%"; // Set width to 25%
+        fieldLabel.style.display = "inline-block"; // Display label inlin
+
+        var fieldInput = document.createElement("input"); // Create input for field name
+        fieldInput.type = "text";
+        fieldInput.className = "form-control";
+        fieldInput.placeholder = "Enter field name";
+        fieldInput.style.width = "30%"; // Adjust width of field name input field
+        fieldInput.style.display = "inline-block"; // Display input inline
+
+        var fieldTypeLabel = document.createElement("label"); // Create label for field type
+        fieldTypeLabel.innerHTML = "Type";
+        fieldTypeLabel.style.width = "25%"; // Set width to 25%
+        fieldTypeLabel.style.display = "inline-block"; // Display label inline
+
+        var fieldTypeSelect = document.createElement("select"); // Create select for field type
+        fieldTypeSelect.className = "form-control";
+        var fieldTypes = ["Text", "Password", "Number", "Email", "Phone", "Radio", "Checkbox", "Select"];
+        for (var i = 0; i < fieldTypes.length; i++) {
+            var option = document.createElement("option");
+            option.value = fieldTypes[i].toLowerCase();
+            option.text = fieldTypes[i];
+            fieldTypeSelect.appendChild(option);
+        }
+
+        // Event listener for changing field type
+        fieldTypeSelect.addEventListener("change", function() {
+            var selectedType = fieldTypeSelect.value;
+            if (selectedType === "radio" || selectedType === "checkbox" || selectedType === "select") {
+                createOptionField(fieldContainer, selectedType);
+            } else {
+                // Remove any existing option fields
+                var optionFields = fieldContainer.querySelectorAll(".option-field");
+                optionFields.forEach(function(optionField) {
+                    optionField.parentNode.removeChild(optionField);
+                });
+            }
+        });
+
+        var deleteFieldBtn = document.createElement("i"); // Create delete button for field
+        deleteFieldBtn.className = "fas fa-trash delete-icon"; // Add class for styling
+        deleteFieldBtn.title = "Delete";
+        deleteFieldBtn.addEventListener("click", function() {
+            // Remove the field container when the delete button is clicked
+            fieldContainer.parentNode.removeChild(fieldContainer);
+        });
+
+        // Append elements to field container
+        fieldContainer.appendChild(fieldLabel);
+        fieldContainer.appendChild(fieldInput);
+        fieldContainer.appendChild(fieldTypeLabel);
+        fieldContainer.appendChild(fieldTypeSelect);
+        fieldContainer.appendChild(deleteFieldBtn);
+
+        // Insert field container next to the "Add Option" button
+        container.parentNode.insertBefore(fieldContainer, container.nextSibling);
+    }
+
+
+    // Function to create option field
+    function createOptionField(container, fieldType) {
+        var optionContainer = document.createElement("div"); // Create option container
+        optionContainer.className = "option-field";
+
+        var optionLabel = document.createElement("label"); // Create label for option
+        optionLabel.innerHTML = "Option";
+
+        var optionInput = document.createElement("input"); // Create input for option
+        optionInput.type = "text";
+        optionInput.className = "form-control";
+        optionInput.placeholder = "Enter option";
+
+        // Append elements to option container
+        optionContainer.appendChild(optionLabel);
+        optionContainer.appendChild(optionInput);
+
+        // Create delete icon for option field
+        var deleteOptionBtn = document.createElement("i");
+        deleteOptionBtn.className = "fas fa-trash delete-icon";
+        deleteOptionBtn.title = "Delete";
+        deleteOptionBtn.addEventListener("click", function() {
+            // Remove the option container when the delete button is clicked
+            optionContainer.parentNode.removeChild(optionContainer);
+            // Check if the "Add Option" button needs to be displayed
+            toggleAddOptionButton(container, fieldType);
+        });
+        optionContainer.appendChild(deleteOptionBtn);
+
+        // Append option container to field container
+        container.appendChild(optionContainer);
+
+        // Check if the field type requires multiple options
+        if (fieldType === "radio" || fieldType === "checkbox" || fieldType === "select") {
+            // Create "Add Option" button
+            var addOptionBtn = document.createElement("button");
+            addOptionBtn.innerHTML = "Add Option";
+            addOptionBtn.className = "btn add-option-btn";
+            addOptionBtn.addEventListener("click", function() {
+                createOptionField(container, fieldType);
+                // Hide the "Add Option" button after adding a new option
+                addOptionBtn.style.display = "none";
+            });
+            container.appendChild(addOptionBtn); // Append button below options
+        }
+
+        // Check if the "Add Option" button needs to be displayed
+        toggleAddOptionButton(container, fieldType);
+    }
+
+
+    // Function to toggle the visibility of the "Add Option" button
+    function toggleAddOptionButton(container, fieldType) {
+        var optionFieldsCount = container.querySelectorAll(".option-field").length;
+        var addOptionBtn = container.querySelector(".add-option-btn");
+        // Display the "Add Option" button if the number of option fields is less than 5
+        if (optionFieldsCount < 5 && fieldType !== "select") {
+            addOptionBtn.style.display = "block";
+        } else {
+            addOptionBtn.style.display = "none";
+        }
+    }
+
+    // Event listener for the "Create form" button
+    document.getElementById("createFormBtn").addEventListener("click", function(event) {
+        event.preventDefault();
+        createInputField("form"); 
+        
+        document.getElementById("inputFieldContainer").style.display = "block";
+        document.getElementById("createFormBtn").disabled = true;
+        document.getElementById("addSectionBtn").style.display = "inline-block";
+    });
+
+    // Event listener for the "Add Section" button
+    document.getElementById("addSectionBtn").addEventListener("click", function(event) {
+        event.preventDefault();
+        createInputField("section"); 
+    });
+
+    // Event listener for the "Save form" button
+    document.getElementById("createBtn").addEventListener("click", function(event) {
+        event.preventDefault();
+        // Get form details and input fields
+        var formData = {};
+        var sections = [];
+        var formSections = document.querySelectorAll(".input-field");
+
+        formSections.forEach(function(section) {
+            var sectionName = section.querySelector("input").value;
+            var fields = [];
+            var sectionFields = section.querySelectorAll(".inline");
+            sectionFields.forEach(function(field) {
+                var fieldLabel = field.querySelector("input").value;
+                var fieldType = field.querySelector("select").value;
+                var options = [];
+                if (fieldType === "radio" || fieldType === "checkbox" || fieldType === "select") {
+                    var fieldOptions = field.querySelectorAll(".option-field input");
+                    fieldOptions.forEach(function(option) {
+                        // Push option value to the options array
+                        options.push(option.value);
+                    });
+                }
+                fields.push({ label: fieldLabel, type: fieldType, options: options }); // Include options in field data
+            });
+            sections.push({ name: sectionName, fields: fields });
+        });
+        formData.sections = sections;
+
+        // Send AJAX request to save form data
+        saveFormData(formData);
+    });
+
+    // Function to send AJAX request to save form data
+    function saveFormData(formData) {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.open("POST", "{% url 'save_form_data'  %}", true);
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Handle response from server
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert("Form data saved successfully!");
+                        // Redirect to form info page
+                        window.location.href = "{% url 'forminfo' %}";
+                    } else {
+                        alert("Failed to save form data. Please try again.");
+                    }
+                } else {
+                    console.error("Error saving form data. Server returned status code: " + xhr.status);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(formData));
+    }
+    // Function to get CSRF token from cookie
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Simulate click event of "Create form" button on page load
+    window.onload = function() {
+        document.getElementById("createFormBtn").click();
+    };
+</script>
+{% endblock rightcontent %}

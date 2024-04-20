@@ -1,0 +1,116 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>MarketPlace </h3>
+      <span class="btnConLevel">
+
+        
+        <a href="{% url 'addcampForm' %}">
+            <button>
+                Add marketplace 
+            </button>
+        </a>
+
+    </span>
+
+    </div>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Name</th>
+                <th>Type</th>
+                <th>Category</th>
+
+                <th>Location</th>
+                <th>Description</th>
+                <th>Contact Number</th>
+                <th>Configuration</th>
+                <th>Payment</th>
+ 
+                <th style="text-align: center;">Edit / Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in addcampMarketPlace %}
+            <tr>
+                <td>{{a.campaign_name}}</td>
+                <td>{{a.campaign_type}}</td>
+
+                <td>{{a.campaign_category}}</td>
+
+                <td>{{a.campaign_location}}</td>
+                <td>{{a.campaign_description}}</td>
+                <td>{{a.campaign_contact_number}}</td>
+                <td><a href="{% url 'campaignList' a.id %}"><button>add/edit</button></a></td>
+                <td>
+                    {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+
+                    <a href="{% url 'camppayment' a.id %}" >
+                        <button class="">Payment</button>
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editcampMarketPlace' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+              
+                        <a href="{% url 'deleteCampMarketPlace' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

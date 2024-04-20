@@ -1,0 +1,133 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+<div>
+<form method="POST" action="{% url 'gethotels' %}">
+    {% csrf_token %}
+    <table>
+        <thead>
+    <th><label for="marketplace">Select a Hotel Name:</label>
+    <select name="hotelname" id="marketplace">
+        <option hidden>Select Hotel Name </option>
+        {% for hotel in hotelname %}
+            <option value="{{ hotel.id }}">{{ hotel.hotel_name }}</option>
+        {% endfor %}
+    </select></th>   
+    
+    <th><button type="submit" value="Submit">Submit</button></th>
+
+</thead>
+</table>
+</form>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Phone Number</th>
+                <th>Room Number</th>
+                <th>Hotel service</th>
+                <th>Service Comments</th>
+                <th>Service Status</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in service %}
+                <tr>
+                    <td>{{a.customer_phone_num}}</td>
+                    <td>{{a.customer_room}}</td>
+                    <td>{{a.service_name.service_name}}</td>
+                    <td>{{a.service_comments}}</td>
+                    <td>{{a.service_status}}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endif %}
+
+
+
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Phone Number</th>
+                <th>Room Number</th>
+                <th>Hotel service</th>
+                <th>Service Comments</th>
+                <th>Service Status</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in service %}
+                <tr>
+                    <td>{{a.customer_phone_num}}</td>
+                    <td>{{a.customer_room}}</td>
+                    <td>{{a.hotel_service.service_name}}</td>
+                    <td>{{a.service_comments}}</td>
+                    <td>{{a.service_status}}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+
+
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+
+    $(document).ready(function () {
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

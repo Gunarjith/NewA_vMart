@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="shortcut icon" href="{% static 'img/vailoShortMetaLogo.png' %}">
+
+    <title>
+
+        {% block title %} {% endblock title %}
+
+    </title>
+
+
+    <link rel="canonical" href="https://vailo.ai/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- 31-7-23  -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 31-7-23  -->
+    <!-- ---- -->
+
+    <!-- ___ new dashLinks __  -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+    <!-- ___ new dashLinks __  -->
+    {% block header %}
+
+
+    {% endblock header %}
+
+
+
+</head>
+<body>
+    <div style="display: flex;justify-content: space-between;position: fixed;width: -webkit-fill-available; z-index: 999;">
+    {% include 'common/settingNavCommon.html' %}
+
+</div>
+<div style="margin-top: 55px;">
+    {% block bodyCommon %}
+
+
+    {% endblock bodyCommon %}
+</div>
+    <!-- <script>
+      const input1 = document.getElementById("colorsideBarShow");
+      const colorCode1 = document.getElementById("colorCode1");
+      setColor1();
+      input1.addEventListener("input", setColor1);
+    
+      function setColor1() {
+        colorCode1.innerHTML = input1.value;
+      }
+    </script> -->
+<!--     
+    <script>
+      const input2 = document.getElementById("colorsideBarShow2");
+      const colorCode2 = document.getElementById("colorCode2");
+      setColor2();
+      input2.addEventListener("input", setColor2);
+    
+      function setColor2() {
+        colorCode2.innerHTML = input2.value;
+      }
+    </script>
+    <script>
+      const input3 = document.getElementById("colorsideBarShow3");
+      const colorCode3 = document.getElementById("colorCode3");
+      setColor3();
+      input3.addEventListener("input", setColor3);
+    
+      function setColor3() {
+        colorCode3.innerHTML = input3.value;
+      }
+    </script> -->
+    <!-- <script>
+      const input4 = document.getElementById("colorsideBarShow4");
+      const colorCode4 = document.getElementById("colorCode4");
+      setColor4();
+      input4.addEventListener("input", setColor4);
+    
+      function setColor4() {
+        colorCode4.innerHTML = input4.value;
+      }
+    </script> -->
+    
+    <!-- <script>
+      const input5 = document.getElementById("colorsideBarShow5");
+      const colorCode5 = document.getElementById("colorCode5");
+      setColor5();
+      input5.addEventListener("input", setColor5);
+    
+      function setColor5() {
+        colorCode5.innerHTML = input5.value;
+      }
+    </script> -->
+    
+    <!-- <script>
+      const input6 = document.getElementById("colorsideBarShow6");
+      const colorCode6 = document.getElementById("colorCode6");
+      setColor6();
+      input6.addEventListener("input", setColor6);
+    
+      function setColor6() {
+        colorCode6.innerHTML = input6.value;
+      }
+    </script> -->
+    
+
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var inputs = document.querySelectorAll('input');
+
+          for (var i = 0; i < inputs.length; i++) {
+              var input = inputs[i];
+              var label = document.querySelector('label[for="' + input.id + '"]');
+
+              if (label) { // Add a null check for the label element
+
+                  if (input.hasAttribute('required')) {
+                      var asteriskSpan = document.createElement('span'); // Create a <span> element
+                      asteriskSpan.textContent = ' *';
+                      asteriskSpan.classList.add('required-asterisk'); // Add class to the <span> element
+                      label.appendChild(asteriskSpan); // Append the <span> element to the label
+
+
+                  } else {
+                      label.textContent += ' (optional)';
+                  }
+              }
+          }
+      });
+  </script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let inputs = document.querySelectorAll('input');
+
+          for (let i = 0; i < inputs.length; i++) {
+              inputs[i].addEventListener('input', function () {
+                  let characterLimit;
+
+                  if (this.classList.contains('mainInput')) {
+                      characterLimit = 1024; // Character limit for the main message
+                  } else if (this.classList.contains('footerInput')) {
+                      characterLimit = 60; // Character limit for the footer
+                  } else if (this.classList.contains('buttonInput')) {
+                      characterLimit = 20; // Character limit for the buttons
+                  } else if (this.classList.contains('descriptionInput')) {
+                      characterLimit = 72;
+                  } else if (this.classList.contains('headerInput')) {
+                      characterLimit = 60;
+                  } else if (this.classList.contains('nameInput')) {
+                      characterLimit = 24;
+                  }
+
+
+                  enforceCharacterLimit(this, characterLimit);
+              });
+          }
+
+          function enforceCharacterLimit(input, limit) {
+              let inputValue = input.value;
+
+              if (inputValue.length > limit) {
+                  input.value = inputValue.slice(0, limit);
+              }
+
+              let countDisplay = input.nextElementSibling;
+              if (countDisplay && countDisplay.classList.contains('charCount')) {
+                  countDisplay.textContent = limit - inputValue.length + ' characters remaining';
+              }
+          }
+      });
+  </script>
+
+  <script>
+      function validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan) {
+          const file = fileInput.files[0];
+
+          // Check if a file is selected
+          if (file) {
+              // Check the file size
+              if (file.size > maxSize) {
+                  const message = "Image size should be less than " + (maxSize / 1024 / 1024) + "MB.";
+
+
+                  const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                  if (messageSpanImg) {
+                      messageSpanImg.textContent = message;
+                  }
+
+                  fileInput.value = ""; // Clear the input field
+                  return;
+              }
+
+              // Read the image file to get width and height
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                  const img = new Image();
+                  img.onload = function () {
+                      // Check the image width and height
+                      if (img.width > maxWidth || img.height > maxHeight) {
+                          const message = "Image dimensions should be within " + maxWidth + "x" + maxHeight + " pixels. Current size: " + img.width + "x" + img.height + " pixels.";
+                          messageSpan.textContent = message;
+
+                          const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                          if (messageSpanImg) {
+                              messageSpanImg.textContent = message;
+                          }
+
+                          fileInput.value = ""; // Clear the input field
+                      } else {
+                          messageSpan.textContent = ""; // Clear any previous validation message
+                          const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                          if (messageSpanImg) {
+                              messageSpanImg.textContent = ""; // Clear any previous validation message in validationMessageImg
+                          }
+                      }
+                  };
+                  img.src = e.target.result;
+              };
+              reader.readAsDataURL(file);
+          }
+      }
+
+      // Get all elements with the class "imageInput"
+      const fileInputs = document.querySelectorAll(".imageInput");
+      const fileContactInputs = document.querySelectorAll(".imageContactInput");
+
+      // Loop through each file input element and add the event listener for change
+      fileInputs.forEach(function (fileInput) {
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          const maxWidth = 871; // Example: maximum width allowed
+          const maxHeight = 566; // Example: maximum height allowed
+          const messageSpan = fileInput.parentElement.nextElementSibling; // Assuming the message span is the next sibling of the parent element
+
+          fileInput.addEventListener("change", function () {
+              validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan);
+          });
+      });
+      fileContactInputs.forEach(function (fileInput) {
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          const maxWidth = 1211; // Example: maximum width allowed
+          const maxHeight = 1239; // Example: maximum height allowed
+          const messageSpan = fileInput.parentElement.nextElementSibling; // Assuming the message span is the next sibling of the parent element
+
+          fileInput.addEventListener("change", function () {
+              validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan);
+          });
+      });
+  </script>
+
+  <!-- <script>
+      // Get all forms with the common class "dynamic-form"
+      const dynamicForms = document.querySelectorAll(".profileForm");
+
+      dynamicForms.forEach(form => {
+          form.addEventListener("submit", function (event) {
+              event.preventDefault(); // Prevent default form submission
+
+              // Get all input fields within the current form
+              const inputFields = form.querySelectorAll("input");
+
+              // Check if any of the fields have a value
+              let isFormValid = false;
+              inputFields.forEach(field => {
+                  if (field.value.trim() !== "") {
+                      isFormValid = true;
+                      return; // Exit the loop early if any field is filled
+                  }
+              });
+
+              if (isFormValid) {
+                  // At least one field is filled, so submit the form
+                  event.target.submit();
+              } else {
+                  // All fields are empty, do not submit the form
+                  alert("Please fill in at least one field before submitting the form.");
+              }
+          });
+      });
+  </script> -->
+  <!-- <script>
+      function validateForm(event) {
+          const currentForm = event.target;
+          const inputs = currentForm.querySelectorAll('input, select');
+          let hasFilledField = false;
+  
+          // Check each form field value to see if it's not empty
+          inputs.forEach(input => {
+              // Handle the date fields separately
+              if (input.type === 'date') {
+                  if (input.value.trim() !== '') {
+                      hasFilledField = true;
+                  }
+              } else {
+                  if (input.value.trim() !== '' && input.type !== 'submit') {
+                      hasFilledField = true;
+                  }
+              }
+          });
+  
+          // If no field is filled, show an alert and prevent form submission
+          if (!hasFilledField) {
+              alert('Please fill at least one field before submitting the form.');
+              event.preventDefault();
+          }
+      }
+  
+      // Get all forms with class 'myForm' and attach the event listener
+      const forms = document.querySelectorAll('.myForm');
+      forms.forEach(form => {
+          form.addEventListener('submit', validateForm);
+      });
+  </script> -->
+ 
+  <script type="text/javascript" src="{% static 'js/image.js' %}"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+      integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+  <!-- --  -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <!--________________________________________________________________________________________________________-->
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Services</h3>
+        <a href="{% if marketplace_id %}{% url 'addservices'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addservices'  %}{% endif %}">
+            <button>
+                Add an services
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Service Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Service Discription</th>
+                <th>Service Image</th>
+                <th>Service Video</th>
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in servicedata %}
+                <tr>
+                    <td>{{a.service_name}}</td>
+                    <td>{{a.start_time}}</td>
+                    <td>{{a.end_time}}</td>
+                    <td>{{a.service_discription}}</td>
+                    <td class="imgTd">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.service_image}}">
+                    </td>
+                    <td class="videoTd">
+                        <video width="50" height="50" controls>
+                            <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.service_video}}" type="video/mp4">
+                        </video>
+                    </td>
+                    
+                    <!-- <td>{{a.service_image}}</td> -->
+                    <!-- <td>{{a.service_video}}</td> -->
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editservicedata' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deleteservicedata' id=a.id %}?marketplace_id={{ marketplace_id }}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

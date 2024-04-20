@@ -1,0 +1,103 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% for a in editdata %}
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm" action="{% url 'updatecustomer' a.id %}" method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Contact</h3>
+        </span>
+        <span class="formOne inputGridThree" >
+            <span>
+                <label for="cName">customer Name:</label>
+                <input type="text" name=" editCustomerName" class="nameInput1" value="{{a.Customer_Name}}"   id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer Email:</label>
+                <input type="text" name=" editCustomerEmail" class="nameInput1" value="{{a.Customer_email}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer Number:</label>
+                <input type="number" name=" editCustomernumber" class="nameInput1" value="{{a.Customer_Whatsapp_Number}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer City:</label>
+                <input type="text" name="editCustomercity" class="nameInput1" value="{{a.Customer_City}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <!-- <span>
+                <label for="cName">coustomer Status:</label>
+                <input type="number" name=" editCustomerstatus" class="nameInput1" value="{{a.Customer_Status}}" id="cName">
+                <span class="charCount"></span>
+            </span> -->
+            <span>
+                <label for="cName">customer address1:</label>
+                <input type="text" name="editCustomeraddr1" class="nameInput1" value="{{a.Customer_Address_Line1}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer address2:</label>
+                <input type="text" name="editCustomeraddr2" class="nameInput1" value="{{a.Customer_Address_Line2}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <!-- <span>
+                <label for="cName">customer landmark:</label>
+                <input type="text" name=" editCustomerlandmark" class="nameInput1" value="{{a.Customer_Address_Landmark}}" id="cName">
+                <span class="charCount"></span>
+            </span> -->
+            <span>
+                <label for="cName">customer Pincode:</label>
+                <input type="text" name=" editCustomerpincode" class="nameInput1" value="{{a.Customer_Address_Pincode}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer state:</label>
+                <input type="text" name=" editCustomerstate" class="nameInput1" value="{{a.Customer_State}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">customer country:</label>
+                <input type="text" name=" editCustomercountry" class="nameInput1" value="{{a.Customer_Country}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="cName">Alternate Number:</label>
+                <input type="number" name=" editCustomeralterna" class="nameInput1" value="{{a.Customer_Alternate_Number}}" id="cName">
+                <span class="charCount"></span>
+            </span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+    </form>
+
+</div>
+{% endfor %}
+
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+{% endblock script %}

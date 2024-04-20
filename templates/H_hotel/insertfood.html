@@ -1,0 +1,157 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Configuration </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/foodconfig.html' %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Foods</h3>
+        <button class="open-button" onclick="toggleTable()">Add Food Items</button>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="form-popup" id="myForm" style="display: none;">
+    <form action="{% if marketplace_id %}{% url 'submitselectedfoods' id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitselectedfoods' id %}{% endif %}" method="post" class="form-container">
+        {% csrf_token %}
+        <div style="overflow-y: scroll;">    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>List of Foods</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Discription</th>
+                        <th>Cuisine</th>
+                        <!-- <th>category</th> -->
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name in cataloguedata %}
+                        {% if name.food_name not in associated_foods %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selected_foods" value="{{ name.food_name }}">
+                                </td>
+                                <td>{{ name.food_name }}</td>
+                                <td>{{name.food_price}}</td>          
+                                <td>{{name.food_type}}</td>          
+                                <td>{{name.food_discription}}</td>   
+                                <td>{{name.food_cuisine}}</td> 
+                                <!-- <td><td>{{a.food_category.category_name}}</td></td>            -->
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn cancel">Submit</button>
+    </form>
+</div>
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Food Name </th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Discription</th>
+                <th>Cuisine</th>
+                <th style="text-align: center;">Remove</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in catalogueitemsdata %}
+                <tr>
+                    <td>{{a.Food_Item.food_name}}</td>   
+                        <td>{{a.Food_Item.food_price}}</td>          
+                        <td>{{a.Food_Item.food_type}}</td>          
+                        <td>{{a.Food_Item.food_discription}}</td>   
+                        <td>{{a.Food_Item.food_cuisine}}</td>    
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'deletefooditem' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function toggleTable() {
+        var table = document.getElementById("myForm");
+        if (table.style.display === "none") {
+            table.style.display = "block";
+        } else {
+            table.style.display = "none";
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $(".imageInput").on("change", function () {
+            if (this.files && this.files[0]) {
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

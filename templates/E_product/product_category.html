@@ -1,0 +1,69 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{user.username}} {% endblock title %}
+{% else %}  
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="addCategory" id="innernav1">
+  <div class="listOfCategory">
+   
+      <h3> List Of Category </h3>
+      <table>
+          <thead>
+              <tr>
+                  <th>Sl no</th>
+                  <th>Category Name</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for i in list_category %}
+              <tr>
+                  <th>{{forloop.counter}}</th>
+                  <td>{{i.product_category_name}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  <div class="addCategoryForm" id="formContain">
+      <h3> Add new Category </h3>
+      <form action="{% url 'product_category_fun' %}" method="POST" id="editForm">
+        {% csrf_token %}
+          <input type="text" id="input-product_category_name" 
+          name="product_category_name" placeholder="Category Name" required>
+
+          <input type="text" placeholder="Category description"
+           id="input-product_category_Description" name="product_category_Description"
+          required>
+          
+          <input id="submit" type="submit" value="Upload">
+      </form>
+      
+      <div class="{{al}}" role="{{all}}">{{message}}</div>
+  </div>
+</div>
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock script %}

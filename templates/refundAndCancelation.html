@@ -1,0 +1,82 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+
+{% block title %}vailo.ai-FAQ's {% endblock title %}
+
+{% block body %}
+
+<section style="margin-top: 100px;margin: 83px;">
+
+  <h2>Refund & Cancellation</h2>
+
+  <article style="margin-bottom: 30px !important;">
+    <h3>Return and Refund Policy</h3>
+    <p> Thank you for shopping at VAILO.AI
+<br>
+
+If, for any reason, you are not completely satisfied with a purchase of our Service, we invite you to review our policy on refunds and returns. 
+        <br>
+  
+        The following terms are applicable for any service that you purchased with us.
+        <br>
+   
+        Interpretation and Definitions
+        
+    </p><br><br>
+    <h3>Interpretation</h3>
+    <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+    </p><br><br>
+
+    <h3>Definitions</h3>
+    <p>For the purposes of this Return and Refund Policy:
+      <br>
+      <br>
+     <b> Company </b>(referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to 
+    <b>VAILO.AI </b> part of <b>VIVIDHITY VENTURE PVT LTD </b> (600, 3nd floor, 15th Cross, 14th Main, HSR Layout – 4th Sector, Bengaluru, Karnataka – 560102).<b> Goods </b> refer to the items offered for sale by using our Service.
+              <br>
+              <br>
+             <b>Orders </b> mean a request by You to purchase Goods from Our platform.
+              <br>
+              <br>
+             <b> Service</b> refers to the Platform provided by Us for the Sellers to sell their Goods.
+              <br>
+              <br>
+             <b> Website </b> refers toVAILO.AI, accessible from <a href="https://vailo.ai/" style="color: blue;"> https://vailo.ai</a>
+              
+          </p><br><br>
+
+    <h3>Your Order Cancellation Rights</h3>
+    <p>You are entitled to cancel Your Service within 7 days without giving any reason for doing so. For cancellation done within this period, full amount will be refunded. If cancellation is done after this grace period, there will be deduction of cancellation charges and any balance payment due from you – balance amount will be paid within 30 days from request for cancellation.
+    </p><br><br>
+
+
+    <p>In order to exercise Your right of cancellation, You must inform Us of your decision by means of a clear statement by email to <b>contact@vailo.ai</b>
+    </p>
+    <br><br>
+    <p>Your entitlement to cancel Orders for Goods sold through our platform, Refund and Cancellation policies of the corresponding Seller applies. Users are requested to check the applicable Refund and Cancellation policy before proceeding with the final purchase.</p>
+    <br><br>
+    <h3>Contact Us</h3>
+    <p>If you have any questions about our Returns and Refunds Policy, please contact us by emailing to <b> contact@vailo.ai</b>
+    </p><br><br>
+
+
+    
+
+  </article>
+</section>
+{% endblock body %}
+
+
+{% block script %}
+<script>
+  const toggleBtn = document.querySelectorAll('.toggle-btn');
+
+  toggleBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentNode.classList.toggle('active')  //only toggles the parent node which is the '.faq-card' here
+    })
+  })
+</script>
+
+{% endblock script %}

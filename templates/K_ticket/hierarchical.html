@@ -1,0 +1,477 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+<style>
+    /* / Define the drive styles / */
+    .drive {
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        /* margin-top: 20px; */
+        /* width: 100%; */
+    }
+
+    .drive-item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .drive-item:hover {
+        background-color: #f2f2f2;
+    }
+
+    .drive-icon {
+        margin-right: 10px;
+        font-size: 24px;
+        color: #ff0000;
+    }
+
+    .drive-text.event {
+        font-size: 19px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .drive-text.slot {
+        font-size: 13px;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .drive-item.event {
+        background-color: #f9f9f9;
+    }
+
+    .drive-item.slot {
+        background-color: #f9f9f9;
+        margin-left: 60px;
+        padding-left: 10px;
+    }
+
+    .drive-item.ticket {
+        background-color: #f9f9f9;
+        margin-left: 110px;
+        padding-left: 10px;
+        padding-right: 25px;
+    }
+
+
+
+    .drive-item.slot.active,
+    .drive-item.ticket.active {
+        background-color: #d6d6d6;
+    }
+
+    .drive-item.slot.active:before,
+    .drive-item.ticket.active:before {
+        background-color: #d6d6d6;
+    }
+    .rotate {
+  animation: rotateAnimation 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+
+
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'eventmaster' %}"> <button>Classic</button></a>
+            <a href="{% url 'hierarchical' %}"> <button>Hierarchical</button></a>
+            <a href="{% url 'sunburst' %}"> <button>Graph</button></a>
+        </div>
+        <div style="margin-left: 75px; margin-right: 50px;">
+            <label class="switchT" style="position: relative;">
+                <span class="activeText"
+                    style="position: absolute; left: -55px;top: 25%; color: #000; font-weight: 500;">Active</span>
+                <input id="toggleSwitch" type="checkbox">
+                <span class="sliderT roundT"></span>
+                <span class="all"
+                    style="position: absolute; right: -25px; top: 25%; color: #000; font-weight: 500;">All</span>
+            </label>
+        </div>
+    </div>
+    <div class="headFlex">
+        <h3>Level-1 List</h3>
+        <a href="{% url 'addevents' %}">
+            <button class="eventmasterAddbtn">
+                Add Level-1
+            </button>
+        </a>
+    </div>
+</div>
+<!-- <center><h1>Events View</h1></center> -->
+{{eventid}}
+{{slotid}}
+<table class="drive">
+    <tbody style="width: -webkit-fill-available;">
+
+        {% for event in data %}
+
+        <tr class="drive-item event" data-event-id="{{ event.id }}">
+            <td style="width: auto; display: flex;">
+                <div>
+                    <a href="#"><span class="toggleBtn">&#9650</span></a>
+                </div>
+
+                <div class="drive-text" style="margin-left: 20px;">
+                    <div class="drive-text"></div>
+                    <strong>{{ event.text }}</strong>
+                    {{event.id}}
+                </div>
+            </td>
+            <td>
+                <span class="StatusTd {% if event.event.status == 1 %}activeStatus{% else %}inactiveStatus{% endif %}">
+                    {{ event.event.get_status_display }}
+                </span>
+            </td>
+
+            
+            
+            <td style="margin: 0 20px;width: 10%;">
+                <!-- <div class="addslotbtn"> -->
+                <span class="editDeleteTd">
+                    <a href="{{ event.uss }}">
+                        <img src="{% static 'img/addHierarch.png' %}" alt="addHierarch">
+                    </a>
+                    <span>
+                        <span class="activeEvent">
+                            <input type="radio" name="status_radio{{ event.event.id }}" value="1" {% if event.event.status == 1 %}checked{% endif %} onclick="confirmStatusChange(this, '{{ event.event.id }}')">
+                        </span>
+                        <span class="inActiveEvent">
+                            <input type="radio" name="status_radio{{ event.event.id }}" value="2" {% if event.event.status == 2 %}checked{% endif %} onclick="confirmStatusChange(this, '{{ event.event.id }}')">
+                        </span>
+                    </span>                  
+                    <a href="{{ event.url }}">
+                        <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                    </a>
+                </span>
+            </td>
+        </tr>
+
+        {% for slot in event.children %}
+        <tr class="drive-item slot" data-slot-id="{{ slot.id }}">
+            <td style=" width: auto; display: flex;flex-wrap: wrap;">
+                <div>
+                    <a href="#" class="toggleBtnn">&#9650</a>
+                </div>
+
+                <div class="drive-text" style="margin-left: 20px;">
+                    <span class="drive-text">
+                        <b>{{ slot.text1 }}</b>
+                      <!-- <em>{{slot.texts}}</em>   -->
+                    </span>
+                </div>
+
+            </td>
+            <!-- <td>
+                <span class="StatusTd {% if slot.slot.status == 1 %}activeStatus{% else %}inactiveStatus{% endif %}">
+                    {{ slot.slot.get_status_display }}
+                </span>
+            </td> -->
+            <td style="margin: 0 20px;width: 10%;">
+                <span class="editDeleteTd">
+
+                    <a href="{{ slot.uss }}">
+                        <img src="{% static 'img/addHierarch.png' %}" alt="">
+                    </a>
+
+
+
+                    <a href="{{ slot.url }}">
+                        <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                    </a>
+
+                </span>
+            </td>
+        </tr>
+        {% for ticket in slot.children %}
+        <tr class="drive-item ticket" data-ticket-id="{{ ticket.id }}" style="display:none">
+            <td>
+                <div class="drive-text">
+                    
+                        <b>{{ticket.text2 }}</b>
+                        <!-- <em>{{ticket.texts}}</em> -->
+                    
+                </div>
+                <td style="margin: 0 20px;width: 10%;">
+                    <span class="editDeleteTd">
+    
+                        <!-- <a href="{{ slot.uss }}">
+                            <img src="{% static 'img/addHierarch.png' %}" alt="">
+                        </a> -->
+    
+    
+    
+                        <a href="{{ ticket.url }}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+    
+                    </span>
+                </td>
+            </td>
+            <!-- <td></td> -->
+        </tr>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<div >
+    <div class="eventAlertTemplate" style="display: none;" >
+        <div id="confirmationModal" style="display: none;">
+        <div>Are you sure you want to <span id="modalMessage"></span> this event?</div>
+        <button id="confirmButton">Confirm</button>
+        <button id="cancelButton">Cancel</button>
+    </div>
+        <div id="statusMessage" style="display: none;"></div>
+    </div>
+</div>
+
+
+<!-- Add the jQuery code to toggle the display of slots and tickets -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+$(document).ready(function () {
+  // Show slots for all events
+  $('.drive-item.event').siblings('.drive-item.slot').show();
+
+  // Show tickets for all slots
+  $('.drive-item.slot').siblings('.drive-item.ticket').show();
+
+  // Event toggle button click event
+  $('.toggleBtn').on('click', function (e) {
+    e.preventDefault();
+    var eventRow = $(this).closest('.drive-item.event');
+    var slotRows = eventRow.nextUntil('.drive-item.event', '.drive-item.slot');
+    var ticketRows = eventRow.nextUntil('.drive-item.event', '.drive-item.ticket');
+
+    slotRows.toggle();
+    ticketRows.toggle();
+
+    if (slotRows.is(':hidden')) {
+      ticketRows.hide();
+      $(this).html('&#9660;'); // Show downward-pointing triangle symbol
+    } else {
+      $(this).html('&#9650;'); // Show upward-pointing triangle symbol
+    }
+  });
+
+  // Slot toggle button click event
+  $('.toggleBtnn').on('click', function (e) {
+    e.preventDefault();
+    var slotRow = $(this).closest('.drive-item.slot');
+    var ticketRows = slotRow.nextUntil('.drive-item.slot').filter('.drive-item.ticket');
+
+    ticketRows.toggle();
+
+    if (ticketRows.is(':hidden')) {
+      $(this).html('&#9660;'); // Show downward-pointing triangle symbol
+    } else {
+      $(this).html('&#9650;'); // Show upward-pointing triangle symbol
+    }
+  });
+});
+
+</script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+<script>
+    const toggleSwitch = document.getElementById('toggleSwitch');
+    toggleSwitch.addEventListener('change', function () {
+        const isChecked = toggleSwitch.checked;
+        const urlParams = new URLSearchParams(window.location.search);
+        if (isChecked) {
+            urlParams.set('status', 'all');
+        } else {
+            urlParams.delete('status');
+        }
+        window.location.search = urlParams.toString();
+    });
+
+    // Set the initial state of the toggle switch based on the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const statusParam = urlParams.get('status');
+    toggleSwitch.checked = statusParam === 'all';
+
+    // Show/hide table rows based on the toggle switch state
+    function showHideRows() {
+        const tableRows = document.querySelectorAll('#mytable tr');
+        tableRows.forEach(function (row) {
+            const eventID = row.getAttribute('data-event-id');
+            const eventElement = document.querySelector(`.drive-item[data-event-id="${eventID}"]`);
+            if (eventElement) {
+                row.style.display = eventElement.style.display;
+            }
+        });
+    }
+
+    // Show all records if the toggle switch is checked
+    if (toggleSwitch.checked) {
+        const tableRows = document.querySelectorAll('#mytable tr');
+        tableRows.forEach(function (row) {
+            row.style.display = 'table-row';
+        });
+    }
+
+    // Listen for changes in the table and update the rows display accordingly
+    const table = document.getElementById('mytable');
+    const observer = new MutationObserver(showHideRows);
+    observer.observe(table, { childList: true, subtree: true });
+</script>
+
+<!-- --radio--  -->
+
+<script>
+    // Function to confirm and handle the status change
+    function confirmStatusChange(element, eventId) {
+        var status = element.value;
+        // console.log(eventId)
+        // console.log(status)
+        var message = status == 1 ? 'Activate' : 'Deactivate';
+
+        // Show the modal
+        $('#modalMessage').text(message);
+        $('.eventAlertTemplate').show();
+        $('#confirmationModal').show();
+
+        // Handle the confirm button click
+        $('#confirmButton').click(function () {
+            console.log("abcd")
+            $('#confirmButton').prop('disabled', true); // Disable the confirm button
+
+            var url = `/Eventmaster/updateEventStatus/${eventId}/`;
+            var data = {
+                event_id: eventId,
+                status: status
+            };
+            var csrftoken = getCookie('csrftoken');
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update event status.');
+                }
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    $('#confirmationModal').hide();
+                    $('#statusMessage').text('Event status updated successfully. Reloading page...');
+                } else {
+                    throw new Error('Failed to update event status.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                $('.eventAlertTemplate').hide();
+                $('#confirmationModal').hide();
+                $('#statusMessage').text('An error occurred while updating the event status. Reloading page...');
+                // Revert the radio button selection
+                element.checked = !element.checked;
+            })
+            .finally(() => {
+                $('#statusMessage').show(); // Show the status message
+                setTimeout(function () {
+                    location.reload(); // Reload the page after a delay
+                }, 2000);
+            });
+        });
+
+        // Handle the cancel button click
+        $('#cancelButton').click(function () {
+            $('.eventAlertTemplate').hide();
+            $('#confirmationModal').hide(); // Hide the modal
+            // Revert the radio button selection
+            element.checked = !element.checked;
+        });
+    }
+
+    // Function to get the value of a cookie by name
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

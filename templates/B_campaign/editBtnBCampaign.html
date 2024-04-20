@@ -1,0 +1,302 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 10px;">
+  
+    {% for a in updateBtnBCamaign %}
+    <form  class="profileForm" style="position: relative;" action="{% if marketplace_id %}{% url 'subUpdateBtnBCamaign' a.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'subUpdateBtnBCamaign' a.id %}{% endif %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Edit Button Info</h3>
+        </span>
+        <!-- <span class="eventImgFileFlex"> -->
+            <span class="formOne inputGridThree">
+            <span>
+
+            <label>Number</label>
+            <input type="number" name="rebtnNum" class="nameInput1"  value="{{a.template_button_num}}">
+
+            <span class="charCount"></span>
+        </span>
+
+     
+
+        <span>
+
+            <label>Name</label>
+            <input type="text" name="reBtnName" class="nameInput2"  value="{{a.template_button_name}}" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label>Select Button type</label>
+            <select id="serviceselect" name="template_button_type" onchange="showAdditionalField(this.value)">
+                <option value="{{a.template_button_type}}"  hidden> {{a.template_button_type}} </option>
+                <option value="URL">Url</option>
+                <option value="IMAGE">Image</option>
+                <option value="VIDEO">Video</option>
+                <option value="DOCUMENT">Document</option>
+                <option value="PHONE_NUMBER">Phone Number</option>
+                <option value="STOP">Stop</option>
+                <option value="FORM">Form</option>
+                <option value="INFLOW">Inflow</option>
+                <option value="CAMPAIGN">Campaign</option>
+            </select>
+        </span>
+<!-- 
+        <span>
+            <label>Select Button type</label>
+            <input type="text" name="reBtnName1" class="nameInput3"  value="{{a.template_button_type}}" >
+
+            <span class="charCount"></span>
+
+        </span> -->
+
+
+        {% if a.template_button_type  == 'IMAGE' %}
+        <span style="width: max-content;">
+            <span>
+                <label>Image</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_file_path}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.template_header_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="refileInput" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+        {% elif a.template_button_type == 'URL' %}
+
+        <span id="urlInputSpan">
+            <label for="urlInput">URL</label>
+            <input type="text" name="reurlInput1" id="urlInput" value="{{a.template_additional_info}}"  >
+        </span>
+       
+        {% elif a.template_button_type == 'FORM' %}
+        <span id="urlInputSpan"  style="display: none;">
+            <label for="urlInput">Fome</label>
+            <input type="text" name="reformInput" value="{{a.template_file_path}}">
+        </span>
+        {% elif a.template_button_type == 'DOCUMENT' %}
+        <span id="fileInputSpan">
+            <label for="fileInput">Current File:</label>
+            <input type="text" name="refileInput1" id="fileInput" value="{{a.template_file_path}}" readonly>
+            <button type="button" onclick="changeFile()">Change File</button>
+        </span>
+        {% elif a.template_button_type == 'PHONE_NUMBER' %}
+        <span id="urlInputSpan" >
+            <label for="urlInput">Phone number</label>
+            <input type="text" name="rephoneNumberInput" value="{{a.template_file_path}}">
+        </span>
+        {% elif a.template_button_type == 'STOP' %}
+        <span id="urlInputSpan" >
+            <label for="urlInput">STOP </label>
+            <input type="text" name="reurlInput" value="{{a.template_file_path}}">
+        </span>
+        {% elif a.template_button_type == 'VIDEO' %}
+        <span>
+            <label for="rehotelservicevideo">  Video</label>
+            <span class="formImgFlex">
+                <video width="220" height="140" controls>
+                    <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_file_path}}" type="video/mp4">
+                </video>
+                <span class="formImgFlexDelete">
+                    <img src="" id="output1">
+                    {% if a.template_file_path %}
+                    <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                        onclick="clearFileInputInfo1('foodvideo')"></img>
+                    {% endif %}
+                </span>
+                <input type="file" id="refilinput12" name="refoodvideo" class="videoInput"
+                    accept="video/*"
+                    onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+
+        {% endif %}
+ 
+        <span id="fileInputSpan" style="display: none;">
+            <label for="fileInput">Select image</label>
+            <input type="file" name="fileInput1" id="fileInput">
+            <span>Maximum size: 5MB </span>
+            <span>Supported File Types: JPG, JPEG, and PNG</span>
+        </span>
+        
+        <span id="videoInputSpan" style="display: none;">
+            <label for="videoInput">Select video</label>
+            <input type="file" name="fileInput2" id="videoInput">
+            <span>Maximum  Size: 16MB</span>
+            <span>Supported File Types: MP4 and 3GP</span>
+        </span>
+        
+        <span id="documentInputSpan" style="display: none;">
+            <label for="documentInput">Select Document</label>
+            <input type="file" name="fileInput3" id="documentInput">
+            <span>Maximum File Size: 100MB</span>
+            <span>Supported File Types: (.txt), (.pdf), (.docx), (.pptx)</span>
+        </span>
+        
+        <span id="urlInputSpan" style="display: none;">
+            <label for="urlInput">URL</label>
+            <input type="text" name="urlInput" id="urlInput" placeholder="https://">
+        </span>
+        
+        <span id="phoneNumberInputSpan" style="display: none;">
+            <label for="phoneNumberInput">Phone Number</label>
+            <input type="text" name="phoneNumberInput" id="phoneNumberInput" placeholder="Phone number with country code">
+        </span>
+        
+        <span id="stopInputSpan" style="display: none;">
+            <label for="stopInput">Stop</label>
+            <input type="text" name="stopInput" id="stopInput">
+        </span>
+        
+        <span id="formInputSpan" style="display: none;">
+            <label for="formInput">Forms</label>
+            <select id="groupName" name="formInput" >
+            {% for group in formdata %}
+                    <option value="{{ group.id }}" hidden>Select Form name</option>
+                    <option value="{{ group.id }}">{{ group.form_name}}</option>
+                {% endfor %}
+            </select>
+        </span>
+        <span id="formInputSpan1" style="display: none;">
+            <label for="formInput">campaign Name</label>
+            <select id="groupName" name="template_id" >
+                {% for group in templatedata %}
+                    <option value="{{ group.id }}">Select Campaign name</option>
+                    <option value="{{ group.id }}">{{ group.generic_campaign_info.Campaign_Name}}</option>
+                {% endfor %}
+            </select>
+        </span>
+        <span id="stopInputSpan1" style="display: none;">
+            <!-- <label for="stopInput">inflow</label> -->
+            <!-- <input type="text" name="stopInput1" id="stopInput"> -->
+        </span>
+        <!-- <span id="adtionalinfo"></span> -->
+        
+
+    </span>
+
+        <!-- <span>
+
+            <label>Button Info</label>
+            <input type="text" name="reBtnInfo" class="mainInput" value="{{a.template_additional_info}}">
+            <span class="charCount"></span>
+        </span> -->
+
+        </span>
+        <span class="spanSubmitForm">
+        <input class="addeventSubmit" type="submit" value="Submit">
+        </span>
+    </form>
+    {% endfor %}
+</div>
+<script>
+    function clearCampHeaderImg(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+
+<script>
+    function changeFile() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.doc, .docx, .pdf'; // Specify the accepted file types
+        input.onchange = function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    document.getElementById('fileInput').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        input.click();
+    }
+</script>
+
+<script>
+    function showAdditionalField(value) {
+        var fileInputSpan = document.getElementById('fileInputSpan');
+        var videoInputSpan = document.getElementById('videoInputSpan');
+        var documentInputSpan = document.getElementById('documentInputSpan');
+        var urlInputSpan = document.getElementById('urlInputSpan');
+        var phoneNumberInputSpan = document.getElementById('phoneNumberInputSpan');
+        var stopInputSpan = document.getElementById('stopInputSpan');
+        var stopInputSpan1 = document.getElementById('stopInputSpan1');
+
+        var formInputSpan = document.getElementById('formInputSpan');
+        var formInputSpan1 = document.getElementById('formInputSpan1');
+
+
+
+        fileInputSpan.style.display = 'none';
+        videoInputSpan.style.display = 'none';
+        documentInputSpan.style.display = 'none';
+        urlInputSpan.style.display = 'none';
+        phoneNumberInputSpan.style.display = 'none';
+        stopInputSpan.style.display = 'none';
+        stopInputSpan1.style.display = 'none';
+
+        formInputSpan.style.display = 'none';
+        formInputSpan1.style.display ='none';
+
+        if (value === 'IMAGE') {
+            fileInputSpan.style.display = 'block';
+        } else if (value === 'VIDEO') {
+            videoInputSpan.style.display = 'block';
+        } else if (value === 'DOCUMENT') {
+            documentInputSpan.style.display = 'block';
+        } else if (value === 'URL') {
+            urlInputSpan.style.display = 'block';
+        } else if (value === 'PHONE_NUMBER') {
+            phoneNumberInputSpan.style.display = 'block';
+        } else if (value === 'STOP') {
+            stopInputSpan.style.display = 'block';
+        } else if (value === 'FORM') {
+            formInputSpan.style.display = 'block';
+        } else if (value === 'CAMPAIGN') {
+            formInputSpan1.style.display = 'block';
+        } else if (value === 'INFLOW'){
+            stopInputSpan1.style.display = 'block';
+        }
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

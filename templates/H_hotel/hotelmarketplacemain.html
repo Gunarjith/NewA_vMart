@@ -1,0 +1,202 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'H_hotel/marketplaceConfig.html' %}
+
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm myForm" action="" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        
+        <span></span>
+        <span class="formOne inputGridTwo">
+            
+        
+           
+           
+        
+            <span>
+                <label for="generic_flow_id">Generic ID:</label>
+                <input type="text" name="generic_flow_id" placeholder="Enter Generic Id" value="{%if Hotel_marketplace_settings_obj.generic_flow_id %}{{Hotel_marketplace_settings_obj.generic_flow_id}}{%endif%}">
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="specific_flow_id">Specific Flow ID:</label>
+                <input type="text" name="specific_flow_id" placeholder="Enetr Specific flow id" value="{%if Hotel_marketplace_settings_obj.specific_flow_id %} {{ Hotel_marketplace_settings_obj.specific_flow_id }} {%endif%}">                         
+            </span>
+            <span>
+                <label for="my_hotel_flow_id">My Hotel Flow ID:</label>
+                <input type="text" name="my_hotel_flow_id" placeholder="Enetr a Hotel flow id" value="{%if Hotel_marketplace_settings_obj.my_hotel_flow_id %} {{Hotel_marketplace_settings_obj.my_hotel_flow_id}} {%endif%}">  
+                 <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="marketplace_welcome_message_body">Marketplace Welcome Message Body:</label>
+                <input type="text" name="marketplace_welcome_message_body" placeholder="Enter welcome message" value="{%if Hotel_marketplace_settings_obj.marketplace_welcome_message_body %} {{ Hotel_marketplace_settings_obj.marketplace_welcome_message_body }} {%endif%}">                   
+                <span class="charCount"></span>    
+              
+            </span>
+            
+           
+            
+            <span>
+                <label for="generic_flow_cta_name">Generic Flow Cta Name</label>
+                <input type="text" name="generic_flow_cta_name"  value="{%if Hotel_marketplace_settings_obj.generic_flow_cta_name %} {{Hotel_marketplace_settings_obj.generic_flow_cta_name}} {%endif%}">                   
+                <span class="charCount"></span>    
+              
+            </span>
+
+            <span>
+                <label for="specific_flow_cta_name">Specific Flow Cta Name</label>
+                <input type="text" name="specific_flow_cta_name" placeholder="Enter a specific flow cta name" value="{%if Hotel_marketplace_settings_obj.specific_flow_cta_name %} {{ Hotel_marketplace_settings_obj.specific_flow_cta_name }}{%endif%}">                   
+                <span class="charCount"></span>    
+              
+            </span>
+           
+            <span>
+                <label for="myhotel_flow_cta_name">MyHotel Flow Cta Name</label>
+                <input type="text" name="myhotel_flow_cta_name"  placeholder="Enetr hotel flow cta name" value="{%if  Hotel_marketplace_settings_obj.myhotel_flow_cta_name %}{{ Hotel_marketplace_settings_obj.myhotel_flow_cta_name }} {%endif%}">                   
+                <span class="charCount"></span>    
+              
+            </span>
+
+            {% if Hotel_marketplace_settings_obj.marketplace_welcome_image %}
+            <span></span>
+            <span style="width:max-content;">
+            <span>
+                <label>Image</label>
+                <span class="formImgFlex">
+                    <img
+                        src="{% if Hotel_marketplace_settings_obj.marketplace_welcome_image.name %}https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{Hotel_marketplace_settings_obj.marketplace_welcome_image.name}}{% else %}{{ Hotel_marketplace_settings_obj.marketplace_welcome_image.url }}{% endif %}" id="img1">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="mkImg">
+                        {% if Hotel_marketplace_settings_obj.marketplace_welcome_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="deleteImage()">
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="marketplace_welcome_image" id="id_mkImage"
+                    class="imageContactInput" accept="image/*"
+                    onchange="document.getElementById('mkImg').src=window.URL.createObjectURL(this.files[0])">
+                <span class="validationMessageImg"></span>
+            </span>
+        
+            <span></span>
+        </span>
+        {% else %}
+            <span>
+                <label for="marketplace_welcome_image">marketplace welcome image</label>
+                <input type="file" id="marketplace_welcome_image" name="marketplace_welcome_image" accept="image/*">
+            </span>
+        {% endif %}
+          
+        </span>
+        </span>
+
+
+        <span class="spanSubmitForm">
+
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+<script>
+    function deleteImage() {
+    var url = "{% url 'hotelmarketplacemain'  %}" +"/deleteImage";
+    window.location = url;
+
+    var img = document.getElementById('mkImg');
+    img.src = '';
+}
+</script>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $(".nameInput").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#leve1Descrip").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#leve1ShortDes").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        // $("#leve1Descrip").emojioneArea({
+        //     pickerPosition: "bottom"
+        // });
+    });
+</script>
+
+{% endblock script %}

@@ -1,0 +1,242 @@
+{% load static %}
+<div class="mT15">
+    <span onclick="showPlanList()" style="margin: 10px;">
+        <button id="btnShowPlan">Show Actived Plan</button>
+        
+    </span>
+    <div class="billingPlanDisplay" id="billingPlanId" style="display: none;">
+    <div class="billingPlan">
+        {% for a in billingRate %}
+        <table>
+            <thead>
+                <tr>
+                <th>Details</th>
+                <th>Amount</th>
+                <th>Currency</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rate Per Campaign Sent</td>
+                    <td>{% if a.billing_campaign_sent_rate %}{{ a.billing_campaign_sent_rate }}{% else %}N/A{% endif %}</td>
+                    <td>Rupees</td>
+                </tr>
+                <tr>
+                    <td>Rate Per Transition Message Sent</td>
+                    <td>{% if a.billing_message_sent_rate %}{{ a.billing_message_sent_rate }}{% else %}N/A{% endif %}</td>
+                    <td>Rupees</td>
+                </tr>
+                <tr>
+                    <td>Rate Per Transition Message Received</td>
+                    <td>{% if a.billing_message_received_rate %}{{ a.billing_message_received_rate }}{% else %}N/A{% endif %}</td>
+
+                    <td>Rupees</td>
+                </tr>
+                <tr>
+                    <td>Rate Per Client Onboarding(One Time)</td>
+                    <td>{% if a.billing_new_client_rate %}{{ a.billing_new_client_rate }}{% else %}N/A{% endif %}</td>
+
+                    <td>Rupees</td>
+                </tr>
+                <tr>
+                    <td>Rate Per New Customer Lead</td>
+                    <td>{% if a.billing_new_customer_lead_rate %}{{ a.billing_new_customer_lead_rate }}{% else %}N/A{% endif %}</td>
+
+                    <td>Rupees</td>
+                </tr>
+                <!-- <tr>
+                    <td>Monthly Subscribtion charge</td>
+                    <td>{{a.billing_monthly_charge}}</td>
+                    <td>Rupees</td>
+                </tr> -->
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+        <span class="displayWarpBilling" >
+
+
+            <!-- <span>
+
+                <label for="campaign_sent_rate">Rate Per Campaign Sent:</label>
+                <input type="text" id="campaign_sent_rate" value="{{a.billing_campaign_sent_rate}}">
+            </span> -->
+
+            <!-- <span>
+                <label for="">Rate Per Transition Message Sent:</label>
+                <input type="text" id="message_sent_rate" value="{{a.billing_message_sent_rate}}">
+            </span> -->
+            <!-- <span>
+                <label for="">Rate Per Transition Message Received:</label>
+                <input type="text" id="message_received_rate" value="{{a.billing_message_received_rate}}">
+            </span> -->
+            <!-- <span>
+
+                <label for="">Rate Per Client Onboarding(One Time):</label>
+                <input type="text" id="new_client_rate" value="{{a.billing_new_client_rate}}">
+            </span> -->
+            <!-- <span>
+
+                <label for="">Rate Per New Customer Lead:</label>
+                <input type="text" id="new_customer_lead_rate" value="{{a.billing_new_customer_lead_rate}}">
+            </span> -->
+            <!-- <span>
+
+                <label for="">Monthly Subscribtion charge:</label>
+                <input type="text" id="billing_monthly_chargeId" value="{{a.billing_monthly_charge}}">
+            </span> -->
+            <!-- <span>
+                <label for="billing_currencyId">billing_currency:</label>
+                <input type="text" id="billing_currencyId" value="{{a.billing_currency}}">
+            </span> -->
+            <!-- <span>
+                <label for="billing_amount_1">billing_amount1:</label>
+                <input type="text" id="billing_amount_1" value="{{a.billing_amount1}}">
+            </span> -->
+            <!-- <span>
+
+                <label for="billing_amount_2">billing_amount2:</label>
+                <input type="text" id="billing_amount_2" value="{{a.billing_amount2}}">
+            </span>  -->
+            <!-- <span>
+
+                <label for="billing_amount_3">vailo_record_creabilling_amount3tion:</label>
+                <input type="text" id="billing_amount_3" value="{{a.billing_amount3}}">
+            </span>
+            <span>
+                <label for="record_creation">vailo_record_creation:</label>
+                <input type="text" id="record_creation" value="{{a.vailo_record_creation}}">
+            </span>
+            <span>
+                <label for="record_last_update">vailo_record_last_update:</label>
+                <input type="text" id="record_last_update" value="{{a.vailo_record_last_update}}">
+            </span>
+            <span>
+                <label for="record_status">vailo_record_status:</label>
+                <input type="text" id="record_status" value="{{a.vailo_record_status}}">
+            </span>
+            <span>
+
+                <label for="vailo_record_status">vailo_record_status:</label>
+                <input type="text" id="record_status" value="{{a.vailo_record_status}}">
+            </span> -->
+        </span>
+        {% endfor %}
+
+
+
+    </div>
+</div>
+
+
+<div id="tableBilling">
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <!-- <! <th>Name</th> --> 
+                <!-- <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th> -->
+                <th>Bill Amount</th>
+                <th>Paid Amount</th>
+                <th>status</th>
+                <th>Creation Date</th>
+                <th>Resent update Date</th>
+                <!-- <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                 -->
+                <th>Record status</th>
+                <th>Action</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in billing %}
+            <tr>
+                <td style="text-align: left;">{{a.month}}</td>
+                <!-- <td style="text-align: left;" id="fullName"></td> -->
+                <td>{{a.billed_amount}}</td>
+                <td>{{a.paid_amount}}</td>
+                <td>{{a.status}}</td>
+                <!-- <td style="text-align: left;" id="addressfull"></td> -->
+                <td style="text-align: left;">{{a.vailo_record_creation }}</td>
+                <td>{{a.vailo_record_last_update }}</td>
+                <td style="text-align: left;">{{a.vailo_record_status }}</td>
+                <td><a href="{% url 'viewDetail' a.id %}"><button>View detail</button></a></td>
+                <!-- <td style="text-align: left; display: none;" id="addressLine1">{{a.Customer_Address_Line1 }}</td>
+                <td style="text-align: left; display: none;" id="addressLine2">{{a.Customer_Address_Line2}}</td>
+                <td style="text-align: left; display: none;" id="addressLandMark">{{a.Customer_Address_Landmark}}</td>
+                <td style="text-align: left;display: none;" id="addressPincode">{{a.Customer_Address_Pincode}}</td>
+                <td style="text-align: left;display: none;" id="addressCity">{{a.Customer_City}}</td>
+                <td style="text-align: left;display: none;" id="addressState">{{a.Customer_State}}</td>
+                <td style="text-align: left;display: none;" id="addressCountry">{{a.Customer_Country}}</td> -->
+                <!-- <td style="text-align: left;display: none;">{{a.Customer_Whatsapp_Number}}</td>   
+                <td style="text-align: left;display: none;" id="firstCustName">{{a.Customer_First_Name}}</td>
+                <td style="text-align: left;display: none;" id="secondCustName">{{a.Customer_Middle_Name}}</td>
+                <td style="text-align: left;display: none;" id="lastCustName">{{a.Customer_Last_Name}}</td>            -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+    </div>
+
+
+
+<!-- <script>
+  let addressLine1 = document.getElementById("addressLine1").textContent;
+  let addressLine2 = document.getElementById("addressLine2").textContent;
+  let addressLandMark = document.getElementById("addressLandMark").textContent;
+  let addressPincode = document.getElementById("addressPincode").textContent;
+  let addressCity = document.getElementById("addressCity").textContent;
+  let addressState = document.getElementById("addressState").textContent;
+  let addressCountry = document.getElementById("addressCountry").textContent;
+
+  let addressfull = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("addressfull").textContent = addressfull;
+  console.log(addressfull); // prints the concatenated name
+
+
+
+</script> -->
+<!-- <script>
+      let firstName = document.getElementById("firstName").textContent;
+  let middleName = document.getElementById("middleName").textContent;
+  let lastName = document.getElementById("lastName").textContent;
+  let fullName = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("fullName").textContent = fullName;
+  console.log(fullName); // prints the concatenated name
+
+</script> -->
+
+<script>
+    function showPlanList() {
+        let billingPlanId = document.getElementById('billingPlanId');
+        let tableBilling = document.getElementById('tableBilling');
+        let btnShowPlan = document.getElementById('btnShowPlan');
+        
+        if (billingPlanId.style.display === 'none') {
+            billingPlanId.style.display = 'block';
+            tableBilling.style.opacity = '0.1';
+           
+            // btnShowPlan.innerHTML = 'Hide Active Plan'; // Change button text
+            btnShowPlan.innerHTML = '<img src="{% static "img/menuClose.png" %}" alt="Close">'; // Replace button text with the image
+            // btnShowPlan.style.width = '20px';
+            btnShowPlan.style.padding = '5px';
+        } else {
+            billingPlanId.style.display = 'none';
+            tableBilling.style.opacity = '1';
+            btnShowPlan.style.width = 'auto';
+            btnShowPlan.style.padding = '11px 14px';
+            btnShowPlan.innerHTML = 'Show Active Plan'; // Change button text
+            // btnShowPlan.querySelector('img').src = "{% static 'img/menuOpen.png' %}"; // Change image source to the open menu image
+        }
+    }
+    </script>
+    

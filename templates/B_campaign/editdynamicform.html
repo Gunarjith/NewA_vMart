@@ -1,0 +1,160 @@
+{% extends "Bcampaign.html" %}
+{% block rightcontent %}
+<div class="frmCenter" style="margin: 0 10px;">
+  <form class="profileForm" method="post" action="{% url 'eupdate_form' form.id %}">
+    {% csrf_token %}
+    <span class="headFlex" style="border-bottom: 1px solid #E9E9E9;">
+      <h3 style="font-weight: 400;">Edit Form</h3>
+    </span>
+    <span class="formOne" style="display: flex; gap: 20px; padding: 20px 60px 22px 16px;">
+      <!-- Add section button -->
+      <button type="button" id="add_section_btn">Add Section</button>
+    </span>
+
+    <!-- Sections container -->
+    <div id="sections_container">
+      {% for section in form.sections.all %}
+      <div class="section">
+        <h3>Section - {{ forloop.counter0 }}</h3>
+        <input type="hidden" name="section_{{ forloop.counter0 }}_id" value="{{ section.id }}">
+        <input type="text" name="section_{{ forloop.counter0 }}_name" placeholder="Section Name" value="{{ section.section_name }}"><br>
+        <input type="hidden" name="section_{{ forloop.counter0 }}_num_fields" value="{{ section.fields.count }}">
+        <div class="fields">
+          {% for field in section.fields.all %}
+          <div class="field">
+            <input type="hidden" name="field_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}_id" value="{{ field.id }}">
+            <input type="text" name="field_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}_label" placeholder="Field Label" value="{{ field.field_label }}"><br>
+            <select name="field_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}_type" onchange="handleFieldTypeChange(this)">
+              <option value="text" {% if field.field_type == 'text' %} selected {% endif %}>Text</option>
+              <option value="number" {% if field.field_type == 'number' %} selected {% endif %}>Number</option>
+              <option value="submit" {% if field.field_type == 'submit' %} selected {% endif %}>Submit</option>
+              <option value="radio" {% if field.field_type == 'radio' %} selected {% endif %}>Radio</option>
+              <option value="checkbox" {% if field.field_type == 'checkbox' %} selected {% endif %}>Checkbox</option>
+              <option value="dropdown" {% if field.field_type == 'dropdown' %} selected {% endif %}>Dropdown</option>
+            </select>
+            <div class="options">
+              {% for option in field.options.all %}
+              <input type="hidden" name="option_{{ forloop.parentloop.parentloop.counter0 }}_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}_id" value="{{ option.id }}">
+              <input type="text" name="option_{{ forloop.parentloop.parentloop.counter0 }}_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}_text" placeholder="Option" value="{{ option.option_text }}"><br>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <input type="hidden" name="num_sections" id="num_sections" value="{{ form.sections.count }}">
+    <input type="hidden" name="num_fields" id="num_fields" value="{{ form.fields.count }}">
+
+    <!-- Save button -->
+    <div style="display: flex;border-bottom: 1px solid #E9E9E9; margin-bottom: 22px; padding: 0px 60px 22px 16px; gap: 20px;">
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  let sectionCount = parseInt("{{ form.sections.count }}");
+  
+  // Verify if sectionCount is a valid number
+  if (isNaN(sectionCount)) {
+    console.error("Invalid value for form_sections_count:", "{{ form.sections.count }}");
+    sectionCount = 0; // Set a default value
+  }
+
+  let fieldCount = parseInt("{{ form.fields.count }}");
+  
+  // Verify if fieldCount is a valid number
+  if (isNaN(fieldCount)) {
+    console.error("Invalid value for form_fields_count:", "{{ form.fields.count }}");
+    fieldCount = 0; // Set a default value
+  }
+
+  document.getElementById('add_section_btn').addEventListener('click', function () {
+    const sectionsContainer = document.getElementById('sections_container');
+    const sectionHtml = `
+      <div class="section">
+        <h3>Section ${sectionCount + 1}</h3>
+        <input type="text" name="section_${sectionCount}_name" placeholder="Section Name"><br>
+        <div class="fields"></div>
+        <button class="add_field_btn" data-section="${sectionCount}">Add Field</button>
+      </div>
+    `;
+    sectionsContainer.insertAdjacentHTML('beforeend', sectionHtml);
+    sectionCount++;
+    document.getElementById('num_sections').value = sectionCount;
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('add_field_btn')) {
+      const sectionIndex = event.target.getAttribute('data-section');
+      const fieldsContainer = document.querySelectorAll(`[name="section_${sectionIndex}_name"] ~ .fields`)[0];
+      const fieldHtml = `
+        <div class="field">
+          <input type="text" name="field_${sectionIndex}_${fieldCount}_label" placeholder="Field Label"><br>
+          <select name="field_${sectionIndex}_${fieldCount}_type" onchange="handleFieldTypeChange(this)">
+            <option value="text">Text</option>
+            <option value="number">Number</option>
+            <option value="submit">Submit</option>
+            <option value="radio">Radio</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="dropdown">Dropdown</option>
+          </select>
+          <div class="options"></div>
+          <br>
+        </div>
+      `;
+      fieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+      fieldCount++;
+      document.getElementById('num_fields').value = fieldCount;
+    }
+  });
+
+  // Function to handle field type change
+  function handleFieldTypeChange(selectElement) {
+    const fieldType = selectElement.value;
+    const optionsContainer = selectElement.nextElementSibling.nextElementSibling;
+    if (['radio', 'checkbox', 'dropdown'].includes(fieldType)) {
+      optionsContainer.innerHTML = `
+        <label>Options:</label><br>
+        <input type="text" name="${selectElement.name}_options" placeholder="Option"><br>
+        <button class="add_option_btn" data-field="${selectElement.name}">Add Option</button>
+        <div class="existing_options"></div>
+      `;
+      loadExistingOptions(optionsContainer, selectElement.name);
+    } else {
+      optionsContainer.innerHTML = ''; // Clear options container
+    }
+  }
+
+  // Function to load existing options for select fields
+  function loadExistingOptions(optionsContainer, fieldName) {
+    const fieldId = document.querySelector(`select[name="${fieldName}"]`).value;
+    fetch(`/get_options/?field_id=${fieldId}`)
+      .then(response => response.json())
+      .then(data => {
+        const existingOptionsContainer = optionsContainer.querySelector('.existing_options');
+        data.forEach(option => {
+          const optionHtml = `
+            <input type="text" name="${fieldName}_option_${option.id}" value="${option.option_text}" placeholder="Option"><br>
+          `;
+          existingOptionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+        });
+      });
+  }
+
+  document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('add_option_btn')) {
+      const field = event.target.getAttribute('data-field');
+      const optionsContainer = event.target.previousElementSibling.previousElementSibling;
+      const optionHtml = `
+        <input type="text" name="${field}_options" placeholder="Option"><br>
+      `;
+      optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+    }
+  });
+});
+</script>
+{% endblock rightcontent %}

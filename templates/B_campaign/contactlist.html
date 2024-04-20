@@ -1,0 +1,165 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% if customerdata %}
+<h2>Total Contacts: {{ customerdata|length }}</h2>
+{% else %}
+<h2>No Contacts Found</h2>
+{% endif %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div>
+    <form action="{% url 'excel_customers1' %}" method="post" enctype="multipart/form-data" style="position: relative;" class="profileForm" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Upload Contacts</h3>
+        </span>
+        <span class="formOne inputGridThree">
+            <span> 
+                <label for="file" style="text-transform: none;">Upload a CSV file</label>
+                <input type="file" id="file" name="file" required accept=".csv">
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </span>
+        <div class="mT15">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <span id="errorMessage"></span>
+        </div>
+    </form>
+</div>
+
+<div class="headFlex">
+    <h3 id="changeHistory">Contacts (
+        {% if customerdata %}
+        {{ customerdata|length }}
+        {% else %}
+        <h3>No Contacts</h3>
+        {% endif %})
+    </h3>
+
+    <span style="display: flex; justify-content: space-between; column-gap: 10px;">
+        <a style="margin: 5px;" href="{% url 'addcustomer' %}">
+            <button>
+                Add Contact
+            </button>
+        </a>
+    </span>
+</div>
+
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAllCheckbox" onclick="toggleAllContacts(this)">
+                </th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th style="text-align: center;">Actions 
+                    <button id="deleteButton" style="display: none;" onclick="deleteSelectedContacts()">Delete</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for data in customerdata %}
+            <tr data-item-id="{{ data.id }}"> 
+                <td>
+                    <input type="checkbox" class="itemCheckbox" onclick="toggleDeleteButton()">
+                </td>
+                <td style="display: none;">{{ data.client }}</td>
+                {% if data.Customer_Name == 'none' %}
+                <td>inflow</td>
+                {% else %}
+                <td>{{data.Customer_Name}}</td>
+                {% endif %}
+                <td>{{data.Customer_Whatsapp_Number}}</td>
+                <td style="text-transform: none;">{{data.Customer_email}}</td>
+                <td>{{data.Customer_City}}</td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editcustomerdata' data.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deletecustomer' data.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add form element to submit selected contact IDs -->
+<form id="deleteContactsForm" action="{% url 'delete_selected_contacts' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" id="selectedContactsInput" name="selected_contacts">
+</form>
+
+<script>
+    function validateForm() {
+        var fileInput = document.getElementById('file');
+        var errorMessage = document.getElementById('errorMessage');
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.csv)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            errorMessage.innerText = "Please select a CSV file.";
+            return false;
+        } else {
+            errorMessage.innerText = "";
+            return true;
+        }
+    }
+
+    function toggleAllContacts(checkbox) {
+        var checkboxes = document.getElementsByClassName('itemCheckbox');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = checkbox.checked;
+        }
+        toggleDeleteButton(); // Call function to toggle delete button visibility
+    }
+
+    function toggleDeleteButton() {
+        var checkboxes = document.getElementsByClassName('itemCheckbox');
+        var deleteButton = document.getElementById('deleteButton');
+        var checkedCount = 0;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checkedCount++;
+            }
+        }
+        deleteButton.style.display = checkedCount > 0 ? 'block' : 'none';
+    }
+
+    function deleteSelectedContacts() {
+        var selectedContactIds = [];
+        var checkboxes = document.getElementsByClassName('itemCheckbox');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedContactIds.push(checkboxes[i].parentNode.parentNode.dataset.itemId);
+            }
+        }
+        document.getElementById('selectedContactsInput').value = selectedContactIds.join(',');
+        document.getElementById('deleteContactsForm').submit();
+    }
+</script>
+{% endblock rightcontent %}

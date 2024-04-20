@@ -1,0 +1,329 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div style="margin: 15px; display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr);">
+<div class="frmCenter">
+
+    <form action="{{BASE_DIR}}/Eventmaster/submitticket/{{ticketID}}/" method="post" enctype="multipart/form-data"
+        class="profileForm" style="position: relative;">
+        <span class="headFlex">
+            <h3>Add manually Tickets</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne inputGridTwo">
+            <span>
+                <label for="ticketNmbr">Ticket Number</label>
+                <input type="text" id="ticketNmbr" name="TicketNumber" placeholder="Enter Ticket Number" required>
+                <span>
+                    {% if error_message %}
+                    <div class="errorMessage">{{ error_message }}</div>
+                    {% endif %}
+                </span>
+            </span>
+            <span>
+                <label for="ticketExpDate">Expiry Date</label>
+                <input type="date" id="ticketExpDate" name="expirydate" required>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+</div>
+
+
+
+
+
+<div class="frmCenter">
+    <form action="{% url 'excel_tickets' id=id %}" method="post" enctype="multipart/form-data"
+        style="position: relative;" class="profileForm">
+        {% csrf_token %}
+        <span class="formOne" >
+            <h3 style="color: #085394;">Download reference of Excel for Upload Ticket</h3>
+            <span class="dowloadExcelSpan">
+            <button id="downloadButton" class="dowloadExcelSpanBtn" ><i class='bx bx-download'></i></button>
+        </span>
+        </span>
+        <span class="headFlex">
+            <h3>Add Excel file of Tickets</h3>
+        </span>
+        <span class="formOne">
+            <span>
+                <label for="file">Upload file</label>
+                <input type="file" id="file" name="file" required>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+
+
+
+</div>
+<div class="frmCenter" style="margin: 15px;">
+    <div class="profileForm">
+
+        <!-- <form action="" method="post" enctype="multipart/form-data" style="position: relative;" class="profileForm">
+        <span class="headFlex">
+            <h3>Enter the Required number of thicket</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne">
+            <span>
+                <label for="">Add Numbers of Tickets</label>
+                <input type="number" name="TicketNumber" required>
+            </span>
+
+        </span>
+        <span class="spanSubmitForm">
+
+            <input type="submit" value="Submit">
+        </span>
+    </form> -->
+    <span class="headFlex">
+        <h3>Enter the Required number of thicket</h3>
+    </span>
+    <div class="formOne inputGridThree" style="padding-bottom:10px ;">
+            <span>
+                <label for="prefixInput">Prefix:</label>
+                <input type="text" id="prefixInput" required>
+            </span>
+            <span>
+                <label for="rangeInput">Number of Tickets</label>
+                <input type="number" id="rangeInput" min="1" max="10" required>
+            </span>
+            <span>
+                <label for="lengthInput">Character length of unique </label>
+                <input type="number" id="lengthInput" min="1" required>
+            </span>
+            <span>
+                <label for="selectUniqueType">Select a Type Unique Key Type</label>
+                <select name="lengthInput" id="selectUniqueType">
+                    <option value="none" selected disabled hidden>Select an Option</option>
+                    <option value="alphaNumerical">Alpha Numerical</option>
+                    <option value="numerical">Numerical</option>
+                </select>
+            </span>
+
+
+        </div>
+        <span class="spanSubmitForm">
+            <button onclick="generateStrings()" id="generateBtn">Generate</button>
+        </span>
+
+        <div class="formOne inputGridThree" style="padding-bottom:10px ;">
+            
+            <span>
+                <label for="expiryDateInput">Expiry Date:</label>
+                <input type="date" id="expiryDateInput" required>
+            </span>
+            <span>
+                <div id="output"></div>
+            </span>
+        </div>
+        <span class="spanSubmitForm">
+            <button onclick="saveToDatabase()" id="displayBlock" style="display: none;">submit</button>
+        </span>
+    </div>
+</div>
+<script>
+    document.getElementById('downloadButton').addEventListener('click', function () {
+        // Redirect the user to the download URL
+        window.location.href = '{% url "download_excel" %}';
+    });
+</script>
+
+<script>
+    // Prefix  
+    let tickets = [];
+    function generateStrings() {
+        let prefixInput = document.getElementById('prefixInput').value.trim();
+        let lengthInput = parseInt(document.getElementById('lengthInput').value);
+        let output = document.getElementById('output');
+        let displayBlock = document.getElementById('displayBlock');
+        let generateBtn = document.getElementById("generateBtn");
+        let selectUniqueType = document.getElementById("selectUniqueType");
+        console.log("selectUniqueType.value", selectUniqueType.value)
+        let uniqueKeyType = selectUniqueType.value;
+        console.log("uniqueKeyType", uniqueKeyType)
+  
+
+
+        // Clear previous output and tickets
+        output.innerHTML = '';
+        tickets = [];
+
+        // Generate and display strings
+        let range = parseInt(document.getElementById('rangeInput').value);
+        for (let i = 1; i <= range; i++) {
+        let string = prefixInput + generateUniqueKey(lengthInput, uniqueKeyType);
+            let paragraph = document.createElement('p');
+            paragraph.textContent = string;
+            output.appendChild(paragraph);
+            tickets.push(string);
+        }
+
+        displayBlock.style.display = "block";
+        generateBtn.style.display = "none";
+    }
+
+    function generateUniqueKey(length, selectUniqueType) {
+    let uniqueKey = "";
+    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let numCharacters = "0123456789";
+
+    if (selectUniqueType === 'alphaNumerical') {
+        // Generate alphaNumerical key
+        for (let i = 0; i < length; i++) {
+            let randomIndex = Math.floor(Math.random() * characters.length);
+            uniqueKey += characters.charAt(randomIndex);
+        }
+    } else if (selectUniqueType === 'numerical') {
+        // Generate numerical key
+        for (let i = 0; i < length; i++) {
+            let randomIndex = Math.floor(Math.random() * numCharacters.length);
+            uniqueKey += numCharacters.charAt(randomIndex);
+        }
+    }
+
+    return uniqueKey;
+}
+
+    // function generateRandomString(length) {
+    //     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     let result = '';
+    //     for (let i = 0; i < length; i++) {
+    //         let randomIndex = Math.floor(Math.random() * characters.length);
+    //         result += characters.charAt(randomIndex);
+    //     }
+    //     return result;
+    // }
+
+    function saveToDatabase() {
+    let xhr = new XMLHttpRequest();
+    let id = "{{ ticketID|safe }}";
+    let csrfToken = getCookie('csrftoken');
+    let url = "/Eventmaster/saveTickets/" + id + "/";
+
+    let prefix = document.getElementById('prefixInput').value.trim();
+    let range = parseInt(document.getElementById('rangeInput').value);
+    let expiryDate = document.getElementById('expiryDateInput').value;
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                alert("Tickets saved to the database successfully!");
+            } else {
+                alert("Failed to save tickets. Please try again.");
+            }
+        }
+    };
+
+    let tickets = [];
+    let output = document.getElementById('output').getElementsByTagName('p');
+    for (let i = 0; i < output.length; i++) {
+        let string = output[i].textContent;
+        tickets.push(string);
+    }
+
+    var requestData = {
+        prefix: prefix,
+        tickets: tickets,
+        expiryDate: expiryDate,
+    };
+
+    xhr.send(JSON.stringify(requestData));
+}
+
+    // Function to get the value of a cookie by its name
+
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+// Prefix 
+</script>
+<script type="text/javascript">
+    function checkfile(sender) {
+        var validExts = new Array(".xlsx", ".xls");
+        var fileExt = sender.value;
+        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            alert("Invalid file selected, valid files are of " +
+                validExts.toString() + " types.");
+            return false;
+        }
+        else return true;
+    }
+</script>
+<!-- <script>
+    function checkTicketNumber() {
+        let ticketNumber = document.getElementById("ticketNumberInput").value;
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "/checkTicketNumber?ticketNumber=" + ticketNumber, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.exists) {
+                    alert("This Ticket Number already exists. Please enter a different Ticket Number.");
+                } else {
+                    document.querySelector('form').submit();
+                }
+            }
+        };
+        xhr.send();
+    }
+    
+    let submitButton = document.querySelector('input[type="submit"]');
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        checkTicketNumber();
+    });
+    </script> -->
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<script>
+ 
+</script>
+
+{% endblock script %}

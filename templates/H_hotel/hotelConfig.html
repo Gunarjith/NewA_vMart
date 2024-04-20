@@ -1,0 +1,43 @@
+
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLeve1">
+
+
+
+            <a href="{% if id is not None %}{% url 'hotelmaininfo1' id=id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'hotelmaininfo' %}{% endif %}">
+                <button class="{% if 'hotelmaininfo1' in request.path %}activeNavDash{% endif %}">Main</button>
+
+            <a href="{% if marketplace_id %}{% url 'hotelservice' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'hotelservice' %}{% endif %}">
+                <button class="{% if 'hotelservice' in request.path or 'addservices' in request.path or 'editservicedata' in request.path or 'viewrequest' in request.path %}activeNavDash{% endif %}">Services</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'foodtypeinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'foodtypeinfo' %}{% endif %}">
+                <button class="{% if 'foodinfo'  in request.path or 'addfoodlist' in request.path or 'editfoodlist' in request.path or 'foodtypeinfo' in request.path or 'addcategory' in request.path or 'catalogueinfo' in request.path or 'addcatalogue' in request.path or 'editcataloguelist' in request.path or 'editcatalogueitemlist' in request.path or 'catalogueitemsinfo' in request.path or 'insertfood' in request.path %}activeNavDash{% endif %}">Food</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'hotelnearbyinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'hotelnearbyinfo' %}{% endif %}">
+                <button class="{% if 'hotelnearbyinfo' in request.path or 'addplaces' in request.path or 'editplacelist' in request.path %}activeNavDash{% endif %}">Nearby</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'hotelfacilitesinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'hotelfacilitesinfo' %}{% endif %}">
+                <button class="{% if 'hotelfacilitesinfo' in request.path or 'addfacilities' in request.path or 'editfacilitylist' in request.path %}activeNavDash{% endif %}">Facilites</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'roomsinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'roomsinfo' %}{% endif %}">
+                <button class="{% if 'roomsinfo' in request.path or 'addhotelrooms' in request.path  or  'listofrooms' in request.path or 'editroomslist' in request.path %}activeNavDash{% endif %}">Rooms</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'selfhelpinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'selfhelpinfo' %}{% endif %}">
+                <button class="{% if 'selfhelpinfo' in request.path or 'addselphelp' in request.path or 'edithelplist' in request.path %}activeNavDash{% endif %}">Self help</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'hotelinformation' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'hotelinformation' %}{% endif %}">
+                <button class="{% if 'information' in request.path or 'editinfolist' in request.path %}activeNavDash{% endif %}">Information</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'feedbackQuestions' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'feedbackQuestions' %}{% endif %}">
+                <button class="{% if 'feedbackQuestions' in request.path or 'addfeedbackquestions' in request.path or 'editfeedbackquestions' in request.path %}activeNavDash{% endif %}">Feedback Questions</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'complaintcategories' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'complaintcategories' %}{% endif %}">
+                <button class="{% if 'complaintcategories' in request.path or 'addcomplaintcategories' in request.path %}activeNavDash{% endif %}">Complaint Categories</button>
+            </a>
+            <br>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter" style="display: flex;
+flex-direction: column; align-items: center; margin: 10px;">
+    <form class="profileForm" method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne">
+            <span>
+                <label for="updateSurveyTypeId">Survey type</label>
+                <select id="updateSurveyTypeId" name="updateSurveyType" class="mainInput">
+                    <option value="Poll" {% if surveyType.survey_type == "Poll" %}selected{% endif %}>Poll</option>
+                    <option value="Range" {% if surveyType.survey_type == "Range" %}selected{% endif %}>Range</option>
+                    <option value="select" {% if surveyType.survey_type == "select" %}selected{% endif %}>select</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" name="submitSurveyType" value="Submit Survey Type">
+        </span>
+    </form>
+
+    <form class="profileForm" method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Survey Detail</h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="Quation">Question</label>
+                <input type="text" id="Quation" name="question" class="mainInput emoji-input"
+                    value="{{ detailSurvey.question }}">
+
+                <span class="charCount"></span></span>
+        </span>
+
+        <span class="formOne inputGridThree">
+            <span>
+                <label for="response_option1">Option 1</label>
+                <input type="text" id="response_option1" name="response_option1" class="mainInput emoji-input"
+                    value="{{ detailSurvey.response_option1 }}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="response_option2">Option 2</label>
+                <input type="text" id="response_option2" name="response_option2" class="mainInput emoji-input"
+                    value="{{ detailSurvey.response_option2 }}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="response_option3">Option 3</label>
+                <input type="text" id="response_option3" name="response_option3" class="mainInput emoji-input"
+                    value="{{ detailSurvey.response_option3 }}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="response_option4">Option 4</label>
+                <input type="text" id="response_option4" name="response_option4" class="mainInput emoji-input"
+                    value="{{ detailSurvey.response_option4 }}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="question_type">Quation type</label>
+                <input type="text" id="question_type" name="question_type" class="mainInput emoji-input"
+                    value="{{ detailSurvey.question_type}}">
+                <span class="charCount"></span>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" name="submitQuestionOptions" value="Submit Question and Options">
+        </span>
+    </form>
+</div>
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $("#Quation").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#response_option1").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#response_option2").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#response_option3").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#response_option4").emojioneArea({
+            pickerPosition: "bottom"
+        });
+    });
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

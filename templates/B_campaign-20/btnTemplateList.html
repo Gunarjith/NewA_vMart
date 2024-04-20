@@ -1,0 +1,143 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory">List of btn</h3>
+
+        <div class="searchBar" style="padding: 10px;">
+            <input type="text" id="searchInput" style="padding: 5px;border-radius: 5px;" placeholder="Search.." />
+        </div>
+
+
+        <span style="display: flex; justify-content: space-between; column-gap: 10px;">
+
+            {% if template_info_id %}
+            <a style="margin: 5px;" href="{% url 'addcampaignbtn' id=template_info_id %}">
+                {% else %}
+                <a style="margin: 5px;" href="{% url 'addBCampaignbtn' %}">
+                    {% endif %}
+                    <button>
+                        Add button Detail
+                    </button>
+                </a>
+    
+    </div>
+
+
+</div>
+
+
+
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>{{template_info_id}}</tr>
+            <tr>
+
+                <th>Number</th>
+                <!-- <th>Campaign Description</th> -->
+                <th>Name</th>
+                <th>Type</th>
+                <th>Additional Info</th>
+                <th style="text-align: center;">Action</th>
+         
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in listbtn %}
+            <tr style="margin: 50px;">
+
+                <td>{{a.template_button_num}}</td>
+                <!-- <td>{{a.Campaign_Description}}</td> -->
+                <td>{{a.template_button_name}}</td>
+              
+                <td>{{a.template_button_type}}</td>
+                <td>{{a.template_additional_info}}</td>
+                
+                <td>
+                    <span class="editDeleteTd">
+                    
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'updateBtnBCamaign' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <!-- </span> -->
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'deleteBtnBCampaign' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                        <!-- </span> -->
+                   
+                    </span>
+                </td>
+
+    
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    // Search functionality
+    let searchInput = document.getElementById('searchInput');
+    let tableRows = document.querySelectorAll('#mytable tr');
+
+    searchInput.addEventListener('input', function () {
+        let filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(function (row) {
+            let cells = row.getElementsByTagName('td');
+            let found = false;
+
+            for (let i = 0; i < cells.length; i++) {
+                let cellText = cells[i].textContent.toLowerCase();
+                if (cellText.includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+
+
+
+
+</script>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

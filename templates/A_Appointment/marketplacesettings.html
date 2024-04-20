@@ -1,0 +1,17 @@
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'marketplacemain' %}">
+                 <!-- <button class="">Main</button></a> -->
+                 <button class="{% if 'marketplacemain' in request.path %}activeNavDash{% endif %}">Main</button></a>
+            <a href="{% url 'addgroupname' %}"> 
+                <button class="{% if 'addgroupname' in request.path %}activeNavDash{% endif %}">Groupmain</button></a>
+                <!-- <button class="">Groupmain</button></a> -->
+                <!-- <button class="{% if 'addgroupname' in request.path or 'editDontion' in request.path or 'addDonation' in request.path %}activeNavDash{% endif %}">Groupmain</button></a> -->
+           
+        </div>
+    </div>
+
+ 
+</div>

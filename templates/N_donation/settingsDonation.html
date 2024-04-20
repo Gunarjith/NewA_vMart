@@ -1,0 +1,47 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'UpdateProfileDonation' %}"> <button>Profile</button></a>
+            <a href="{% url 'nDonationFacebook' %}"> <button>Facebook</button></a>
+            <a href="{% url 'subUserDonation' %}"> <button>User</button></a>
+            <a href="{% url 'nDonationPayment' %}"> <button>Payment</button></a>
+        </div>
+    </div>
+
+ 
+</div>
+
+    
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

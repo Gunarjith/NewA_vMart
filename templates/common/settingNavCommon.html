@@ -1,0 +1,23 @@
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'UpdateProfileCommon' %}">
+                <button class="{% if 'UpdateProfileCommon' in request.path %}activeNavDash{% endif %}">Profile</button>
+            </a>
+            <a href="{% url 'facebook_info' %}">
+                <button class="{% if 'facebook_info' in request.path %}activeNavDash{% endif %}">Facebook</button>
+            </a>
+            <a href="{% url 'subClientCommon' %}">
+                <button class="{% if 'subClientCommon' in request.path %}activeNavDash{% endif %}">User</button>
+            </a>
+
+            {% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+
+            <a href="{% url 'payment_pageCommon' %}">
+                <button class="{% if 'payment_pageCommon' in request.path %}activeNavDash{% endif %}">Payment</button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

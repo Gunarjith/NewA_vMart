@@ -1,0 +1,100 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/roomconfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Hotel Rooms</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'addhotelroomslist' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addhotelroomslist' %}{% endif %}">
+            <button>
+                Add Hotel Rooms
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Room Number</th>
+                <th>Room Floor</th>
+                <th>Room Type</th>
+                <th style="text-align: center;"> Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in roomslistdatadata %}
+                <tr>
+                   <td> {{a.room_number}}</td>
+                    <td>{{a.room_floor}}</td>
+                    <td>{{a.hotel_room_type.l_room_type}}</td>
+                    <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editlistofrooms' a.id %}?marketplace_id={{marketplace_id}}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deletelistofrooms' a.id %}?marketplace_id={{marketplace_id}}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

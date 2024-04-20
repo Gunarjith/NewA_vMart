@@ -1,0 +1,79 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Feedback Questions </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Feedback Questions</h3>
+        <a href="{% if marketplace_id %}{% url 'addfeedbackquestions'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addfeedbackquestions'  %}{% endif %}">
+            <button>
+                Add Question
+            </button>
+        </a>
+    </div>
+</div>
+
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+                    
+                <th style="text-align: center;">FeedBack Questions</th>
+                
+                <th style="text-align: center;">Edit</th>
+                <th style="text-align: center;">Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+        {% for a in questions %}
+            <tr>
+                <td style="text-align: center;">{{a.Question}}</td>
+              <td>              
+                    <span class="editDeleteTd">
+                        <a href="{% if marketplace_id %}{% url 'editfeedbackquestions' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'editfeedbackquestions' a.id  %}{% endif %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                       
+                    </span>
+                </td>
+                <td>              
+                    <span class="editDeleteTd">
+                        {{marketplace_id}}
+                        <a href="{% if marketplace_id %}{% url 'deletefeedbackquestions' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'deletefeedbackquestions' a.id  %}{% endif %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+{% endblock rightcontent %}

@@ -1,0 +1,154 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+{% for a in   modifyroomdata  %}
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submiteditroomist' a.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submiteditroomist' a.id %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add services </h4>
+            </span>
+
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="l_room_type">Luxury Room Type</label>
+            <input type="text" id="l_room_type" name="relroomtype"
+              value="{{a.l_room_type}}" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_type">Room Type </label>
+            <select id="room_type" name="reroomtype" aria-placeholder="Select a type">
+                <option value="{{a.room_type}}">{{a.room_type}}</option>
+                <option value="NONAC">nonac</option>
+                <option value="AC">ac</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bed">Bed</label>
+            <input type="text" id="bed" name="reroombed"value='{{a.bed}}'>
+            <span class="charCount"></span>
+        </span>
+
+
+
+        <span>
+            <label for="room_price">Room Price</label>
+            <input type="number" id="room_price" name="reroomprice"
+              value="{{a.room_price}}" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_price_unit"> Room Price Unit </label>
+            <select id="room_price_unit" name="reroompriceunit" >
+                <option value="{{a.room_price_unit}}">{{a.room_price_unit}}</option>
+                <option value="EUR">Euros</option>
+                <option value="GBP">British Pound</option>
+                <option value="INR">Indian Rupees</option>
+                <option value="USD">US Dollar</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_info">Room Info</label>
+            <input type="text" id="room_info" name="reroominfo"
+               value="{{a.room_info}}">
+            <span class="charCount"></span>
+        </span>
+
+
+
+        <span class="formOne inputGridTwo">
+            <!-- <span> -->
+            <span>
+                <label for="rehotelserviceimage">Food  Image</label>
+                <span class="formImgFlex">
+                    <!-- <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.food_image}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.food_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearFileInputInfo1('foodimage')"></img>
+                        {% endif %}
+                    </span> -->
+                    <input type="file" id="rehotelserviceimage" name="reroomimage" class="imageInput"
+                        <!-- accept="image/*" -->
+                        <!-- onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])"> -->
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+            </span>
+        </span>
+        <span class="formOne inputGridTwo">
+            <!-- <span> -->
+                <span>
+                
+                    <span></span>
+                </span>
+                
+        </span>
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+{% endfor %}
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

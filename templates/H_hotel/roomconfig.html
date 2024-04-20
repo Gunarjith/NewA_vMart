@@ -1,0 +1,14 @@
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLeve1">
+            <a href="{% if marketplace_id %}{% url 'roomsinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'roomsinfo' %}{% endif %}">
+                <button class="{% if 'roomsinfo' in request.path or 'addhotelrooms' in request.path  or 'editroomslist' in request.path %}activeNavDash{% endif %}">Rooms Type</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'listofrooms' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'listofrooms' %}{% endif %}">
+                <button class="{% if 'listofrooms' in request.path %}activeNavDash{% endif %}">list of Rooms</button>
+            </a>
+
+            <br>
+        </div>
+    </div>
+</div>

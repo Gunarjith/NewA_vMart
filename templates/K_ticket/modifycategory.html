@@ -1,0 +1,195 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+{% for a in modifycategory %}
+
+<div class="ticketLevelFlex" style="margin: 15px;">
+
+    <div class="ticketLevelFlexLeft profileForm">
+        <span class="headFlex">
+            <h3>Edit Level-3</h3>
+        </span>
+        <form action="{% url 'updatecategory' a.id %}" method="POST" enctype="multipart/form-data"
+            style="position: relative;">
+            {% csrf_token %}
+            <span class="formOne inputGridTwo">
+                <span>
+                    <label>Name</label>
+                    <input type="text" name="recategoryname" class="nameInput" value="{{a.Category_Name}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Description</label>
+                    <input type="text" name="recategorydesc" class="descriptionInput" value="{{a.Category_Description}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Price</label>
+                    <input type="number" name="recategoryprice" value="{{a.Category_Price}}">
+                </span>
+
+                <span>
+                    <label>Header Text</label>
+                    <input type="text" name="reCategoryMessageHeaderText" class="headerInput" value="{{a.Category_Message_Header_Text}}">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+
+<span class="formOne">
+                <span>
+                    <label>Ticket Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.category_ticket_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if a.category_ticket_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputCatTicket('id_reCatTicketMessageHeaderImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reCategoryTicketImage" id="id_reCatTicketMessageHeaderImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                </span>
+
+                <span>
+                    <label>Header Image</label>
+                    <span class="formImgFlex">
+                        <img
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Category_Message_Header_Image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output2">
+                            {% if a.Category_Message_Header_Image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputCatHead('id_reCategoryMessageHeaderImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reCategoryMessageHeaderImage" id="id_reCategoryMessageHeaderImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                </span>
+</span>
+<span class="formOne inputGridTwo">
+                <span>
+                    <label>Body Text</label>
+                    <input type="text" name="reCategoryMessageBodyText" class="mainInput" value="{{a.Category_Message_Body_Text}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Footer Text</label>
+                    <input type="text" name="reCategoryMessageFooterText" class="footerInput" value="{{a.Category_Message_Footer_Text}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Ticket Button Name</label>
+                    <input type="text" name="reNumberOfTicketButtonName" class="buttonInput" value="{{a.Number_Of_Ticket_Button_Name}}">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+
+            <span class="spanSubmitForm" style="margin: 15px;">
+                <input type="submit" value="Update" />
+            </span>
+        </form>
+    </div>
+    {% endfor %}
+
+
+    <div class="ticketLevelFlexRight profileForm">
+        <span class="headFlex">
+            <h3>Ticket List</h3>
+
+
+            <a href="{{BASE_DIR}}/Eventmaster/submitcattickets/{{catId}}/">
+                <button>Add Tickets</button>
+            </a>
+
+            <a href="{{BASE_DIR}}/Eventmaster/generateqr/{{catId}}/">
+                <button>Publish Tickets</button>
+            </a>
+
+        </span>
+  
+            <table>
+                <thead>
+                    <tr>
+                        <!-- <th></th> -->
+                        <th>Ticket Number</th>
+                        <th>Expiry Date</th>
+                        <th style="text-align: center;">Edit / Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for a in ticketscategory %}
+                    <tr>
+                        <!-- <td></td> -->
+                        <!-- <td style="text-align: center;">{{a.Category_Name}}</td> -->
+                        <td style="text-align: left;">{{a.ticket_number}}</td>
+                        <td style="text-align: left;">{{a.expiry_date}}</td>
+                        <td>
+                            <span class="editDeleteTd">
+                                <a href="{% url 'modifyticket' a.id %}">
+                                    <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                                </a>
+                                <a href="{% url 'deleteticket' a.id %}">
+                                     <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                                </a>
+                            </span>
+                      
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+       
+
+    </div>
+
+</div>
+<script>
+    function clearFileInputCatTicket(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+<script>
+    function clearFileInputCatHead(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output2');
+        img.src = '';
+    }
+</script>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

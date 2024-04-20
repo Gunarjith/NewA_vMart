@@ -1,0 +1,191 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm myForm" action="{% url 'submitparentdata' %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Parent </h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="leve1Name">Parent Id</label>
+                <input type="number"  name="ParentID" class="nameInput" placeholder="Parent Id" >
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="leve1ShortDes"> Button Type</label>
+                <input type="text" id="leve1ShortDes" name="openbuttontype" placeholder="Button type">
+            </span>
+            <span>
+                <label for="leve1Name">Button Name</label>
+                <input type="text"  name="openbuttonname" class="nameInput" placeholder="Name" required>
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="leve1ShortDes">Title </label>
+                <input type="text" id="leve1ShortDes" name="shorttitle" placeholder="short title">
+            </span>
+
+            <span>
+                <label for="leve1Descrip">Description</label>
+                <input type="text" id="leve1Descrip" name="shortdescription" placeholder="short description"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="campaign_link_text">Additional Info</label>
+                <input type="text" id="leve1Descrip" name="additionalinfo" placeholder="additional info"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_link_text">Additional Info1</label>
+                <input type="text" id="leve1Descrip" name="additionalinfo1" placeholder="additional info1"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_link_text">Additional Info2</label>
+                <input type="text" id="leve1Descrip" name="additionalinfo2" placeholder="additional info2"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="campaign_url">Additional File</label>
+                <input type="file" id="leve1Descrip" name="additionalfilepath" placeholder="additional file path"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_url">Additional File1</label>
+                <input type="file" id="leve1Descrip" name="additionalfilepath1" placeholder="additional file path1"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_url">Additional File2</label>
+                <input type="file" id="leve1Descrip" name="additionalfilepath2" placeholder="additional file path2"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="campaign_id">Header Type </label>
+                <input type="text" id="leve1Descrip" name="inflowheadertype" placeholder="inflow header type"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            
+            <span>
+                <label for="campaign_id">Header text </label>
+                <input type="text" id="leve1Descrip" name="inflowheadertext" placeholder="inflow header text"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="campaign_url">Header File</label>
+                <input type="file" id="leve1Descrip" name="inflowheaderfilepath" placeholder="additional file path2"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="key">Body text</label>
+                <textarea type="text" id="leve1Descrip" name="inflowbodytext" placeholder="inflow body text"
+                   rows="8" cols="70" ></textarea>
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="key">Footer text</label>
+                <input type="text" id="leve1Descrip" name="inflowfootertext" placeholder="inflow footer text"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+        </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+
+{% endblock script %}

@@ -1,0 +1,119 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Donation Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>               
+                <th>Donation Amount</th>
+                <th>Donation Name</th>
+                <!-- <th>Pan Number</th> -->
+                <!-- <th>Phone Number</th> -->
+                <!-- <th>Description</th> -->
+
+                
+                <!-- <th>Donation Short Description</th> -->
+                <!-- <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                 -->
+                <!-- <th>Donation Type Image</th> -->
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in donationList %}
+            <tr>
+                <td>{{a.donation_date }}</td>
+                <td style="text-align: left;">{{a.donar_name}}</td>
+                <td>{{a.donar_email}}</td>
+                <td style="text-align: left;">{{a.donar_phone_number }}</td>
+                <td style="text-align: left;">{{a.donation_amount }}</td>
+                <td style="text-align: left;">{{a.donation_name }}</td>
+                
+                <!-- <td>{{a.donar_pan_number}}</td> -->
+                
+                <!-- <td style="text-align: left;" id="addressfull"></td> -->
+                <!-- <td style="text-align: left;">{{a.donation_description }}</td> -->
+                <!-- <td style="text-align: left;">{{a.donation_short_description }}</td> -->
+                <!-- <td style="text-align: left;">{{a.donation_type_image }}</td> -->
+                <!-- <td style="text-align: left;" id="fullName"></td> -->
+               
+                <!-- <td style="text-align: left; display: none;" id="addressLine1">{{a.Customer_Address_Line1 }}</td>
+                <td style="text-align: left; display: none;" id="addressLine2">{{a.Customer_Address_Line2}}</td>
+                <td style="text-align: left; display: none;" id="addressLandMark">{{a.Customer_Address_Landmark}}</td>
+                <td style="text-align: left;display: none;" id="addressPincode">{{a.Customer_Address_Pincode}}</td>
+                <td style="text-align: left;display: none;" id="addressCity">{{a.Customer_City}}</td>
+                <td style="text-align: left;display: none;" id="addressState">{{a.Customer_State}}</td>
+                <td style="text-align: left;display: none;" id="addressCountry">{{a.Customer_Country}}</td> -->
+                <!-- <td style="text-align: left;display: none;">{{a.Customer_Whatsapp_Number}}</td>   
+                <td style="text-align: left;display: none;" id="firstCustName">{{a.Customer_First_Name}}</td>
+                <td style="text-align: left;display: none;" id="secondCustName">{{a.Customer_Middle_Name}}</td>
+                <td style="text-align: left;display: none;" id="lastCustName">{{a.Customer_Last_Name}}</td>            -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    
+
+<!-- <script>
+  let addressLine1 = document.getElementById("addressLine1").textContent;
+  let addressLine2 = document.getElementById("addressLine2").textContent;
+  let addressLandMark = document.getElementById("addressLandMark").textContent;
+  let addressPincode = document.getElementById("addressPincode").textContent;
+  let addressCity = document.getElementById("addressCity").textContent;
+  let addressState = document.getElementById("addressState").textContent;
+  let addressCountry = document.getElementById("addressCountry").textContent;
+
+  let addressfull = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("addressfull").textContent = addressfull;
+  console.log(addressfull); // prints the concatenated name
+
+
+
+</script> -->
+<!-- <script>
+      let firstName = document.getElementById("firstName").textContent;
+  let middleName = document.getElementById("middleName").textContent;
+  let lastName = document.getElementById("lastName").textContent;
+  let fullName = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("fullName").textContent = fullName;
+  console.log(fullName); // prints the concatenated name
+
+</script> -->
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

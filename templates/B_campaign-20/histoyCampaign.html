@@ -1,0 +1,103 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{ user.username }} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                    <th>Campaign Short Message</th>
+                    <th>Campaign Message</th>
+                    <th>Campaign Images</th>
+                    <th>Customer Name</th>
+                    <th>Customer Email</th>
+                    <th>Customer Whatsapp Number</th>
+                    <th>Customer City</th>
+                    <th>Last Update</th>
+                    <th>Record Status</th>
+                    <th>Sent Datetime</th>
+                </tr>
+            </thead>
+            <tbody id="mytable">
+                {% for campaign in custmerCampaign %}
+                    <tr>
+                        <!-- Display generic_campaign_info details -->
+                        {% if campaign.generic_campaign_info %}
+                            <td>{{ campaign.generic_campaign_info.Campaign_Name }}</td>
+                            <td><p>{{ campaign.generic_campaign_info.Campaign_short_message }}</p></td>
+                            <td><p>{{ campaign.generic_campaign_info.Campaign_message }}</p></td>
+                            <td class="imgTd">
+                                <img src="{{ campaign.generic_campaign_info.Campaign_Image.url }}" alt="Campaign Image">
+                            </td>
+                            <!-- Add other details from generic_campaign_info -->
+                        {% else %}
+                            <td colspan="4">No generic_campaign_info available</td>
+                        {% endif %}
+
+                        <!-- Display allocated customer details -->
+                        {% if campaign.campaign_customer_master %}
+                            <td>{{ campaign.campaign_customer_master.Customer_Name }}</td>
+                            <td>{{ campaign.campaign_customer_master.Customer_email }}</td>
+                            <td>{{ campaign.campaign_customer_master.Customer_Whatsapp_Number }}</td>
+                            <td>{{ campaign.campaign_customer_master.Customer_City }}</td>
+                            <!-- Add other details from campaign_customer_master -->
+                        {% else %}
+                            <td colspan="4">No campaign_customer_master available</td>
+                        {% endif %}
+
+                        <td>{{ campaign.vailo_record_last_update }}</td>
+                        <td>{{ campaign.vailo_record_status }}</td>
+                        <td>{{ campaign.campaign_sent_datetime }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Search functionality
+        let searchInput = document.getElementById('searchInput');
+        let tableRows = document.querySelectorAll('#mytable tr');
+
+        searchInput.addEventListener('input', function () {
+            let filter = searchInput.value.toLowerCase();
+
+            tableRows.forEach(function (row) {
+                let cells = row.getElementsByTagName('td');
+                let found = false;
+
+                for (let i = 0; i < cells.length; i++) {
+                    let cellText = cells[i].textContent.toLowerCase();
+                    if (cellText.includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+{% endblock script %}

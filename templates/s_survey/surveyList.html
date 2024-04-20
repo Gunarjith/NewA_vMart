@@ -1,0 +1,178 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory">List of Survey</h3>
+        <span style="display: flex; justify-content: space-between; column-gap: 10px;">
+            <a style="margin: 5px;" href="{% if marketplace_id %}{% url 'addSurvey' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addSurvey' %}{% endif %}">
+                <button>
+                    Add Survey
+                </button>
+            </a>
+    </div>
+</div>
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Message</th>
+                <th>Footer</th>
+                <th>Type of Survey</th>
+                <th style="text-align: center;">Action</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in listsurvey %}
+            <tr style="margin: 50px;">
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.survey_image}}">
+                </td>
+                <td>{{a.survey_message}}</td>
+                <!-- <td>{{a.Campaign_Description}}</td> -->
+                <td>{{a.survey_footer}}</td>
+                <td>
+                    <button style="color: black; background: #c4ee8e;">
+                <a href="{% url 'survey_question' a.id %}?marketplace_id={{ marketplace_id }}" style=" display: flex;align-items: center; color: #000; ">
+                   
+                    {{a.survey_type}}  <img style="margin: 0 5px;" src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                
+                </a>
+                </button>
+            </td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'assignSuveyCustomer' a.id %}?marketplace_id={{ marketplace_id }}">
+                            <img style="width: 20px;" src="{% static 'img/assignIcon.png' %}" alt="assignIcon">
+                        </a>
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'updateSurvey' a.id %}?marketplace_id={{ marketplace_id }}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <!-- </span> -->
+                        <a href="{% url 'deleteSurvey' a.id %}?marketplace_id={{ marketplace_id }}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                        <!-- </span> -->
+                        <a href="">
+
+                            <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                        </a>
+                    </span>
+                </td>
+
+           
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- <div class="frmCenter">
+
+    <form class="profileForm" action="" method="post" enctype="multipart/form-data"
+        style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Campaign</h3>
+        </span>
+        <span class="formOne">
+            <span>
+
+                <label for="cName">Campaign Name</label>
+                <input type="text" name="campaignName" class="nameInput" placeholder="Enter Campaign name" id="cName">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+
+                <label for="cdesc">Campaign short description</label>
+                <input type="text" name="campaignDescription" class="mainInput" placeholder="Enter Campaign name"
+                    id="cdesc">
+                <span class="charCount"></span>
+            </span>
+
+
+
+            <span>
+                <label for="cImg">Image</label>
+                <input type="file" name="campaignImg" id="cImg" class="imageInput" accept="image/*">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+
+            <span>
+                <label for="cMainMessage">Main Message</label>
+                <input type="text" id="cMainMessage" name="campaignMessageText" class="mainInput"
+                    placeholder="Enter Campaign Message">
+                <span class="charCount"></span>
+            </span>
+
+  
+
+            <span>
+
+                <label for="c1stButton">1st Button Name</label>
+                <input type="text" id="c1stButton" name="campaignButton1" class="buttonInput"
+                    placeholder="Campaign 1st Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="c2ndButton">2nd Button Name</label>
+                <input type="text" id="c2ndButton" name="campaignButton2" class="buttonInput"
+                    placeholder="Campaign 2nd Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="c3rdButton">3rd Button Name</label>
+                <input type="text" id="c3rdButton" name="campaignButton3" class="buttonInput"
+                    placeholder="Campaign 3rd Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="cStatus">Campaign Status</label>
+                <input type="number" id="cStatus" name="campaignStatus" placeholder="Enter Campaign Status">
+            </span>
+
+        </span>
+
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div> -->
+
+
+
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

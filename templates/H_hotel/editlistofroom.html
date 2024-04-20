@@ -1,0 +1,107 @@
+
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+{% for a in modifyroomlist %}
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'edisubmitroomlista' a.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'edisubmitroomlista' a.id %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Edit Room Number information </h4>
+            </span>
+<span class="formOne inputGridThree">
+    <span class="formOne" style="padding-bottom:0 ;">
+        <label for="hotelfoodimage">Room Image</label> 
+        <input type="file" id="hotelfoodimage" name="foodimage" class="imageInput"
+            accept="image/*" >
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="room_number">Room Number</label>
+            <input type="text" id="room_number" name="reroomnumber"
+               value="{{a.room_number}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_floor">Room Floor</label>
+            <input type="text" id="room_floor" name="reroomfloor"
+                value="{{a.room_floor}}" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="hotel_room_type">select Room type</label>
+            <select name="rehotelroomtype" id="roomname">
+                <option value="{{a.l_room_type}}">{{a.hotel_room_type.l_room_type}}</option>
+                {% for name in room_type %}
+                <option value="{{ name.id }}">{{name.l_room_type}}</option>
+                {% endfor %}
+            </select><br>
+        </span>
+
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+{% endfor %}
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

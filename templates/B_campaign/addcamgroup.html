@@ -1,0 +1,105 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>Contact Groups</h3>
+        <a style="margin:5px" href="{% url 'addgroups' %}">
+            <button>Create Group</button>
+        </a>
+    </div>
+</div>
+{% if message %}
+<div class="alert alert-success">
+    {{ message }} 
+</div>
+{% endif %}
+<div style="overflow-y: scroll;" id="campaignInfolist">
+    <table>
+        <thead>
+            <tr>
+                <th>Group name</th>
+                <th>Contacts</th>
+                <th>action</th>
+
+
+            </tr>
+            <tbody id="mytable">
+                {% for a in grouplist %}
+                <tr>
+                    <td>{{a.group_name}}</td>
+                    <td><a href="{% url 'numbermapping' a.id %}"><button> Assign</button></a></td>
+                    <th>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editgroupdata' a.id %}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'detelegroup' a.id %}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                            <a href="#" onclick="showGroupModal('{{ a.id }}')">
+                                <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                              </a>
+                        </span>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+</div>
+
+<div id="groupModal" class="modal" style="display: none;">
+    <div class="modal-content" style="display: flex;
+    justify-content: center;">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Select campaign</h3>
+        <form id="groupForm" method="POST" action="{% url 'sendgroupcampaign'  %}">
+            {% csrf_token %}
+            <input type="hidden" id="templateIdInput" name="group_name" value="">
+            <select id="groupName" name="template_id" >
+                <label for="groupName">Select campaign:</label>
+                {% for group in templatedata %}
+                <option value="" hidden>Selcet campaign</option>
+                    <option value="{{ group.id }}">{{ group.generic_campaign_info.Campaign_Name}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+        // Modal functionality
+        function showGroupModal(templateId) {
+            document.getElementById('templateIdInput').value = templateId;
+            document.getElementById('groupModal').style.display = 'block';
+        }
+    
+        function closeModal() {
+            document.getElementById('groupModal').style.display = 'none';
+        }
+    
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            let modal = document.getElementById('groupModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+</script>
+
+
+{% endblock rightcontent %}

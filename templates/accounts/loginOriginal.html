@@ -1,0 +1,110 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+{% endblock header %}
+
+{% block body %}
+<div class="flexPageRg" >
+    <div class="flexPageRgLeft">
+        <img src="{% static 'img/loginImg.png' %}" alt="contactUsImg">
+    </div>
+    <div class="flexPageRgRight" >
+        <div class="frmCenter"style="flex-direction: column;">
+            
+            <form class="" action="{% url 'login' %}" method="post" style="width: -webkit-fill-available;position: relative;" novalidate>
+                {% csrf_token %}
+                <span class="headFlex">
+                    <h2>log in</h2>
+                </span>
+                
+                <div class="formOne">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Email address" name="email" required autocomplete="email">
+                    </div>
+                    <span style="position: relative;">
+                        <label for="id_password">Enter Password</label>
+                        <input type="password" name="password" placeholder=" Password " autocomplete="current-password" required id="id_password">
+                        <i class="bi bi-eye-slash" id="togglePassword" style="margin: 25px 0px 0 -40px;cursor: pointer;position: absolute; right: 10px;"></i>
+                    </span>
+                </div>
+                <div class="checkBoxDiv">
+                    <!-- <div class="remberLogin">
+                        <input type="checkbox" checked="checked" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div> -->
+                    <div class="forgotPassLogin">
+                        <a href="{% url 'reset_password' %}">Forgot password?</a>
+                    </div>
+                </div>
+                <span class="spanSubmitForm">
+                    <button type="submit" id="login-button">LogIn</button>
+                </span>
+            </form>
+                {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+                <div class="loginContactUs">
+                    <p>Don't have an account? <a href="{% url 'demo' %}" style="color: green;">Contact Us!</a></p>
+                </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var inputs = document.querySelectorAll('input');
+
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            var label = document.querySelector('label[for="' + input.id + '"]');
+
+            if (label) { // Add a null check for the label element
+
+                if (input.hasAttribute('required')) {
+                    var asteriskSpan = document.createElement('span'); // Create a <span> element
+                    asteriskSpan.textContent = ' *';
+                    asteriskSpan.classList.add('required-asterisk'); // Add class to the <span> element
+                    label.appendChild(asteriskSpan); // Append the <span> element to the label
+
+
+                } else {
+                    label.textContent += ' (optional)';
+                }
+            }
+        }
+    });
+
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+    togglePassword.addEventListener('click', function () {
+        password.type = password.type === 'password' ? 'text' : 'password';
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    });
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function refreshCSRFToken() {
+        const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]');
+        console.log(csrfToken); // Debugging statement
+        if (csrfToken) {
+            const csrfInput = document.querySelector('#csrf_input');
+            console.log(csrfInput); // Debugging statement
+            csrfInput.value = csrfToken.value;
+        }
+    }
+
+    refreshCSRFToken();
+});
+</script>
+{% endblock script %}

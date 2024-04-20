@@ -1,0 +1,107 @@
+{% extends "donationDash.html" %}
+{% load static %}
+{% block title %}Assign Sub Client{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+{% endblock header %}
+{% block rightcontent %}
+
+{% include 'N_donation/settingNav.html' %}
+
+<div class="mT15">
+    
+    <div class="frmCenter">
+        <form method="post" class="profileForm" action="{% url 'assignSubClientDonation' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign User Permission</h3>
+            </span>
+            <span class="formOne">
+               
+                {% for choice in SUBCLIENT_CHOICE %}
+                {% if choice.0 != 'ticket' and choice.0 != 'scanner' and choice.0 != 'campaign' %}
+                    <label>
+                        <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                        {{ choice.1 }}
+                    </label>
+                {% endif %}
+            {% endfor %}
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form>
+<!-- 
+        <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+            <span class="formOne">
+                <label>Preference</label>
+                {% for choice in SUBCLIENT_CHOICE %}
+                    <label>
+                        <input type="radio" name="preference" value="{{ choice.0 }}" {% if preferences and preferences.preference == choice.0 %}checked{% endif %}>
+                        {{ choice.1 }}
+                    </label>
+                {% endfor %}
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form> -->
+
+        <!-- <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+            <span class="formOne">
+                <label for="preference">Preference</label>
+                <select id="preference" name="preference">
+                    <option value="none" {% if preferences and preferences.preference == 'none' %}selected{% endif %}>None</option>
+                    <option value="campaign" {% if preferences and preferences.preference == 'campaign' %}selected{% endif %}>Campaign</option>
+                    <option value="ticket" {% if preferences and preferences.preference == 'ticket' %}selected{% endif %}>Ticket</option>
+                    <option value="scanner" {% if preferences and preferences.preference == 'scanner' %}selected{% endif %}>Scanner</option>
+                </select>
+            </span>
+        
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form>
+         -->
+    
+        <!-- <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}"
+            style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+         <span class="formOne">
+                <span class="radioSUb">
+                    <label >Campaign</label>
+                    <input type="checkbox" id="campaign" name="campaign" {% if preferences and preferences.campaign%}checked{% endif %}>
+                    
+                </span>
+                <span class="radioSUb">
+                    <label >Ticket</label>
+                    <input type="checkbox" id="ticket" name="ticket" {% if preferences and preferences.ticket%}checked{% endif %}>
+                    
+                </span>
+                <span class="radioSUb">
+                    <label >Scanner</label>
+                    <input type="checkbox" id="scanner" name="scanner" {% if preferences and preferences.scanner%}checked{% endif %} >
+                    
+                </span>
+            </span>
+
+            
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form> -->
+    </div>
+</div>
+{% endblock rightcontent %}

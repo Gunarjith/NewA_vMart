@@ -1,0 +1,55 @@
+{
+  "version": "2.1",
+  "screens": [
+    {
+      "id": "Address_Form",
+      "title": "Address Form",
+      "data": {},
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "form",
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "Area",
+                "input-type": "text",
+                "name": "Area",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Land Mark",
+                "input-type": "text",
+                "name": "Land Mark",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Pin Code",
+                "input-type": "number",
+                "name": "Pin Code",
+                "required": false
+              },
+              {
+                "type": "Footer",
+                "label": "Done",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "Area": "${form.Area}",
+                    "Land Mark": "${form.Land Mark}",
+                    "Pin Code": "${form.Pin Code}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

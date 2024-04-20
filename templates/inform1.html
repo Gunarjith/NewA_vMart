@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="contact-form">
+        <!-- <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br> -->
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required><br><br>
+
+        <input type="hidden" id="formid" name="formid" value="{{refid}}"><br><br>
+        <input type="hidden" id="cid" name="cid" value="{{clientID}}"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+        <div id="success-message" style="display: none; color: green;">
+            Your data has been saved successfully!
+    </div>
+    <script>
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            
+            const phone = document.getElementById("phone").value;
+            const formid = document.getElementById("formid").value;
+            const cid = document.getElementById("cid").value;
+
+            // Create payload data to be sent to the webhook
+            const payload = {
+                
+                phone: phone,
+                formid: formid, // Add the 'formid' to the payload
+                cid:cid
+            };
+
+            // Send an HTTP POST request to your webhook URL
+            const webhookUrl = "https://vmart.ai/webhook/qFZ4MHQo8P6X8U_gxXMLdA"; // Replace with your actual webhook URL
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                // Handle the response if needed
+                if (response.ok) {
+                    console.log("Webhook triggered successfully!");
+                    // Optionally, you can show a success message to the user here
+                    document.getElementById("success-message").style.display = "block";
+                    
+                    document.getElementById("phone").value = "";
+                    const clientNumber = "{{ clientNumber }}"; // Get the client number from your backend
+                      window.location.href = `https://wa.me/${clientNumber}`;
+                } else {
+                    console.error("Failed to trigger webhook!");
+                    // Optionally, you can show an error message to the user here
+                }
+            }).catch(error => {
+                console.error("Error while triggering webhook:", error);
+                // Optionally, you can show an error message to the user here
+            });
+        });
+    </script>
+</body>
+</html>

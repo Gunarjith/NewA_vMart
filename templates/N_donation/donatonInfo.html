@@ -1,0 +1,426 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+{% include 'N_donation/ConfigNav.html' %}
+
+<div class="frmCenter" style="margin: 0 15px 10px;">
+    <div>
+        <form class="profileForm" action="{% if marketplace_id %}{% url 'generalDonationInfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'generalDonationInfo' %}{% endif %}" method="post" enctype="multipart/form-data" style="position: relative; width: 100%;">
+            {% csrf_token %}
+            
+            <!-- Move the input inside the form tag -->
+           
+
+
+            <div style="display: flex; gap: 25px; margin-bottom:10px;">
+                <div class="profileForm profileForm1">
+                    <span class="headFlex">
+                        <h4>Welcome message</h4>
+                    </span>
+                    <input type="hidden" name="marketplace_id" value="{{ marketplace_id }}">
+
+        <!-- {{ donation_setting.marketplace_id }}
+        {% if donation_setting %}
+            <p>Marketplace ID: {{ donation_setting.marketplace_id }}</p>
+        {% endif %} -->
+
+                    <span class="formOne" style="padding-bottom:0 ;">
+                        <label for="welcomeheaderimageId">Image</label>
+                        <input type="file" id="welcomeheaderimageId" name="donationImage" class="imageInput"
+                            accept="image/*" required>
+                        <span class="validationMessageImg"></span>
+                    </span>
+                    <span></span>
+                    </span>
+
+                    <span class="formOne inputGridTwo" style="padding: 0 25px !important;">
+
+                        <span>
+                            <label for="welcomemessagetextId">Donation Description</label>
+                            <input type="text" id="welcomemessagetextId" name="donationDescription"
+                                placeholder="Enter Donation Description" class="mainInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="welcomefootertextId">Footer message</label>
+                            <input type="text" id="welcomefootertextId" name="donationFooter"
+                                placeholder="Enter Footer Text" class="footerInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="bookingbuttonnameId">Donate now button/donation button</label>
+                            <input type="text" id="bookingbuttonnameId" name="donationNowButtonName"
+                                placeholder="Enter Donation Now Button Name" class="buttonInput button1 emoji-input"
+                                required>
+                            <span class="charCount"></span>
+                        </span>
+
+                        <!-- For the second button (My Tickets) -->
+                        <span>
+                            <label for="bookingmyticketnameId">My Donate now button/donation button</label>
+                            <input type="text" id="bookingmyticketnameId" name="myDonationButtonName"
+                                placeholder="Enter MyDonation Button Name" class="buttonInput button2 emoji-input"
+                                required>
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="bookingmyticketnameId1">ContactButton Name </label>
+                            <input type="text" id="bookingmyticketnameId1" name="contactUsButtonName"
+                                placeholder="Enter Contact Button Name" class="buttonInput button2 emoji-input"
+                                required>
+                            <span class="charCount"></span>
+                        </span>
+
+                    </span>
+                    
+                </div>
+                <div class="profileForm profileForm1">
+                    <!-- <div class="profileForm profileForm1" style="margin: 10px 0;"> -->
+                    <span class="headFlex">
+                        <h4>Donation</h4>
+                    </span>
+                    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+
+                        <span>
+                            <label for="bookingheadertextId">Header message</label>
+                            <input type="text" id="bookingheadertextId" name="donationListHeader"
+                                placeholder="Enter Donation Header Text" class="headerInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="bookingmessagetextId">Body Message</label>
+                            <input type="text" id="bookingmessagetextId" name="donationListBody"
+                                placeholder="Enter Body Message Text" class="mainInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="bookingmessagefooterId">Footer</label>
+                            <input type="text" id="bookingmessagefooterId" name="donationListFooter"
+                                placeholder="Enter Donation Message footer" class="footerInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="eventbuttonnameId">Button</label>
+                            <input type="text" id="eventbuttonnameId" name="donationListButtonName"
+                                placeholder="Enter Button Name" class="buttonInput emoji-input" required>
+                            <span class="charCount"></span>
+                        </span>
+
+
+                    </span>
+
+                    <span class="headFlex">
+                        <h4>My donation details</h4>
+                    </span>
+                    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+                        <span>
+                            <label for="donationDetailsid1">Button Name</label>
+                            <input type="text" id="donationDetailsid1" name="donationDetailsButton1"
+                                placeholder="Enter Button Name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="donationDetailsid2">Button Name</label>
+                            <input type="text" id="donationDetailsid2" name="donationDetailsButton2"
+                                placeholder="Enter Button Name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="donationDetailsid3">Button Name</label>
+                            <input type="text" id="donationDetailsid3" name="donationDetailsButton3"
+                                placeholder="Enter Button Name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                    </span>
+
+
+                </div>
+            </div>
+
+            
+            <div class="formOne inputGridThree" style="padding-bottom:0 ;">
+                <span>
+                    <span class="headFlex" style="padding: 0;">
+                        <h4>Conformation</h4>
+                    </span>
+                    <span>
+                        <label for="transferbuttonnameId">Confirmation message/confirmation Notification</label>
+                        <input type="text" id="transferbuttonnameId" name="donationConformMessage"
+                            placeholder="Enter conform Message" class="footerInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+                </span>
+
+                <span>
+                    <span class="headFlex" style="padding: 0;">
+                        <h4>Failure message</h4>
+                    </span>
+                    <span>
+                        <span>
+                            <label for="paymentfailuremessagebodyId">Main Message</label>
+                            <input type="text" id="paymentfailuremessagebodyId" name="donationFailureMessage"
+                                placeholder="Enter failure message" class="footerInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                    </span>
+                </span>
+              
+            </div>
+
+            <div class="profileForm profileForm1" style="margin: 10px 0; padding-bottom: 0;">
+                <span class="headFlex">
+                    <h4>Contact message</h4>
+                </span>
+                <span class="formOne inputGridThree" style="padding-bottom: 0;">
+
+                    <span>
+                        <span>
+                            <label for="contactHeaderimageId">Image</label>
+                            <input type="file" id="contactHeaderimageId" name="contactheaderimage"
+                                class="imageContactInput" accept="image/*" required>
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+                    </span>
+
+                    <!-- <span class="formOne inputGridTwo" style="padding-bottom:  0;"> -->
+                        <span>
+                            <label for="contactMessagebodyId">Main Message</label>
+                            <input type="text" id="contactMessagebodyId" name="donationContactUsMessage"
+                                placeholder="Enter Contact  message" class="mainInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label for="contactButtonnameId">Button Name</label>
+                            <input type="text" id="contactButtonnameId" name="ContactNowButtonName"
+                                placeholder="Enter Contact button name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                    <!-- </span> -->
+                </span>
+
+
+            </div>
+
+
+            <div class="profileForm profileForm1" style="margin:10px 0;">
+                <span class="headFlex">
+                    <h4>N G O</h4>
+                </span>
+                <span class="formOne inputGridThree" style="padding-bottom: 0;">
+                    <span>
+                        <span>
+                            <label for="contactHeaderimageId">Logo</label>
+                            <input type="file" id="contactHeaderimageId" name="ngoLogo" class="imageInput"
+                                accept="image/*" required>
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+                    </span>
+
+                    <span>
+
+                        <span>
+                            <label for="signimageId">Image</label>
+                            <input type="file" id="signimageId" name="ngoSignatureImage" class="imageInput"
+                                accept="image/*" required>
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+
+                    </span>
+                
+
+
+                <!-- <span class="formOne inputGridThree"> -->
+
+
+                    <span>
+                        <label for="ticketcount1_descId">Support Number</label>
+                        <input type="number" id="ticketcount1_descId" name="supportNumber"
+                            placeholder="Enter Support Number">
+                    </span>
+
+
+                    <span>
+                        <label for="ticketcount2_descId">N G O Name</label>
+                        <input type="text" id="ticketcount2_descId" name="ngoName" placeholder="Enter ngo Name"
+                            class="footerInput">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount3_descId">N G O Pan</label>
+                        <input type="text" id="ticketcount3_descId" name="ngoPan" placeholder="N G O Pan">
+                        <!-- <span class="charCount"></span> -->
+
+                    </span>
+
+                    <span>
+                        <label for="ticketcount4_descId">N G O Gstin</label>
+                        <input type="text" id="ticketcount4_descId" name="ngoGstin" placeholder="N G O Gstin">
+                        <!-- <span class="charCount"></span> -->
+                    </span>
+
+                    <span>
+                        <label for="ticketcount5_descId">N G O Header Notes</label>
+                        <input type="text" id="ticketcount5_descId" name="ngoHeaderNotes"
+                            placeholder="N G O Header Notes" class="mainInput">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount6_descId">N G O Footer Notes</label>
+                        <input type="text" id="ticketcount6_descId" name="ngoFooterNotes"
+                            placeholder="N G O Footer Notes" class="mainInput">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount7_descId">N G O Signature Header</label>
+                        <input type="text" id="ticketcount7_descId" name="ngoSignatureHeader"
+                            placeholder="Enyer N G O Signature Header">
+                        <span class="charCount"></span>
+                    </span>
+
+
+                    <span>
+                        <label for="ticketcount8_descId">N G O Signature Footer</label>
+                        <input type="text" id="ticketcount8_descId" name="ngoSignatureFooter"
+                            placeholder="N G O Signature Footer" class="footerInput">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount9_descId">Invoice Footer</label>
+                        <input type="text" id="ticketcount9_descId" name="invoiceFooter" placeholder="Invoice Footer"
+                            class="footerInput">
+                        <span class="charCount"></span>
+                    </span>
+                   
+
+
+
+                    <!-- <span>
+                <label>Image</label>
+                <input type="file" name="useheaderimage" required>
+            </span>
+            <span>
+                <label>Main Message</label>
+                <input type="text" name="usemessagebody" placeholder="Enter Use Message Body">
+            </span> -->
+
+                </span>
+            </div>
+           
+            <div class="profileForm profileForm1" style="margin:10px 0;">
+                <span class="headFlex">
+                    <h4>Generate link</h4>
+                </span>
+                <span class="formOne inputGridThree" style="padding-bottom: 0;">
+                    <span>
+                        <label>Ngo Link Text</label>
+                        <input type="text" name="ngo_link_text" class="descriptionInput emoji-input">
+    
+                        <span class="charCount"></span>
+                    </span>
+                    
+                    <span>
+                        <label>Ngo Url</label>
+                        <input type="text" name="ngo_url" class="descriptionInput emoji-input">
+    
+                        <span class="charCount"></span>
+                    </span>
+    
+
+
+                </span>
+            </div>
+
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit" style="margin-left: 47% ;">
+            </span>
+
+        </form>
+ 
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function () {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- <emoji>-->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+     -->
+
+<!-- <script>
+        function validateForm(event) {
+        }
+        $(document).ready(function () {
+            $("#welcomemessagetextId").emojioneArea({
+                pickerPosition: "bottom"
+            });
+    
+            $("#welcomefootertextId").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("#bookingheadertextId").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("#bookingmessagetextId").emojioneArea({
+                pickerPosition: "bottom"
+            });
+        });
+    </script> -->
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

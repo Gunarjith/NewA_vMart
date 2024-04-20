@@ -1,0 +1,281 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+
+
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'eventmaster' %}"> <button>Classic</button></a>
+            <a href="{% url 'hierarchical' %}"> <button>Hierarchical</button></a>
+            <a href="{% url 'sunburst' %}"> <button>Graph</button></a>
+        </div>
+        <div style="margin-left: 75px; margin-right: 50px;">
+            <label class="switchT" style="position: relative;">
+                <span class="activeText" style="position: absolute; left: -55px;top: 25%;    color: #000;
+                font-weight: 500;">Active</span>
+                <input id="toggleSwitch" type="checkbox">
+                <span class="sliderT roundT"></span>
+                <span class="all" style="
+                position: absolute;
+                right: -25px;
+                top: 25%;
+                color: #000;
+    font-weight: 500;
+            ">All</span>
+              
+            </label>
+        </div>
+    </div>
+    <div class="headFlex">
+        <h3>Level-1 List</h3>
+        <a href="{% url 'addevents' %}">
+            <button>
+                Add Level-1
+            </button>
+        </a>
+    </div>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Name</th>
+                <th>Description</th>
+                <!-- <th>Message Header</th>
+                    <th>Body</th>
+                    <th>Footer</th> -->
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <!-- <th>Logo</th>
+                    <th>Image</th> -->
+                <th style="text-align: center;">Edit / Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in eventmaster %}
+            <tr>
+
+                <td>{{a.Event_Name}}</td>
+                <td>{{a.Event_Description}}</td>
+                <!-- <td style="text-align: left;">{{a.Event_Message_Header}}</td> -->
+                <!-- <td style="text-align: left;">{{a.Event_Body}}</td>
+                    <td style="text-align: left;">{{a.Event_Footer}}</td> -->
+                <td>{{a.Start_Date}}</td>
+                <td>{{a.End_Date}}</td>
+                <td>
+                    <span class="StatusTd {% if a.status == 1 %}activeStatus{% else %}inactiveStatus{% endif %}">
+                        {{ a.get_status_display }}
+                    </span>
+                </td>
+                <!-- <td><img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_Logo}}"></td>
+                    <td><img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_ticket_image}}"></td> -->
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'eventOFslot' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <span>
+                            <span class="activeEvent">
+                                <input type="radio" name="status_radio{{ a.id }}" value="1" {% if a.status == 1 %}checked{% endif %} onclick="confirmStatusChange(this, '{{ a.id }}')">
+                            </span>
+                            <span class="inActiveEvent">
+                                <input type="radio" name="status_radio{{ a.id }}" value="2" {% if a.status == 2 %}checked{% endif %} onclick="confirmStatusChange(this, '{{ a.id }}')">
+                            </span>
+                        </span>
+                        <a href="{% url 'deleteevents' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+
+
+
+                    <!-- <span class="slotEditBtn">
+                            <a href="{% url 'eventOFslot' a.id%}"><button class="eventMasterEditBtn"><i
+                                        class="fa fa-edit"></i></button> </a>
+                            <a href="{% url 'deleteevents' a.id %}"><button class="eventMasterDeletBtn"><i
+                                        class="fa fa-trash"></i></button></a>
+                        </span> -->
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</div>
+<div >
+    <div class="eventAlertTemplate" style="display: none;" >
+        <div id="confirmationModal" style="display: none;">
+        <div>Are you sure you want to <span id="modalMessage"></span> this event?</div>
+        <button id="confirmButton">Confirm</button>
+        <button id="cancelButton">Cancel</button>
+    </div>
+        <div id="statusMessage" style="display: none;"></div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function confirmStatusChange(element, eventId) {
+        var status = element.value;
+        console.log(eventId)
+        var message = status == 1 ? 'Activate' : 'Deactivate';
+
+        // Show the modal
+        $('#modalMessage').text(message);
+        $('.eventAlertTemplate').show()
+        $('#confirmationModal').show();
+       
+
+        // Handle the confirm button click
+        $('#confirmButton').click(function () {
+            $('#confirmButton').prop('disabled', true); // Disable the confirm button
+
+            var url = `/Eventmaster/updateEventStatus/${eventId}/`;
+            var data = {
+                event_id: eventId,
+                status: status
+            };
+            var csrftoken = getCookie('csrftoken');
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to update event status.');
+                    }
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        $('#confirmationModal').hide();
+                        $('#statusMessage').text('Event status updated successfully. Reloading page...');
+                    } else {
+                        throw new Error('Failed to update event status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    $('.eventAlertTemplate').hide()
+                    $('#confirmationModal').hide();
+                    $('#statusMessage').text('An error occurred while updating the event status. Reloading page...');
+                    // Revert the radio button selection
+                    element.checked = !element.checked;
+                })
+                .finally(() => {
+                    $('#statusMessage').show(); // Show the status message
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after a delay
+                    }, 2000);
+                });
+        });
+
+        // Handle the cancel button click
+        $('#cancelButton').click(function () {
+            $('.eventAlertTemplate').hide()
+            $('#confirmationModal').hide(); // Hide the modal
+            // Revert the radio button selection
+            element.checked = !element.checked;
+        });
+    }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+<!-- today -->
+
+<script>
+    const toggleSwitch = document.getElementById('toggleSwitch');
+    toggleSwitch.addEventListener('change', function () {
+        const isChecked = toggleSwitch.checked;
+        const urlParams = new URLSearchParams(window.location.search);
+        if (isChecked) {
+            urlParams.set('status', 'all');
+        } else {
+            urlParams.delete('status');
+        }
+        window.location.search = urlParams.toString();
+    });
+
+    // Set the initial state of the toggle switch based on the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const statusParam = urlParams.get('status');
+    toggleSwitch.checked = statusParam === 'all';
+
+    // Show all records if the toggle switch is checked
+    if (toggleSwitch.checked) {
+        const tableRows = document.querySelectorAll('#mytable tr');
+        tableRows.forEach(function (row) {
+            row.style.display = 'table-row';
+            
+        });
+    }
+</script>
+
+
+
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,75 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<!-- <h2>Welcome {{user.username}}</h2> -->
+
+<div class="adminBillingDashboard">
+    <div class="buttonsOfBillingsDiv">
+        <a href="{% url 'payment' %}" class="buttonsOfBillings">TopUp</a>
+        <a href="{% url 'paymenthis' %}" class="buttonsOfBillings">Topup History</a>
+    </div>
+
+
+    {% for k in pointde %}
+    <!--<p>Last Up date : <b>{{k.payment_date}}</b></p>-->
+    <p>Available Points :<b> {{k.wallet_balance_point}}</b></p>
+    <!--<p>Top Up date : <b>{{k.payment_balance}}</b></p>-->
+    {% endfor %}
+
+</div>
+
+<div id="formContain">
+    <div  class="topUpBillingDashboardTable">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Order Id</th>
+                    <th>Payment Id</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for j in paymentHistoryObject %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td>{{j.client_payment_date}}</td>
+                    <td>{{j.amount}}</td>
+                    <td>{{j.razorpay_order_id}}</td>
+                    <td>{{j.razorpay_payment_id}}</td>
+                    <td>Paid</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

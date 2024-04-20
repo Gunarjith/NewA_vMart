@@ -1,0 +1,90 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<!-- <div class="frmCenter" style="margin: 15px;"> -->
+  
+  
+<!-- </div> -->
+
+<div class="mT15">
+<div class="headFlex">
+        
+    <h3>template   detail </h3>
+  <span class="btnConLevel">
+
+    
+    {% if template_instance is  not  none%}
+    <a href="{% url 'addTempleteBtn' id=template_instance.id %}">
+    <button>add button </button>
+</a>
+{% endif %}
+
+
+
+</span>
+
+</div>
+</div>
+<div class="frmCenter" style="margin: 10px;">
+
+    <form method="post" enctype="multipart/form-data">
+    
+   
+        {% csrf_token %}
+        <span class="formOne inputGridThree">
+            <!-- <span class="eventImgFileFlex"> -->
+            <span>
+
+                <label for="template_name">Template Name:</label>
+            <input type="text" id="template_name cName" name="template_name" value="{{ template_instance.template_name }}" id="">
+                <span class="charCount"></span>
+            </span>
+            <span>
+
+                <label for="template_header_text">Template Header Text:</label>
+            <input type="text" id="template_header_text cName" name="template_header_text" value="{{ template_instance.template_header_text }}" id="">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <span>
+                    <label for="template_header_image cImg">Image</label>
+                    <input type="file" name="template_header_image campaignImg" id="template_header_image cImg" class="imageInput" accept="image/*">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+       
+            </span>
+            <span>
+
+                <label for="template_body_message">Template Body Message:</label>
+            <input type="text" id="template_body_message cName" name="template_body_message" value="{{ template_instance.template_body_message }}" id="">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label>select Type</label>
+                <select id="serviceselect" name="selectsoption">
+                   <!-- <option>{{a.client_service_type}}</option> -->
+                   <option value="image">Image</option>
+                   <option value="text">Text</option>
+                   <!-- <option value="scanner">SCANNER</option> -->
+                </select>
+            </span>
+        <input type="hidden" name="marketplace_id" value="{{ marketplaces }}">
+        <input type="hidden" name="generic_campaign_info_id" value="{{ campaign_id }}">
+        <!-- <input type="hidden" name="client_id" value="{{ client_id }}"> -->
+      
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+
+   
+    </form>
+ 
+</div>
+</div> 
+   
+{% endblock %}

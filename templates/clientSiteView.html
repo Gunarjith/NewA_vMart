@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ---  -->
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'css/clientSiteView.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/addtocart.css' %}"> -->
+</head>
+
+<body id="maincustomervailobgc">
+
+
+  <nav class="navbarvmart" style="" id="navbarvmartbgc">
+    <a href="#" class="pl-3 my-1"><img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{imagepath}}" class="rounded" height="70" width="70" alt="Vmart_WhatsApp"></a>
+  </nav>
+
+
+
+ 
+    <div class="mainCustomerVailo p-2" >
+        <div class="NavCustomerVailo">
+            <div class="navLogoCustomerVailo"></div>
+
+        </div>
+        <div class="mainDataCustomerVailo">
+
+            <div class="productListCustomerVailo" id="productListCustomerVailo">
+              {% for i,k in im.items %}
+              
+              <h3 style="text-transform: uppercase;">{{i}}</h3><br>
+                <div class="item3" id="item3">
+                  
+                  {% for l in k %}
+                    <div class="productVailoCustomerList">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{l.product_bot_image}}"
+                            alt="{{l.product_bot_image}}">
+                        <button class="AddtoCartCustomerVailo" id="{{l.product_id}}">Add to Cart</button>
+                    </div>
+                    {% endfor %}
+
+                  
+                   
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+
+            <!-- ------  -->
+            <a href="javascript:void(0);" class="iconNavOpen" id="iconNavOpen" onclick="openNav()">
+       
+                <i class="fa-sharp fa-solid fa-cart-shopping" id="cartIcon">  <span class="count" id="count_iiid">0</span></i>
+            </a>
+                
+            <div class="rightSideBarCustomerVailo" id="rightSideBarCustomerVailo">
+                <h1 class="text-capitalize">Cart</h1>
+              
+
+                <div class="shopping-cart soppingCartMain">
+
+                    <div class="column-labels">
+                        <label class="product-image">Image</label>
+                        <label class="product-details">Product</label>
+                        <!-- <label class="product-price">Price</label> -->
+                        <label class="product-quantity">Quantity</label>
+                        <!-- <label class="product-removal">Remove</label> -->
+                        <label class="product-line-price">Total</label>
+                    </div>
+                    <div class="cartProducts" id="cartProductsweb">
+
+                    </div>
+                    
+
+                    <div class="totals">
+                        <!-- <div class="totals-item">
+                            <label>Subtotal</label>
+                            <div class="totals-value" id="cart-subtotal">0</div>
+                        </div>
+                        <div class="totals-item">
+                            <label>Tax (5%)</label>
+                            <div class="totals-value" id="cart-tax">0</div>
+                        </div>
+                        <div class="totals-item">
+                            <label>Shipping</label>
+                            <div class="totals-value" id="cart-shipping">0</div>
+                        </div> -->
+                        <div class="totals-item totals-item-total">
+                            <label>Item Total</label>
+                            <div class="totals-value" id="cart-total">0</div>
+                        </div>
+                    </div>
+
+                    <a class="checkout" href="https://wa.me/{{num_num}}?text=Menu" id="link_to" onclick="removeAll()">Checkout</a>
+
+                </div>
+
+            </div>
+
+            <div id="vailoNavSidebar" class="sidenavVailo">
+                <a href="javascript:void(0)" class="closebtnNav" onclick="closeNav()"><i class="fa-solid fa-circle-xmark closeNavIcon"></i></a>
+                <div class="shopping-cart">
+
+                    <div class="column-labels">
+                        <label  class="product-image screenTittleHide">Image</label>
+                        <label class="product-details screenTittleHide">Product</label>
+                        <!-- <label class="product-price">Price</label> -->
+                        <label class="product-quantity screenTittleHide">Quantity</label>
+                        <!-- <label class="product-removal">Remove</label> -->
+                        <label class="product-line-price">Total</label>
+                    </div>
+
+                    <div class="cartProductsMobile" id="cartProductsMobile">
+                            
+                    </div>
+                   
+
+
+                    <div class="totals" style="height: 100%;">
+                        <!-- <div class="totals-item">
+                            <label>Subtotal</label>
+                            <div class="totals-value" id="cart-subtotal">0</div>
+                        </div>
+                        <div class="totals-item">
+                            <label>Tax (5%)</label>
+                            <div class="totals-value" id="cart-tax">0</div>
+                        </div>
+                        <div class="totals-item">
+                            <label>Shipping</label>
+                            <div class="totals-value" id="cart-shipping">0</div>
+                        </div> -->
+                        <div class="totals-item totals-item-total">
+                            <label>Item Total</label>
+                            <div class="totals-value" id="cart-total1">0</div>
+                        </div>
+                        <a class="checkout" href="https://wa.me/{{num_num}}?text=Menu" id="link_to1" onclick="removeAll()">Checkout</a>
+
+                    </div>
+
+                    
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        
+    <script>
+        // const product =  document.getElementById("productListCustomerVailo").innerHTML
+        function openNav() {
+            document.getElementById("vailoNavSidebar").style.visibility = "visible";
+            document.getElementById("productListCustomerVailo").style.visibility="hidden";
+            document.getElementById("cartIcon").style.visibility="hidden";
+
+        }
+
+        function closeNav() {
+            document.getElementById("vailoNavSidebar").style.visibility = "hidden";
+            document.getElementById("productListCustomerVailo").style.visibility="visible";
+            document.getElementById("cartIcon").style.visibility="visible";
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!-- ---------------------------------------User Change Client Page-------------------------------------------- -->
+    <script>
+    document.getElementById("navbarvmartbgc").style.backgroundColor = '{{color4}}';
+    document.getElementById("maincustomervailobgc").style.backgroundColor =  '{{color5}}';
+    //   let cd=localStorage.getItem('productsInCart');
+    
+    //   let cd1=JSON.parse(cd);
+    //   cd2=cd1[Object.keys(cd1)[0]]['client_id']
+    //   console.log("{{cilentId}}")
+    // if (cd2!="{{cilentId}}"){
+    //   localStorage.removeItem('cart_token');
+    //   localStorage.removeItem('productsInCart');
+    //   localStorage.removeItem('totalCost');
+    //   localStorage.removeItem('cartNumbers');
+      
+    // }else if(cd={}){
+     
+    //   // localStorage.removeItem('cart_token');
+    //   // localStorage.removeItem('productsInCart');
+    //   // localStorage.removeItem('totalCost');
+    //   // localStorage.removeItem('cartNumbers');
+    // }
+
+
+
+    let cd=localStorage.getItem('productsInCart');
+      if(cd!={}){
+        let cd1=JSON.parse(cd);
+      cd2=cd1[Object.keys(cd1)[0]]['client_id']
+      // console.log("{{cilentId}}")
+        if (cd2!="{{cilentId}}"){
+      localStorage.removeItem('cart_token');
+      localStorage.removeItem('productsInCart');
+      localStorage.removeItem('totalCost');
+      localStorage.removeItem('cartNumbers');
+      
+    }
+      }else{
+        localStorage.removeItem('productsInCart');
+      localStorage.removeItem('totalCost');
+      localStorage.removeItem('cartNumbers');
+      }
+
+  </script>
+
+<script>
+    document.getElementById("vailoNavSidebar").style['height']="83%";
+// document.getElementById('rightSideBarCustomerVailo').style.visibility = "hidden";
+
+    //   let cart=JSON.parse(localStorage.getItem('productsInCart'));
+    //   let totalCost=localStorage.getItem('totalCost');
+    //   let cartNumbers=localStorage.getItem('cartNumbers');
+    //   console.log(typeof cart,'carttttt')
+    //  if(Object.keys(cart).length === 0 && totalCost==0 && cartNumbers==0){
+    //   document.getElementById('rightSideBarCustomerVailo').style.visibility = "hidden";
+    //   console.log('hihihi')
+    //  }else{
+    //   document.getElementById('rightSideBarCustomerVailo').style.visibility="visible";
+    //  }
+
+
+
+
+</script>
+
+    
+  
+    <script type="text/javascript" src="{% static 'js/clientSiteJs.js' %}"></script>
+  </body>
+</html>

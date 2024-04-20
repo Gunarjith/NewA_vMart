@@ -1,0 +1,391 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter">
+    <div>
+    <form class="profileForm" action="{% url 'generalinfo' %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        <!-- <span class="headFlex">
+        <h3>Event information</h3>
+    </span> -->
+        {% csrf_token %}
+        <div class="profileForm">
+            <span class="headFlex">
+                <h4>Support Number</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="ticketsecondnumberId">Second Number</label>
+                    <input type="number" id="ticketsecondnumberId" name="ticketsecondnumber"
+                        placeholder="Enter Second Number" required>
+                </span>
+            </span>
+        </div>
+
+
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Welcome message</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="welcomeheaderimageId">Image</label>
+                    <input type="file" id="welcomeheaderimageId" name="welcomeheaderimage" class="imageInput" accept="image/*" required>
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="welcomemessagetextId">Main Message</label>
+                    <input type="text" id="welcomemessagetextId" name="welcomemessagetext"
+                        placeholder="Enter Welcome message Text" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="welcomefootertextId">Footer</label>
+                    <input type="text" id="welcomefootertextId" name="welcomefootertext"
+                        placeholder="Enter Welcome Footer Text" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+
+
+
+
+
+                <span>
+                    <label for="bookingbuttonnameId">1st Button Name(Book Tickets)</label>
+                    <input type="text" id="bookingbuttonnameId" name="bookingbuttonname"
+                        placeholder="Enter Booking Button Name" class="buttonInput button1" required>
+                    <span class="charCount"></span>
+                </span>
+
+                <!-- For the second button (My Tickets) -->
+                <span>
+                    <label for="bookingmyticketnameId">2nd Button Name(My Tickets)</label>
+                    <input type="text" id="bookingmyticketnameId" name="bookingmyticketname"
+                        placeholder="Enter MyTicket Button Name" class="buttonInput button2" required>
+                    <span class="charCount"></span>
+                </span>
+
+                <!-- For the third button (Cancel Tickets) -->
+                <span>
+                    <label for="bookingcancelticketnameId">3rd button Name(Cancel Tickets)</label>
+                    <input type="text" id="bookingcancelticketnameId" name="bookingcancelticketname"
+                        placeholder="Enter Cancel Ticket Button Name" class="buttonInput button3" required>
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Booking Message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="bookingheaderimageId">Image</label>
+                    <input type="file" id="bookingheaderimageId" name="bookingheaderimage" class="imageInput" accept="image/*" required>
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="bookingheadertextId">Header</label>
+                    <input type="text" id="bookingheadertextId" name="bookingheadertext"
+                        placeholder="Enter Bookin Header Text" class="headerInput">
+                        <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label for="bookingmessagetextId">Main Message</label>
+                    <input type="text" id="bookingmessagetextId" name="bookingmessagetext"
+                        placeholder="Enter Booking Message Text" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmessagefooterId">Footer</label>
+                    <input type="text" id="bookingmessagefooterId" name="bookingmessagefooter"
+                        placeholder="Enter Booking Message footer" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label for="eventbuttonnameId">Button</label>
+                    <input type="text" id="eventbuttonnameId" name="eventbuttonname"
+                        placeholder="Enter Event Button Name" class="buttonInput" required>
+                    <span class="charCount"></span>
+                </span>
+
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>My Tickets</h4>
+            </span>
+            <span class="formOne">
+                <!-- <span>
+                    <label for="usebuttonnameId">1st Button Name</label>
+                    <input type="text" id="usebuttonnameId" name="usebuttonname" placeholder="Enter use button name">
+                </span> -->
+                <span>
+                    <label for="transferbuttonnameId">Button Name</label>
+                    <input type="text" id="transferbuttonnameId" name="transferbuttonname"
+                        placeholder="Enter transfer button name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Cancel message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="cancelticketheaderimageId">Image</label>
+                    <input type="file" id="cancelticketheaderimageId" name="cancelticketheaderimage" required>
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="cancelmessagebodyId">Main Message</label>
+                    <input type="text" id="cancelmessagebodyId" name="cancelmessagebody"
+                        placeholder="Enter cancel ticket message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Confirmation message</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="ticketconformationheaderimageId">Image</label>
+                    <input type="file" id="ticketconformationheaderimageId" name="ticketconformationheaderimage" class="imageInput" accept="image/*"
+                        required>
+                        <span class="validationMessageImg"></span>
+                    </span>
+                    <span></span>
+                <span>
+                    <label for="ticketconformationmessagebodyId">Main Message</label>
+                    <input type="text" id="ticketconformationmessagebodyId" name="ticketconformationmessagebody"
+                        placeholder="Enter ticket conformation message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Failure message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="paymentfailureheaderimageId">Image</label>
+                    <input type="file" id="paymentfailureheaderimageId" name="paymentfailureheaderimage" class="imageInput" accept="image/*" required>
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="paymentfailuremessagebodyId">Main Message</label>
+                    <input type="text" id="paymentfailuremessagebodyId" name="paymentfailuremessagebody"
+                        placeholder="Enter ticket failure message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Contact message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="contactHeaderimageId">Image</label>
+                    <input type="file" id="contactHeaderimageId" name="contactheaderimage" class="imageInput" accept="image/*" required>
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="contactMessagebodyId">Main Message</label>
+                    <input type="text" id="contactMessagebodyId" name="contactmessagebody"
+                        placeholder="Enter Contact Main message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="contactButtonnameId">Button Name</label>
+                    <input type="text" id="contactButtonnameId" name="contactbuttonname"
+                        placeholder="Enter Contact button name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Ticket Count</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="ticketcount1_descId">ticketcount1_desc</label>
+                    <input type="text" id="ticketcount1_descId" name="ticketcount1_desc"
+                        placeholder="ticketcount1_desc">
+                </span>
+                <span>
+                    <label for="ticketcount2_descId">ticketcount2_desc</label>
+                    <input type="text" id="ticketcount2_descId" name="ticketcount2_desc"
+                        placeholder="ticketcount2_desc">
+                </span>
+                <span>
+                    <label for="ticketcount3_descId">ticketcount3_desc</label>
+                    <input type="text" id="ticketcount3_descId" name="ticketcount3_desc"
+                        placeholder="ticketcount3_desc">
+                </span>
+                <span>
+                    <label for="ticketcount4_descId">ticketcount4_desc</label>
+                    <input type="text" id="ticketcount4_descId" name="ticketcount4_desc"
+                        placeholder="ticketcount4_desc">
+                </span>
+                <span>
+                    <label for="ticketcount5_descId">ticketcount5_desc</label>
+                    <input type="text" id="ticketcount5_descId" name="ticketcount5_desc"
+                        placeholder="ticketcount5_desc">
+                </span>
+                <span>
+                    <label for="ticketcount6_descId">ticketcount6_desc</label>
+                    <input type="text" id="ticketcount6_descId" name="ticketcount6_desc"
+                        placeholder="ticketcount6_desc">
+                </span>
+                <span>
+                    <label for="ticketcount7_descId">ticketcount7_desc</label>
+                    <input type="text" id="ticketcount7_descId" name="ticketcount7_desc"
+                        placeholder="ticketcount7_desc">
+                </span>
+                <span>
+                    <label for="ticketcount8_descId">ticketcount8_desc</label>
+                    <input type="text" id="ticketcount8_descId" name="ticketcount8_desc"
+                        placeholder="ticketcount8_desc">
+                </span>
+                <span>
+                    <label for="ticketcount9_descId">ticketcount9_desc</label>
+                    <input type="text" id="ticketcount9_descId" name="ticketcount9_desc"
+                        placeholder="ticketcount9_desc">
+                </span>
+
+
+
+                <!-- <span>
+                <label>Image</label>
+                <input type="file" name="useheaderimage" required>
+            </span>
+            <span>
+                <label>Main Message</label>
+                <input type="text" name="usemessagebody" placeholder="Enter Use Message Body">
+            </span> -->
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+
+                <h4>Ticket Not available Message</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="notavailableheaderimageId">Image</label>
+                    <input type="file" id="notavailableheaderimageId" name="notavailableheaderimage" class="imageInput" accept="image/*" required>
+                <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="notavailablemessagebodyId">Main Message</label>
+                    <input type="text" id="notavailablemessagebodyId" name="notavailablemessagebody"
+                        placeholder="Enter not available tickets message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+
+        </div>
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit" style="margin-left: 47% ;">
+
+        </span>
+    </form>
+    <div class="frmCenter">
+        <form class="profileForm prfBtnRt" action="{% url 'levelSeting_page' %}" method="post" enctype="multipart/form-data"
+          style="position: relative; width: 100%;">
+          {% csrf_token %}
+          <span class="headFlex">
+            <h4>SELECT LEVEL</h4>
+          </span>
+        
+          <span class="formOne profileFormSpan">
+            <select name="level_settings">
+                <option value="none" {% if selected_level_settings == 'none' %}selected{% endif %}>Northing to Skip</option>
+                <option value="skiplevel1" {% if selected_level_settings == 'skiplevel1' %}selected{% endif %}>Skip Level 1</option>
+                <option value="skiplevel1and2" {% if selected_level_settings == 'skiplevel1and2' %}selected{% endif %}>Skip Level 1 and 2</option>
+            </select>
+        
+          </span>
+          <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+          </span>
+        </form>
+    </div>
+    </div>
+    
+
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function() {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

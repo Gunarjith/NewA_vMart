@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;800&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .containerReceipt {
+
+            margin: 15px;
+        }
+
+        .cantainerRow {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .cantainerColumn {
+            /* / flex: 0 0 66.666667%; / */
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #075e54;
+            border-radius: 0.25rem;
+
+        }
+
+        .formOne {
+            /* / / padding: 15px 60px 60px 25px; / /
+            / / background: var(--light); / / */
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            /* / gap: 15px 45px; /
+            / position: relative; / */
+        }
+
+        .formOne span {
+            /* / / width: 50%; / / */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spanSubmitForm {
+            display: flex;
+            /* / / align-items: center; / /
+            / / text-align: center; / / */
+            justify-content: end;
+
+        }
+
+        .formOne input,
+        textarea {
+            /* / / width: 100%; / /
+            / / height: 50px; / / */
+            padding: 5px 10px;
+            border: 1px solid #075e54;
+            border-radius: 1px;
+            font-size: 14px;
+            width: 85%;
+        }
+
+        input[type=submit] {
+
+            background: #075e54;
+            border: none;
+            border-radius: 4px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            letter-spacing: 0.01em;
+            padding: 11px 14px;
+            color: #fff;
+            text-transform: capitalize;
+            /* / position: absolute; / */
+            bottom: 10px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            width: inherit;
+            justify-content: center;
+        }
+
+        .formOne label {
+
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            display: flex;
+            align-items: center;
+            text-transform: capitalize;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .wtsAppForm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #075e54;
+            color: #fff;
+            /* / border-bottom: 2px solid #075e54 ; / */
+
+        }
+
+
+        .wtsAppForm img {
+            width: 70px;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+        }
+
+        .bottomNAvReceipt {
+            background: gainsboro;
+        }
+
+        .marginReceipt {
+            margin: 10px;
+            padding: 10px;
+            background: #fff;
+            margin: 10px 10px 50px;
+        }
+
+        .spanSubmitForm {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: -webkit-fill-available;
+        }
+
+        @media screen and (max-width: 600px) {
+            .formOne span {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerReceipt">
+        <div class="cantainerRow">
+            <div class="cantainerColumn">
+                <div class="card">
+                    <div class="wtsAppForm">
+                        <div class="left">
+                            <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{Filename}}">
+                        </div>
+                        <div class="right">
+                            <p>{{dname}}</p>
+                        </div>
+                    </div>
+                    <span class="bottomNAvReceipt">
+
+                        <div class="marginReceipt">
+
+
+                            <div class="formOne">
+                                <form class="profileForm myForm" id="contact-form">
+                                    <div class="frameForm">
+
+
+                                        <span>
+                                            <label for="name">Name:</label>
+                                            <input type="text" id="name" name="name" required><br><br>
+                                        </span>
+                                        <span>
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email"><br><br>
+                                        </span>
+                                        <span>
+                                            <label for="phone">PAN Number:</label>
+                                            <input type="tel" id="pan" name="phone"
+                                                ><br><br>
+                                        </span>
+                                        <span>
+                                            <label for="amount">Donation Amount:</label>
+                                            <input type="number" id="amount" name="amount" min="0" step="0.01" required><br><br>
+                                            
+                                        </span>
+                                        <span>
+                                            <label for="comments">Comments:</label>
+                                            <textarea id="comments" name="comments" rows="" cols=""></textarea><br>
+                                        </span>
+
+
+                                    </div>
+                                    <span>
+                                        <input type="hidden" id="formid" name="formid" value="{{number}}">
+                                        <input type="hidden" id="cid" name="cid" value="{{clientID}}">
+                                    </span>
+                                    <div class="spanSubmitForm">
+                                        <input type="submit" value="Submit">
+                                    </div>
+                                </form>
+                                <div id="success-message" style="display: none; color: green;">
+                                    Your data has been saved successfully!
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const existingAmount = parseFloat("{{Donation}}"); // Get the existing donation amount
+
+    const amountInput = document.getElementById("amount");
+    if (existingAmount > 0) {
+        amountInput.value = existingAmount.toFixed(2); // Prepopulate the input field
+    } else {
+        amountInput.placeholder = "Enter donation amount"; // Show a placeholder for zero amount
+    }
+
+
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const pan = document.getElementById("pan").value;
+            // const amount = document.getElementById("amount").value;
+            const amount = parseFloat(amountInput.value); // Use the updated value
+            const formid = document.getElementById("formid").value;
+            const cid = document.getElementById("cid").value;
+            const comments = document.getElementById("comments").value;
+
+            // Create payload data to be sent to the webhook
+            const payload = {
+                name: name,
+                email: email,
+                pan: pan,
+                amount: amount,
+                formid: formid, // Add the 'formid' to the payload
+                cid: cid,
+                comments: comments,
+            };
+
+            // Send an HTTP POST request to your webhook URL
+            const webhookUrl = "https://vailo.ai/webhook/7ncsNLTm1Eoiv_kxQiAPww"; // Replace with your actual webhook URL
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                // Handle the response if needed
+                if (response.ok) {
+                    console.log("Webhook triggered successfully!");
+                    // Optionally, you can show a success message to the user here
+                    document.getElementById("success-message").style.display = "block";
+                    document.getElementById("name").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("pan").value = "";
+                    document.getElementById("amount").value = "";
+                    document.getElementById("comments").value = "";
+                    const clientNumber = "{{PaymentLink}}"; // Get the client number from your backend
+                    // window.location.href = `https://wa.me/${clientNumber}`;
+                    window.location.href = `https://rzp.io/i/${clientNumber}`;
+
+                } else {
+                    console.error("Failed to trigger webhook!");
+                    // Optionally, you can show an error message to the user here
+                }
+            }).catch(error => {
+                console.error("Error while triggering webhook:", error);
+                // Optionally, you can show an error message to the user here
+            });
+        });
+    
+    });
+        </script>
+
+</body>
+
+</html>

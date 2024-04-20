@@ -1,0 +1,34 @@
+
+
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{user.username}} {% endblock title %}
+{% else %}  
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+<div class="eventmaster" style="margin-top:30px;">
+<h1>Welcome mohan {{user.username}}</h1>
+
+</div>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

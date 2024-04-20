@@ -1,0 +1,95 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% else %}
+        Hotel Dashboard
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div style="overflow-y:scroll;">
+    <form method="POST" action="{% url 'getguestlist' %}">
+    {% csrf_token %}
+    <table>
+        <thead>
+            <tr>
+                {% if admin_permission_obj and admin_permission_obj.client_marketplace  == 'yes' %}
+
+                <th> <select name="hotels" id="hotels" style="width:120px;">
+                    <option hidden>Select Hotel</option>
+
+                    {% for hotel in allhotels%}
+                    <option value="{{hotel.id}}">{{hotel.hotel_name}}</option>
+                    {%endfor%}
+                    
+
+                  </select></th>
+                  {%endif%}
+                
+
+                <th><input type="text" name="guest_name" id="searchInput1" placeholder="Guest Name... " ></th>
+                <th><input type="text" name="phone_number" id="searchInput2" placeholder="Phone Number... " ></th>
+                <th> <input type="text" name="government_id" id="searchInput3" placeholder="Government Id... " ></th>
+                <th><input type="text" name="address" id="searchInput4" placeholder="Address... " ></th>
+                <th><input type="text" name="Room_number" id="searchInput" placeholder="Room Number... " ></th>
+                <th><input type="datetime-local" name='check_in'id="searchInput5" placeholder="ChecK In... " ></th>
+                <th><input type="datetime-local" name="check_out" id="searchInput6" placeholder="ChecK Out... " ></th>
+                <th><button type="submit">Search</button></th>
+            </tr>
+        </thead>
+    </table>
+    </form>
+
+    </form>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr> 
+                 
+                <th>Guest Name</th>
+                <th>Phone Number</th>
+                <th>Government ID</th>
+                <th>Guest Address</th>
+                <th>Room Number</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+            </tr>
+        </thead>
+
+        <tbody id="mytable">
+
+            {% for guest in Hotel_Room_Guest_info_obj %}
+                <tr>
+
+                   
+                    <td>{{ guest.Guest_details.Guest_name }}</td>
+                    <td>{{ guest.Guest_details.Phone_number }}</td>
+                    <td>{{ guest.Guest_details.GovernmentId }}</td>
+                    <td>{{ guest.Guest_details.Address }}</td>
+                
+                    <td>{{ guest.Room_details.room_number }}</td>
+                    <td>{{ guest.Check_In }}</td>
+                    <td>{{ guest.Check_Out }}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{{error_message}}   
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+
+ 
+{% endblock script %}

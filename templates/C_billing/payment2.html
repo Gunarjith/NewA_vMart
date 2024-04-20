@@ -1,0 +1,78 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %}  Landing Page {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="adminBillingDashboard" id="innernav">
+    <div class="buttonsOfBillingsDiv"  id="innernav1">
+        <a href="{% url 'payment' %}" class="buttonsOfBillings">TopUp</a>
+        <a href="{% url 'paymenthis' %}" class="buttonsOfBillings">Topup History</a>
+    </div>
+
+    <!-- <div class="adminBillingDashboard"> -->
+    <!-- <div> -->
+
+      
+  <div class="sectionProfileDashboard" id="formContain">
+    <div id="firdtDiv">
+      <div id="firstDivShadow">
+    <form action="{% url 'payment2' %}" method="POST" style="margin-bottom: 70px;">
+      {% csrf_token %}
+      <h4>Please enter the amount</h4>
+      <input type="number" id="inputPassword6" name="amounttt" placeholder="Enter Topup Amount">
+      <input type="submit" id="rzp-button1" value="Pay" ></input>
+    </form>
+  </div>
+  </div>
+  </div>
+
+<!-- 
+    <p>Today Recive messages :<b> {{re}}</b></p>
+
+
+    <p>Today send messages : <b>{{se}}</b></p> -->
+
+
+
+    <div>
+        {% for k in pointde %}
+        <!--<p>Last Up date : <b>{{k.payment_date}}</b></p>-->
+        <p>Available Points :<b> {{k.wallet_balance_point}}</b></p>
+        <!--<p>Top Up date : <b>{{k.payment_balance}}</b></p>-->
+
+        {% endfor %}
+    </div>
+
+</div>
+
+  
+
+    
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

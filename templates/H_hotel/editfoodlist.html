@@ -1,0 +1,179 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+ 
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submiteditfoodlist' modifyfooddata.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submiteditfoodlist' modifyfooddata.id %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add services </h4>
+            </span>
+
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+
+        <span>
+            <label for="food_name">Food Name</label>
+            <input type="text" id="food_name" name="rename"
+              value="{{modifyfooddata.food_name}}" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="food_price">Food Price</label>
+            <input type="number" id="food_price" name="refoodprice" value="{{modifyfooddata.food_price}}">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="food_type">Food Type </label>
+            <select id="food_type" name="refoodtype" aria-placeholder="Select a type">
+                <option value="{{modifyfooddata.food_type}}">"{{modifyfooddata.food_type}}</option>
+                <option value="VEG">VEG</option>
+                <option value="NONVEG">Non Veg</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+
+
+        <span>
+            <label for="fooddiscription">Food Discription</label>
+            <input type="text" id="fooddiscription" name="refooddiscription"
+               value="{{modifyfooddata.food_discription}}" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="food_category">Food Category</label>
+            <select name="refoodcategory" id="category">
+                <option value="{{modifyfooddata.food_category.id}}">{{modifyfooddata.food_category.category_name}}</option>
+                {% for name in food_type %}
+                <option value="{{ name.id }}">{{name.category_name}}</option>
+                {% endfor %}
+            </select><br>
+        </span>
+
+
+        <span>
+            <label for="food_cuisine">Food Cuisine</label>
+            <input type="text" id="food_cuisine" name="refoodcuisine"
+                value="{{modifyfooddata.food_cuisine}}" >
+            <span class="charCount"></span>
+        </span>
+        <span class="formOne inputGridTwo">
+            <!-- <span> -->
+            <span>
+                <label for="rehotelserviceimage">Food  Image</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{modifyfooddata.food_image}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if modifyfooddata.food_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearFileInputInfo1('foodimage', '{{modifyfooddata.id}}',  '{{marketplace_id}}')">
+                        {% endif %}
+                    </span>
+                    <input type="file" id="rehotelserviceimage" name="refoodimage" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+            </span>
+        </span>
+        <span class="formOne inputGridTwo">
+            <!-- <span> -->
+                <span>
+                    <label for="rehotelservicevideo">Food  Video</label>
+                    <span class="formImgFlex">
+                        <video width="220" height="140" controls>
+                            <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.food_video}}" type="video/mp4">
+                        </video>
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output2"> <!-- This might be used for a thumbnail or preview of the video -->
+                            {% if modifyfooddata.food_video %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputInfo1('foodvideo','{{modifyfooddata.id}}','{{marketplace_id}}')">
+                            {% endif %}
+                        </span>
+                        <input type="file" id="rehotelservicevideo" name="refoodvideo" class="videoInput"
+                            accept="video/*"
+                            onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                    </span>
+                    <span></span>
+                </span>
+                
+        </span>
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script>
+        function clearFileInputInfo1(deletefile,Id,marketplace_id){
+            console.log(typeof(Id), Id);
+            const id = Number(Id);
+            console.log(typeof(id), id, deletefile);
+            const url = `/H_hotel/editfoodlist/${id}/${deletefile}?marketplace_id=${marketplace_id}`;
+            console.log(url); // Check the constructed URL
+            document.location.href = url;
+            
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

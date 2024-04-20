@@ -1,0 +1,255 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .sectionOneMainDIv {
+        background: url("{% static 'img/healthImgBg.png' %}") center no-repeat;
+    }
+
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+<div class="bg1">
+    <div class="section2" style="    margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Brillion1 Healthwatt
+
+                        </h1>
+                        <img src="{% static 'img/headerImghealth.png' %}" alt="" style="width: fit-content;">
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Care at finger tips with increased
+                        accessibility
+
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/healthImg1.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Brillion1 Healthwatt offers an alternative channel of engagement through WhatsApp for the entire patient
+        journey, from onboarding to discharge. Hospitals and clinics have numerous patient touchpoints, and most of
+        these interactions are typically managed through various front desks, inconveniencing patients and putting a
+        strain on the limited resources of the hospitals. Brillion1 Healthwatt, which operates through WhatsApp, helps
+        to overcome these barriers by enabling hospitals to reach every section of their patient community.
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+
+
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            Hospitals offer the convenience for patients to self-register and effortlessly schedule appointments with
+            their doctors via WhatsApp. This integration of WhatsApp into hospital services not only enhances
+            communication but also contributes to a more patient-centric and accessible healthcare system.
+        </p>
+        <!-- <div class="dcOneLeftSection marginZero" style="width: 57% !important;">
+                            <h3>Brillion1 Ticket</h3> -->
+        <ul>
+            <li>
+                Patients can initiate the booking process by sending a message, and automated responses can guide them
+                through the necessary steps.
+
+            </li>
+            <li>
+                Seamlessly receive responses to your general inquiries about hospital services through WhatsApp.
+            </li>
+
+
+        </ul>
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img id="myImage1H" src="{% static 'img/img8New.png' %}" alt="">
+    </div>
+
+</div>
+
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img id="myImage2H" src="{% static 'img/img22NewH.png' %}" alt="">
+    </div>
+    <div class="dcOneLeftSection widthSixty" style="padding-right: 0 !important;">
+
+
+
+        <!-- <div class="dcOneLeftSection marginZero" style="width: 57% !important;">
+                            <h3>Brillion1 Ticket</h3> -->
+        <p>
+            Hospitals can integrate WhatsApp into their CRM systems, allowing for seamless coordination of appointments
+            and access to patient records.
+
+        </p>
+        <ul>
+            <li>
+                Effortlessly access your discharge and lab billing reports through WhatsApp.
+            </li>
+            <li>
+                Our regional language interface further simplifies the process for all patient
+                demographics.
+
+            </li>
+      
+
+
+
+
+
+            <li>
+                Privacy and security are critical in healthcare, and WhatsApp's end-to-end encryption helps maintain the
+                confidentiality of patient information during communication.
+
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+    var imageElements = [
+        document.getElementById('myImage1H'),
+        document.getElementById('myImage2H'),
+
+    ];
+
+    var imagePaths = [
+        [
+            "{% static 'img/img9NewH.png' %}",
+            "{% static 'img/img10NewH.png' %}",
+            "{% static 'img/img8NewH.png' %}",
+
+        ],
+        [
+            "{% static 'img/img23NewH.png' %}",
+            "{% static 'img/img24NewH.png' %}",
+            "{% static 'img/img22NewH.png' %}",
+
+        ],
+
+
+    ];
+
+    var currentIndex = [0, 0, 0, 0, 0];
+
+    // Change the images every 5 seconds
+    setInterval(function () {
+        for (var i = 0; i < imageElements.length; i++) {
+            imageElements[i].src = imagePaths[i][currentIndex[i]];
+            currentIndex[i] = (currentIndex[i] + 1) % imagePaths[i].length;
+        }
+    }, 3000);
+</script>
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

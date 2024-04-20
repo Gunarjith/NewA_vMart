@@ -1,0 +1,1161 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.homeVailo {
+    position: -webkit-sticky;
+}
+
+/* .vailoFixednav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+} */
+.navBarVailo {
+
+    padding: 10px;
+    display: flex;
+    /* position: fixed; */
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 999;
+    top: 0;
+    /* margin-top: 0; */
+    justify-content: space-between;
+    background: #fff;
+
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
+}
+
+.leftNavVailo {
+    margin-left: 50px;
+
+}
+
+.leftNavVailo img {
+    width: 80px;
+    height: 80px;
+}
+
+.rightNavVailo {
+    /* margin-left: 100px; */
+    /* width: 100%; */
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    /* margin-left: 20px; */
+    margin-right: 20px;
+
+}
+
+.rightNavVailo .navSpanVailo {
+    width: 100px;
+    height: auto;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    margin-right: 40px;
+    text-decoration: none;
+    color: #040B14;
+}
+
+a {
+    text-decoration: none !important;
+    color: #040B14;
+}
+
+.rightNavVailo span:hover {
+    cursor: pointer;
+    color: #6434EF;
+}
+
+.navLogVailo a{
+    width: 150px;
+    text-align: center;
+    padding: 5px 25px;
+    color: #ffff !important;
+    background: #6434EF;
+    border-radius: 5px;
+}
+
+.navLogVailo a:hover {
+    width: 100px;
+    text-align: center;
+    padding: 5px 25px;
+    color: #ffff !important;
+    background: #17740e;
+    border-radius: 5px;
+}
+
+.sidenavVailo {
+    height: 500px;
+    width: 0;
+    position: fixed;
+    z-index: 999;
+    background-color: #000;
+    overflow-x: hidden;
+    transition: 0.2s;
+    padding-top: 10px;
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.24);
+    visibility: visible;
+    margin-top: 20px;
+    margin-left: 90px;
+
+}
+
+.sidenavVailo a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffff;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sidenavVailo li {
+    list-style: none;
+}
+
+.sidenavVailo a:hover,
+.offcanvas a:focus {
+    color: #F7CA18;
+}
+
+.sidenavVailo .closebtnNav {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #fff;
+}
+
+@media screen and (min-width: 600px) {
+    /* .iconNavOpen {
+        display: none !important;
+        margin: auto;
+    } */
+
+    /* .sectionVailo{
+        width: 100%;
+    } */
+
+
+
+}
+
+@media screen and (min-width: 1050px) {
+    .iconNavOpen {
+        display: none !important;
+        margin: auto;
+
+    }
+
+
+
+}
+
+
+
+@media screen and (max-width: 1050px) {
+    .navBarVailo {
+        margin: auto;
+
+    }
+
+    .leftNavVailo {
+        margin-left: 0;
+    }
+
+    .leftNavVailo img {
+        width: 95px !important;
+        height: 95px !important;
+    }
+
+    .rightNavVailo {
+        /* margin: auto; */
+        align-items: center !important;
+        display: flex;
+        /* float: right !important; */
+        /* width: 100%; */
+    }
+
+    .navSpanVailo {
+        display: none !important;
+    }
+
+    .iconNavOpen {
+        margin-right: auto;
+        font-size: 40px !important;
+    }
+
+    .sectionVailo{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .leftVailoIncreaseConversion {
+        margin: 50px;
+        width: auto !important;
+    }
+    .sectionVailoAboutImg img {
+        width: auto;
+        height: 310px !important;
+        margin-left: -20px !important;
+    }
+    
+
+
+}
+
+@media screen and (max-width: 600px) {
+    .navBarVailo {
+        margin: auto;
+
+    }
+
+    .leftNavVailo {
+        margin-left: 0;
+    }
+
+    .leftNavVailo img {
+        width: 85px !important;
+        /* height: 85px !important; */
+    }
+
+ 
+    .rightNavVailo {
+        align-items: center !important;
+        display: flex;
+     
+    }
+
+    .navSpanVailo {
+        display: none !important;
+    }
+
+    .iconNavOpen {
+        margin-right: auto;
+        font-size: 40px !important;
+    }
+
+
+    /* --- */
+    .sectionVailo {
+        flex-direction: column-reverse !important;
+    }
+
+  
+
+    .rightSectionVailo img {
+        width: 290px !important;
+        height: 300px !important;
+    }
+
+    .leftSectionVailo {
+        margin: auto !important;
+
+    }
+
+    .leftSectionVailo h1 {
+        width: auto !important;
+        height: auto !important;
+        margin: 30px !important;
+        font-family: 'Vogue';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px !important;
+        line-height: 40px !important;
+        letter-spacing: 0.16em;
+        color: #12212E;
+    }
+
+    .ulSpanVailo {
+        margin-left: 0 !important;
+    }
+
+
+    .sectionVailo .leftSectionVailo .ulSpanVailo li {
+        width: auto;
+        height: auto;
+        margin-left: 95px;
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400 !important;
+        font-size: 24.1215px !important;
+        line-height: 30px !important;
+        letter-spacing: 0.1em !important;
+        color: #040B14;
+        transform: matrix(1, 0.01, -0.01, 1, 0, 0);
+    }
+
+    .sectionVailoAbout p {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        color: #272444;
+        margin-top: 20px;
+    }
+
+    .sectionVailoAboutImg {
+        flex-direction: column !important;
+    }
+
+    .sectionVailoAboutImg_2 {
+        display: none;
+    }
+
+    /* --------  */
+    .customersChoiceVailo {
+        margin: 20px !important;
+
+    }
+
+    .customersChoiceVailoLeft h2 {
+        width: auto !important;
+        height: auto !important;
+        font-family: 'Frank Ruhl Libre';
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 35.6283px !important;
+        line-height: 45px !important;
+        letter-spacing: 0.1em;
+        color: #272444;
+        text-align: left !important;
+    }
+
+    .customersChoiceVailoUl li {
+        width: auto;
+        height: auto;
+        margin-left: 95px;
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400 !important;
+        font-size: 24.1215px !important;
+        line-height: 30px !important;
+        letter-spacing: 0.1em !important;
+        color: #040B14;
+        transform: matrix(1, 0.01, -0.01, 1, 0, 0);
+
+    }
+
+    .customersChoiceVailoRight img {
+        margin-top: 40px;
+        /* margin-left: -30px; */
+    }
+
+    .vailoImgSocialMedia {
+        display: none !important;
+    }
+
+    .VailoIncreaseConversion {
+        margin-top: -100px;
+    }
+
+
+    .rightVailoIncreaseConversion h2 {
+        width: auto !important;
+        height: auto !important;
+        font-family: 'Frank Ruhl Libre';
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 35.6283px !important;
+        line-height: 45px !important;
+        letter-spacing: 0.1em;
+        color: #272444;
+        text-align: left !important;
+        margin-left: 20px;
+    }
+
+    .VailoIncreaseConversionSpan p {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 15px !important;
+        line-height: 40px !important;
+        letter-spacing: 0.1em !important;
+        color: #272444;
+        margin: 20px;
+        margin-top: -20px;
+    }
+    .leftVailoIncreaseConversion{
+        margin: 0 !important;
+    }
+
+    .leftVailoIncreaseConversion img {
+        /* width: 350px !important;
+        height: 350px !important; */
+        margin-left: 0;
+
+    }
+
+    .leftVailoIncreaseConversion {
+        margin: 0 !important;
+    }
+
+    .rightVailoIncreaseConversion img {
+        width: 300px !important;
+        height: 300px !important;
+        margin-left: 20px !important;
+
+    }
+
+    .leftVailoIncreaseConversion h2 {
+        width: auto !important;
+        height: auto !important;
+        font-family: 'Frank Ruhl Libre';
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 35.6283px !important;
+        line-height: 45px !important;
+        letter-spacing: 0.1em;
+        color: #272444;
+        text-align: left !important;
+        margin-left: 20px;
+    }
+
+    .leftVailoIncreaseConversion p {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 15px !important;
+        line-height: 40px !important;
+        letter-spacing: 0.1em !important;
+        color: #272444;
+        margin: 20px;
+        margin-top: -20px;
+    }
+
+    .testimonial h2 {
+        width: auto !important;
+        height: auto !important;
+        font-family: 'Frank Ruhl Libre';
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 35.6283px !important;
+        line-height: 45px !important;
+        letter-spacing: 0.1em;
+        color: #272444;
+        text-align: left !important;
+        margin-left: 20px;
+    }
+
+    .footer_main {
+        background-color: #fff;
+        color: #272444;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+}
+
+
+
+
+
+
+
+/* __________ */
+.sectionVailo {
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.leftSectionVailo {
+    margin-top: 20px;
+}
+
+.sectionVailo .leftSectionVailo h1 {
+    /* width: 648px;
+    height: 250px; */
+    margin-left: 70px;
+    top: 264px;
+    font-family: 'Vogue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 56.8421px;
+    line-height: 60px;
+    letter-spacing: 0.16em;
+    color: #12212E;
+}
+
+.ulSpanVailo {
+    margin-left: 50px;
+}
+
+.sectionVailo .leftSectionVailo .ulSpanVailo li {
+    width: 105.94px;
+    height: 31.59px;
+    margin-left: 95px;
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24.1215px;
+    line-height: 40px;
+    letter-spacing: 0.12em;
+    color: #040B14;
+    transform: matrix(1, 0.01, -0.01, 1, 0, 0);
+}
+
+.buttonVailoRegistration {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.buttonVailoRegistration button {
+    width: 150px;
+    height: 40px;
+    align-items: center;
+    border: none;
+    background: #6434EF;
+    border-radius: 5px;
+    color: #ffff;
+}
+
+.buttonVailoRegistration button:hover {
+    color: #ffff !important;
+    background: #17740e;
+}
+
+.rightSectionVailo {
+    /* width: 100%; */
+    /* margin-left: 20px;
+    margin-top: -20px; */
+    text-align: center;
+}
+
+.rightSectionVailo img {
+    width: 480px;
+    height: 519px;
+    align-items: center;
+    /* background: radial-gradient(180.45% 50% at 50% 50%, #6434EF 0%, rgba(255, 255, 255, 0) 100%); */
+}
+
+
+/* ------- */
+.sectionVailoAbout {
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 10px;
+}
+
+.sectionVailoAbout h2 {
+    /* width: 230px;
+    height: 61px; */
+    text-align: center;
+    margin: auto;
+    font-family: 'Frank Ruhl Libre';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 45px;
+    line-height: 63px;
+    letter-spacing: 0.16em;
+    color: #12212E;
+}
+
+.sectionVailoAbout p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    /* text-align: center; */
+    letter-spacing: 0.1em;
+    color: #272444;
+}
+
+.sectionVailoAboutImg {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.sectionVailoAboutImg img {
+    width: auto;
+    height: 460px;
+    margin-left: -20px !important;
+}
+
+.sectionVailoAboutImg_2 {
+    margin-top: 108px;
+}
+
+.customersChoiceVailo {
+    margin-top: 100px;
+    /* margin-left: 50px; */
+    margin-right: 50px;
+}
+
+
+.customersChoiceVailoLeft h2 {
+    /* width: 407px;
+    height: 165px; */
+    font-family: 'Frank Ruhl Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45.6283px;
+    line-height: 55px;
+    letter-spacing: 0.15em;
+    color: #272444;
+}
+
+.customersChoiceVailoUl li {
+    margin-left: 50px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24.1215px;
+    line-height: 30px;
+    letter-spacing: 0.16em;
+    color: #040B14;
+    transform: matrix(1, 0.01, -0.01, 1, 0, 0);
+}
+
+.customersChoiceVailoButton {
+    margin-top: 15px !important;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+
+
+
+.main {
+    max-width: 1200px;
+    margin: 90px auto;
+
+}
+
+h2 {
+    margin: 0px;
+    margin-bottom: 20px;
+    font-size: 34px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.card_image {
+    text-align: center;
+}
+
+img {
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+}
+
+
+
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cards_item {
+    display: flex;
+    padding: 1rem;
+}
+
+@media (min-width: 40rem) {
+    .cards_item {
+        width: 50%;
+    }
+}
+
+@media (min-width: 56rem) {
+    .cards_item {
+        width: 20.3333%;
+    }
+}
+
+.card {
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card_content {
+    padding: 1rem;
+
+}
+
+.card_title {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: 0.16em;
+    color: #272444;
+
+}
+
+.card_text {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.16em;
+    color: #272444;
+}
+
+#more {
+    display: none !important;
+}
+
+.vailoImgSocialMedia {
+    width: 100% !important;
+
+}
+
+.vailoImgSocialMediaSpan {
+    width: 100%;
+}
+
+.vailoImgSocialMediaSpan img {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(0deg, rgba(100, 52, 239, 0.5), rgba(100, 52, 239, 0.5)), linear-gradient(104.18deg, rgba(0, 0, 0, 0.4) -5.52%, rgba(0, 0, 0, 0.1) 133.56%);
+    mix-blend-mode: multiply;
+    backdrop-filter: blur(12.5px);
+}
+
+.leftVailoIncreaseConversion {
+    margin: 50px;
+    width: 100%;
+}
+
+.leftVailoIncreaseConversion img {
+    height: 700px;
+    width: 100%;
+}
+
+.rightVailoIncreaseConversion {
+    width: 100%;
+    margin-top: 0px;
+    margin-right: 50px;
+}
+
+.rightVailoIncreaseConversion h2 {
+    font-family: 'Frank Ruhl Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 50px;
+    letter-spacing: 0.1em;
+    color: #272444;
+}
+
+.VailoIncreaseConversionSpan p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 50px;
+    letter-spacing: 0.1em;
+    color: #272444;
+}
+
+.vailoBoostCartMain {
+    margin-top: -50px !important;
+    background-color: #6434EF;
+}
+
+.vailoBoostCartMain h2 {
+    font-family: 'Frank Ruhl Libre';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    padding-top: 50px;
+}
+
+.vailoBoostCart {
+    width: 100% !important;
+    height: 100% !important;
+
+}
+
+.vailoBoostCartCard {
+    justify-content: center !important;
+}
+
+.vailoBoostCart img {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.vailoBoostCartCartButton {
+    width: 100%;
+    border: none;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+    color: #133565;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+@media (min-width: 56rem) {
+    .vailoBoostCartCart {
+        width: 24.3333% !important;
+    }
+}
+
+.vailoBoostCartTitle {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 40px;
+    letter-spacing: 0.16em;
+    color: #272444;
+}
+
+.vailoBoostCartP {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+    color: #272444;
+}
+
+.rightVailoIncreaseConversion img {
+    height: 600px;
+    width: 100%;
+}
+
+
+/* ---#####---- */
+.testimonial {
+    display: grid;
+    height: 100%;
+    place-items: center;
+    margin-top: 10px;
+}
+
+::selection {
+    /* background: rgba(23,162,184,0.3); */
+    background: #000;
+}
+
+.testimonial h2 {
+    margin: 50px;
+    font-size: 34px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.wrapper {
+    max-width: auto;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.wrapper .box {
+    background: #fff;
+    /* height: 430px; */
+    width: calc(30% - 80px);
+    padding: 25px;
+    border-radius: 3px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.box p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0.12em;
+    color: #272444;
+}
+
+.wrapper .box i.quote {
+    font-size: 20px;
+    color: #000;
+}
+
+.wrapper .box .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.box .info .name {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16.625px;
+    line-height: 30px;
+    letter-spacing: 0.1em;
+    color: #000000;
+}
+
+.box .info .job {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.0259px;
+    line-height: 20px;
+    letter-spacing: 0.1em;
+    color: #000000;
+}
+
+.box .info .stars {
+    margin-top: 2px;
+}
+
+.box .info .stars i {
+    color: #f5ca0c;
+}
+
+.box .content .image {
+    height: 75px;
+    width: 75px;
+    padding: 3px;
+    background: #000;
+    border-radius: 50%;
+}
+
+.content .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.box:hover .content .image img {
+    border-color: #fff;
+}
+
+@media (max-width: 1045px) {
+    .wrapper .box {
+        width: calc(50% - 10px);
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 702px) {
+    .wrapper .box {
+        width: 100%;
+    }
+}
+
+
+/* ----####---- */
+
+
+/* ----####---- */
+
+.footer_main {
+    background-color: #fff;
+    color: #272444;
+    margin-top: 90px;
+    margin-bottom: 20px;
+
+}
+
+.footer_span {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer_logo {
+    height: 100px;
+    width: 100px;
+    margin-top: 30px;
+}
+
+.footer_span1 {
+    margin-top: 20px;
+}
+
+.vailoFooterSpan1 h3 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.vailoFooterSpan1 p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: rgba(39, 36, 68, 0.74);
+
+}
+
+.vailoFooterSpan2 p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: rgba(39, 36, 68, 0.74);
+
+}
+
+.footer_span2 {
+    margin-top: 60px;
+}
+
+.footer_span3 h3 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+    color: #000000;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.footer_icon1 {
+    margin: 10px;
+    padding: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.vailoFooterIcons a {
+    text-decoration: none;
+}
+
+.footer_icon1 p {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+    letter-spacing: 0.1em;
+    text-decoration: none !important;
+
+    color: rgba(39, 36, 68, 0.72);
+
+}
+
+.footer_icon1 a:hover {
+    list-style: none;
+    text-decoration: none;
+    color: #133565;
+}
+
+.footer_icon {
+    text-decoration: none;
+    padding: 5px;
+    display: inline-flex !important;
+    font-size: large !important;
+
+
+
+}
+
+.footer_icon p {
+    font-family: Georgia, serif !important;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+
+
+    .footer_span {
+        display: flex !important;
+        flex-direction: column !important;
+        text-align: center;
+        align-items: center;
+        /* margin-bottom: 150px; */
+
+    }
+
+    .footer_icon1 {
+        align-items: center;
+    }
+
+}
+@media screen and (max-width:1050) {
+
+    .footer_span {
+
+        display: flex !important;
+        flex-wrap: wrap !important;
+        padding-left: 0;
+
+    }
+
+    .footer_span .footerDiv {
+        list-style: none;
+        flex: 0 0 50% !important;
+    }
+
+}
+
+/* ----####---- */
+
+@media screen and (min-width:600) {
+
+    .sectionVailoAbout {
+        min-width: fit-content;
+
+    }
+
+}
+
+/* -------- 0 */
+.visibleDiv {
+    display: block;
+
+}
+
+.hideDiv {
+    display: none;
+}
+

@@ -1,0 +1,18 @@
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            
+            <a href="{% url 'donationInfo1' %}{% if marketplace_id %}?marketplace_id={{ marketplace_id }}{% endif %}">
+                <button class="{% if 'donationInfo' in request.path %}activeNavDash{% endif %}">Main</button>
+            </a>
+            
+            <a href="{% if marketplace_id %}{% url 'donationMaster' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'donationMaster' %}{% endif %}">
+                <button class="{% if 'donationMaster' in request.path or 'editDontion' in request.path or 'addDonation' in request.path %}activeNavDash{% endif %}">Donation Type</button>
+            </a>
+            
+        </div>
+    </div>
+
+ 
+</div>

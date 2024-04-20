@@ -1,0 +1,76 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'addSurveySubmit' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addSurveySubmit' %}{% endif %}"  method="post" enctype="multipart/form-data"
+        style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Survey</h3>
+        </span>
+        <span class="formOne inputGridThree">
+<span>
+            <span>
+                <label for="cImg">Image</label>
+                <input type="file" name="surveyImg" id="cImg" class="imageInput" accept="image/*">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+</span>
+            <span>
+                <label for="cMessage">Main Message</label>
+                <input type="text" id="cMessage" name="surveyMessageText" class="mainInput"
+                    placeholder="Enter Message">
+                <span class="charCount"></span>
+            </span>
+            <span>
+
+                <label for="surveyFooter">Footer</label>
+                <input type="text" id="surveyFooter" name="surveyFooter" class="buttonInput"
+                    placeholder="Enter the Footer">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="c2ndButton">Type of Survey</label>
+                <input type="text" id="c2ndButton" name="surveyType" class="buttonInput"
+                    placeholder="The type">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="c3rdBotton">Flow Id</label>
+                <input type="text" id="c3rdBotton" name="flowid" class="buttonInput" placeholder="enter the flow id">
+                <span class="charCount"></span>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+</div>
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

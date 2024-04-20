@@ -1,0 +1,116 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Configuration</h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitcatelogulist' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submitcatelogulist' %}{% endif %}"method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add Catalogue </h4>
+            </span>
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="catalogue_image">Catalogue Image</label>
+        <input type="file" id="catalogue_image" name="catalogueimage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="catalogue_name">Catalogue Name</label>
+            <input type="text" id="catalogue_name" name="name"
+                placeholder="Enter Catalogue Name" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="catalogue_discription">Catalogue Discription </label>
+            <input type="text" id="catalogue_discription" name="cataloguediscription" placeholder="Enter a Catalogue Discription  ">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="catalogue_set_id">Catalogue Set Id</label>
+            <input type="text" id="catalogue_set_id" name="cataloguesetid"
+                placeholder="Enter Catalogue Set Id " >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="start_time">Start Time</label>
+            <input type="time" id="start_time" name="starttime"
+                placeholder="Enter Start time " >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="end_time">End Time</label>
+            <input type="time" id="end_time" name="endtime"
+                placeholder="Enter End time " >
+            <span class="charCount"></span>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

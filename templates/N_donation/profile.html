@@ -1,0 +1,55 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+
+{% block rightcontent %}
+
+<!-- <h1>Welcome {{user.username}}</h1> -->
+{% include 'N_donation/settingNav.html' %}
+
+{% include 'common/profile.html' %}
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var inputs = document.querySelectorAll('input');
+  
+      for (var i = 0; i < inputs.length; i++) {
+          var input = inputs[i];
+          var label = document.querySelector('label[for="' + input.id + '"]');
+  
+          if (label) { // Add a null check for the label element
+              if (input.hasAttribute('required')) {
+                  label.textContent += '*';
+              } else {
+                  label.textContent += ' (optional)';
+              }
+          }
+      }
+  });
+  </script> -->
+
+{% endblock script %}

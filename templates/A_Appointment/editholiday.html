@@ -1,0 +1,72 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_authenticated %}
+    {{ user.username }}
+  {% else %}
+    Your Title Here
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+{% for a in modifyholiday %}
+
+<div class="frmCenter">
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'updatetholidays' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'updatetholidays' a.id %}{% endif %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Update Consultant Holidays</h3>
+        </span>
+        </table>
+        <span class="formOne">
+            <div id="inputFields1">
+                <span>
+                    <label for="day">Date</label>
+                    <input type="date" id="day" name="redate" value="{{ a.date }}">
+                </span>
+                <span>
+                    <label for="consultant_starttime">Start time</label>
+                    <input type="text" id="consultant_starttime" value="{{ a.start_time|time:'H:i' }}" name="restart_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span>
+                    <label for="consultant_endtime">End time</label>
+                    <input type="text" id="consultant_endtime" value="{{ a.end_time|time:'H:i' }}" name="reend_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+            </div>
+        </span>
+   <span></span><br><br>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit" style="margin-left: 47% ;">
+        </span>
+    </form>
+</div>
+{% endfor %}
+
+<script>
+    $(document).ready(function() {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function() {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+
+</script>
+{% endblock rightcontent %}
+
+{% block script %}
+{% endblock script %}
+
+

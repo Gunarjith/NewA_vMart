@@ -1,0 +1,272 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+<div class="bg1">
+    <div class="section2" style="    margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Together We Grow
+
+                        </h1>
+
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;margin-bottom: 5px;">
+                        Join our journey to enable businesses to Reach Billions and Beyond
+
+                    </h2>
+
+                    <button class="activeBtn">Join now</button>
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/partnerPageImg1.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Embark on a lucrative partnership with us and explore the potential of promoting ready-to-use WhatsApp Business
+        products. As an affiliate, you'll have the opportunity to align with a leading provider of cutting-edge
+        communication solutions, offering businesses the transformative benefits of WhatsApp. Join our partnership
+        program and earn competitive commissions while introducing businesses to the productivity, engagement and
+        innovation WhatsApp brings to their communications operations.
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+<div class="sectionParagraph">
+    <p style="font-size: 18px; line-height: 21.82px;">
+        With a suite of products ranging from customer support tools to automated messaging solutions, you'll be
+        promoting solutions that redefine how businesses connect with their audience. Partner with us, and together,
+        let's empower businesses to unlock the full potential of WhatsApp, driving growth and success in the digital
+        landscape. Your involvement is integral to our shared success, and we look forward to a fruitful and
+        collaborative partnership.
+    </p>
+</div>
+
+
+
+
+<div class="section2">
+    <h3 style="text-align: center; font-size: 32px;">We provide three specialized partnership programs designed to align
+        with your
+        strengths and networks.</h3>
+</div>
+
+
+<div class="mainDcSection">
+    <div class="dcTwoRightSection widthThirty heightthreeHOne">
+        <img src="{% static 'img/partnersImg2.png' %}" alt="">
+    </div>
+
+    <div class="dcOneLeftSection widthSixty" style="padding-right: 0 !important;">
+
+
+        <h2>
+            Affiliate Partnership
+        </h2>
+
+        <p style="font-size: 16px;">
+            Are you well-connected in your industry? Join us as an Affiliate Partner and leverage your network to
+            bring in new business. Your success in onboarding clients will be generously rewarded with a fixed
+            percentage commission from the onboarded client's business for an entire year.
+        </p>
+
+
+    </div>
+
+
+
+</div>
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <h2>
+            Affiliate Partnership
+        </h2>
+
+        <p style="font-size: 16px;">
+            Are you well-connected in your industry? Join us as an Affiliate Partner and leverage your network to
+            bring in new business. Your success in onboarding clients will be generously rewarded with a fixed
+            percentage commission from the onboarded client's business for an entire year.
+        </p>
+
+
+    </div>
+    <div class="dcTwoRightSection widthThirty flexEnd heightthreeHOne">
+        <img src="{% static 'img/partnersImg3.png' %}" alt="">
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="mainDcSection">
+
+
+    <div class="dcTwoRightSection widthThirty heightthreeHOne">
+        <img src="{% static 'img/partnersImg4.png' %}" alt="">
+    </div>
+    <div class="dcOneLeftSection widthSixty">
+        <h2>
+            Channel Partnership
+        </h2>
+
+        <p style="font-size: 16px;">
+            For established players with a defined segment or regional expertise, our Channel Partnership offers
+            tailored collaboration. If you have an existing business network and are eager to work within specific
+            segments or regions, we offer slab-based commissions. The more business generated, the higher the
+            commission and a greater share of the generated revenue.
+        </p>
+    </div>
+
+</div>
+
+<div class="sectionParagraph">
+    <p style="font-size: 18px; line-height: 21.82px;">
+        Let's join forces in shaping the future of technology and business as we embark on this journey together.
+        Register with your details in the form below to explore our partnership programs in detail and begin our
+        collaborative endeavour.
+    </p>
+</div>
+
+
+<div class="partnerThird">
+    <h2 style="color: #fff;">
+        Join our partner network
+    </h2>
+    <p style="color: #fff;">
+        We look forward to welcoming you to our growing network of esteemed partners.
+    </p>
+    <button class="activeBtn" id="btnPartner" style="color: #000079; font-weight: 700;">Join now</button>
+    <div class="joinForm" id="btnPartnerForm">
+        <div class="joinFormMin">
+            <form action="">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="number" placeholder="Phone number">
+                <input type="submit" value="Submit"  style="color: #000079; font-weight: 700;  border: 2px solid #fff"  class="activeBtn subPartner">
+            </form>
+
+        </div>
+        <div class="partnerThird" style="max-width: 700px; padding: 10px;">
+
+            <p style="color: #fff;"><b>Note : </b>I would love to share with you guys my recent work Beauty Product
+                Website Design. Hope
+                you guys enjoy and press "L" if you like it. Got any feedback or comment? Feel free to leave in the
+                comments below.I would love to share with you guys my recent work Beauty </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    let btnPartner = document.getElementById('btnPartner');
+    let btnPartnerForm = document.getElementById('btnPartnerForm');
+
+    btnPartner.addEventListener('click', function () {
+        // Toggle the form's visibility
+        if (btnPartnerForm.style.display === 'none' || btnPartnerForm.style.display === '') {
+            btnPartnerForm.style.display = 'block';
+            // btnPartner.textContent = "Back"
+            btnPartner.style.display = "none"
+        } else {
+            btnPartnerForm.style.display = 'none';
+            btnPartner.textContent = "Join now"
+        }
+    });
+
+</script>
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

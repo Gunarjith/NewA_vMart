@@ -1,0 +1,81 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+
+{% block title %} facebook setting {% endblock title %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+
+
+<div class="frmCenter">
+{% for i in data %}
+<form class="profileForm" action="{% url 'facebook_info' %}" method="POST" style="position: relative;">
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Facebook details</h4>
+  </span>
+  <span class="formOne">
+    <span>
+      <label>Phone number ID</label>
+      <input type="number" value="{{i.fb_phone_number_id}}" name="fb_phone_number_id" aria-describedby="emailHelp"
+        placeholder="Enter Phone number ID" required>
+    </span>
+    <span>
+      <label>Whatsapp number</label>
+      <input type="number" value="{{i.fb_whatsapp_number}}" name="fb_whatsapp_number" aria-describedby="emailHelp"
+        placeholder="Whatsapp Number" required>
+    </span>
+    <span>
+      <label>Access token</label>
+      <input type="password" value="{{i.fb_access_token}}" name="fb_access_token" aria-describedby="emailHelp"
+        placeholder="Enter access_token" required>
+    </span>
+  </span>
+  <span class="spanSubmitForm">
+    <input type="submit">
+  </span>
+
+  {% endfor %}
+</form>
+</div>
+<div class="frmCenter">
+  <span class="formOne">
+    <span>
+    <h4>Call Back URL</h4>
+    {{CallbackUrl}}
+  </span>
+  <span>
+    <h4>Verify Token</h4>
+    {{VerifyToken}}
+  </span>
+</span>
+</div>
+<!-- <div class="frmCenter">
+
+  <span class="formOne">
+    <h4>Verify Token</h4>
+    {{VerifyToken}}
+  </span>
+
+</div> -->
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

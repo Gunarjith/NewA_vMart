@@ -1,0 +1,116 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+<style>
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+</style>
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+
+        <a href="{% url 'genericsurvey' %}">
+            <button>
+               Generic flow
+            </button>
+        </a>
+
+        <a href="{% url 'specificsurvey' %}">
+            <button>
+               Specific flow
+            </button>
+        </a>
+
+        <a href="{% url 'mysurvey' %}">
+            <button>
+      My survey
+            </button>
+        </a>
+        
+        <h3>Group Name</h3>
+        <a href="{% url 'addSurveygroup' %}">
+            <button>
+                Add surveyGroup
+            </button>
+        </a>
+    </div>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Survey Name</th>
+                <th>Survey Type</th>
+                <th>Survey Category</th>
+                <th>Survey Location</th>
+                <th>Survey Description</th>
+                <th>Survey Contact_number</th>
+                <th>Configuration</th>
+                <th style="text-align: center;">Edit / Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in marketplacedata %}
+            <tr>
+                <td>{{a.survey_name}}</td>
+                <td>{{a.survey_type}}</td>
+                <td>{{a.survey_category}}</td>
+                <td>{{a.survey_location}}</td>
+                <td>{{a.survey_description}}</td>
+                <td>{{a.survey_contact_number}}</td> 
+                <td><a href="{% url 'surveyList' a.id %}"><button>add/edit</button></a></td> 
+                <td>              
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editsurveygroup' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deletemarketplace' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}
+

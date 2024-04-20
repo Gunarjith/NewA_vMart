@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'css/index1.css' %}"> -->
+    <link rel="shortcut icon" href="{% static 'img/vailoShortMetaLogo.png' %}">
+    <meta name="description" content="Vailo Reaches Your Business everywhere through Whats app,
+    No Website & App required for shopping,and Increase your sale with Win Win situation">
+    <title>
+
+        {% block title %} {% endblock title %}
+
+    </title>
+
+    <meta name="keywords" content="Vailo, WhatsApp, Online Shopping, Accelerate,Conversions" />
+    <link rel="canonical" href="https://vailo.ai/">
+
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ 
+
+
+
+    <!-- ---- -->
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+
+
+    <!-- ___ new dashLinks __  -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+    <!-- ___ new dashLinks __  -->
+    {% block header %}
+
+
+    {% endblock header %}
+ <!-- 31-7-23  -->
+ <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+ <meta http-equiv="Pragma" content="no-cache">
+ <meta http-equiv="Expires" content="0">
+  <!-- 31-7-23  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+
+    </style>
+</head>
+
+<body style="height:100% ;background-color: #ffff;" id="bodyId">
+
+    {% if user.is_authenticated %}
+
+    <!-- _____ new dash template ______  -->
+
+    <section id="sidebar">
+        {% if subclient_preferences %}
+        <a href="{% url 'home' %}" class="brand">
+            <img src="{% static 'img/logoDash.png' %}" alt="VailoLogo">
+        </a>
+        <ul class="side-menu top">
+            {% if 'campaign' in subclient_preferences.preference %}
+    
+            <li>
+                <a href="{% url 'eventCampaign' %}">
+                    <i class='bx bx-tachometer'></i>
+    
+                    <span class="text">Campaign</span>
+                </a>
+            </li>
+            {% endif %}
+    
+            {% if 'ticket' in subclient_preferences.preference %}
+    
+            <li id=" " class="">
+                <a href="{% url 'ticketviewdisplaydata' %}">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text">Ticket</span>
+                </a>
+            </li>
+            {% endif %}
+    
+            {% if 'scanner' in subclient_preferences.preference %}
+    
+            <li id=" " class="">
+                <a href="{% url 'scannerSub' %}">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text">Scanner</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+
+        {% else %}
+        <a href="#" class="brand">
+            <img src="{% static 'img/logoDash.png' %}" alt="VailoLogo">
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="#">
+                <!-- <a href="{% url 'clientscanner' %}"> -->
+                    <i class='bx bx-tachometer'></i>
+                    <span class="text">QR Scanner Home</span>
+                </a>
+            </li>
+
+          
+
+            <!-- <li>
+                <a href="{% url 'help' %}">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Help</span>
+                </a>
+            </li> -->
+        </ul>
+        {% endif %}
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav class="">
+            <span class="spanNavLeft">
+                <i class='bx bx-menu'></i>
+                <a href="#" id="categoriesLink" class="nav-link"> Scanner </a>
+            </span>
+            
+            <span class="spanNavRight">
+  
+              <a href="#" class="profile">
+                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="userImage" alt="profile_pic">
+              </a>
+              <a href="{% url 'logout' %}">
+                <img class="imgDashSetting" style="width: 20px;" src="{% static 'img/dash11.png' %}">
+              </a>
+            </span>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <div class="mainContent">
+        {% block rightcontent %}
+     
+        {% endblock rightcontent %}
+        </div>
+
+        <!-- MAIN -->
+    </section>
+
+
+
+    <!-- _____ new dash template ______  -->
+    {% else %}
+
+
+    {% block bottumcontent %}
+
+    {% endblock bottumcontent %}
+
+
+
+    {% endif %}
+    <script>
+        const categoriesLink = document.getElementById('categoriesLink');
+        const sidebarLinks = document.querySelectorAll('#sidebar li a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                const selectedText = event.target.innerText;
+                localStorage.setItem('selectedText', selectedText);
+            });
+        });
+
+        // Retrieve selected text from localStorage on page load
+        const storedText = localStorage.getItem('selectedText');
+        if (storedText) {
+            categoriesLink.innerText = storedText;
+        }
+    </script>
+
+   <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function downArrow() {
+            document.getElementById("myDropdown").classList.toggle("show");
+            document.getElementById("helpDashBoard").className = "listSidebarDownSetting"
+            // alert(document.getElementById("helpDashBoard").style.marginTop )
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            ;
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                        document.getElementById("helpDashBoard").className = "listSidebar";
+                    }
+                }
+
+            }
+        } 
+    </script>
+
+
+    <script>
+
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll('.sideBarDashBoardVailoUl li a');
+
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].href === currentUrl) {
+                links[i].parentNode.classList.add('active');
+            }
+        }
+
+
+    </script>
+
+    <!-- ____ new dashScript___  -->
+    <script>
+       const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+       const configSidemenu = document.querySelectorAll('#sidebar .side-menu.top li .dropbtn #myDropdownCon a')
+
+
+  configSidemenu.forEach(item => {
+  let li = item.parentElement;
+  if (item.href === window.location.href) {
+    li.classList.add('active');
+  }
+
+  item.addEventListener('click', function () {
+    allSideMenu.forEach(i => {
+      i.parentElement.classList.remove('active');
+    })
+    li.classList.add('active');
+  })
+});
+
+allSideMenu.forEach(item => {
+  const li = item.parentElement;
+  if (item.href === window.location.href) {
+    li.classList.add('active');
+  }
+
+  item.addEventListener('click', function () {
+    allSideMenu.forEach(i => {
+      i.parentElement.classList.remove('active');
+    })
+    li.classList.add('active');
+  })
+});
+
+
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+         sidebar.classList.toggle('hide');
+         const brandImg = document.querySelector('#sidebar .brand img');
+         if (sidebar.classList.contains('hide')) {
+           brandImg.style.width = '210px';
+           brandImg.style.padding = '12px';
+         } else {
+           brandImg.style.width = '80%';
+           brandImg.style.padding = '20px';
+         }
+        });
+
+
+
+
+
+
+
+        // const switchMode = document.getElementById('switch-mode');
+
+        // switchMode.addEventListener('change', function () {
+        //     if (this.checked) {
+        //         document.body.classList.add('dark');
+        //     } else {
+        //         document.body.classList.remove('dark');
+        //     }
+        // })
+
+    </script>
+
+    <!-- __ endOfNewDashScript__  -->
+
+    {% block script %}
+
+
+
+    {% endblock script %}
+    <script type="text/javascript" src="{% static 'js/image.js' %}"></script>
+   
+    <!--________________________________________________________________________________________________________-->
+</body>
+
+</html>

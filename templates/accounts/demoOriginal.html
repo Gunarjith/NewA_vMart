@@ -1,0 +1,131 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block title %}demo{% endblock title %}
+
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/css/intlTelInput.css" />
+{% endblock header %}
+
+{% block body %}
+<div class="flexPageRg">
+    <div class="flexPageRgLeft">
+        <h2>Vailo is at it's finest!!</h2>
+        <p>Congratulations on starting your VAILO journey. We're glad you're here and can't wait to assist you in getting set up. The first thing you ought to do is...The first 10 customers to sign up will get 30 days to make the most of the free trial....</p>
+        <img src="{% static 'img/contactUsImg.png' %}" alt="contactUsImg">
+    </div>
+    <div class="flexPageRgRight">
+<div class="frmCenter" >
+
+    <!-- <div class="regRightVailo">
+
+        <h2>Vailo is at it's finest!!</h2>
+        <div class="regRightVailoPara">
+
+            <p>Congratulations on starting your VAILO journey. We're glad you're here and can't wait to assist you
+                in
+                getting set up. The first thing you ought to do is...The first 10 customers to sign up will get 30
+                days
+                to make the most of the free trial....</p>
+
+        </div>
+        <img src="{% static 'img/reqImg.png' %}" alt="reqImg">
+    </div> -->
+    <form class="" action="{% url 'demo' %}" method="post"style="width: -webkit-fill-available;position: relative;">
+
+        <span class="headFlex">
+            <h2>Contact Us</h2>
+        </span>
+        {% csrf_token %}
+
+        <div class="formOne">
+            <!-- <h3>Contact Us</h3> -->
+<span class="flexFirstName">
+            <div style="width: 100%;">
+                <label for="FirstName">First Name</label>
+                <input type="text" id="FirstName" placeholder="First Name" name="FirstName" required>
+            </div>
+            <div style="width: 100%;">
+                <label for="LastName">Last Name</label>
+                <input type="text" id="LastName" placeholder="Last Name" name="LastName" required>
+            </div>
+
+        </span>
+            <div>
+                <label for="CompanyName">Company Name</label>
+                <input type="text" id="CompanyName" placeholder="Company Name" name="CompanyName" required>
+            </div>
+
+            <div>
+                <label for="emailFrom">Business Email ID</label>
+
+                <input type="email" id="emailFrom" placeholder="Business Email ID" name="emailFrom" required>
+            </div>
+
+            <div>
+                <label for="txtPhone">Contact Number</label>
+                <input type="tel" id="txtPhone" style="width:100% ;" placeholder="Contact Number" name="mobileNumber"
+                    required>
+                <!-- <input type="button" id="btnSubmit" value="Get Dial Details" /> -->
+            </div>
+
+            <div>
+                <label for="JobTitle">Job Title</label>
+                <input type="text" id="JobTitle" placeholder="Job Title" name="JobTitle" required>
+            </div>
+        </div>
+        <span class="spanSubmitForm">
+            <button>Submit</button>
+        </span>
+
+
+
+
+
+    </form>
+
+</div>
+</div>
+</div>
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/intlTelInput-jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var code = "+91"; // Assigning value from model.
+        $('#txtPhone').val(code);
+        $('#txtPhone').intlTelInput({
+            autoHideDialCode: true,
+            autoPlaceholder: "ON",
+            dropdownContainer: document.body,
+            formatOnDisplay: true,
+            // hiddenInput: "full_number",
+            initialCountry: "auto",
+            nationalMode: true,
+            placeholderNumberType: "MOBILE",
+            preferredCountries: ['IN'],
+            separateDialCode: true
+        });
+        // $('#btnSubmit').on('click', function () {
+        //     var code = $("#txtPhone").intlTelInput("getSelectedCountryData").dialCode;
+        //     var phoneNumber = $('#txtPhone').val();
+        //     var name = $("#txtPhone").intlTelInput("getSelectedCountryData").name;
+        //     alert('Country Code : ' + code + '\nPhone Number : ' + phoneNumber + '\nCountry Name : ' + name);
+        // });
+    });
+</script>
+{% endblock script %}

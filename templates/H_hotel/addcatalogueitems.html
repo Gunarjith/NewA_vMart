@@ -1,0 +1,95 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm myForm" action="{% if marketplace_id %}{% url 'submitcatalogue' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submitcatalogue' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Catalogue</h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="Food_catalogue">Food Catalogue</label>
+                <select name="Foodcatalogue" id="catalogue">
+                    <option>Select a Food Catalogue</option>
+                    {% for a in cataloguedata1 %}
+                    <option value="{{a.id}}">{{a.catalogue_name}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            <span>
+                <label for="Food_Item">Food Item</label>
+                <select name="FoodItem" id="item">
+                    <option>Select a Food Item</option>
+                    {% for a in cataloguedata %}
+                    <option value="{{a.id}}">{{a.food_name}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            
+         
+        </span>
+
+
+        <span class="spanSubmitForm">
+
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

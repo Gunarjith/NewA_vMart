@@ -1,0 +1,325 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm" style="position: relative;"
+        action=""
+        method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for a in updateBCampaign %}
+
+        <span class="formOne inputGridTwo">
+            <span class="formOne inputGridTwo" style="">
+                <span>
+    
+                    <label>Campaign Name</label>
+                    <input type="text" name="reCampaignName" class="renameInput"
+                        value="{{a.generic_campaign_info.Campaign_Name}}">
+    
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="template_name">Template Name:</label>
+                    <input type="text" id="template_name cName" name="retemplate_name" value="{{a.template_name}}">
+                    <label style="color: rgba(27, 20, 20, 0.324);">Use only lowercase alphanumeric characters and underscores</label> 
+
+                    <span class="charCount"></span>
+                </span>
+
+
+                <span>
+                    <h3><label for="template_name">Template Footer: (Optional)</label></h3>
+                    <input type="text" id="inputField1" name="refootername" value="{{a.template_footer}}">
+                    <p id="charCount2">0/60</p>
+                </span>
+            </span>
+            <span class="formOne inputGridTwo" style="">
+
+            <span>
+                <label for="template_body_message">Template Body Message:</label>
+                <textarea id="template_body_message" name="template_body_message" rows="8"
+                    cols="100">{{ a.template_body_message }}</textarea>
+                <span class="charCount"></span>
+                <br>
+                <p style="color: rgba(27, 20, 20, 0.324);">Bold: *text*  <br>
+                Italics: _text_<br>
+                Strikethrough: ~text~ <br>
+                Monospace: ```text```<br>
+                </p>
+            </span> 
+            </span>
+            <span>
+                <label>Header type</label>
+                <select id="serviceselect" name="selectsoptionbtn">
+                    <option value="{{a.template_header_type}}" hidden>{{a.template_header_type}}</option>
+                </select>
+            </span>
+            {% if a.template_header_type == 'Text' %}
+            <span>
+                <label for="template_header_text">Template Header :</label>
+                <input type="text" id="inputField" name="retemplate_header_text" value="{{a.template_header_text}}">
+                <p id="charCount1">0/60</p>
+            </span>
+            {% elif a.template_header_type  == 'Image' %}
+            <span class="formOne inputGridTwo" >
+            <span style="width: max-content;">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if a.template_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reCampaignHeaderImg" id="id_reCampaignHeaderImg" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+            </span>
+            {% elif a.template_header_type  == 'Video' %}
+            <span class="formOne inputGridTwo">
+                <!-- <span> -->
+                    <span>
+                        <label for="rehotelservicevideo"> Video</label>
+                        <span class="formImgFlex">
+                            <video width="220" height="140" controls>
+                                <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_header_image}}" type="video/mp4">
+                            </video>
+    
+                            <input type="file" id="rehotelservicevideo" name="replacevideo" class="videoInput"
+                                accept="video/*"
+                                onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+                    </span>
+                    
+            </span>
+
+            {% elif a.template_header_type == 'Document' %}
+            <span id="fileInputSpan">
+                <label for="fileInput">document:</label>
+                <input type="text" name="refileInput1" id="fileInput" value="{{a.template_header_image}}" readonly>
+                <button type="button" onclick="changeFile()">Change File</button>
+            </span>
+
+            {% endif %}
+        </span>
+            <span></span>
+
+        </span>
+
+    </form>
+
+</div>
+
+
+
+
+{% endfor %}
+
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+
+                <th>No</th>
+                <th>Button text</th>
+                <th>Button Type</th>
+                <th>Button type info</th>
+                <!-- <th>Additional Info</th> -->
+                <th style="text-align: center;">Action</th>
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in listbtn %}
+            <tr style="margin: 50px;">
+
+                <td>{{a.template_button_num}}</td>
+                <td>{{a.template_button_name}}</td>
+                <td>{{a.template_button_type}}</td>
+                {% if a.template_button_type == 'IMAGE' %}
+
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_file_path}}">
+                </td>
+
+                {% elif a.template_button_type == 'URL' %}
+                <td>{{a.template_additional_info}}</td>
+
+                {% elif a.template_button_type == 'FORM' %}
+                <td>{{a.template_file_path}}</td>
+
+                {% elif a.template_button_type == 'DOCUMENT' %}
+                <td>{{a.template_file_path}}</td>
+
+                {% elif a.template_button_type == 'PHONE_NUMBER' %}
+                <td>{{a.template_file_path}}</td>
+
+                {% elif a.template_button_type == 'STOP' %}
+                <td>{{a.template_file_path}}</td>
+
+                {% elif a.template_button_type == 'FROM' %}
+                <td>{{a.template_file_path}}</td>
+
+                {% elif a.template_button_type == 'CAMPAIGN' %}
+                <th>{{a.template_file_path}}</th>
+                {% elif a.template_button_type == 'Inflow' %}
+                <th>{{a.template_file_path}}</th>
+
+                {% elif a.template_button_type == 'VIDEO' %}
+                <td>
+                    <video width="100" height="80" controls>
+                        <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.template_file_path}}"
+                            type="video/mp4">
+                    </video>
+                </td>
+                {% endif %}
+
+                <!-- <td>{{a.template_additional_info}}</td> -->
+                <td>
+                    <span class="editDeleteTd">
+
+                        <a href="{% url 'updateBtnBCamaign' a.id %}?marketplace_id={{marketplace_id}}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deleteBtnBCampaign' a.id %}?marketplace_id={{marketplace_id}}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+
+                    </span>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+
+
+<script>
+    function clearCampHeaderImg(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $(".template_body_message").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#template_header_text").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#template_body_message").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        // $("#leve1Descrip").emojioneArea({
+        //     pickerPosition: "bottom"
+        // });
+    });
+</script>
+<script>
+    var inputField = document.getElementById("inputField");
+    var charCount = document.getElementById("charCount1");
+
+    inputField.addEventListener("input", function() {
+        var inputValue = inputField.value;
+        var remainingChars = 60 - inputValue.length;
+
+        charCount.textContent = inputValue.length + "/" + 60;
+
+        if (remainingChars >= 1) {
+            charCount.textContent += " (" + remainingChars + " characters remaining)";
+        } else {
+            charCount.textContent += " (0 characters remaining)";
+            inputField.value = inputValue.substring(0, 60); // Truncate input if exceeded limit
+            inputField.disabled = true; // Disable input field after reaching the limit
+        }
+    });
+</script>
+<script>
+    var inputField1 = document.getElementById("inputField1");
+    var charCount2 = document.getElementById("charCount2");
+
+    inputField1.addEventListener("input", function() {
+        var inputValue = inputField1.value;
+        var remainingChars = 60 - inputValue.length;
+
+        charCount2.textContent = inputValue.length + "/" + 60;
+
+        if (remainingChars >= 1) {
+            charCount2.textContent += " (" + remainingChars + " characters remaining)";
+        } else {
+            charCount2.textContent += " (0 characters remaining)";
+            inputField1.value = inputValue.substring(0, 60); // Truncate input if exceeded limit
+            inputField1.disabled = true; // Disable input field after reaching the limit
+        }
+    });
+</script>
+<script>
+    function changeFile() {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.doc, .docx, .pdf'; // Specify the accepted file types
+        input.onchange = function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    document.getElementById('fileInput').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        input.click();
+    }
+</script>
+{% endblock script %}

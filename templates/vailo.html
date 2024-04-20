@@ -1,0 +1,798 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/all.min.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-3k9/3Jl3y+SnvQ8S2Rf/Sjw53JJaZ1+Ub4ugW4L1XJ98dsGkFuxvzxm8IS+TmTzgjfyDprZCt+1Ht1E9GMRxKg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <script src="https://kit.fontawesome.com/b32ea33422.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-3k9/3Jl3y+SnvQ8S2Rf/Sjw53JJaZ1+Ub4ugW4L1XJ98dsGkFuxvzxm8IS+TmTzgjfyDprZCt+1Ht1E9GMRxKg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.css"
+        integrity="sha512-+ouAqATs1y4kpPMCHfKHVJwf308zo+tC9dlEYK9rKe7kiP35NiP+Oi35rCFnc16zdvk9aBkDUtEO3tIPl0xN5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href=",https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/newWebPage.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/index1.css' %}"> -->
+    <link rel="shortcut icon" href="{% static 'img/tabLogo.png' %}">
+    <meta name="description"
+        content="Power Your Customer Engagement Through Brillion1 - leveraging the full potential of WhatsApp for your enterprise.">
+    <title>
+
+        Brillion1
+
+
+    </title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <meta name="keywords" content="brillion1, WhatsApp, Online Shopping, Accelerate,Conversions" />
+    <link rel="canonical" href="https://brillion1.com/">
+    <link rel="canonical" href="https://vailo.ai/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-JlQ2P/zKw5sbRy5R5lIBr9XPh58JD1Y6UfZoU+JJTeUxw6Uwz6FAe+6UvbvD9szdkW8d3Z+NkMq3q2i5ekCHwQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/bootstrap-extension.css" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600&display=swap"
+        rel="stylesheet">
+    {% block header %}
+
+
+    {% endblock header %}
+    <!-- ---- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="{% static 'css/newDash.css' %}"> -->
+
+    <!-- ---  -->
+    <!-- <link rel="stylesheet" href="{% static 'css/newWeb.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/indexOne.css' %}">
+</head>
+
+<body>
+    <!-- {% if user.is_authenticated %}
+
+    {% else %} -->
+    <div class="overflowHidden">
+        <div>
+            <nav class="navMain" style="text-transform: capitalize;">
+                <div class="leftNav">
+                    <a href="{% url 'homeStatic' %}">
+                        <img src="{% static 'img/logoNav.png' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="menu" id="menuOpen">
+                    <img src="{% static 'img/menuOpenNew.png' %}" alt="" id="menuId">
+                </div>
+                <ul class="displayMb" id="displayMbId">
+
+                    <li><a href="{% url 'homeStatic' %}">
+                            <p>Home</p>
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="#" class="platformsNav" id="PlatformsId">
+                            <p>Platforms</p>
+                            <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpId1">
+                        </a>
+                        <div class="downArrowListDis" id="listPlatformsId">
+                            <ul class="downArrowList">
+                                <div class="arrow-container"></div>
+                                <li><a href="{% url 'appointmentPage' %}">
+                                        <span>
+                                            <img src="{% static 'img/p1Img.png' %}" alt="p1Img">
+
+                                            <p>Brillion1 Appointment</p>
+                                        </span>
+                                    </a></li>
+                                <li><a href="{% url 'campaignPage' %}">
+                                        <span><img src="{% static 'img/p2Img.png' %}" alt="p1Img">
+
+                                            <p>Brillion1 Campaign</p>
+                                        </span>
+                                    </a></li>
+
+                                <li>
+                                    <a href="{% url 'dipstickPage' %}">
+                                        <span>
+                                            <img src="{% static 'img/p3Img.png' %}" alt="p1Img">
+                                            <p>Brillion1 Dipstick</p>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li><a href="{% url 'donationPage' %}">
+                                        <span><img src="{% static 'img/p4Img.png' %}" alt="p1Img">
+                                            <p>Brillion1 Donation</p>
+                                        </span>
+                                    </a></li>
+                                <li> <a href="{% url 'healthwatt' %}">
+                                        <span><img src="{% static 'img/p5Img.png' %}" alt="p1Img">
+
+                                            <p>Brillion1 Healthwatt</p>
+                                        </span>
+                                    </a></li>
+                                <li><a href="{% url 'ticketPage' %}">
+                                        <span><img src="{% static 'img/p6Img.png' %}" alt="p1Img">
+                                            <p>Brillion1 Ticket</p>
+                                        </span>
+                                    </a></li>
+
+                                <!-- <li><a href="{% url 'scanToMenuWebPage' %}">
+                                    <p>Scan to menu</p>
+                                </a></li>
+                            <li><a href="{% url 'ticketMenuWebPage' %}">
+                                    <p>Ticket</p>
+                                </a></li> -->
+
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="servicesMargin">
+                        <a href="{% url 'servicesPage' %}">
+                            <p>Services</p>
+                        </a>
+                    </li>
+                    <!-- <li><a href="#" class="platformsNav" id="ServicestId">
+                        <p>Services</p>
+                        <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpId2">
+                    </a>
+                    <div class="downArrowListDis" id="listServicesId">
+                        <ul class="downArrowList">
+                            <div class="arrow-container"></div>
+                            <li><a href="#">
+                                    <p>Business application</p>
+                                </a></li>
+                            <li><a href="#">
+                                    <p>IWRS/Chatbots</p>
+                                </a></li>
+                            <li><a href="#">
+                                    <p>Marketing Companion</p>
+                                </a></li>
+                            <li><a href="#">
+                                    <p>Support Systems</p>
+                                </a></li>
+                        </ul>
+                    </div>
+
+                </li> -->
+                    <li>
+                        <a href="#" class="platformsNav" id="blogId">
+                            <p>Resource</p>
+                            <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpId3">
+                        </a>
+                        <div class="downArrowListDis" id="listBlogId">
+                            <ul class="downArrowList">
+                                <div class="arrow-container"></div>
+                                <li>
+                                    <a href="#" class="platformsNav" id="BlogformsId" style="width: 320px;">
+                                        <p>Blog</p>
+                                        <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpIdBlog">
+                                    </a>
+                                    <div class="downArrowListDis" id="BlogPlatformsId">
+                                        <ul class="downArrowList" style="margin: 2px 0px !important; border-top: none;">
+                                            <!-- <div class="arrow-container"></div> -->
+                                            <li style="width: 320px;">
+                                                <a href="{% url 'directCommerceBlog' %}">
+
+                                                    <p style="padding-left: 30px; font-size: 15px;">Direct Commerce</p>
+
+                                                </a>
+                                            </li>
+                                            <li style="width: 320px;">
+                                                <a href="{% url 'reachBillion' %}">
+
+                                                    <p style="padding-left: 30px; font-size: 15px;">Reach Billions &
+                                                        Beyond</p>
+
+                                                </a>
+                                            </li>
+
+
+                                            <li style="width: 320px;">
+                                                <a href="{% url 'digitalPage' %}">
+                                                    <p style="padding-left: 30px; font-size: 15px;">Digital Divide to
+                                                        digital Democracy</p>
+                                                </a>
+                                            </li>
+                                            <!-- <li><a href="{% url 'ticketMenuWebPage' %}">
+                                                <p>Ticket</p>
+                                            </a></li> -->
+
+
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="platformsNav" id="artformsId" style="width: 320px;">
+                                        <p>Use Cases</p>
+                                        <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpIdArt">
+                                    </a>
+                                    <div class="downArrowListDis" id="artPlatformsId">
+                                        <ul class="downArrowList"
+                                            style="border-top: none;margin-top: 0px;width: -webkit-fill-available;     justify-content: start;">
+                                            <!-- <div class="arrow-container"></div> -->
+                                            <li style="width: 320px;"><a href="{% url 'hrSystem' %}">
+
+                                                    <p style="padding-left: 30px; font-size: 15px;">Integrating diverse
+                                                        workforce</p>
+
+                                                </a></li>
+                                            <li style="width: 320px;"><a href="{% url 'salon' %}">
+
+                                                    <p style="padding-left: 30px; font-size: 15px;">Improved loyalty at
+                                                        Salon Chain</p>
+
+                                                </a></li>
+
+
+                                            <li style="width: 320px;"><a href="{% url 'serviceNow' %}">
+                                                    <p style="padding-left: 30px; font-size: 15px;">Enhanced Service
+                                                        Desk accessibility</p>
+                                                </a></li>
+                                            <!-- <li><a href="{% url 'ticketMenuWebPage' %}">
+                                                <p>Ticket</p>
+                                            </a></li> -->
+
+
+                                        </ul>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+
+                    </li>
+                    <!-- <li>
+                    <a href="{% url 'partnerPage' %}" class="platformsNav" id="PartnersId">
+                        <p>Partners</p>
+                        <img src="{% static 'img/downArrow.png' %}" alt="" id="arrowUpId4">
+                    </a>
+                    <div class="downArrowListDis" id="listPartnersId">
+                       
+                        <ul class="downArrowList">
+                            <div class="arrow-container"></div>
+                            <li><a href="">
+                                    <p>Become our Partner</p>
+                                </a></li>
+                            <li><a href="#">
+                                    <p>Strategic Partners</p>
+                                </a></li>
+
+
+
+                        </ul>
+                    </div>
+                    
+                </li> -->
+                    <!-- </li> -->
+                    <li id="partnerMargin">
+                        <a href="{% url 'partnerPage' %}">
+                            <p>Partners</p>
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="{% url 'pricingPage' %}">
+                            <p>Pricing</p>
+                        </a>
+
+                    </li>
+                    <li><a href="{% url 'aboutUs' %}">
+                            <p>About us</p>
+                        </a>
+
+                    </li>
+                    <a href="{% url 'login' %}">
+                        <button class="activeBtn">
+                            Log In
+                        </button>
+                    </a>
+
+                    <li><a href="#" id="logOutId" style="display: none !important;"><img src="{% static 'img/logOutImg.png' %}"
+                                alt=""></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div style="margin-top: 90px;">
+            {% block body %}
+
+            {% endblock body %}
+        </div>
+
+
+        <div class="footer_main vailoFooterSection" id="Contact">
+            <div class="imgLine">
+                <img src="{% static 'img/line.png' %}" alt="" class="lineImg">
+                <img src="{% static 'img/arrowUp.png' %}" alt="" class="arrowUpF" style="">
+            </div>
+
+            <footer style="text-transform: capitalize;">
+                <div class="footer_span footerDiv vailoFooterMain">
+                    <span class="footerLogoVailo item1f">
+                        <img class=" footer_logo vailoFooterLogo" src="{% static 'img/logoFooter.png' %}"
+                            alt="vailo_ai_logo.png">
+
+                    </span>
+                    <span class="footer_span1 footerDiv vailoFooterSpan1 item2f">
+
+                        <p class="footerHead">Menu</p>
+                        <p><a href="{% url 'homeStatic' %}">Home</a></p>
+                        <p><a href="{% url 'aboutUs' %}">About Us</a></p>
+                        <p><a href="">FAQ</a></p>
+                        <p><a href="{% url 'partnerPage' %}">Partners</a></p>
+                        <p><a href="{% url 'pricingPage' %}">Pricing</a></p>
+
+                    </span>
+                    <span class="footer_span1 footerDiv vailoFooterSpan1 item3f">
+
+                        <p class="footerHead">Platforms</p>
+                        <p><a href="{% url 'appointmentPage' %}">Brillion1 Appointment</a></p>
+                        <p><a href="{% url 'campaignPage' %}">Brillion1 Campaign</a></p>
+                        <p><a href="{% url 'dipstickPage' %}">Brillion1 Dipstick</a></p>
+                        <p><a href="{% url 'donationPage' %}">Brillion1 Donation</a></p>
+                        <p><a href="{% url 'healthwatt' %}">Brillion1 Healthwatt</a></p>
+                        <p><a href="{% url 'ticketPage' %}">Brillion1 Ticket</a></p>
+                    </span>
+                    <span class="footer_span1 footerDiv vailoFooterSpan1 item4f">
+
+                        <a href="{% url 'servicesPage' %}">
+                            <p class="footerHead">Services</p>
+                        </a>
+                        <p class="footerHead">Resource</p>
+                        <p><a href="{% url 'blogPage' %}">Blog</a></p>
+                        <p><a href="{% url 'useCasePage' %}">Case Studies</a></p>
+                        <!-- <p><a href="">Support Systems</a></p> -->
+
+                    </span>
+
+                    <!-- <div> -->
+                    <span class="footer_span1 footerDiv vailoFooterSpan1 allignLeft item5f">
+
+                        <p class="footerHead">Contact Us</p>
+                        <span><img src="{% static 'img/phoneFooter.png' %}" alt="">
+                            <p><a href="">+9187921 51415</a></p>
+                        </span>
+                        <span><img src="{% static 'img/mailFooter.png' %}" alt="">
+                            <p><a href="" style="text-transform: lowercase !important;">hello@brillion1.com</a></p>
+                        </span>
+                        <span><img src="{% static 'img/locationFooter.png' %}" alt="">
+                            <p><a href=""> #600, 3rd floor, 15th Cross, 14th <br>
+                                    Main Rd, Sector 4,
+                                    HSR Layout,<br>
+                                    Bengaluru, Karnataka-560102</a></p>
+                        </span>
+                        <!-- <p><a href="">Support Systems/a></p> -->
+
+
+                    </span>
+                    <!-- </div> -->
+                </div>
+                <hr class="hrBottomFooter">
+
+                <div class="footerBottom">
+                    <div>
+                        <a href="{% url 'privacyPolicy' %}" style="color: #000;">
+                            <p>Privacy policy</p>
+                        </a>
+                        <p>Terms and conditions</p>
+                        <p>Refund policy</p>
+                        <!-- <p>Refund and privacy policy</p> -->
+
+                    </div>
+                    <div class="socialLinkDiv">
+                        <p>Follow us</p>
+                        <div class="socialLink">
+                            <a href="https://www.facebook.com/Brillion1/">
+                                <img src="{% static 'img/facebookLogo.png' %}" alt="">
+                            </a>
+                            <a href="https://www.linkedin.com/company/brillion1/">
+                                <img src="{% static 'img/linkedIn.png' %}" alt="">
+                            </a>
+                            <a href="https://twitter.com/brillion_one/">
+                                <img src="{% static 'img/twitterLogo.png' %}" alt="">
+                            </a>
+                            <a href="https://www.youtube.com/@Brillion1">
+                                <img src="{% static 'img/youtubeLogo.png' %}" alt="">
+                            </a>
+                            <a href="https://www.instagram.com/brillion.one/">
+                                <img src="{% static 'img/instaLogo.png' %}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </footer>
+        </div>
+    </div>
+    {% endif %}
+
+    {% block script %}
+
+    {% endblock script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Your navigation bar JavaScript code here
+
+
+
+            // --
+            const PlatformsId = document.getElementById('PlatformsId');
+            const listPlatformsId = document.getElementById('listPlatformsId');
+            const arrowUpId1 = document.getElementById('arrowUpId1');
+            const servicesMargin = document.getElementById('servicesMargin');
+
+            // Function to close the list and reset the arrow image
+            function closeList() {
+                listPlatformsId.style.display = 'none';
+                arrowUpId1.src = '/static/img/downArrow.png';
+                // servicesformsId.style.marginTop = '0px';
+                blogId.style.marginTop = '0px';
+                servicesMargin.style.marginTop = '0px';
+
+                // partnersId.style.marginTop = '0px';
+                logOutId.style.marginTop = '0px';
+            }
+
+            // Add a click event listener to the "Platforms" link
+            PlatformsId.addEventListener("click", function (event) {
+                // Toggle the display of the list and change the arrow image
+                if (listPlatformsId.style.display === 'none' || listPlatformsId.style.display === '') {
+                    listPlatformsId.style.display = 'block';
+                    // listServicessId.style.display = 'none' ;
+                    listBlogId.style.display = 'none';
+                    // listPartnersId.style.display = 'none';
+                    arrowUpId1.src = '/static/img/upArrrow1.png';
+                    console.log("Window width:", window.innerWidth); // Debugging
+                    if (window.innerWidth <= 1067) {
+
+                        servicesMargin.style.marginTop = '265px';
+                        blogId.style.marginTop = '0px';
+                        logOutId.style.marginTop = '0px';
+                        partnerMargin.style.marginTop = '0px';
+                    }
+                    // servicesformsId.style.marginTop = '170px'
+                } else {
+                    closeList();
+                }
+
+                // Prevent the click event from propagating to the document
+                event.stopPropagation();
+            });
+
+            // Add a click event listener to the document to close the list when clicking anywhere outside of it
+            document.addEventListener("click", function () {
+                if (listPlatformsId.style.display === 'block') {
+                    closeList();
+                }
+            });
+
+
+
+            // -- 
+
+            // const servicesformsId = document.getElementById('ServicestId');
+            // const listServicessId = document.getElementById('listServicesId');
+            // const arrowUpId2 = document.getElementById('arrowUpId2');
+
+            // // Function to close the list and reset the arrow image
+            // function closeList1() {
+            //     listServicessId.style.display = 'none';
+            //     arrowUpId2.src = '/static/img/downArrow.png';
+            //     servicesformsId.style.marginTop = '0px';
+            //     blogId.style.marginTop = '0px';
+            //     // partnersId.style.marginTop = '0px';
+            //     logOutId.style.marginTop = '0px';
+            // }
+
+            // // Add a click event listener to the "Platforms" link
+            // servicesformsId.addEventListener("click", function(event) {
+            //     //servicesformsIdToggle the display of the list and change the arrow image
+            //     if (listServicessId.style.display === 'none' || listServicessId.style.display === '') {
+            //         listServicessId.style.display = 'block';
+            //         listBlogId.style.display = 'none';
+            //         listPlatformsId.style.display = 'none';
+            //         // listPartnersId.style.display = 'none';
+            //         arrowUpId2.src = '/static/img/upArrrow1.png';
+            //         if (window.innerWidth <= 1067) {
+            //             blogId.style.marginTop = '120px';
+            //             // servicesformsId.style.marginTop = '170px';
+            //             servicesformsId.style.marginTop = '0px';
+            //             // partnersId.style.marginTop = '0px';
+            //             logOutId.style.marginTop = '0px';
+            //         }
+            //     } else {
+            //         closeList1();
+            //     }
+
+            //     // Prevent the click event from propagating to the document
+            //     event.stopPropagation();
+            // });
+
+            // // Add a click event listener to the document to close the list when clicking anywhere outside of it
+            // document.addEventListener("click", function() {
+            //     if (listServicessId.style.display === 'block') {
+            //         closeList1();
+            //     }
+            // });
+
+
+            // -- 
+
+            const blogId = document.getElementById('blogId');
+            const listBlogId = document.getElementById('listBlogId');
+            const arrowUpId3 = document.getElementById('arrowUpId3');
+            const partnerMargin = document.getElementById('partnerMargin');
+
+            // Function to close the list and reset the arrow image
+            function closeList2() {
+                listBlogId.style.display = 'none';
+                arrowUpId3.src = '/static/img/downArrow.png';
+                // servicesformsId.style.marginTop = '0px';
+                blogId.style.marginTop = '0px';
+                partnerMargin.style.marginTop = '0px';
+                // partnersId.style.marginTop = '0px';
+                logOutId.style.marginTop = '0px';
+
+            }
+
+            // Add a click event listener to the "Platforms" link
+            blogId.addEventListener("click", function (event) {
+                //servicesformsIdToggle the display of the list and change the arrow image
+                if (listBlogId.style.display === 'none' || listBlogId.style.display === '') {
+                    listBlogId.style.display = 'block';
+                    listPlatformsId.style.display = 'none';
+                    // listServicessId.style.display = 'none' ;
+                    // listPartnersId.style.display = 'none';
+                    arrowUpId3.src = '/static/img/upArrrow1.png';
+                    if (window.innerWidth <= 1067) {
+                        // partnersId.style.marginTop = '60px';
+                        blogId.style.marginTop = '0px';
+                        partnerMargin.style.marginTop = '100px';
+                        BlogPlatformsId.style.marginTop = '0px !important';
+                        servicesMargin.style.marginTop = '0px';
+                        // servicesformsId.style.marginTop = '0px';
+                        logOutId.style.marginTop = '0px';
+
+                    }
+                } else {
+                    closeList2();
+                }
+
+                // Prevent the click event from propagating to the document
+                event.stopPropagation();
+            });
+
+            // Add a click event listener to the document to close the list when clicking anywhere outside of it
+            document.addEventListener("click", function () {
+                if (listBlogId.style.display === 'block') {
+                    closeList2();
+                }
+            });
+
+            const BlogformsId = document.getElementById('BlogformsId');
+            const BlogPlatformsId = document.getElementById('BlogPlatformsId');
+            const arrowUpIdBlog = document.getElementById('arrowUpIdBlog');
+
+            function closeList5() {
+                BlogPlatformsId.style.display = 'none';
+                arrowUpIdBlog.src = '/static/img/downArrow.png';
+                BlogformsId.style.marginTop = '0px';
+                artformsId.style.marginTop = '0px';
+                if (window.innerWidth <= 1067) {
+                    partnerMargin.style.marginTop = '95px';
+                }
+            }
+
+            BlogformsId.addEventListener("click", function (event) {
+                if (BlogPlatformsId.style.display === 'none' || BlogPlatformsId.style.display === '') {
+                    BlogPlatformsId.style.display = 'block';
+                    artPlatformsId.style.display = 'none'; // Close the other dropdown
+                    artformsId.style.marginTop = '120px';
+                    arrowUpIdBlog.src = '/static/img/upArrrow1.png';
+                    if (window.innerWidth <= 1067) {
+                        artformsId.style.marginTop = '110px';
+                        partnerMargin.style.marginTop = '205px';
+                        BlogformsId.style.marginTop = '0px';
+                        logOutId.style.marginTop = '0px';
+                        BlogPlatformsId.style.marginTop = '0px';
+
+
+                    }
+                } else {
+                    closeList5();
+                }
+                event.stopPropagation();
+            });
+
+            document.addEventListener("click", function () {
+                if (BlogPlatformsId.style.display === 'block') {
+                    closeList5();
+                }
+            });
+
+            const artformsId = document.getElementById('artformsId');
+            const artPlatformsId = document.getElementById('artPlatformsId');
+            const arrowUpIdart = document.getElementById('arrowUpIdart');
+
+            function closeList6() {
+                artPlatformsId.style.display = 'none';
+                arrowUpIdBlog.src = '/static/img/downArrow.png';
+                artformsId.style.marginTop = '0px';
+                BlogPlatformsId.style.marginTop = '0px';
+                if (window.innerWidth <= 1067) {
+                    partnerMargin.style.marginTop = '95px';
+                }
+
+            }
+
+            artformsId.addEventListener("click", function (event) {
+                if (artPlatformsId.style.display === 'none' || artPlatformsId.style.display === '') {
+                    artPlatformsId.style.display = 'block';
+                    BlogPlatformsId.style.display = 'none'; // Close the other dropdown
+                    BlogformsId.style.marginTop = '0px';
+                    artformsId.style.marginTop = '0px';
+                    arrowUpIdBlog.src = '/static/img/upArrrow1.png';
+                    if (window.innerWidth <= 1067) {
+                        artformsId.style.marginTop = '0px';
+                        partnerMargin.style.marginTop = '200px';
+                        logOutId.style.marginTop = '0px';
+                    }
+                } else {
+                    closeList6();
+                }
+                event.stopPropagation();
+            });
+
+            document.addEventListener("click", function () {
+                if (artPlatformsId.style.display === 'block') {
+                    closeList6();
+                }
+            });
+
+
+
+            menuOpen = document.getElementById('menuOpen')
+            displayMbId = document.getElementById('displayMbId')
+            menuId = document.getElementById('menuId')
+
+            function closeList4() {
+                displayMbId.style.display = 'none';
+                menuId.src = '/static/img/menuOpenNew.png';
+            }
+            menuOpen.addEventListener('click', function () {
+                if (displayMbId.style.display === 'none' || displayMbId.style.display === '') {
+                    displayMbId.style.display = 'block';
+                    menuId.src = '/static/img/menuClose.png';
+                    blogId.style.marginTop = '0px';
+                }
+                else {
+                    closeList4();
+
+                }
+                event.stopPropagation();
+            })
+
+        });
+
+
+
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Your JavaScript code here
+            const text = "Whatsapp";
+            const outputElement = document.getElementById("output");
+            let index = 0;
+            let direction = 1; // 1 for forward, -1 for backward
+
+            function updateText() {
+                outputElement.textContent = text.slice(0, index);
+
+                if (direction === 1) {
+                    index++;
+                    if (index > text.length) {
+                        direction = -1;
+                        setTimeout(updateText, 1000); // Pause before erasing
+                    } else {
+                        setTimeout(updateText, 100); // Type speed
+                    }
+                } else {
+                    index--;
+                    if (index < 0) {
+                        direction = 1;
+                        setTimeout(updateText, 1000); // Pause before typing
+                    } else {
+                        setTimeout(updateText, 50); // Erase speed
+                    }
+                }
+            }
+
+            updateText(); // Start the animation
+
+            // Your other JavaScript code here
+            const slider = document.querySelector("[data-slider]");
+            const track = slider.querySelector("[data-slider-track]");
+            const prev = slider.querySelector("[data-slider-prev]");
+            const next = slider.querySelector("[data-slider-next]");
+
+            if (track) {
+                prev.addEventListener("click", () => {
+                    next.removeAttribute("disabled");
+
+                    track.scrollTo({
+                        left: track.scrollLeft - track.clientWidth, // Scroll by the width of the viewport
+                        behavior: "smooth"
+                    });
+                });
+
+                next.addEventListener("click", () => {
+                    prev.removeAttribute("disabled");
+
+                    track.scrollTo({
+                        left: track.scrollLeft + track.clientWidth, // Scroll by the width of the viewport
+                        behavior: "smooth"
+                    });
+                });
+
+                track.addEventListener("scroll", () => {
+                    prev.removeAttribute("disabled");
+                    next.removeAttribute("disabled");
+
+                    if (track.scrollLeft <= 0) {
+                        prev.setAttribute("disabled", "");
+                    }
+
+                    if (track.scrollLeft >= track.scrollWidth - track.clientWidth) {
+                        next.setAttribute("disabled", "");
+                    }
+                });
+            }
+
+
+
+            // ...
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter">
+
+    <form method="post" class="profileForm" action="{% url 'openSubClient' %}" style="position: relative;" novalidate>
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add User</h3>
+        </span>
+        <span class="formOne">
+            <span>
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="subclientname" required>
+            </span>
+            <span>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="emailid" required>
+            </span>
+            <span>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </span>
+            <span style="position: relative;">
+                <label for="re_password">Re-Enter Password:</label>
+                <input type="password" id="re_password" name="re_password" required>
+                <i class="far fa-eye-slash" id="togglePassword" style="cursor: pointer; position: absolute; right:10px; bottom: 5px;"></i>
+            </span>
+            {% if messages %}
+                {% for message in messages %}
+                    <span class="error">{{ message }}</span>
+                {% endfor %}
+            {% endif %}
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Register">
+        </span>
+    </form>
+
+</div>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+{% endblock script %}
+

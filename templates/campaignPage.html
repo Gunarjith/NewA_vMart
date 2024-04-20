@@ -1,0 +1,266 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .dcSectionOne {
+        background: url("{% static 'img/dcBackgroundImg.png' %}");
+    }
+
+    .sectionOneMainDIv {
+        background: url("{% static 'img/campbg.png' %}") center no-repeat;
+    }
+
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+{% block body %}
+
+<div class="bg1">
+    <div class="section2" style="    margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Brillion1 Campaign
+                        </h1>
+                        <img src="{% static 'img/headerImgCamp.png' %}" alt="" style="width: fit-content;">
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Gain more customers through whatsapp campaigns </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/campaignImgMain.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+
+        Brillion1 Campaign is an innovative platform revolutionizing how businesses connect and engage with their
+        audience through WhatsApp. By leveraging the power of this widely used messaging app, Brillion1 Campaign
+        empowers businesses to effortlessly launch impactful campaigns that span various purposes. Through broadcast
+        lists or groups, businesses can share promotional content, product updates, and exclusive offers directly with
+        their audience.
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            The real-time nature of WhatsApp enables businesses to establish immediate connections with their customers,
+            fostering a sense of urgency and exclusivity. Additionally, automated response streamline customer
+            interactions, providing quick answers to queries and enhancing the overall user experience. Multimedia
+            features, including images, videos, and documents, allow for creative and visually appealing campaign
+            materials. A well-executed WhatsApp campaign not only reaches customers where they are most active but also
+            facilitates two-way communication, building stronger relationships and driving higher engagement levels.
+        </p>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/img2New.png' %}" alt="">
+    </div>
+
+</div>
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img id="myImage1c" src="{% static 'img/img1NewC.png' %}" alt="" style="width: 100% !important;">
+    </div>
+    <div class="dcOneLeftSection widthSixty flexEnd" style="padding-right: 0 !important;">
+        <div class="campaignsubDiv campaignsubDivBg">
+            <h3>Event Promotion</h3>
+            <p>
+                Drive attendance with personalized WhatsApp messages for your conferences, workshops, or special
+                gatherings.
+            </p>
+        </div>
+        <div class="campaignsubDiv">
+            <h3>Attractive Offers and Discounts</h3>
+            <p>
+                Send personalized messages directly to potential participants with exclusive deals, discounts, or
+                limited-time offers delivered to their phones.
+
+            </p>
+        </div>
+        <div class="campaignsubDiv">
+            <h3>Special Sales and New Products Launches</h3>
+            <p>
+                Drive traffic to stores by announcing flash sales or new products through sneak peeks and teasers to
+                interested customers.
+
+            </p>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+        <div class="campaignsubDiv campaignsubDivBg">
+            <h3>New Product Launches</h3>
+            <p>
+                Build anticipation and excitement around new products or services by sending sneak peeks, teasers, and
+                release dates directly to interested customers.
+            </p>
+        </div>
+        <div class="campaignsubDiv">
+            <h3>
+                Contests and Giveaways
+            </h3>
+
+            <p>
+                Use WhatsApp to conduct contests and giveaways. Reward winners with prizes to boost participation.
+
+            </p>
+        </div>
+
+
+        <div class="campaignsubDiv">
+            <h3>Seasonal or Holiday Campaigns</h3>
+            <p>
+                Send seasonal-themed promotions, greetings, or special offers that align with festive occasions through
+                WhatsApp
+            </p>
+        </div>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img id="myImage2c" src="{% static 'img/img4NewC.png' %}" alt="" style="width: 100% !important;">
+    </div>
+
+</div>
+
+
+
+<script>
+
+    var imageElements = [
+        document.getElementById('myImage1c'),
+        document.getElementById('myImage2c'),
+
+
+    ];
+
+    var imagePaths = [
+        [
+            "{% static 'img/img2NewC.png' %}",
+            "{% static 'img/img3NewC.png' %}",
+            "{% static 'img/img1NewC.png' %}",
+        ],
+        [
+            "{% static 'img/img5NewC.png' %}",
+            "{% static 'img/img6NewC.png' %}",
+            "{% static 'img/img4NewC.png' %}",
+        ],
+
+
+
+    ];
+
+    var currentIndex = [0, 0, 0, 0, 0];
+
+    // Change the images every 5 seconds
+    setInterval(function () {
+        for (var i = 0; i < imageElements.length; i++) {
+            imageElements[i].src = imagePaths[i][currentIndex[i]];
+            currentIndex[i] = (currentIndex[i] + 1) % imagePaths[i].length;
+        }
+    }, 3000);
+</script>
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'UpdateProfileDonation' %}" >
+                <button class="{% if 'UpdateProfileDonation' in request.path %}activeNavDash{% endif %}">Profile</button>
+            </a>
+            <a href="{% url 'nDonationFacebook' %}" >
+                <button class="{% if 'nDonationFacebook' in request.path %}activeNavDash{% endif %}">Facebook</button>
+            </a>
+            <a href="{% url 'subUserDonation' %}" >
+                <button class="{% if 'subUserDonation' in request.path or 'assignSubClientDonation' in request.path or 'openSub' in request.path %}activeNavDash{% endif %}">User</button>
+            </a>
+            <a href="{% url 'nDonationPayment' %}" >
+                <button class="{% if 'nDonationPayment' in request.path %}activeNavDash{% endif %}">Payment</button>
+            </a>
+        </div>
+    </div>
+</div>

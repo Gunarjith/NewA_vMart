@@ -1,0 +1,19 @@
+<div class="mT15">
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLeve1">
+            <a href="{% if marketplace_id %}{% url 'foodtypeinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'foodtypeinfo' %}{% endif %}">
+                <button class="{% if 'foodtypeinfo' in request.path %}activeNavDash{% endif %}">Category</button>
+
+            <a href="{% if marketplace_id %}{% url 'foodinfo' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'foodinfo' %}{% endif %}">
+                <button class="{% if 'foodinfo' in request.path %}activeNavDash{% endif %}">list of Food  Items</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'catalogueinfo' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'catalogueinfo' %}{% endif %}">
+                <button class="{% if 'catalogueinfo' in request.path or 'insertfood' in request.path %}activeNavDash{% endif %}">catalogue</button>
+            </a>
+            <!-- <a href="{% if marketplace_id %}{% url 'catalogueitemsinfo' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'catalogueitemsinfo' %}{% endif %}"> 
+                 <button class="{% if 'catalogueitemsinfo' in request.path %}activeNavDash{% endif %}">catalogue Items</button>
+            </a> -->
+            <br>
+        </div>
+    </div>
+</div>

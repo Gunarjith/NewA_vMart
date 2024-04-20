@@ -1,0 +1,59 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} facebook setting{% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter">
+<form class="profileForm" action="{% url 'facebook_info'  %}" method="post" style="position: relative;">
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Facebook details</h4>
+  </span>
+  <span class="formOne">
+    <span>
+      <label for="facebookPhNId">Phone number ID</label>
+      <input type="number" id="facebookPhNId" name="fb_phone_number_idRe" aria-describedby="emailHelp" placeholder="Enter Phone number ID"
+        required>
+    </span>
+    <span>
+      <label for="facebookWtsNmbr">Whatsapp number</label>
+      <input type="number" id="facebookWtsNmbr" name="fb_whatsapp_numberRe" aria-describedby="emailHelp" placeholder="Whatsapp Number"
+        required>
+    </span>
+    <span>
+      <label for="facebookAcsToken">Access token</label>
+      <input type="password" id="facebookAcsToken" name="fb_access_tokenRe" aria-describedby="emailHelp" placeholder="Enter access_token"
+        required>
+
+    </span>
+  </span>
+  <span class="spanSubmitForm">
+    <input type="submit">
+  </span>
+</form>
+</div>
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

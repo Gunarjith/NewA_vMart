@@ -1,0 +1,97 @@
+
+{% extends "common/commonSetting.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block bodyCommon %}
+
+
+{% load static %}
+
+
+
+
+
+<div class="frmCenter" style="margin: 10px;">
+<form class="profileForm ajax-form" action="{% url 'facebook_info'  %}" method="post" style="position: relative;">
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Facebook details</h4>
+  </span>
+  <span class="formOne inputGridThree">
+    <span>
+      <label for="facebookPhNId">Phone number ID</label>
+      <input type="number" id="facebookPhNId" name="fb_phone_number_id" aria-describedby="emailHelp" placeholder="Enter Phone number ID"
+        required>
+    </span>
+    <span>
+      <label for="facebookWtsNmbr">Whatsapp number</label>
+      <input type="number" id="facebookWtsNmbr" name="fb_whatsapp_number" aria-describedby="emailHelp" placeholder="Whatsapp Number"
+        required>
+    </span>
+    <span>
+      <label for="facebookAcsToken">Access token</label>
+      <input type="password" id="facebookAcsToken" name="fb_access_token" aria-describedby="emailHelp" placeholder="Enter access_token"
+        required>
+
+    </span>
+  </span>
+  <span class="spanSubmitForm">
+    <input type="submit">
+  </span>
+</form>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+  // Intercept form submissions for forms with the "ajax-form" class
+  $(".ajax-form").submit(function (e) {
+      e.preventDefault(); // Prevent the default form submission behavior
+      
+      // Serialize form data (convert form fields to a format suitable for submission)
+      var formData = $(this).serialize();
+
+      // Define the URL where you want to submit the form data
+      var formUrl = $(this).attr("action");
+
+      // Reference to the current form element
+      var currentForm = $(this);
+
+      // Send the form data using AJAX POST request
+      $.ajax({
+          type: "POST", // Use POST method
+          url: formUrl, // The URL to submit to
+          data: formData, // The serialized form data
+          success: function (response) {
+              // Load the response content into the parent container of the current form
+              currentForm.closest(".mainContent").html(response);
+          },
+          error: function (xhr, status, error) {
+              // Handle any errors that occur during the AJAX request
+              console.error(error);
+          }
+      });
+  });
+});
+</script>
+{% endblock bodyCommon %}
+
+{% block script %}
+
+
+{% endblock script %}

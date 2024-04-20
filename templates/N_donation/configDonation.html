@@ -1,0 +1,46 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+<!-- 
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% url 'donationInfo' %}"> <button>Main</button></a>
+            <a href="{% url 'donationMaster' %}"> <button>Donation Type</button></a>
+           
+        </div> -->
+    </div>
+
+ 
+</div>
+
+    
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

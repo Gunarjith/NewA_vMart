@@ -1,0 +1,164 @@
+{% extends "appointmentDash.html" %}
+
+{% load static %}
+
+{% block header %}
+<style>
+    #colors .booked-cell {
+        background-color: pink;
+    }
+
+    #colors .booked-row {
+        background-color: pink;
+    }
+
+    /* #colors td {
+        background-color: lightblue;
+    } */    
+    #sub {
+        position: relative;
+    }
+</style>
+{% endblock header %}
+
+
+
+
+
+{% block rightcontent %}
+<form method="POST" action="{% url 'booking_form' %}">
+    {% csrf_token %}
+    <label for="selected_date">Select Date:</label>
+    <input type="date" id="selected_date" name="selected_date">
+    {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+    <label for="group">Select Group Name:</label>
+    <select name="group_id" id="group" onchange="updateConsultants()">
+        <option>Select group:</option>
+        {% for names in group_names %}   
+            <option value="{{ names }}">{{ names }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="consultant">Select a Consultant:</label>
+    <select name="consultant_id" id="consultant">
+        <option value="">Select Consultant</option>
+    </select>
+
+{% endif %}
+
+    {% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+    <label for="consultant">Select a Consultant:</label>
+    <select name="consultant_id" id="consultant">
+        <option>Select Consultant:</option>
+        {% for consultant in consultants %}
+            <option value="{{ consultant.id }}">{{ consultant.consultant_name }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    <br><br>
+    <input id='sub' type="submit" value="Submit">
+</form>
+
+
+
+<div class="frmCenter">
+    <div style="overflow-y: scroll; display: flex; flex-direction: column; gap: 10px;">
+        <table id="colors" border="1">
+            <thead>
+                <tr>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Availability</th>
+                    <th>Visitor Name</th>
+                    <td>Visitor Email</td>
+                    <th>Visitor Phone Number</th>
+                    <th>Online Offline</th>
+                    <th>Booking Notes1</th>
+                    <th>Booking Notes2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in slots_df.iterrows %}
+                    <tr class="{% if row.Availability == 'Booked' %}booked-row{% endif %}">
+                        <td>{{ row.Start_Time }}</td>
+                        <td>{{ row.End_Time }}</td>
+                        <td style="background-color: {% if row.Availability == 'Available' %}lightblue;
+                                                        {% elif row.Availability == 'Booked' %}pink;
+                                                        {% else %}{% endif %};
+                                color: {% if row.Availability == 'Available' %}white;
+                                        {% endif %}">
+                            {{ row.Availability }}
+                        </td>
+                        <td class="{% if row.Availability == 'Booked' %}booked-cell{% endif %}">
+                            {% if row.Availability == 'Booked' %}
+                                {% if row.Visitor_Info %}
+                                    <script>
+                                        var visitorInfo = JSON.parse('{{ row.Visitor_Info|escapejs }}');
+                                        document.write(  '<p>Visitor_Name: ' + visitorInfo.Visitor_Name + '</p>');
+                                    </script>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td class="{% if row.Availability == 'Booked' %}booked-cell{% endif %}">
+                            {% if row.Availability == 'Booked' %}
+                                {% if row.Visitor_Info %}
+                                    <script>
+                                        var visitorInfo = JSON.parse('{{ row.Visitor_Info|escapejs }}');
+                                        document.write('<p>Email: ' + visitorInfo.Visitor_email + '</p>');
+                                    </script>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td class="{% if row.Availability == 'Booked' %}booked-cell{% endif %}">
+                            {% if row.Availability == 'Booked' %}
+                                {% if row.Visitor_Info %}
+                                    <script>
+                                        var visitorInfo = JSON.parse('{{ row.Visitor_Info|escapejs }}');
+                                        document.write('<p>Phone Number: ' + visitorInfo.Visitor_Phone_Number + '</p>');
+                                    </script>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>{{ row.online_offline }}</td>
+                        <td>{{ row.Booking_Notes1 }}</td>
+                        <td>{{ row.Booking_Notes2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function updateConsultants() {
+        var groupSelect = document.getElementById('group');
+        var consultantSelect = document.getElementById('consultant');
+        var selectedGroup = groupSelect.value;
+
+        consultantSelect.innerHTML = '<option value="">Select Consultant</option>';
+
+        fetch(`/get_consultants/?group_name=${selectedGroup}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    data.forEach(consultant => {
+                        var option = document.createElement('option');
+                        option.value = consultant.consultant_id;  // Assuming 'consultant_id' is the correct field
+                        option.text = consultant.consultant_name;
+                        consultantSelect.appendChild(option);
+                    });
+                } else {
+                    var option = document.createElement('option');
+                    option.text = 'No consultants available';
+                    consultantSelect.appendChild(option);
+                }
+            })
+            .catch(error => console.error('Error fetching consultants:', error));
+    }
+</script>
+
+
+
+{% endblock rightcontent %}
+
+

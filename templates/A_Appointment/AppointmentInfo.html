@@ -1,0 +1,152 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'SubmitAppointmentinfo' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'SubmitAppointmentinfo' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Welcome message</h4>
+            </span>
+            <input type="hidden" name="marketplace_id" value="{{ marketplace_id }}">
+
+            <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="welcomeheaderimageId">Image</label>
+        <input type="file" id="welcomeheaderimageId" name="appointmentImage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+    </span>
+    <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <!-- <span>
+        <label for="welcomeheaderimageId">Image</label>
+        <input type="file" id="welcomeheaderimageId" name="appointmentImage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+
+        </span> -->
+        <span>
+            <label for="welcomemessageheaderId">Welcome Message</label>
+            <input type="text" id="welcomemessageheaderId" name="appointmentwelcomemessage"
+                placeholder="Enter Welcome Message" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="welcomemessagetextId">Booking Button Name</label>
+            <input type="text" id="welcomemessagetextId" name="appointmentDescription"
+                placeholder="Enter Appointment Description" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="welcomefootertextId">My Bookings Button Name</label>
+            <input type="text" id="welcomefootertextId" name="appointmentFooter"
+                placeholder="Enter Appointment Footer Text">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="bookingbuttonnameId">Contact Us Button Name</label>
+            <input type="text" id="bookingbuttonnameId" name="appintmentNowButtonName"
+                placeholder="Enter Appointment Now Button Name" required>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingbuttonnameId">Main Support Number</label>
+            <input type="text" id="bookingbuttonnameId" name="appintmentsupportnumber"
+                placeholder="Enter Your Support Number"  required>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingmyticketnameId">Consultant List Message</label>
+            <input type="text" id="bookingmyticketnameId" name="myappointmentButtonName"
+                placeholder="Enter myappointment Button Name" required>
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="bookingmyticketnameId1">Consultant List Button Name </label>
+            <input type="text" id="bookingmyticketnameId1" name="contactUsButtonName"
+                placeholder="Enter Contact Button Name" required>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingappointmentticketnameId1">Contactus Address </label>
+            <input type="text" id="bookingappointmentticketnameId1" name="contactUsAddresName"
+                placeholder="Enter Contact Address Name" required>
+            <span class="charCount"></span>
+        </span>
+        <span class="formOne1" style="padding-bottom:0 ;">
+            <label for="contactusimageId">Contact Us Image</label>
+            <input type="file" id="contactusimageId" name="appointmentconatctImage" class="imageInput"
+                accept="image/*" required>
+            <span class="validationMessageImg"></span>
+        </span>
+        <span>
+            <label for="appointmentcontactus_descriptionId1">Contactus Description </label>
+            <input type="text" id="appointmentcontactus_descriptionId1" name="contactUsdescriptionName"
+                placeholder="Enter Contact Description Name" required>
+            <span class="charCount"></span>
+        </span>
+
+</div>
+
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+
+</div>
+</div>
+
+
+
+
+<script>
+$(document).ready(function () {
+// Show validation message when an image is selected
+$(".imageInput").on("change", function () {
+if (this.files && this.files[0]) {
+// Display the message inside the corresponding span
+$(this).siblings(".validationMessageImg").text("Image selected.");
+} else {
+// Clear the message
+$(this).siblings(".validationMessageImg").text("");
+}
+});
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

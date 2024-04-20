@@ -1,0 +1,62 @@
+ .login .login-form h2{
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    color: #FDB934;
+  }
+  .login .login-form h3{
+    color: #ffff;
+
+    text-align: center;
+    padding: 40px 0px;
+  }
+
+
+
+  .login,#footerElse,#bg-pdElse{
+  background-color: #041E42 !important;
+  }
+
+.login{
+        padding:40px 0;
+
+}
+
+
+.login-form form{
+    width:70%;
+    padding-left:300px;
+    color:#fff;
+}
+
+.login-form form div{
+
+    padding:10px 0px;
+
+}
+
+.login-form form .form-check .form-check-input{
+    margin-left:1px;
+}
+
+.login-form form .form-check .form-check-label{
+        padding-left: 10px;
+}
+
+.login_sign_butn{
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-end;
+}
+.login_sign_butn p{
+        margin-right: 10px;
+}
+
+#footerElse hr{
+
+ margin: 0rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+}

@@ -1,0 +1,47 @@
+{
+  "version": "2.1",
+  "screens": [
+    {
+      "id": "Contact_Form",
+      "title": "Contact Form",
+      "data": {},
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "form",
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "Name",
+                "input-type": "text",
+                "name": "text_0",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Email",
+                "name": "email_1",
+                "input-type": "email",
+                "required": false
+              },
+              {
+                "type": "Footer",
+                "label": "Done",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "text_0": "${form.text_0}",
+                    "email_1": "${form.email_1}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

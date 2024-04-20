@@ -1,0 +1,117 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Configuration </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+{% include 'H_hotel/foodconfig.html' %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Foods</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'addfoodlist' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addfoodlist' %}{% endif %}">
+            <button>
+                Add Food items
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th> Name</th>
+                <th> Price  </th>
+                <th> Type</th>
+                <th>Discription </th>
+                <th> Category</th>
+                <th> Cuisine</th>
+                <th> Image</th>
+                <th> Video</th>
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in fooddata %}
+                <tr>
+                    <td>{{a.food_name}}</td>
+                    <td>{{a.food_price}}</td>
+                    <td>{{a.food_type}}</td>
+                    <td>{{a.food_discription}}</td>
+                    <td>{{a.food_category.category_name}}</td>
+                    <td>{{a.food_cuisine}}</td>
+                    <td class="imgTd">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.food_image}}">
+                    </td>
+                    <td class="videoTd">
+                        <video width="50" height="50" controls>
+                            <source src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.food_video}}" type="video/mp4">
+                        </video>
+                    </td>
+                    
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editfoodlist' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deletefooddata' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

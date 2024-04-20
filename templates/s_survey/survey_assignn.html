@@ -1,0 +1,135 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div class="frmCenter" style="margin: 15px;">
+    <div class="assignCamFlex">
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                <h3>All Customer</h3>
+                <!-- Move the "Assign Selected Customers" button here -->
+                <button type="button" onclick="checkSelectedCustomers()">Assign Selected Customers</button>
+            </span>
+            {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+            <div style="overflow: scroll;WIDTH: initial;">
+                <form method="post" action="{% if marketplace_id %}{% url 'moveSelectedCustomers' surveyType.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'moveSelectedCustomers' surveyType.id %}{% endif %} " id="customerAssignForm">
+                    {% csrf_token %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAllCheckbox">
+                                </th>
+                                <!-- <th>client</th> -->
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>City</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mytable">
+                            {% for item in assignCustomer %}
+                            <tr data-item-id="{{ item.id }}">
+                                <td>
+                                    <input type="checkbox" name="selected_customer_ids" class="itemCheckbox"
+                                        value="{{ item.id }}">
+                                </td>
+                                <td style="display: none;">{{ item.client }}</td>
+                                <td>{{ item.customer_name }}</td>
+                                <td>{{ item.customer_whatsapp_number }}</td>
+                                <td>{{ item.customer_city }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <!-- Display Selected Customers -->
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                <h3>Selected Customers:</h3>
+            </span>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>City</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in selectedCustomer %}
+                    <tr>
+                        <td>{{ item.Survey_Customer.customer_name }}</td>
+                        <td>{{ item.Survey_Customer.customer_whatsapp_number }}</td>
+                        <td>{{ item.Survey_Customer.customer_city }}</td>
+                        <td>
+                            <span class="editDeleteTd">
+                                <a href="{% url 'deleteAssigned' item.id %}">
+                                    <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="duplicate-entry-modal" class="eventAlertTemplate" style="display: none;">
+    <div class="flexEventAlertTemplate">
+        <div id="duplicate-entry-messages">
+            <p>There are similar list of items already existing in the table.</p>
+        </div>
+        <button id="ok-button">OK</button>
+    </div>
+    <div id="notification" class="notification-message" style="display: none;">
+        {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function checkSelectedCustomers() {
+        // Get all checkbox elements
+        const checkboxes = document.querySelectorAll('.itemCheckbox');
+
+        // Check if any checkbox is checked
+        const anySelected = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+        // Display or hide the error message
+        const errorMessage = document.getElementById('error-message');
+        if (!anySelected) {
+            errorMessage.textContent = "No customers selected.";
+            errorMessage.style.display = "block";
+        } else {
+            errorMessage.style.display = "none";
+            // Submit the form
+            document.getElementById('customerAssignForm').submit();
+        }
+    }
+</script>
+
+<div id="error-message" class="alert alert-danger" style="display: none;"></div>
+
+{% endblock rightcontent %}
+{% block script %}
+{% endblock script %}

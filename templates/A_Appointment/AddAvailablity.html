@@ -1,0 +1,78 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_authenticated %}
+    {{ user.username }}
+  {% else %}
+    Your Title Here
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+<div class="frmCenter">
+    <form class="profileForm myForm" action="{% if marketplace_id %}  {% url 'submitavailable' id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitavailable' id %}{% endif %}"   method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Consultant Availability</h3>
+        </span>
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody id="timeSlots">
+            </tbody>
+    
+        </table> -->
+        <p>Marketplace ID: {{marketplace_id }}</p>
+        <span class="formOne">
+            <div id="inputFields1">
+                <span>
+                    <label for="day">Day</label>
+                    <select id="day" name="day_of_week">
+                        <option value=""> Select week day</option>
+                        <option value="0">Monday</option>
+                        <option value="1">Tuesday</option>
+                        <option value="2">Wednesday</option>
+                        <option value="3">Thursday</option>
+                        <option value="4">Friday</option>
+                        <option value="5">Saturday</option>
+                        <option value="6">Sunday</option>
+                    </select>
+                </span>
+                <span>
+                    <label for="consultant_starttime">Start time</label>
+                    <input type="time" id="consultant_starttime" name="start_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span>
+                    <label for="consultant_endtime">End time</label>
+                    <input type="time" id="consultant_endtime" name="end_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+            </div>
+        </span>
+        <span></span><br><br>
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+ {% endblock rightcontent %}
+
+{% block script %}
+{% endblock script %}
+

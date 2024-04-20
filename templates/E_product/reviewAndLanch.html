@@ -1,0 +1,113 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="reviewAndPublishMain">
+    <div class="ReviewPublishNav">
+        <h2>Review and Publish</h2>
+    </div>
+    <div class="reviewAndPublishBody">
+        {% for i in review %}
+        <div class="liveDataRw_pb">
+            <h3>Live</h3>
+            {% for j in i.liveProduct %}
+            
+            <div class="liveDataRw_pbData">
+                <div class="liveDataRw_pbWtsData">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{j.product_bot_image}}"
+                        class="liveDataRw_pbWtsImg" alt="product_bot_Wtsimage">
+                        <hr style="border: 1px dashed rgb(131, 131, 131); margin: 25px auto">
+                    </div>
+                <div class="liveDataRw_pbLiveData">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{j.product_image}}"
+                        class="liveDataRw_pbImg" alt="...">
+                    <h3 class="liveDataRw_pbDataName">{{j.product_original_name}}</h3>
+                </div>
+                <div class="liveDataRw_pbDetail">
+                    <p class="liveDataRw_pbDetailMrp">₹<del>{{j.product_mrp}}</del></p>
+                    <p class="liveDataRw_pbDetailPrice">₹{{j.product_price}}</p>
+                    <p class="liveDataRw_pbDetailOffer" style="color:#388e3c;">
+                        ({{j.product_offer}}%) off</p>
+                    <p class="liveDataRw_pbDetailStatus" style="margin-left:50px;margin-top:-10px;">
+                        <i class="fa-solid fa-check" style="color:green;"></i></p>
+                </div>
+                <div class="liveDataRw_pbDetailName">
+                    <p class="liveDataRw_pbDetailCatName">
+                        {{j.product_category.product_category_name}}</p>
+                    <p class="liveDataRw_pbDetailUnit">{{j.product_net_unit}}</p>
+                </div>
+                <div class="liveDataRw_pbDetailDescr">
+                    <p class="liveDataRw_pbDetailDescription">{{j.product_description}}</p>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="stagingDataRw_pb">
+            <h3>Stageing</h3>
+            <div class="liveDataRw_pbData">
+                <div class="liveDataRw_pbWtsData">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{i.staging_product_bot_image}}"
+                        class="liveDataRw_pbWtsImg" alt="product_bot_Wtsimage">
+                        <hr style="border: 1px dashed rgb(131, 131, 131); margin: 25px auto">
+                    </div>
+                
+
+                <div class="liveDataRw_pbLiveData">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{i.staging_product_image}}"
+                        class="liveDataRw_pbImg" alt="...">
+                    <h3 class="liveDataRw_pbDataName">{{i.staging_product_original_name}}</h3>
+                </div>
+                <div class="liveDataRw_pbDetail">
+                    <p class="liveDataRw_pbDetailMrp">₹<del>{{i.staging_product_mrp}}</del></p>
+                    <p class="liveDataRw_pbDetailPrice">₹{{i.staging_product_price}}</p>
+                    <p class="liveDataRw_pbDetailOffer" style="color:#388e3c;">
+                        {{i.staging_product_offer}}%) off</p>
+                    <p class="liveDataRw_pbDetailStatus" style="margin-left:50px;margin-top:-10px;">
+                        <i class="fa-solid fa-clock-rotate-left" style="color:rgb(227, 157, 16);"></i></p>
+                </div>
+                <div class="liveDataRw_pbDetailName">
+                    <p class="liveDataRw_pbDetailCatName">
+                        {{i.staging_product_category.product_category_name}}</p>
+                    <p class="liveDataRw_pbDetailUnit">{{i.staging_product_net_unit}}</p>
+                </div>
+                <div class="liveDataRw_pbDetailDescr">
+                    <p class="liveDataRw_pbDetailDescription">{{i.staging_product_description}}</p>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- <a href="{% url 'publish' %}" class="liveDataRw_pbButton {{disabled}}">Publish</a> -->
+    </div>
+    <a href="{% url 'publish' %}" class="liveDataRw_pbButton {{disabled}}">Publish</a>
+
+</div>
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

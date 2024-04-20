@@ -1,0 +1,315 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<!-- <h1>Welcome {{user.username}}</h1> -->
+
+<div class="frmCenter">
+
+<form class="profileForm prfBtnRt" action="{% url 'UpdateProfile' %}" method="post" style="position: relative;">
+  {% for inn in us_obj %}
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Profile Details</h4>
+  </span>
+
+  <span class="formOne profileFormSpan">
+    <span>
+      <label >username</label>
+      <input type="text" id="" name="username"  value="{{inn.username}}" required readonly>
+    </span>
+    <span>
+      <label >Email</label>
+      <input type="email" id="" name="email"  value="{{inn.email}}" required readonly>
+    </span>
+    <!-- <span>
+      <label>First Name</label>
+      <input type="text" placeholder="First Name" name="first_name" value="{{inn.first_name}}" required>
+    </span> -->
+    <!-- <span>
+      <label>Last Name</label>
+      <input type="text" placeholder="Last Name" name="last_name" value="{{inn.last_name}}" required>
+    </span> -->
+
+  </span>
+
+  <span class="spanSubmitForm" style="display: none;">
+    <input type="submit" value="Submit">
+  </span>
+  {% endfor %}
+</form>
+
+</div>
+
+<div class="frmCenter">
+<form class="profileForm prfBtnRt" action="">
+  {% for i in adminP %}
+  <span class="formOne profileFormSpan" style="padding: 15px 60px 25px 25px;">
+    <span>
+      <label for="profileClientId">Client ID</label>
+      <input type="text" id="profileClientId" value="{{i.client_auth_key}}" readonly>
+    </span>
+    <span>
+      <label for="profileSecretKey">Secret key</label>
+      <input type="email" id="profileSecretKey" value="{{i.client_auth_secret}}" readonly>
+    </span>
+  </span>
+  {% endfor %}
+</form>
+</div>
+<div class="frmCenter">
+<form class="profileForm prfBtnRt" action="{% url 'profilepic' %}" method="post" enctype="multipart/form-data"
+  style="position: relative;">
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Profile Picture</h4>
+  </span>
+
+  <span class="formOne profileFormSpan">
+    <span>
+      <label for="profilePic">Upload Profile pic</label>
+      <input type="file" id="profilePic" name="profile_pic">
+    </span>
+
+  </span>
+  <span class="spanSubmitForm">
+    <input type="submit" value="Submit">
+  </span>
+</form>
+</div>
+
+<!-- <div class="frmCenter">
+<div class="profileForm prfBtnRt">
+  <span class="headFlex">
+
+    <h4>Color preferences for Dashboard</h4>
+  </span>
+  <span class="colorProfile">
+
+
+    <div class="formClrborder">
+      <form action="{% url 'color2' %}" method="post" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne profileFormSpan profileColorfrm">
+          <span>
+            <label>Color preferences Two for sidebar Dashboard background-color</label>
+            <input type="color" name="text2" id="colorsideBarShow2">
+            <code id="colorCode2"></code>
+          </span>
+        </span>
+        <span class="spanSubmitForm">
+          <input type="submit" value="Submit">
+        </span>
+      </form>
+    </div>
+
+    <div class="formClrborder">
+      <form action="{% url 'color3' %}" method="post" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne profileFormSpan profileColorfrm">
+          <span>
+            <label>Color preferences Three for Dashboard form background-color </label>
+            <input type="color" name="text3" id="colorsideBarShow3">
+            <code id="colorCode3"></code>
+          </span>
+        </span>
+
+        <span class="spanSubmitForm">
+          <input type="submit" value="Submit">
+        </span>
+      </form>
+    </div>
+
+  </span>
+</div>
+</div> -->
+    <!-- <div class="color1">
+        <form action="{% url 'color1' %}" method="post">
+          {% csrf_token %}
+          <label>Color preferences One for navigation Dashboard background-color.</label>
+          <br>
+          <input type="color" name="text1" id="colorsideBarShow">
+          <b><code id="colorCode1"></code></b>
+          <input type="submit" value="Submit">
+        </form>
+      </div> -->
+<!-- <div class="frmCenter">
+<div class="profileForm prfBtnRt">
+  <span class="headFlex">
+    <h4>Color preferences for Customer Shopping Web Page</h4>
+  </span>
+
+  <span class="colorProfile">
+    <div class="formClrborder">
+      <form action="{% url 'color4' %}" method="post" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne profileFormSpan profileColorfrm">
+          <span>
+            <label>Color preferences Four for Customer Web Page Navigation bar</label>
+            <input type="color" name="text4" id="colorsideBarShow4">
+            <code id="colorCode4"></code>
+          </span>
+        </span>
+
+        <span class="spanSubmitForm">
+          <input type="submit" value="Submit">
+        </span>
+      </form>
+    </div>
+
+
+    <div class="formClrborder">
+      <form action="{% url 'color5' %}" method="post" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne profileFormSpan profileColorfrm">
+          <span>
+            <label>Color preferences Five for Customer Web Page background-color </label>
+            <input type="color" name="text5" id="colorsideBarShow5">
+            <code id="colorCode5"></code>
+          </span>
+        </span>
+
+        <span class="spanSubmitForm">
+          <input type="submit" value="Submit">
+        </span>
+      </form>
+
+    </div>
+  
+  </span>
+
+</div>
+</div> -->
+  <!-- <div class="color6">
+        <form action="{% url 'color6' %}" method="post">
+          {% csrf_token %}
+          <h4>Color 6</h4>
+          <input type="color" name="text6"  id="colorsideBarShow6">
+          <b><code id="colorCode6"></code></b>
+          <input type="submit" value="Submit">
+        </form>
+    </div> -->
+<div class="frmCenter">
+<div class="resetPassProfile" style="position: relative;">
+  <span class="headFlex">
+    <h4>Password Change</h4>
+  </span>
+
+  <span class="spanSubmitForm">
+    <a href="{% url 'user_change_password' %}" style="margin-right: inherit;">
+      <input type="submit" value="Reset Password"></a>
+  </span>
+</div>
+
+</div>
+<!-- <script>
+  const input1 = document.getElementById("colorsideBarShow");
+  const colorCode1 = document.getElementById("colorCode1");
+  setColor1();
+  input1.addEventListener("input", setColor1);
+
+  function setColor1() {
+    colorCode1.innerHTML = input1.value;
+  }
+</script> -->
+
+<script>
+  const input2 = document.getElementById("colorsideBarShow2");
+  const colorCode2 = document.getElementById("colorCode2");
+  setColor2();
+  input2.addEventListener("input", setColor2);
+
+  function setColor2() {
+    colorCode2.innerHTML = input2.value;
+  }
+</script>
+<script>
+  const input3 = document.getElementById("colorsideBarShow3");
+  const colorCode3 = document.getElementById("colorCode3");
+  setColor3();
+  input3.addEventListener("input", setColor3);
+
+  function setColor3() {
+    colorCode3.innerHTML = input3.value;
+  }
+</script>
+<script>
+  const input4 = document.getElementById("colorsideBarShow4");
+  const colorCode4 = document.getElementById("colorCode4");
+  setColor4();
+  input4.addEventListener("input", setColor4);
+
+  function setColor4() {
+    colorCode4.innerHTML = input4.value;
+  }
+</script>
+
+<script>
+  const input5 = document.getElementById("colorsideBarShow5");
+  const colorCode5 = document.getElementById("colorCode5");
+  setColor5();
+  input5.addEventListener("input", setColor5);
+
+  function setColor5() {
+    colorCode5.innerHTML = input5.value;
+  }
+</script>
+
+<!-- <script>
+  const input6 = document.getElementById("colorsideBarShow6");
+  const colorCode6 = document.getElementById("colorCode6");
+  setColor6();
+  input6.addEventListener("input", setColor6);
+
+  function setColor6() {
+    colorCode6.innerHTML = input6.value;
+  }
+</script> -->
+
+
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var inputs = document.querySelectorAll('input');
+  
+      for (var i = 0; i < inputs.length; i++) {
+          var input = inputs[i];
+          var label = document.querySelector('label[for="' + input.id + '"]');
+  
+          if (label) { // Add a null check for the label element
+              if (input.hasAttribute('required')) {
+                  label.textContent += '*';
+              } else {
+                  label.textContent += ' (optional)';
+              }
+          }
+      }
+  });
+  </script> -->
+
+{% endblock script %}

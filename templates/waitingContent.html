@@ -1,0 +1,36 @@
+
+
+  {% extends "vailo.html" %}
+{% load static %}
+
+
+{% block title %}vailo.ai-FAQ's {% endblock title %}
+
+{% block body %}
+<section style="margin-top: 100px;margin: 83px;">
+    <div class="successMessage">
+<div class="successMessageDiv">
+    <h3 style="color: rgb(243, 193, 11);">Waits for Admin permissison</h3>
+    <a href="{% url 'home' %}">
+      <button>
+       Back to Home
+      </button>
+    </a>
+  </div>
+    </div>
+</section>
+{% endblock body %}
+
+
+{% block script %}
+<script>
+  const toggleBtn = document.querySelectorAll('.toggle-btn');
+
+  toggleBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentNode.classList.toggle('active')  //only toggles the parent node which is the '.faq-card' here
+    })
+  })
+</script>
+
+{% endblock script %}

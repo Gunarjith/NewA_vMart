@@ -1,0 +1,112 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block body %}
+
+<div class="loginSection">
+
+    <div class="loginSectionLeft">
+        <img src="{% static 'img/loginImg.png' %}" alt="">
+    </div>
+    <div class="loginSectionRight">
+
+        <h2>Welcome Back!</h2>
+        <!-- <p>Login to continue</p> -->
+        <form action="{% url 'login' %}" method="post" id="loginForm">
+            {% csrf_token %}
+            <span>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email address" name="email" required autocomplete="email">
+            </span>
+
+            <span>
+                <label for="id_password">Enter Password</label>
+                <span style="position: relative;">
+                    <input type="password" name="password" placeholder=" Password " autocomplete="current-password"
+                        required id="id_password">
+                    <i class="bi bi-eye-slash" id="togglePassword"
+                        style="margin: 15px 0px 0 -40px;cursor: pointer;position: absolute; right: 10px;"></i>
+                </span>
+            </span>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <span style="position: relative; display: flow;">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe" style="position: absolute;width: max-content; margin: 0 15px;">Remember
+                        Me</label>
+                </span>
+                <a href="{% url 'reset_password' %}">
+                    <p style="">
+                        Forgot Password?
+                    </p>
+                </a>
+            </div>
+
+            <span style="position: relative;">
+                <input type="submit" value="Login" style="position: relative;">
+            </span>
+            <p style="margin-top: -10px;text-align: center;">Don't have an account ? <a href="{% url 'demo' %}"><b
+                        style="color: #000079;">Sign Up</b></a></p>
+
+
+
+            {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </form>
+    </div>
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let togglePassword = document.querySelector('#togglePassword');
+        let password = document.querySelector('#id_password');
+        togglePassword.addEventListener('click', function () {
+            password.type = password.type === 'password' ? 'text' : 'password';
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+
+        // let rememberMeCheckbox = document.getElementById('rememberMe');
+        // let emailInput = document.getElementById('email');
+        // let passwordInput = document.getElementById('id_password');
+
+        // Check if there are stored credentials in cookies
+        let storedEmail = getCookie('rememberedEmail');
+        let storedPassword = getCookie('rememberedPassword');
+
+        if (storedEmail && storedPassword) {
+            emailInput.value = storedEmail;
+            passwordInput.value = storedPassword;
+            rememberMeCheckbox.checked = true; // Check the "Remember Me" checkbox
+        }
+
+        // Event listener for form submission
+        document.getElementById('loginForm').addEventListener('submit', function () {
+            if (rememberMeCheckbox.checked) {
+                // Store the email and password in cookies
+                document.cookie = `rememberedEmail=${emailInput.value}; expires=Sun, 31 Dec 2034 12:00:00 UTC; path=/`;
+                document.cookie = `rememberedPassword=${passwordInput.value}; expires=Sun, 31 Dec 2034 12:00:00 UTC; path=/`;
+            } else {
+                // Clear the cookies
+                document.cookie = 'rememberedEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                document.cookie = 'rememberedPassword=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
+        });
+
+        // Function to get cookie value by name
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
+    });
+</script>
+{% endblock script %}

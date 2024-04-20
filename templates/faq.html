@@ -1,0 +1,54 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+
+{% block title %}vailo.ai-FAQ's {% endblock title %}
+
+{% block body %}
+
+<section style="margin-top: 100px;margin: 83px;">
+
+  <h2>Frequently Asked Questions</h2>
+
+  <article style="margin-bottom: 30px !important;">
+    <h3>Why are we here, what's our purpose?</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ducimus dicta, iste ad pariatur sequi! Est
+      aliquid totam iusto rem laboriosam aliquam, quas voluptatem culpa earum impedit provident dolore consectetur.
+    </p><br><br>
+
+    <h3>Why are we here, what's our purpose?</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ducimus dicta, iste ad pariatur sequi! Est
+      aliquid totam iusto rem laboriosam aliquam, quas voluptatem culpa earum impedit provident dolore consectetur.
+    </p><br><br>
+
+    <h3>Why are we here, what's our purpose?</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis voluptates earum deserunt perspiciatis facere
+      quod doloremque numquam libero, aliquid dicta nulla! Neque repellendus vel nisi recusandae ex enim error fuga.
+    </p><br><br>
+
+    <h3>Why are we here, what's our purpose?</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ducimus dicta, iste ad pariatur sequi! Est
+      aliquid totam iusto rem laboriosam aliquam, quas voluptatem culpa earum impedit provident dolore consectetur.
+    </p><br><br>
+
+    <h3>Why are we here, what's our purpose?</h3>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ducimus dicta, iste ad pariatur sequi! Est
+      aliquid totam iusto rem laboriosam aliquam, quas voluptatem culpa earum impedit provident dolore consectetur.
+    </p>
+  </article>
+</section>
+{% endblock body %}
+
+
+{% block script %}
+<script>
+  const toggleBtn = document.querySelectorAll('.toggle-btn');
+
+  toggleBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentNode.classList.toggle('active')  //only toggles the parent node which is the '.faq-card' here
+    })
+  })
+</script>
+
+{% endblock script %}

@@ -1,0 +1,278 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<!-- create_form.html -->
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm" method="post" action="{% url 'create_form' %}">
+        <span class="headFlex" style="border-bottom: 1px solid #E9E9E9; ">
+            <h3 style="font-weight: 400;">Form</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne" style=" display: flex;gap: 20px; padding: 20px 60px 22px 16px; ">
+            <span class="inputGridTwo" style="width: 50%; display: grid !important; gap: 20px;">
+                <span>
+                    <label for="form_name">Name:</label>
+                    <input type="text" name="form_name" id="form_name" placeholder="Enter name">
+                </span>
+                <span>
+                    <label for="form_header_type">Header Type:</label>
+                    <input type="text" name="form_header_type" id="form_header_type" placeholder="Enter header type">
+                </span>
+
+
+                <span>
+                    <label for="form_header_image">Header Image</label>
+                    <input type="file" name="form_header_image" id="form_header_image">
+                </span>
+
+                <span>
+                    <label for="form_body_footer">Body Footer:</label>
+                    <input type="text" name="form_body_footer" id="form_body_footer" placeholder="Enter body footer:">
+                </span>
+
+
+            </span>
+            <span style="width: 23%;">
+                <label for="form_body_text">Body Text:</label>
+                <textarea name="form_body_text" id="form_body_text" style="height: -webkit-fill-available;"
+                    placeholder="Enter body text"></textarea>
+
+            </span>
+            <span class="inputGridOne" style="width: 23%; display: grid !important; gap: 20px;">
+
+                <span>
+                    <label for="form_open_button_name">Open Button Name:</label>
+                    <input type="text" name="form_open_button_name" id="form_open_button_name"
+                        placeholder="Enter open button name">
+                </span>
+
+
+                <span>
+                    <label for="form_submit_button_name">Submit Button</label>
+                    <input type="text" name="form_submit_button_name" id="form_submit_button_name"
+                        placeholder="Enter submit button">
+                </span>
+
+            </span>
+
+        </span>
+
+        <input type="hidden" name="num_sections" id="num_sections" value="0">
+        <div id="sections_container"></div>
+        <div
+            style="display: flex;border-bottom: 1px solid #E9E9E9; margin-bottom: 22px; padding: 0px 60px 22px 16px; gap: 20px;">
+            <button type="button" id="add_section_btn">Add Section</button>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let sectionCount = 0;
+
+        document.getElementById('add_section_btn').addEventListener('click', function () {
+            const sectionsContainer = document.getElementById('sections_container');
+            const sectionHtml = `
+            <div class="eachSectionDymFm">
+
+                <h3>Section - ${sectionCount + 1}</h3>
+                <div style="display:flex ; padding: 15px 60px 10px 0px; gap: 20px;" class="formOne">
+                <div style="width:22%">
+                <label for="section_${sectionCount}_name">Section Name:</label>
+                <input type="text" name="section_${sectionCount}_name" id="section_${sectionCount}_name" placeholder="Section name">
+                <input type="hidden" name="section_${sectionCount}_num_fields" id="section_${sectionCount}_num_fields" value="0">
+                </div>
+               <div class="btnfieldDymFm">
+                <button type="button" data-section="${sectionCount}" class="add_field_btn">Add Field</button>
+              </div>
+                </div>
+               
+                <div id="section_${sectionCount}_fields_container"></div>
+            </div>
+        `;
+            sectionsContainer.insertAdjacentHTML('beforeend', sectionHtml);
+            sectionCount++;
+            document.getElementById('num_sections').value = sectionCount;
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('add_field_btn')) {
+                const sectionIndex = event.target.getAttribute('data-section');
+                const fieldsContainer = document.getElementById(`section_${sectionIndex}_fields_container`);
+                const fieldIndex = document.getElementById(`section_${sectionIndex}_num_fields`).value;
+                const fieldHtml = `
+                <div style=" position: relative;">
+                    <div style="display:flex;padding: 15px 0px 10px 0px;gap: 20px;width: calc( 22% + 13% );" class="formOne">
+                    <div style="width:60%">
+                    <label for="section_${sectionIndex}_field_${fieldIndex}_label">Field Label:</label>
+                    <input type="text" name="section_${sectionIndex}_field_${fieldIndex}_label" id="section_${sectionIndex}_field_${fieldIndex}_label" placeholder="Field label">
+                    </div>
+                    <div>
+                    <label for="section_${sectionIndex}_field_${fieldIndex}_type">Field Type:</label>
+                    <select name="section_${sectionIndex}_field_${fieldIndex}_type" id="section_${sectionIndex}_field_${fieldIndex}_type" class="custom-select">
+                        <option value="text">Text</option>
+                        <option value="number">Number</option>
+                        <option value="submit">Submit</option>
+                        <option value="radio">Radio</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="dropdown">Dropdown</option>
+                    </select>
+                    </div>
+                    </div>
+                    <div id="section_${sectionIndex}_field_${fieldIndex}_radio_options_container"></div>
+                    <div id="section_${sectionIndex}_field_${fieldIndex}_checkbox_options_container"></div>
+                    <div id="section_${sectionIndex}_field_${fieldIndex}_dropdown_options_container"></div>
+                </div>
+            `;
+                fieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+                document.getElementById(`section_${sectionIndex}_num_fields`).value = parseInt(fieldIndex) + 1;
+
+                document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_type`).addEventListener('change', function () {
+                    const fieldType = this.value;
+
+                    const radioOptionsContainer = document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_radio_options_container`);
+
+                    const checkboxOptionsContainer = document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_checkbox_options_container`);
+
+                    const dropdownOptionsContainer = document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_dropdown_options_container`);
+
+
+                    if (fieldType === 'radio') {
+                        radioOptionsContainer.innerHTML = `
+                        <input type="hidden" name="section_${sectionIndex}_field_${fieldIndex}_num_options" id="section_${sectionIndex}_field_${fieldIndex}_num_options" value="0">
+                        <button type="button" data-section="${sectionIndex}" data-field="${fieldIndex}" class="add_radio_option_btn">Add Option</button>
+                        <div id="section_${sectionIndex}_field_${fieldIndex}_options_container"></div>
+                    `;
+                        radioOptionsContainer.style.display = 'block';
+                        radioOptionsContainer.style.marginTop = '-47px';
+                    }
+                    else if (fieldType === 'checkbox') {
+                        checkboxOptionsContainer.innerHTML = `
+                        <input type="hidden" name="section_${sectionIndex}_field_${fieldIndex}_num_options" id="section_${sectionIndex}_field_${fieldIndex}_num_options" value="0">
+                        <button type="button" data-section="${sectionIndex}" data-field="${fieldIndex}" class="add_radio_option_btn">Add Option</button>
+                        <div id="section_${sectionIndex}_field_${fieldIndex}_options_container"></div>
+                    `;
+                        checkboxOptionsContainer.style.display = 'block';
+                        checkboxOptionsContainer.style.marginTop = '-47px';
+                    }
+                    else if (fieldType === 'dropdown') {
+                        dropdownOptionsContainer.innerHTML = `
+                        <input type="hidden" name="section_${sectionIndex}_field_${fieldIndex}_num_options" id="section_${sectionIndex}_field_${fieldIndex}_num_options" value="0">
+                        <button type="button" data-section="${sectionIndex}" data-field="${fieldIndex}" class="add_radio_option_btn">Add Option</button>
+                        <div id="section_${sectionIndex}_field_${fieldIndex}_options_container"></div>
+                    `;
+                        dropdownOptionsContainer.style.display = 'block';
+                        dropdownOptionsContainer.style.marginTop = '-47px';
+                    }
+
+                    else {
+                        radioOptionsContainer.innerHTML = '';
+                        radioOptionsContainer.style.display = 'none';
+                        checkboxOptionsContainer.innerHTML = '';
+                        checkboxOptionsContainer.style.display = 'none';
+                        dropdownOptionsContainer.innerHTML = '';
+                        dropdownOptionsContainer.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('add_radio_option_btn')) {
+                const sectionIndex = event.target.getAttribute('data-section');
+                const fieldIndex = event.target.getAttribute('data-field');
+                const optionsContainer = document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_options_container`);
+                const optionIndex = document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_num_options`).value;
+                const optionHtml = `
+                <div style="display:flex ; padding: 15px 60px 10px 0px; gap: 20px;" class="formOne">
+                    <span>
+                    <label for="section_${sectionIndex}_field_${fieldIndex}_option_${optionIndex}">Option:</label>
+                    <input type="text" name="section_${sectionIndex}_field_${fieldIndex}_option_${optionIndex}" id="section_${sectionIndex}_field_${fieldIndex}_option_${optionIndex}" placeholder="Option">
+                </span>
+                    </div>
+            `;
+                optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+                document.getElementById(`section_${sectionIndex}_field_${fieldIndex}_num_options`).value = parseInt(optionIndex) + 1;
+            }
+        });
+    });
+
+</script>
+
+
+<!-- ---  -->
+
+
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+
+{% endblock script %}

@@ -1,0 +1,243 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<!-- <h1>Welcome {{user.username}}</h1> -->
+<div class="fbSetiingDashboardNotOk profileForm" id="fb_detailsNotOk"></div>
+<div id="innerTable profileForm">
+    <form action="">
+        <span class="formOne">
+            <span>
+                <label for="exampleInputEmail1">CallBack URL</label>
+                <input type="email" id="exampleInputEmail1" value="{{CallbackUrl}}" aria-describedby="emailHelp">
+            </span>
+            <span>
+                <label for="exampleInputPassword1">Verify token</label>
+                <input type="password" id="exampleInputPassword1" value="{{VerifyToken}}">
+            </span>
+        </span>
+    </form>
+</div>
+
+<!-- -- *** ---  -->
+
+{% if 'offline' in action %}
+
+<div class="profileForm" id="offlineLinksGen">
+    <span class="headFlex">
+        <h4>Number Of Tables</h4>
+    </span>
+    <form id="post-form" style="position: relative;">
+        {% csrf_token %}
+        <span class="formOne">
+            <span>
+                <label for=""> Enter the Number of Table Required</label>
+                <input type="number" id='tableCount' name="tableCount" placeholder="How many tables you have ?">
+            </span>
+        <span>
+                <span class="spanSubmitForm">
+                    <input type="submit" value="Convert Table Links">
+                </span>
+    </form>
+</div>
+
+
+<div  id="tableLinks">
+
+    <table >
+        <thead>
+            <tr>
+
+                <th scope="col">Counts</th>
+                <th scope="col">QR Link</th>
+
+            </tr>
+        </thead>
+        <tbody id="tableId">
+
+            {% for i in clinettableNumber %}
+            <tr>
+                <th scope="row">{{i.table_number}}</th>
+
+                <td style="color: green;"><a href="{{i.table_link}}">{{i.table_link}}</a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="row">
+    <div class="col" id="newlink11">
+    </div>
+</div>
+{% endif %}
+
+{% if 'online' in action %}
+
+<div id="newlinkGen"style="margin-top: 5px;padding: 5px;background: #fff;">
+    
+    <form class="profileForm" id="post-form1"  style="position: relative;" >
+        <span class="headFlex">
+            <h4>Online Link Generate</h4>
+            </span>
+        {% csrf_token %}
+        <span class="spanSubmitForm" style="justify-content: end
+        ">
+        <input type="submit" value="Convert Links">
+        </span>
+    </form>
+</div>
+
+<div class="onlinlineFbDashboardTable profileForm" id="newlink1">
+    <span class="headFlex">
+    <h4>Online Link</h4>
+    </span>
+    <div class="col">
+        <a href="{{Linky}}" id="linky">{{Linky}}</a>
+    </div>
+
+</div>
+
+
+<div style="padding: 5px 25px;">
+    <div  id="newlink">
+    </div>
+</div>
+{% endif %}
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    let FbDetailsNotOk = '{{Fb_Done}}';
+    if (FbDetailsNotOk == 'Emty') {
+        document.getElementById('fb_detailsNotOk').style['color'] = 'green'
+        document.getElementById("fb_detailsNotOk").innerHTML = 'Please Wait admin verification is pending ..!';
+        document.getElementById('innerTable').innerHTML = '';
+    } else if (FbDetailsNotOk == 'Client') {
+        document.getElementById('fb_detailsNotOk').style['color'] = 'red'
+        document.getElementById("fb_detailsNotOk").innerHTML = 'First Go to Complete Facebook setUp in Our Dashboard';
+        document.getElementById('innerTable').innerHTML = '';
+    }
+
+
+    $(document).ready(
+
+        $('#post-form').submit(function (e) {
+            e.preventDefault();
+            var serializedData = $(this).serialize();
+
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'tables' %}",
+                data: serializedData,
+                success: function (data) {
+                    console.log(data.result, 'done with this');
+                },
+            });
+
+            document.getElementById("newlink11").innerHTML = `<div class="alert alert-success px-3" role="alert">
+  Created!
+</div>`
+        })
+
+    );
+
+
+
+    let newVar = ''
+    $(document).ready(
+        $('#post-form1').submit(function (e) {
+            e.preventDefault();
+            var serializedData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'linkss' %}",
+                data: serializedData,
+                success: function (data) {
+                    console.log(data.result1, 'done with this');
+                },
+            });
+            document.getElementById("newlink").innerHTML = `<div class="alert alert-success" role="alert">
+  Created!
+</div>`
+        })
+
+    );
+
+
+
+</script>
+
+{% for i in action %}
+<script>
+    let clientStatus = "{{i}}";
+    console.log(clientStatus);
+
+
+    if (clientStatus == 'online') {
+
+        let link = document.getElementById("linky").innerHTML;
+        console.log(link);
+
+        if (link == '') {
+            document.getElementById("newlink1").remove();
+        }
+        else if (link == null) {
+            pass
+        }
+        else {
+            document.getElementById("newlinkGen").remove();
+        }
+
+    }
+    else if (clientStatus == 'offline') {
+
+        let linkOffline = document.getElementById("offlineLinksGen").innerHTML;
+        let linkTableLinks = document.getElementById("tableLinks").innerHTML;
+
+        if ('{{obj}}' == 0) {
+            document.getElementById("tableLinks").remove();
+        } else {
+            document.getElementById("offlineLinksGen").remove();
+        }
+    } else if (clientStatus == 'both') {
+
+        pass;
+
+    }
+
+
+</script>
+
+{% endfor %}
+{% endblock script %}

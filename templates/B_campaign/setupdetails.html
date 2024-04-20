@@ -1,0 +1,100 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="mT15">
+
+    <div class="headFlex">
+
+        <h3> Inflow  Steps  </h3>
+
+      <span class="btnConLevel">
+
+        
+        <a href="{% url 'addparent' %}">
+            <button>
+               add Parent
+            </button>
+        </a>
+
+    </span>
+
+    </div>
+
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+                <th>Parent Id</th>
+                <th>Id</th>
+                <th>Button Type</th>
+                <th>Button name</th>
+                <th>Short title</th>
+                <th>Description</th>
+                <th>Additional Info</th>
+                <th>Additional Info1</th>
+                <th>Additional Info2</th>
+                <th>Actions</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in parentdata %}
+            <tr>
+                <td>{{a.Parent_ID}}</td>
+                <td>{{a.id}}</td>
+                <td>{{a.open_button_type}}</td>
+                <td>{{a.open_button_name}}</td>
+                <td>{{a.short_title}}</td>
+                <td>{{a.short_description}}</td>
+                <td>{{a.additional_info}}</td>
+                <td>{{a.additional_info1}}</td>
+                <td>{{a.additional_info2}}</td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'addchiled' a.id  %}">
+                            <button>add Child</button>
+                        </a>
+                        <a href="{% url 'editinflowsetup' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+              
+                        <a href="{% url 'deleteparent' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}

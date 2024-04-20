@@ -1,0 +1,76 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Complaints</h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Complaint categories</h3>
+        <a href="{% if marketplace_id %}{% url 'addcomplaintcategories'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addcomplaintcategories'  %}{% endif %}">
+            <button>
+                Add Complaint Category
+            </button>
+        </a>
+    </div>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+                    
+                <th style="text-align: center;">Complaint Categories</th>
+                
+                <th style="text-align: center;">Edit</th>
+                <th style="text-align: center;">Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+        {% for a in Complaint_settings_obj  %}
+            <tr>
+                <td style="text-align: center;">{{a.Complaint_category}}</td>
+              <td>              
+                    <span class="editDeleteTd">
+                        <a href="{% if marketplace_id %}{% url 'editcomplaintcategories' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'editcomplaintcategories' a.id  %}{% endif %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                       
+                    </span>
+                </td>
+                <td>              
+                    <span class="editDeleteTd">
+                        {{marketplace_id}}
+                        <a href="{% if marketplace_id %}{% url 'deletecomplaintcategories' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'deletecomplaintcategories' a.id  %}{% endif %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+
+{% endblock rightcontent %}

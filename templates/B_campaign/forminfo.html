@@ -1,0 +1,103 @@
+
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="mT15">
+    {% include 'B_campaign/formconfig.html' %}
+
+    <div class="headFlex">
+        <h3>List of Forms</h3>
+        <span class="btnConLevel">
+            <a href="{% url 'createdynamicform' %}">
+                <button>Add Form</button>
+            </a>
+        </span>
+    </div>
+</div>
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <!-- <th>edit</th> -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for form in form_data %}
+            <tr>
+                <td>{{ form.id }}</td>
+                <td>{{ form.form_name }}</td>
+            
+
+                {% if form.status == 'CREATED' %}
+                <td>Submited</td>
+                {% elif form.status == 'APPROVED' %}
+                <td>Approved</td>
+                {% else %}
+                <td>Draft</td>
+                {% endif %}
+                <!-- <td>
+                    <a href="{% url 'addsection' form.id %}">
+                        <button>add section</button>
+                    </a>
+                    </td> -->
+
+                <td>
+              
+                        <span class="views" style="color: blue;">
+                            <a href="{% url 'view_form_details' form.id %}">
+                                <button>View</button>
+                            </a>
+                        </span>
+                        {% if form.status == 'APPROVED' %}
+                        <span class="Edite" style="color: rgb(92, 223, 17);">
+                            <a href="#"  onclick="showEditMessage()">
+                                <button>Edit</button>
+                            </a>
+                        </span>
+                        {% endif %}
+                        {% if form.status != 'APPROVED' %}
+                        <span class="Edite" style="color: rgb(92, 223, 17);">
+                            <a href="{% url 'editdynamicform' form.id %}">
+                                <button>Edit</button>
+                            </a>
+                        </span>
+                        {% endif %}
+                        <span class="delete" style="color: rgb(213, 16, 16);">
+                            <a href="{% url 'deteleform' form.id %}">
+                                <button>Delete</button>
+                            </a>
+                            <a href="{% url 'generateform' form.id %}">
+                                <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                            </a>
+                        </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function showEditMessage() {
+        alert("This form is generated and cannot be re edit now.");
+    }
+</script>
+
+
+{% endblock rightcontent %}

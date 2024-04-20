@@ -1,0 +1,247 @@
+#innerbody{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(#009688 0%,#009688 130px,#d9dbd5 130px,#d9dbd5 100%);
+
+}
+
+
+#innerbody #mycontainer{
+    display: flex;
+    flex-direction:row;
+    position:relative;
+    width:1000px;
+    max-width:100%;
+    height:550px;;
+    background:#fff;
+    box-shadow:0 1px 1px 0 rgba(0,0,0,0.06),0 2px 5px 0 rgba(0,0,0,0.06);
+
+}
+
+.leftbody{
+    position:relative;
+    flex:30%;
+    background:#fff;
+    border-right:1px solid rgba(0,0,0,0,0.2);
+}
+
+.rightBody{
+    position:relative;
+    flex:70%;
+
+    background:#e5ddd5;
+}
+
+#mycontainer .rightBody::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:url(wt.jpg);
+    opacity:0.06;
+}
+
+
+
+.leftbodyHeader{
+
+    position:relative;
+    width:100%;
+    height:60px;
+    background:#ededed;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 15px;
+
+}
+
+.userimage{
+    position:relative;
+    width:40px;
+    height:40px;
+    overflow:hidden;
+    border-radius:50%;
+}
+
+
+.img-cover{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+
+.userIcons{
+    display:flex;
+}
+
+.userIcons li{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    list-style:none;
+    cursor:pointer;
+    color:#51585c;
+    font-size:2em;
+    margin-left:22px;
+    margin-top:17px;
+}
+
+.userSearch{
+    position:relative;
+    width:100%;
+    height:50px;
+    background:#f6f6f6;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0 15px;
+}
+
+.userSearch div{
+    width:100%;
+}
+
+.userSearch div input{
+    width:100%;
+    outline:none;
+    border:none;
+    background:#fff;
+    padding:6px;
+    height:38px;
+    border-radius:30px;
+    font-size:14px;
+    padding-left:40px;
+}
+
+.userSearch div input:placeholder{
+    color:#bbb;
+}
+
+.userSearch div ion-icon{
+    position:absolute;
+    left:30px;
+    top:14px;
+    font-size:1.2em;
+}
+
+
+.userChats{
+    position:relative;
+    height:440px;
+    overflow-y:auto;
+}
+
+.userChats .userBlock a{
+    position:relative;
+    width:100%;
+    display:flex;
+    align-items:center;
+    padding:10px;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    cursor:pointer;
+}
+
+
+.userBlock a:hover{
+
+    background-color:#eee;
+}
+
+
+.userChats .userBlock a .imageSender{
+    position:relative;
+    min-width:45px;
+    height:45px;
+    overflow:hidden;
+    border-radius:50%;
+    margin-right:10px;
+}
+
+.userChats .userBlock a .senderDetails{
+    position:relative;
+    width:100%;
+}
+
+.userChats .userBlock a .senderDetails .sendHead{
+    display:flex;
+    justify-content:space-between;
+
+
+}
+
+
+.userChats .userBlock a .senderDetails .sendHead h4{
+    font-size:1em;
+    font-weight:600;
+    color:#111;
+
+}
+
+.userChats .userBlock a .senderDetails .sendHead p{
+    font-size:0.75em;
+    color:#aaa;
+}
+
+
+.senderNumber{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+
+.senderNumber p{
+    color:#aaa;
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    font-size:0.9em;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+.rightBody .container .productHead{
+    margin:5px 0;
+    font-weight:600;
+}
+
+
+.productData table tbody .tableTd2{
+    padding-top:20px;
+}
+
+
+.productData table tbody .tableTd3{
+    padding-top:20px;
+}
+
+.totalPrice h6{
+    margin-left:400px;
+}
+
+
+.totalPrice h6 span{
+    margin-left:10px;
+}
+
+.rightBody .container{
+    position: relative;
+    height: 490px;
+    overflow-y: auto;
+
+}
+
+#idForOrder1{
+    padding-left:50%;
+}

@@ -1,0 +1,126 @@
+body,*{
+    padding:0;
+    margin:0;
+    font-size:16px;
+    line-height: 1.6;
+    font-family:"Roboto",sans-serif;
+
+}
+
+#bg-pdIf{
+
+    position:fixed;
+    width:100%;
+    background-color:#041E42 !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-top: 0.5625rem;
+
+}
+
+.pd-colop{
+
+    margin-left:43%;
+
+}
+
+#bg-pdElse ul li a{
+
+    color:#fff;
+
+}
+
+.avatarPr{
+
+    padding-left:893px;
+
+}
+
+#dropdownMenuButton1{
+
+    background-color: #041E42;
+    border: none;
+
+}
+
+#dropDownAv{
+
+    margin-left:1085px;
+
+}
+
+.containerme{
+
+    display:flex;
+    flex-direction:row;
+
+}
+
+#sidebarMenu .position-sticky a{
+
+    background-color: #041E42;
+    color:#fff;
+
+}
+
+.containerme  .col2{
+
+    position: fixed;
+    z-index: 1;
+    height:600px;
+    width:226px;
+    margin-top:75px;
+    margin-left:-12px;
+
+}
+
+#sidebarMenu{
+
+    margin-top:10px;
+
+}
+
+#sidebarMenu,.col2,#sidebarMenu .position-sticky{
+
+    background-color:#041E42;
+
+}
+
+.containerme .col1{
+
+    width:100%;
+    margin-top:76px;
+    margin-left:214px;
+    height:100%;
+
+}
+
+
+.main-content nav{
+
+    background-color: #525f7f;
+    width: 1124px;
+    margin-left:5px;
+
+}
+
+
+.h4{
+
+    text-decoration: none;
+
+}
+
+
+#footerElse hr{
+
+    margin: 0rem 0;
+    color: inherit;
+    background-color: currentColor;
+    border: 0;
+    opacity: 0.25;
+}
+
+
+
+
+

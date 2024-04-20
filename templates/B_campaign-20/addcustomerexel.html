@@ -1,0 +1,94 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 0 30px;">
+    <form action="{% url 'excel_customers1' id=id %}" method="post" enctype="multipart/form-data"
+        style="position: relative;" class="profileForm">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Excel file of Customers</h3>
+        </span>
+        <!-- <span class="formOne"> -->
+
+
+
+            <span class="formOne inputGridThree">
+                <span> 
+                    <label for="file">Upload file</label>
+                    <input type="file" id="file" name="file" required>
+                </span>
+                <span class="spanSubmitForm">
+                    <input type="submit" value="Submit">
+                </span>
+                <span class="formOne">
+                    <h3 style="color: #085394;">Download reference of Excel for Upload Customer</h3>
+                    <span class="dowloadExcelSpan">
+                        <button id="downloadButton" class="dowloadExcelSpanBtn">
+                            <i class='bx bx-download'></i>
+                        </button>
+                    </span>
+                </span>
+                
+            </span>
+            <span>
+
+            </span>
+         
+      
+
+          
+
+        <!-- </span> -->
+    </form>
+
+</div>
+<!-- 
+<div class="frmCenter" style="margin: 10px;">
+
+
+        <form action="{% url 'excel_customers1' id=id %}" method="post" enctype="multipart/form-data" class="profileForm">
+            {% csrf_token %}
+            <h3>Add Excel file of Customers</h3>
+            <div class="form-group">
+                <label for="file">Upload file</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+ -->
+
+
+<script>
+    document.getElementById('downloadButton').addEventListener('click', function () {
+        // Redirect the user to the download URL
+        window.location.href = '{% url "download_excel1" %}';
+    });
+</script>
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

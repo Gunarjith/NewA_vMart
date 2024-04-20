@@ -1,0 +1,206 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+        
+
+        
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submithotelmain' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submithotelmain' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+
+                <h4>Welcome message</h4>
+            </span>
+            <input type="hidden" name="marketplace_id" value="{{ marketplace_id }}">
+          
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+        <label for="hotelwelcomeimage">Hotel Image</label>
+        <img src="" id="image">
+        <input type="file" id="hotelwelcomeimage" name="hotelImage" class="imageInput"
+            accept="image/*"  onchange="document.getElementById('image').src=window.URL.createObjectURL(this.files[0])" required>
+            <!-- accept="image/*" required> -->
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="hotelwelcomevideo">Hotel vedio</label>
+            <input type="file" id="hotelwelcomevideo" name="hotelvideo" class="fileInput" accept="file/*">
+            <span class="validatevideo"></span>
+        </span>
+        <span>
+            <label for="hotelname">Hotel Name</label>
+            <input type="text" id="hotelname" name="name"
+                placeholder="Enter Hotel name" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="hotel_address">Hotel Address</label>
+            <input type="text" id="hotel_address" name="address"
+                placeholder="Enter Hotel address" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="contact_us">Contact Us</label>
+            <input type="number" id="contact_us" name="contactus"
+                placeholder="Enter enter yur conctact number">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="contact_one">Contact one</label>
+            <input type="number" id="contact_one" name="contactone"
+                placeholder="Enter contact one number">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="contact_two">Contact Number Two</label>
+            <input type="number" id="contact_two" name="contacttwo"
+                placeholder="Enter contact two number"  >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="contact_three">Contact Number Three</label>
+            <input type="number" id="contact_three" name="contactthree"
+                placeholder="Enter Contact Number Three" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="checkIn">Chech In Time</label>
+            <input type="time" id="checkIn" name="checkIntime" placeholder="Enter your CheckIn time ">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="checkout">Chech out Time</label>
+            <input type="time" id="checkout" name="checkouttime" placeholder="Enter your Checkout time ">
+            <span class="charCount"></span>
+        </span>
+    </span>
+
+        <span></span>
+        <h3>Hotel Services</h3>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="overflow-y: scroll;">    
+            <table>
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Services Name</th>
+                  <th>Description</th>
+                  <th>Suport Number</th>
+                  <th>Escalation Number</th>
+                  <th>Escalation Hours</th>
+                  <th>Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in modifyservice %}
+                <tr>
+                    <td>{{ data.key }}</td>
+                    <td> 
+                    <input type="text" name="names_{{ data.id }}" id="leve1EndDate" value="{{ data.name }}">
+                    </td>
+                    <td><input type="text" name="discription_{{ data.id }}" id="leve1EndDate" value="{{ data.description }}"></td>
+                    <td><input type="text" name="support_number_{{ data.id }}" id="leve1EndDate" value="{{ data.suport_number }}"></td>
+                    <td><input type="text" name="Escalation_number_{{ data.id }}" id="leve1EndDate" value="{{ data.escalation_number }}"></td>
+                    <td><input type="time" name="Escalation_hours_{{ data.id }}" id="leve1EndDate" value="{{ data.escalation_hours|time:'H:i' }}"></td>
+                    <td> 
+                        <select id="control" name="control_{{ data.id }}" aria-placeholder="select a control">
+                            <option value="{{ data.control }}" hidden >{{ data.control }}</option>
+                            <option value="ENABLE" >Enable</option>
+                            <option value="DISABLE">Disable</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+</div>
+
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    $(document).on('change', '#hotels', function () {
+        // Generate URL without "id" bit
+        var marketplace_hotel_idstr = $(this).val();
+        var marketplace_hotel_idarr = marketplace_hotel_idstr.split("_").map(function(item) {
+            console.log(item,typeof(item, 10))
+            return parseInt(item, 10); // Use parseInt() to convert string to integer
+            // or parseFloat(item) if the numbers can have decimal points
+        });
+        console.log(marketplace_hotel_idarr)
+        
+        var url = "{% url 'hotelmaininfo'  %}" +"/" +marketplace_hotel_idarr[0]+"/?hotel_id="+marketplace_hotel_idarr[1];
+        console.log(url)
+    
+    // Construct the full URL with "id"
+        document.location.href = url; 
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

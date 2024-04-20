@@ -1,0 +1,135 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+<div class="mT15">
+    {% csrf_token %}
+    <label for="marketplace">Select a Hotel Name:</label>
+    <select name="marketplacename" id="marketplace">
+        <option hidden>Select Hotel Name </option>
+        {% for hotel in Hotels %}
+            <option value="{{ hotel.id }}">{{ hotel.hotel_name }}</option>
+        {% endfor %}
+    </select><br><br>   
+    
+</form>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Room Number</th>
+                <th>Phone Numbers</th>
+                <th>Complaint</th>
+                <th>Comment</th>
+                <th>Complaint Status</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+           {% for data in complaintdata %}
+
+            <tr>
+            <td>{{data.Room_details.room_number}}</td>
+            <td>{{data.Guest_details.Phone_number}}</td>
+            <td>{{data.Complaint_category.Complaint_category}}</td>
+            <td>{{data.Complaint_comments}}</td>
+            <td>{{data.Complaint_status}}</td>
+            </tr>
+
+            {% endfor %}
+               
+               
+            
+        </tbody>
+    </table>
+</div>
+<script>
+    
+    // a=document.getElementById('marketplace').value  
+    // console.log(document.getElementById('marketplace').value)
+        
+    $(document).on('change', '#marketplace', function () {
+    // Generate URL without "id" bit
+    var id = $(this).val();
+   
+    console.log(id);
+  
+    
+    var url = "{% url 'viewcomplaints'  %}" + id;
+
+    
+    // Construct the full URL with "id"
+    document.location.href = url;
+});
+
+
+</script>
+{% endif %}
+
+
+
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Phone Number</th>
+                <th>Room Numbers</th>
+                <th>Complaint</th>
+                <th>Comment</th>
+                <th>Complaint Status</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for room in Room_list_obj %}
+                <tr>
+                    <td>{{room.room_number}}</td>
+                    {% for b in all_Complaint_info_obj %}
+                    {% for a in b%}
+                    <td>{{a.Guest_details.Phone_number}}</td>
+                    
+                    <td>{{a.Complaint_category.Complaint_category}}</td>
+                    <td>{{a.Complaint_comments}}</td>
+                    <td>{{a.Complaint_status}}</td>
+                    {%endfor%}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+
+
+
+
+
+    
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

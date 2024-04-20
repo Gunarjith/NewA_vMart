@@ -1,0 +1,267 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    Form Data
+{% endblock title %}
+
+{% block rightcontent %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<style>
+    /* Styles for input fields and buttons */
+    .form-control {
+        width: calc(50% - 100px); /* Adjust width to accommodate two fields */
+        padding: 6px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        background-color: #2d07d6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px; 
+    }
+
+    .btn:hover {
+        background-color: #0c27ef;
+    }
+
+    .input-field {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .delete-icon {
+        position: absolute;
+        top: 50%;
+        right: 110px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #ff0000; /* Red color */
+    }
+
+    .option-field {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .add-option-btn {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .horizontal-line {
+        border-top: 1px solid #ccc;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="mT15">
+    <label> Form Name</label><br>
+    <input type="text" class="form-control" value="{{ form.form_name }}">
+    <label>{{ section.name }}</label><br>
+
+</div>
+
+{% for section in form.sections.all %}
+<div class="mT15">
+
+
+    {% for field in section.form_fields.all %}
+    <div class="input-field" >
+        <!-- Field label -->
+        <span><label for="name">Label:</label></span>
+        <input type="text" class="form-control" value="{{ field.label }}">
+    <!-- <button class="btn add-option-btn" onclick="addOption('{{ section.id }}')">Add Option</button> -->
+
+
+        {% if field.choices.all %}
+        <!-- Display options if available -->
+        <select class="form-control">
+            {% for choice in field.choices.all %}  
+
+            <option value="{{ choice.field_type }}" >{{ choice.field.field_type}}</option>               
+            <!-- <option value="select" >Select</option>
+            <option value="text"> Text</option>
+            <option value="password">Password</option>
+            <option value="number">Number</option>  
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+            <option value="radio">radio</option>
+            <option value="checkbox"> Checkbox</option> -->
+        <label>Options</label>
+            <input for="levelName" class="form-control" value="{{ choice.choice_text }}"><br>
+            {% endfor %}
+         <button class="btn add-option-btn" onclick="addOption('{{ section.id }}')">Add Option</button>
+
+        </select>
+        {% else %}
+        <input type="text" class="form-control" value="{{ field.field_type }}">
+    <button class="btn add-option-btn" onclick="addOption('{{ section.id }}')"  style="display: none;">Add Option</button>
+
+        {% endif %}
+
+        <span class="delete-icon" onclick="deleteField('{{ field.id }}')" ><i class="fas fa-trash-alt"></i></span>
+    </div>
+    {% endfor %}
+
+</div>
+{% endfor %}
+
+</div>
+{% endblock rightcontent %}
+
+{% block scripts %}
+<script>
+function deleteField(fieldId) {
+}
+
+// Function to add option field
+function addOption(sectionId) {
+    console.log("Adding option under section with ID: " + sectionId);
+}
+</script>
+{% endblock scripts %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    Form Data
+{% endblock title %}
+
+{% block rightcontent %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<style>
+    /* Styles for input fields and buttons */
+    .form-control {
+        width: calc(50% - 100px); /* Adjust width to accommodate two fields */
+        padding: 6px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        background-color: #2d07d6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px; 
+    }
+
+    .btn:hover {
+        background-color: #0c27ef;
+    }
+
+    .input-field {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .delete-icon {
+        position: absolute;
+        top: 50%;
+        right: 110px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #ff0000; /* Red color */
+    }
+
+    .option-field {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .add-option-btn {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .horizontal-line {
+        border-top: 1px solid #ccc;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<form method="post" action="{% url 'create_form' %}">
+    {% csrf_token %}
+
+    <div class="mT15">
+        <label> Form Name</label><br>
+        <input type="text" class="form-control" name="form_name" value="{{ form.form_name }}">
+        <label>{{ section.name }}</label><br>
+    </div>
+
+    {% for section in form.sections.all %}
+    <div class="mT15">
+        {% for field in section.form_fields.all %}
+        <div class="input-field" >
+            <!-- Field label -->
+            <span><label for="name">Label:</label></span>
+            <input type="text" class="form-control" name="field_label" value="{{ field.label }}">
+            <!-- Display options if available -->
+            {% if field.choices.all %}
+            <select class="form-control" name="choice_data">
+                {% for choice in field.choices.all %}
+                <option value="{{ choice.choice_text }}">{{ choice.choice_text }}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            <button class="btn add-option-btn" onclick="addOption('{{ section.id }}')">Add Option</button>
+            <span class="delete-icon" onclick="deleteField('{{ field.id }}')" ><i class="fas fa-trash-alt"></i></span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+{% endblock rightcontent %}
+
+{% block scripts %}
+<script>
+function deleteField(fieldId) {
+    // Implement deletion logic if needed
+}
+
+// Function to add option field
+function addOption(sectionId) {
+    console.log("Adding option under section with ID: " + sectionId);
+    // Implement logic to add options dynamically if needed
+}
+</script>
+{% endblock scripts %}

@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/b32ea33422.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/index1.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/vailoShortMetaLogo.png' %}">
+    <meta name="description" content="Brillion1 Reaches Your Business everywhere through Whats app,
+    No Website & App required for shopping,and Increase your sale with Win Win situation">
+    <title>
+
+        {% block title %} Brillion1 {% endblock title %}
+
+    </title>
+
+    <meta name="keywords" content="Vailo, WhatsApp, Online Shopping, Accelerate,Conversions" />
+    <link rel="canonical" href="https://vailo.ai/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
+
+
+    <!-- ---- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    {% block header %}
+
+
+    {% endblock header %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+
+    </style>
+</head>
+
+<body style="height:100% ;background-color: #ffff;" id="bodyId">
+
+    {% if user.is_authenticated %}
+    <div class="dashboardMainFrame">
+
+
+        <div class="sideBarDashBoardVailo" id="activeSidebar">
+            <span class="fixedPositionDash" id="sidebar">
+                <ul class="sideBarDashBoardVailoUl sideBarDashBoardVailoUlRelative" id="sideBarDashBoardVailoUl">
+                    <span class="logLiDash">
+                        <div class="logoDashBoardVailo">
+                            <a href="{% url 'home' %}"> 
+                                <img src="{% static 'img/navLogo1.png' %}" alt="VailoLogo" >
+                                
+                            </a>
+                        </div>
+                    </span>
+                    <li class="listSidebar" id="dashboardCommerce"><a href="{% url 'eCommerceDashboard' %}"><img src="{% static 'img/dash1.png' %}"><span
+                                class="listSidebarSpan">Dashboard</span></a></li>
+
+
+                    <li class="listSidebar" id="custmerCommerce"><a href="{% url 'customer' %}">
+                            <img src="{% static 'img/dash5.png' %}"><span class="listSidebarSpan">Customer</span></a>
+                    </li>
+
+
+                    
+
+                    <li style="display: flex;">
+                        <img class="imgDashSetting" src="{% static 'img/dash9.png' %}">
+                        <div class="dropdown">
+                            <button onclick="downArrow()" class="dropbtn">Setting</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="{% url 'UpdateProfile' %}">Profile </a>
+                                <a href="{% url 'facebook_info' %}">Facebook</a>
+                                <a href="{% url 'payment_page' %}">Payment</a>
+                                <a href="{% url 'settings' %}">General</a>
+                                <a href="{% url 'eventinfo' %}" id="eventInfoDash">EventInfo</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="helpDashBoard" class="listSidebar"><a href="{% url 'help' %}"><img class="imgDashSetting"
+                                src="{% static 'img/dash10.png' %}"><span class="listSidebarSpan">Help</a>
+                    </li>
+                    <span id="helpDashBoardLogout" class="listSideBarProLg">
+
+                        <div class="profileWithLogOut">
+
+                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="userImage" alt="profile_pic">
+
+                            <span>{{user.username}}</span>
+                        </div>
+
+                        <a href="{% url 'logout' %}">
+                            <img class="imgDashSetting" src="{% static 'img/dash11.png' %}">
+                        </a>
+                    </span>
+                </ul>
+                <!-- <nav class="dashBoardNavVailo" id="">
+                <div class="rightNavDashBoard">
+    
+                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="userImage" alt="profile_pic">
+    
+                    <span>{{user.username}}</span>
+                </div>
+            </nav> -->
+            </span>
+            <div class="leftDashboardVailoMain">
+                {% block rightcontent %}
+
+                {% endblock rightcontent %}
+            </div>
+
+        </div>
+        <!-- <nav class="dashBoardNavVailo" id="dashBoardNavVailo"> -->
+
+    </div>
+    <script></script>
+
+    <!-- {% else %} -->
+
+
+    {% block bottumcontent %}
+
+    {% endblock bottumcontent %}
+
+
+
+    {% endif %}
+
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function downArrow() {
+            document.getElementById("myDropdown").classList.toggle("show");
+            document.getElementById("helpDashBoard").className = "listSidebarDown"
+            // alert(document.getElementById("helpDashBoard").style.marginTop )
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            ;
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                        document.getElementById("helpDashBoard").className = "listSidebar";
+                    }
+                }
+
+            }
+        }
+    </script>
+
+    <script>
+    //     let header = document.getElementById("activeSidebar");
+    //     let btns = header.getElementsByClassName("listSidebar");
+    //     for (let i = 0; i < btns.length; i++) {
+    //         btns[i].addEventListener("click", function () {
+    //             let current = document.getElementsByClassName("active");
+    //             current[0].className = current[0].className.replace(" active", "");
+    //             this.className += " active";
+    //         });
+    //     }
+
+
+    // </script>
+
+
+
+    <script>
+        function abc() {
+            console.log('ih')
+        }
+    </script>
+   
+        <script>
+
+  var currentUrl = window.location.href;
+  var links = document.querySelectorAll('.sideBarDashBoardVailoUl li a');
+
+  for (var i = 0; i < links.length; i++) {
+    if (links[i].href === currentUrl) {
+      links[i].parentNode.classList.add('active');
+    }
+  }
+
+
+    </script>
+    <script>
+// Get the client service type from the database
+
+/*
+let clientServiceType = admin_permisions.objects.filter(client_id = request.user.id); // Replace this with actual code to get the value from the database
+for(let a in clientServiceType){
+    a.clientServiceType
+    console.log(a)
+}
+// Define the sidebar links for each service type
+let commerceLinks = ["dashboardCommerce", "orderCommerce", "productCommerce", "billingCommerce", "custmerCommerce"];
+let ticketLinks = ["eventMasterDash", "eventTicketDash", "eventDashboardDash", "eventCustomerDash", "eventCampaignDash", "eventInfoDash"];
+
+// Display the appropriate links in the sidebar based on the client service type
+var sidebar = document.getElementById("sidebar");
+if (clientServiceType === "commerce") {
+  // Remove the ticket links
+  var ticketLinksToRemove = ["eventMasterDash", "eventTicketDas", "eventDashboardDash", "eventCustomerDash", "eventCampaignDash","eventInfoDash"];
+  ticketLinksToRemove.forEach(function(link) {
+    var linkToRemove = document.getElementById(link);
+    linkToRemove.parentNode.removeChild(linkToRemove);
+  });
+
+  // Show the commerce links
+  commerceLinks.forEach(function(link) {
+    var linkToShow = document.getElementById(link);
+    linkToShow.style.display = "block";
+  });
+} else if (clientServiceType === "ticket") {
+  // Remove the commerce links
+  var commerceLinksToRemove = ["dashboardCommerce", "orderCommerce", "productCommerce", "billingCommerce", "custmerCommerce"];
+  commerceLinksToRemove.forEach(function(link) {
+    var linkToRemove = document.getElementById(link);
+    linkToRemove.parentNode.removeChild(linkToRemove);
+  });
+
+  // Show the ticket links
+  ticketLinks.forEach(function(link) {
+    var linkToShow = document.getElementById(link);
+    linkToShow.style.display = "block";
+  });
+} */
+</script>
+    {% block script %}
+
+
+
+    {% endblock script %}
+    <script type="text/javascript" src="{% static 'js/image.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!-- --  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--________________________________________________________________________________________________________-->
+</body>
+
+</html>

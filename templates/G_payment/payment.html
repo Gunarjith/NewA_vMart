@@ -1,0 +1,46 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %}Payment Details{% endblock title %}
+{% else %}  
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<!-- <h1>Welcome {{user.username}}</h1> -->
+
+<div class="paymentDetailsDashboard">
+
+  <form action="{% url 'payment_page' %}" method="POST">
+    {% for i in razor %}
+    {% csrf_token %}
+    <input type="text" value="{{i.razorpay_contact_name}}" name="Contact_Name" placeholder="Contact Name" required>
+    <input type="number" value="{{i.razorpay_contact_number}}" name="Contact_Number" placeholder="Contact Number" required>
+    <input type="text" name="your_id" value="{{i.razorpay_cilent_id}}" placeholder="Your id" required>
+    <input type="text" name="your_secret" value="{{i.razorpay_client_secret}}" placeholder="Your secret" required>
+    <span></span>
+    <button type="submit">Submit</button>
+    {% endfor %}
+  </form>
+</div>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

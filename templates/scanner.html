@@ -1,0 +1,336 @@
+{% extends "scanneradmin.html" %}
+{% load static %}
+
+{% block title %}Scanner{% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<style>
+    /* Add your custom styles here */
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+    }
+
+    .scannerFlex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .scannerVideo {
+        /* width: 100%; */
+        max-width: 640px;
+        border: 6px solid #ddd;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .btnScanner {
+        display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 640px;
+    column-gap: 5px;
+    margin-bottom: 20px;
+    row-gap: 5px;
+    }
+
+    .btnScn {
+        cursor: pointer;
+    background-color: #075e54;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    text-align: center;
+    }
+
+    .btnScn img {
+        width: 25px;
+    height: 25px;
+    background: #fff;
+    margin-right: 10px;
+    padding: 5px;
+    }
+
+    .btnScn:hover {
+        background-color: #075e54;
+    }
+
+    #messageContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 640px;
+    }
+
+    #messageContainer div {
+        margin-bottom: 10px;
+        font-size: 18px;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    #messageContainer div.green {
+        background-color: #d4edda;
+        color: #721c24;
+    }
+
+    #messageContainer div.red {
+        background-color: #f8d7da;
+        color: #155724;
+    }
+</style>
+{% endblock header %}
+
+{% block rightcontent %}
+{% csrf_token %}
+<div class="frmCenter mT15">
+    <div class="scannerFlex">
+        <h3>Scan the Tickets</h3>
+        <div class="btnScanner">
+            <span class="btnScn" onclick="toggleCamera()"><img src="{% static 'img/camera.png'  %}" alt="camera">Toggle Camera</span>
+            <span class="btnScn" onclick="requestCameraPermission()"><img src="{% static 'img/cameraParmmission.png'  %}" alt="camera">Request Camera Permission</span>
+        </div>
+        <video class="scannerVideo" id="video" autoplay></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <div id="messageContainer"></div>
+    </div>
+</div>
+{% endblock rightcontent %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+
+<!-- <script>
+    var video = document.querySelector('#video');
+    var canvas = document.querySelector('#canvas');
+    var context = canvas.getContext('2d');
+    var activeCamera = 'environment'; // 'environment' for rear camera, 'user' for front camera
+
+    function startCameraStream() {
+        var constraints = {
+            audio: false,
+            video: {
+                facingMode: activeCamera,
+                width: 640,
+                height: 480
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                alert('Error accessing camera: ' + err);
+            });
+    }
+
+    function toggleCamera() {
+        activeCamera = (activeCamera === 'environment') ? 'user' : 'environment';
+        console.log(activeCamera)
+        startCameraStream();
+    }
+
+    function displayMessage(message, ticketNumber, customerPhoneNumber, isAllowed) {
+        var messageContainer = document.querySelector('#messageContainer');
+        var ticketNumberContainer = document.querySelector('#ticketNumberContainer');
+        var customerPhoneNumberContainer = document.querySelector('#customerPhoneNumberContainer');
+        var messageDiv = document.createElement('div');
+        var ticketNumberDiv = document.createElement('div');
+        var customerPhoneNumberDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        ticketNumberDiv.textContent = ticketNumber;
+        customerPhoneNumberDiv.textContent = customerPhoneNumber;
+        messageDiv.style.color = isAllowed ? 'green' : 'red';
+        ticketNumberDiv.style.color = isAllowed ? 'green' : 'red';
+        customerPhoneNumberDiv.style.color = isAllowed ? 'green' : 'red';
+        messageContainer.prepend(messageDiv);
+        ticketNumberContainer.prepend(ticketNumberDiv);
+        customerPhoneNumberContainer.prepend(customerPhoneNumberDiv);
+    }
+
+    function captureFrame() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: 'dontInvert',
+        });
+
+        if (code) {
+            context.beginPath();
+            context.lineWidth = '6';
+            context.strokeStyle = 'green';
+            context.rect(
+                code.location.topLeftCorner.x,
+                code.location.topLeftCorner.y,
+                code.location.topRightCorner.x - code.location.topLeftCorner.x,
+                code.location.bottomLeftCorner.y - code.location.topLeftCorner.y
+            );
+            context.stroke();
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/scanner/');
+             var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+
+xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+xhr.onload = function() {
+console.log(xhr.status);
+var response = JSON.parse(xhr.responseText);
+var message = response.message;
+var ticketNumber = response.ticket_number;
+var customerPhoneNumber = response.customer_phone_number;
+if (xhr.status >= 200 && xhr.status < 300) {
+                console.log('Allowed:', xhr.responseText);
+                displayMessage(message, ticketNumber, customerPhoneNumber, true);
+            } else {
+                console.error('Not Allowed:', xhr.responseText);
+                displayMessage(message, ticketNumber, customerPhoneNumber, false);
+            }
+        };
+        xhr.onerror = function() {
+            alert('Error Request');
+        };
+        var data = JSON.stringify({ data: code.data });
+        xhr.send(data);
+    }
+
+    requestAnimationFrame(captureFrame);
+}
+
+function requestCameraPermission() {
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(function(stream) {
+            // Permission granted, start the camera stream
+            stream.getTracks().forEach(function(track) {
+                track.stop();
+            });
+            startCameraStream();
+        })
+        .catch(function(err) {
+            // Permission denied or error
+            console.log('Camera permission denied or error:', err);
+        });
+}
+
+startCameraStream();
+requestAnimationFrame(captureFrame); -->
+
+<script>
+    var video = document.querySelector('#video');
+    var canvas = document.querySelector('#canvas');
+    var context = canvas.getContext('2d');
+    var activeCamera = 'environment'; // 'environment' for rear camera, 'user' for front camera
+
+    function startCameraStream() {
+        var constraints = {
+            audio: false,
+            video: {
+                facingMode: activeCamera,
+                width: 640,
+                height: 480
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                alert('Error accessing camera: ' + err);
+            });
+    }
+
+    function toggleCamera() {
+        activeCamera = (activeCamera === 'environment') ? 'user' : 'environment';
+        console.log(activeCamera)
+        startCameraStream();
+    }
+
+    function displayMessage(message, ticketNumber, customerPhoneNumber, isAllowed) {
+        var messageContainer = document.querySelector('#messageContainer');
+        var messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.classList.add(isAllowed ? 'green' : 'red');
+        messageContainer.prepend(messageDiv);
+    }
+
+    function captureFrame() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: 'dontInvert',
+        });
+
+        if (code) {
+            context.beginPath();
+            context.lineWidth = '6';
+            context.strokeStyle = 'green';
+            context.rect(
+                code.location.topLeftCorner.x,
+                code.location.topLeftCorner.y,
+                code.location.topRightCorner.x - code.location.topLeftCorner.x,
+                code.location.bottomLeftCorner.y - code.location.topLeftCorner.y
+            );
+            context.stroke();
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/scanner/');
+            var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            xhr.setRequestHeader('X-CSRFToken', csrfToken);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.onload = function() {
+                console.log(xhr.status);
+                var response = JSON.parse(xhr.responseText);
+                var message = response.message;
+                var ticketNumber = response.ticket_number;
+                var customerPhoneNumber = response.customer_phone_number;
+                var isAllowed = xhr.status >= 200 && xhr.status < 300;
+                console.log(isAllowed ? 'Allowed:' : 'Not Allowed:', xhr.responseText);
+                displayMessage(message, ticketNumber, customerPhoneNumber, isAllowed);
+            };
+            xhr.onerror = function() {
+                alert('Error Request');
+            };
+            var data = JSON.stringify({ data: code.data });
+            xhr.send(data);
+        }
+
+        requestAnimationFrame(captureFrame);
+    }
+
+    function requestCameraPermission() {
+        navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then(function(stream) {
+                // Permission granted, start the camera stream
+                stream.getTracks().forEach(function(track) {
+                    track.stop();
+                });
+                startCameraStream();
+            })
+            .catch(function(err) {
+                // Permission denied or error
+                console.log('Camera permission denied or error:', err);
+            });
+    }
+
+    startCameraStream();
+    requestAnimationFrame(captureFrame);
+</script>
+{% endblock script %}

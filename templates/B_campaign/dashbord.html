@@ -1,0 +1,118 @@
+
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="mT15" style="display: flex; justify-content: center;">
+
+    <div class="headFlex" style="width: 90%; padding-right: 2.5%;">
+        <h3 style="text-transform: none;">Welcome  to Brillion1</h3>
+        <span class="btnConLevel">
+            <h4>Name</h4><br>
+            <span>Pic</span>
+        </span>
+    </div>
+</div>
+
+
+<div class="mT15" style="display: flex; justify-content: center;">
+
+    <div class="headFlex" style="width: 90%; padding-right: 2.5%;">
+        <span class="btnConLevel">
+            <span>Phone number</span>
+        </span>
+        <span class="btnConLevel">
+            <span>Messaging Limit</span>
+        </span>
+        <span class="btnConLevel">
+            <span>Quality  Rating</span>
+        </span>
+        <span class="btnConLevel">
+            <span>Message Sent</span>
+        </span>
+        
+        <span class="btnConLevel">
+            <span></span>
+            
+        </span>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="mT15" style="display: flex; justify-content: center;">
+
+    <div class="container" style="width: 45%; padding-right: 2.5%;">
+        <div class="headFlex">
+            <span class="btnConLevel" >
+                <table>
+                    <h3 style="text-align: center;">Campaigns</h3>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for campaign in template_5_records %}
+
+                        <tr>
+                            <td>{{campaign.template_name}}</td>
+                            <td>{{campaign.status}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </span>
+        </div>
+    </div>
+
+    <div class="container" style="width: 45%; padding-left: 2.5%;">
+        <div class="headFlex">
+            <span class="btnConLevel" >
+                <table>
+                    <h3 style="text-align: center;">Forms</h3>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for forms in form_5_records %}
+                        <tr>
+                            <td>{{forms.form_name}}</td>
+                            <td>{{forms.status}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </span>
+        </div>
+    </div>
+
+</div>
+<div class="mT15" style="display: flex; justify-content: center;">
+
+    <div class="headFlex" style="width: 90%; padding-right: 2.5%;">
+        <h3 style="text-transform: none;"></h3>
+        <span class="btnConLevel">
+            <h4></h4><br>
+            <span></span>
+        </span>
+    </div>
+</div>
+
+
+{% endblock rightcontent %}

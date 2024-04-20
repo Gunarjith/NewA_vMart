@@ -1,0 +1,111 @@
+{% extends "surveyDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter" style="margin: 10px;">
+    {% for a in updateSurvey %}
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'subUpdateSurvey' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'subUpdateSurvey' a.id %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Edit Survey</h3>
+        </span>
+        <span class="formOne inputGridThree">
+           
+
+            
+         
+
+            <span>
+                <label for="cMessage">Main Message</label>
+                <input type="text" id="cMessage" name="resurveyMessageText" class="mainInput"
+                    placeholder="{{a.survey_message}}">
+                <span class="charCount"></span>
+            </span>
+
+  
+
+            <span>
+
+                <label for="surveyFooter">Footer</label>
+                <input type="text" id="surveyFooter" name="resurveyFooter" class="mainInput"
+                    placeholder="{{a.survey_footer}}">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="typeSurvey">Type of Survey</label>
+                <input type="text" id="typeSurvey" name="resurveyType" class="mainInput"
+                    placeholder="{{a.survey_type}}">
+                <span class="charCount"></span>
+            </span>
+            <span>
+
+                <label>Survey Status</label>
+                <input type="number" name="reSurveyStatus" placeholder="{{a.survey_status}}">
+            </span>
+            <span style="width: max-content;">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.survey_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if a.survey_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearSurveyImg('id_reresurvey_image')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reresurvey_image" id="id_reresurvey_image" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+    </span> 
+           
+        </span>
+
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+    {% endfor %}
+</div>
+
+<script>
+    function clearSurveyImg(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

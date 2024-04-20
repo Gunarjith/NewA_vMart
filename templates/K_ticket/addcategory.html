@@ -1,0 +1,96 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 15px;">
+
+    <form action="{{BASE_DIR}}/Eventmaster/submitcategory/{{slotID}}/" method="post" enctype="multipart/form-data"
+        class="profileForm" style="position: relative;">
+        <span class="headFlex">
+            <h3>Level-3</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne inputGridThree">
+            <span>
+                <label for="level3Name">Name</label>
+                <input type="text" id="level3Name" name="CategoryName" class="nameInput" placeholder="Enter Name" required>
+                <span class="charCount"></span> 
+            </span>
+
+            <span>
+                <label for="level3Descrip">Description</label>
+                <input type="text" class="descriptionInput" id="level3Descrip" name="CategoryDescription" placeholder="Enter Descriptions" required>
+                <span class="charCount"></span> 
+            </span>
+
+            <span>
+                <label for="level3Price">Price</label>
+                <input type="number" id="level3Price" name="CategoryPrice" placeholder="Enter Price" required>
+            </span>
+            <span>
+            <span>
+                <label for="level3TImg">Ticket Image</label>
+                <input type="file" id="level3TImg" name="Categoryticketimage" class="imageInput" accept="image/*" required>
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+        <span>
+            <span>
+                <label for="level3HImg">Header Image</label>
+                <input type="file" id="level3HImg" name="CategoryHeaderImage" class="imageInput" accept="image/*" required>
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+            <span>
+                <label for="level3Header">Header</label>
+                <input type="text" id="level3Header" class="headerInput" name="CategoryHeaderText" placeholder="Enter Header Text">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="level3Body">Body</label>
+                <input type="text" id="level3Body" class="mainInput" name="CategoryBodyText" placeholder="Enter Body Text">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="level3Footer">Footer</label>
+                <input type="text" id="level3Footer" name="CategoryFooterText" class="footerInput" placeholder="Enter Footer Text">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="level3Btn">Ticket Button Name </label>
+                <input type="text" id="level3Btn" name="numberbuttonname" class="buttonInput" placeholder="Enter Tickets Button Name">
+                <span class="charCount"></span>
+            </span>
+
+        </span>
+        <span  class="spanSubmitForm" style="margin: 30px;">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+</div>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+<script>
+
+    </script>
+
+{% endblock script %}

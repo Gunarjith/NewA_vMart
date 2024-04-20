@@ -1,0 +1,135 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitfoodlist'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitfoodlist'  %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add Foods </h4>
+            </span>
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="hotelfoodimage">Food Type Image</label>
+        <input type="file" id="hotelfoodimage" name="foodimage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="hotelfoodevideo">Food Type vedio</label>
+            <input type="file" id="hotelfoodevideo" name="foodvideo" class="fileInput" accept="file/*">
+            <span class="validatevideo"></span>
+        </span>
+        <span>
+            <label for="food_name">Food Name</label>
+            <input type="text" id="food_name" name="name"
+                placeholder="Enter food name" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="food_price">Food Price</label>
+            <input type="number" id="food_price" name="foodprice" placeholder="Enter a food price ">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="food_type">Food Type </label>
+            <select id="food_type" name="foodtype" aria-placeholder="Select a type">
+                <option value="">select type</option>
+                <option value="VEG">VEG</option>
+                <option value="NONVEG">Non Veg</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+
+
+        <span>
+            <label for="fooddiscription">Food Discription</label>
+            <input type="text" id="fooddiscription" name="fooddiscription"
+                placeholder="Enter food Discription" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="food_cuisine">Food Cuisine</label>
+            <input type="text" id="food_cuisine" name="foodcuisine"
+                placeholder="Enter Food Cuisine " >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="food_category">Food Category</label>
+            <select  name="foodcategory" id="category">
+                <option>Select the option </option>
+                {% for a in foodtype %}
+                <option value="{{ a.id }}">{{a.category_name}}</option>
+                {% endfor %}
+            </select>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

@@ -1,0 +1,304 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %} {{ user.username }} {% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="frmCenter" style="margin: 15px;">
+    <div class="assignCamFlex">
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                <h3>All Customer</h3>
+
+
+                {% for a in subUpdateBCamaign %}
+                <button onclick="moveSelectedItems(this, '{{ a.id }}')">Move Selected</button>
+                {% endfor %}
+            </span>
+
+        
+            <div style="overflow: scroll;WIDTH: initial;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAllCheckbox">
+                            </th>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable">
+                        {% for item in assignBCampaign %}
+                        <tr data-item-id="{{ item.id }}">
+                            <td>
+                                <input type="checkbox" class="itemCheckbox">
+                            </td>
+                            <td style="display: none;">{{ item.client }}</td>
+                            <td>{{ item.Customer_Name }}</td>
+                            <td>{{ item.Customer_Whatsapp_Number }}</td>
+                            <td>{{ item.Customer_City }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                {% for a in subUpdateBCamaign %}
+
+                <h3>Assigned Customers for  {{a.group_name}} </h3>
+
+                {% endfor %}
+            </span>
+                        <div style="overflow: scroll; WIDTH: initial;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Number</th>
+                                        <th>City</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="selectedItemsBody">
+                                    {% for list in campaignBList %}
+                                    <tr>
+                                        <td>{{ list.campaign_customer_master.Customer_Name }}</td>
+                                        <td>{{list.campaign_customer_master.Customer_Whatsapp_Number}}</td>
+                                        <td>{{list.campaign_customer_master.Customer_City}}</td>
+                                        <td>
+                                            <span class="editDeleteTd">
+                                                <a href="{% url 'deleteBCampaignList' list.id %}">
+                                                    <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                    {% for item in selectedItems %}
+                        <tr data-item-id="{{ item.id }}">
+                            <td style="display: none !important;">{{ itme.client }}</td>
+
+                            <td>{{ item.campaign_customer_master_id }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="eventAlertTemplate" id="confirmationBlockCampaignList" style="display: none;">
+    <div class="flexEventAlertTemplate">
+        <div>Are you sure you want to assign the selected items?</div>
+        <button id="confirmButton">Confirm</button>
+        <button id="cancelButton">Cancel</button>
+    </div>
+</div>
+
+<div id="duplicate-entry-modal" class="eventAlertTemplate" style="display: none;">
+    <div class="flexEventAlertTemplate">
+    <div id="duplicate-entry-messages"><p>There are similar list of items already existing in table </p></div>
+    <button id="ok-button">OK</button>
+</div>
+</div>
+
+
+<script>
+
+
+    function moveSelectedItems(element, campaignId) {
+        console.log('dddvv')
+        var checkboxes = document.getElementsByClassName("itemCheckbox");
+    var selectedItems = [];
+    
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        var checkbox = checkboxes[i];
+
+        if (checkbox.checked) {
+            var row = checkbox.parentNode.parentNode;
+
+            var CustomerMasterId = row.getAttribute("data-item-id");
+
+            selectedItems.push({
+                campaign_customer_master_id: CustomerMasterId
+            });
+        }
+    }
+
+    if (selectedItems.length > 0) {
+        var confirmationBlockCampaignList = document.getElementById("confirmationBlockCampaignList");
+        confirmationBlockCampaignList.style.display = "block";
+        var modal = document.getElementById("duplicate-entry-modal");
+
+        // Add event listener to the Confirm button
+        var confirmButton = document.getElementById("confirmButton");
+        confirmButton.addEventListener("click", function () {
+            // Hide the confirmation block
+            confirmationBlockCampaignList.style.display = "none";
+
+            // Send the data to the server
+            var data = {
+                campaignId: campaignId,  // Replace with the appropriate campaign ID value
+                selected_items: selectedItems
+            };
+
+            fetch(`/B_campaign/pulishBCampaignList/${campaignId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken") // Get CSRF token from a function
+                },
+                body: JSON.stringify(data)
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Success, do something
+                    console.log("Items moved successfully");
+
+                    // Update the moved data table
+                    displayMovedData(data.moved_data);
+                } else {
+                    // Error, display duplicate entry messages
+                    console.log("Failed to move items");
+                    if (data.duplicate_entries && data.duplicate_entries.length > 0) {
+                        displayDuplicateEntries(data.duplicate_entries);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("An error occurred:", error);
+            });
+            
+        });
+
+        // Add event listener to the Cancel button
+        var cancelButton = document.getElementById("cancelButton");
+        cancelButton.addEventListener("click", function () {
+            // Hide the confirmation block
+            confirmationBlockCampaignList.style.display = "none";
+        });
+    } else {
+        console.log("No selected items found.");
+    }
+}
+
+// Function to display the moved data in the table
+function displayMovedData(movedData) {
+    var movedItemsTableBody = document.getElementById("selectedItemsBody");
+    movedItemsTableBody.innerHTML = "";
+
+    // Populate the "Moved Items" table with the selected items
+    movedData.forEach(function (item) {
+        var row = document.createElement("tr");
+        var idCell = document.createElement("td");
+        // Add other cells for additional data if needed
+
+        idCell.textContent = item.campaign_customer_master_id;
+        // Set content for other cells if needed
+
+        row.appendChild(idCell);
+        // Append other cells to the row if needed
+
+        movedItemsTableBody.appendChild(row);
+        location.reload();
+    });
+}
+
+
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Function to display the duplicate entry messages in the modal
+    function displayDuplicateEntries(entries) {
+        var messagesContainer = document.getElementById("duplicate-entry-messages");
+        messagesContainer.innerHTML = "";
+
+        entries.forEach(function(entry) {
+            var message = document.createElement("p");
+            message.textContent = entry;
+            messagesContainer.appendChild(message);
+        });
+
+        var modal = document.getElementById("duplicate-entry-modal");
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById("duplicate-entry-modal");
+        modal.style.display = "none";
+    }
+
+    // Handle OK button click in the modal
+    var okButton = document.getElementById("ok-button");
+    okButton.addEventListener("click", function() {
+        closeModal();
+    });
+
+    // Handle select all checkbox click event
+    document.getElementById("selectAllCheckbox").addEventListener("change", function () {
+        var checkboxes = document.getElementsByClassName("itemCheckbox");
+
+        // Set the checked property of each checkbox to match the select all checkbox
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    });
+
+</script>
+<script>
+    // JavaScript code to handle modal popup for adding a new customer
+    document.getElementById("addCustomerBtn").addEventListener("click", function() {
+        document.getElementById("addCustomerModal").style.display = "block";
+    });
+
+    document.getElementById("cancelAddCustomerBtn").addEventListener("click", function() {
+        document.getElementById("addCustomerModal").style.display = "none";
+    });
+
+    // Handle select all checkbox click event
+    document.getElementById("selectAllCheckbox").addEventListener("change", function () {
+        var checkboxes = document.getElementsByClassName("itemCheckbox");
+
+        // Set the checked property of each checkbox to match the select all checkbox
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    });
+</script>
+
+{% endblock rightcontent %}
+
+{% block script %}
+<!-- Your additional JavaScript code goes here -->
+{% endblock script %}

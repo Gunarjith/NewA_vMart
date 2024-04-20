@@ -1,0 +1,100 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+{% include 'N_donation/ConfigNav.html' %}
+
+
+<div class="mT15">
+ 
+    <div class="headFlex">
+        
+        <h3>List of Donation Type</h3>
+        <a href="{% if marketplace_id %}{% url 'addDonation' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'addDonation' %}{% endif %}">
+            <button>
+                Add Donation Type
+            </button>
+        </a>
+    </div>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Short Description</th>
+                <th>Image</th>
+                <th>Amount</th>
+                <th>Description</th>        
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in donationMaster %}
+            <tr>
+                <td>{{a.donation_name}}</td>
+                <td>{{a.donation_short_description}}</td>
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.donation_type_image}}">
+                </td>         
+                <td>{{a.donation_amount}}</td>
+                <td>{{a.donation_description}}</td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editDontion' id=a.id %}?marketplace_id={{ marketplace_id }}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deleteDontion' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

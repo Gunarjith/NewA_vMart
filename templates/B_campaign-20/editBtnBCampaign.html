@@ -1,0 +1,84 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 10px;">
+  
+    {% for a in updateBtnBCamaign %}
+    <form  class="profileForm" style="position: relative;" action="{% url 'subUpdateBtnBCamaign' a.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Edit Button Info</h3>
+        </span>
+        <!-- <span class="eventImgFileFlex"> -->
+            <span class="formOne inputGridThree">
+            <span>
+
+            <label>Number</label>
+            <input type="number" name="rebtnNum" class="nameInput"  placeholder="{{a.template_button_num}}">
+
+            <span class="charCount"></span>
+        </span>
+
+     
+
+        <span>
+
+            <label>Name</label>
+            <input type="text" name="reBtnName" class="nameInput"  placeholder="{{a.template_button_name}}" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+
+            <label>Type</label>
+            <input type="text" name="reBtnType" class="nameInput"  placeholder="{{a.template_button_type}}" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+
+            <label>Button Info</label>
+            <input type="text" name="reBtnInfo" class="mainInput" placeholder="{{a.template_additional_info}}">
+            <span class="charCount"></span>
+        </span>
+
+   
+
+  
+        </span>
+        <span class="spanSubmitForm">
+        <input class="addeventSubmit" type="submit" value="Submit">
+        </span>
+    </form>
+    {% endfor %}
+</div>
+<script>
+    function clearCampHeaderImg(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

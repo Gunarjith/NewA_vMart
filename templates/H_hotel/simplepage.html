@@ -1,0 +1,78 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% else %}
+        Hotel Configuration
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+    
+{% endblock header %}
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>Hotel Configuration</h3>
+    </div>
+</div>
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/foodconfig.html' %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Foods</h3>
+        <button class="open-button" onclick="toggleTable()">Add Food</button>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="form-popup" id="myForm" style="display: none;">
+    <form action="{% if marketplace_id %}{% url 'submitselectedfoods' id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitselectedfoods' id %}{% endif %}" method="post" class="form-container">
+        {% csrf_token %}
+        <div style="overflow-y: scroll;">    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>List of Foods</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name in cataloguedata %}
+                        {% if name.food_name not in associated_foods %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selected_foods" value="{{ name.food_name }}">
+                                </td>
+                                <td>{{ name.food_name }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn cancel">Submit</button>
+    </form>
+</div>
+
+<script>
+    function toggleTable() {
+        var table = document.getElementById("myForm");
+        if (table.style.display === "none") {
+            table.style.display = "block";
+        } else {
+            table.style.display = "none";
+        }
+    }
+</script>
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+{% endblock script %}

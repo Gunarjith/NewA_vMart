@@ -1,0 +1,266 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory">List of Campaign</h3>
+
+        <div class="searchBar" style="padding: 10px;">
+            <input type="text" id="searchInput" style="padding: 5px;border-radius: 5px;"placeholder="Search.." />
+        </div>
+
+
+        <span style="display: flex; justify-content: space-between; column-gap: 10px;">
+            <a style="margin: 5px;" href="{% url 'addCampaign' %}">
+                <button>
+                    Add Campaign
+                </button>
+            </a>      
+            <span style="position: relative; padding: 5px;">
+                <img src="{% static 'img/historyIcon.png' %}" id="historyIcon"
+                    style="position: relative;padding: 10px 5px;width: 30px; " alt="historyIcon">
+                <span id="historyListCampaign" style="display: none;" class="historyCampBg">
+            <span style="position: relative;">
+                    <b>History</b>
+                    <p style="padding: 5px 0; font-size: 14px; cursor: pointer;" id="historyCustmer">Sent Customer list</p>
+                    <p style="padding: 5px 0; font-size: 14px;cursor: pointer;" id="historyCampaign">Sent Campaign list</p>
+               <span class="backCampaign" >
+               <a href="{% url 'eventCampaign' %}"><p style="margin-top: 20px;cursor: pointer; float: right;color: #fff" 
+            >back</p></a>
+            <!-- </span> -->
+            </span>
+                </span>
+            </span>
+        </span>
+    </div>
+ 
+
+</div>
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Name</th>
+                <!-- <th>Campaign Description</th> -->
+                <th>Image</th>
+                <th>Message</th>
+                <th>Footer</th>
+                <th style="text-align: center;">Action</th>
+                <!-- <th style="text-align: center;">Assign</th>
+                    <th style="text-align: center;">Edit / Delete</th>
+                    <th style="text-align: center;">Send</th> -->
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in eventcampaign %}
+            <tr style="margin: 50px;">
+
+                <td>{{a.Campaign_Name}}</td>
+                <!-- <td>{{a.Campaign_Description}}</td> -->
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Header_Image}}">
+                </td>
+                <td>{{a.Campaign_Message_Text}}</td>
+                <td>{{a.Campaign_Footer_Text}}</td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'assignCampaign' a.id %}">
+                            <img style="width: 20px;" src="{% static 'img/assignIcon.png' %}" alt="assignIcon">
+                        </a>
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'updateCamaign' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <!-- </span> -->
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'deleteCampaign' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                        <!-- </span> -->
+                        <a href="{% url 'sendCampaign' a.id %}">
+
+                            <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                        </a>
+                    </span>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="historyCustmerList" id="listHistoryCustmer">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>City</th>
+                <th>Date</th>
+                <th>Campaign Name</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in custmerCampaign %}
+            <tr style="margin: 50px;">
+                <td>{{a.Customer_First_Name}}</td>
+                <td>{{a.Customer_Whatsapp_Number}}</td>
+                <td>{{a.Customer_City}}</td>
+                <td>{{a.vailo_record_last_update}}</td>
+                <td>{{a.campaign_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="historyCustmerList" id="listHistoryCampaign">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                
+                <th>Image</th>
+                <th>Message</th>
+                <th>Footer</th>
+                <th>Date</th>
+                <!-- <th style="text-align: center;">Action</th> -->
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in infoCampaign %}
+            <tr style="margin: 50px;">
+                <td>{{a.Campaign_Name}}</td>
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Header_Image}}">
+                </td>
+                <td>{{a.Campaign_Message_Text}}</td>
+                <td>{{a.Campaign_Footer_Text}}</td>
+                <td>{{a.vailo_record_last_update}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+
+   // Search functionality
+   let searchInput = document.getElementById('searchInput');
+    let tableRows = document.querySelectorAll('#mytable tr');
+
+    searchInput.addEventListener('input', function () {
+        let filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(function (row) {
+            let cells = row.getElementsByTagName('td');
+            let found = false;
+
+            for (let i = 0; i < cells.length; i++) {
+                let cellText = cells[i].textContent.toLowerCase();
+                if (cellText.includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+
+
+
+    let historyIcon = document.getElementById('historyIcon')
+    let historyListCampaign = document.getElementById('historyListCampaign')
+
+    historyIcon.addEventListener('click', () => {
+        if (historyListCampaign.style.display == "none") {
+            historyListCampaign.style.display = "block"
+        } 
+        else {
+            historyListCampaign.style.display = "none";
+        };
+
+    })
+    // window.addEventListener('click',()=>{
+    //     historyListCampaign.style.display='none'
+    //     console.log('dfbg')
+    // })
+
+    let historyCustmer = document.getElementById('historyCustmer');
+    let historyCampaign = document.getElementById('historyCampaign');
+    let campaignInfoList = document.getElementById('campaignInfoList');
+    let listHistoryCustmer = document.getElementById('listHistoryCustmer');
+    let listHistoryCampaign = document.getElementById('listHistoryCampaign')
+    let changeHistory = document.getElementById('changeHistory')
+    // console.log(listHistoryCustmer)
+
+    historyCustmer.addEventListener('click', () => {
+
+        if (listHistoryCustmer && listHistoryCustmer.style.display === 'none') {
+            listHistoryCustmer.style.display = 'block';
+            listHistoryCampaign.style.display = 'none';
+            campaignInfoList.style.display = 'none';
+            changeHistory.innerHTML = 'History of Customer';
+            historyListCampaign.style.display = "none";
+
+        } else if (listHistoryCustmer) {
+            listHistoryCustmer.style.display = 'none';
+            campaignInfoList.style.display = 'block';
+            changeHistory.innerHTML = 'List of Campaign'
+        }
+    });
+
+    historyCampaign.addEventListener('click', () => {
+
+        if (listHistoryCampaign && listHistoryCampaign.style.display === 'none') {
+            listHistoryCampaign.style.display = 'block';
+            listHistoryCustmer.style.display = 'none';
+            campaignInfoList.style.display = 'none';
+            changeHistory.innerHTML = 'History of Campaign';
+            historyListCampaign.style.display = "none";
+        } else if (listHistoryCampaign) {
+            listHistoryCampaign.style.display = 'none';
+            campaignInfoList.style.display = 'block';
+            changeHistory.innerHTML = 'List of Campaign'
+        }
+    });
+
+
+</script>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

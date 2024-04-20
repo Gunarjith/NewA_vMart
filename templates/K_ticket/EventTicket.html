@@ -1,0 +1,606 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+<style>
+  .popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+
+  .popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+  }
+
+  .popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    display: flex;
+    /* / Add this line / */
+     justify-content: center;
+     /* / Add this line /  */
+     align-items: center;
+     /* / Add this line / */
+  }
+</style>
+
+{% block rightcontent %}
+<div class="mT15" style="margin: 15px;">
+  <div class="headFlex">
+    <div class="formOne selectorTicket">
+       <label for="">Level:1</label> <select id="eventDropdown" name="event" onchange="showSlots()">
+          <option disabled selected>Select</option>
+          {% for event in data %}
+          <option value="{{ event.id }}">{{ event.text.name }}</option>
+          {% endfor %}
+        </select>
+    
+    </div>
+
+    <div class="formOne selectorTicket" id="slotDropdown">
+      <label for="">Level:2</label><select id="slotSelect" onchange="showCategories()">
+        <option disabled selected>Select</option>
+      </select>
+    </div>
+
+    <div class="formOne selectorTicket" id="categoryDropdown">
+      <label for="">Level:3</label><select id="categorySelect">
+        <option disabled selected>Select</option>
+      </select>
+    </div>
+    <div class="searchBar" style="padding: 10px;">
+      <input type="text" id="searchInput1" style="padding: 5px;border-radius: 5px;" placeholder="Search.." />
+    </div>
+
+    <div id="ticketInfo" style="margin: auto 0;">
+      <button id="resultDisplay" onclick="fetchTicket()">Search</button>
+    </div>
+  </div>
+</div>
+<div id="popupContainer"></div>
+
+<div id="ticketTable" style="overflow-y: scroll;">
+  <table id="tableticket">
+
+    <thead>
+
+
+    </thead>
+
+    <tbody id="mytable1">
+
+    </tbody>
+  </table>
+</div>
+
+
+<!--  <script src="{% static 'js/ticket.js' %}"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+  var slotsLoaded = false;
+  var categoriesLoaded = false;
+
+  function showSlots() {
+    var eventDropdown = document.getElementById("eventDropdown");
+    var selectedEvent = eventDropdown.value;
+    var slotDropdown = document.getElementById("slotSelect");
+    var categoryDropdown = document.getElementById("categorySelect");
+
+    slotDropdown.innerHTML = "<option disabled selected>Select a slot</option>";
+    categoryDropdown.innerHTML = "<option disabled selected>Select a category</option>";
+
+    if (selectedEvent) {
+      var url = "{% url 'fetch_slots' %}?event_id=" + selectedEvent;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var uniqueSlots = Array.from(new Set(data.map(slot => slot.id))).map(id => {
+            return data.find(slot => slot.id === id);
+          });
+
+          uniqueSlots.forEach(slot => {
+            var option = document.createElement("option");
+            option.value = slot.id;
+            option.text = slot.text1;
+            slotDropdown.appendChild(option);
+          });
+
+          slotsLoaded = true;
+        });
+    }
+  }
+
+  function showCategories() {
+    var slotDropdown = document.getElementById("slotSelect");
+    var selectedSlot = slotDropdown.value;
+    var categoryDropdown = document.getElementById("categorySelect");
+
+    categoryDropdown.innerHTML = "<option disabled selected>Select a category</option>";
+
+    if (selectedSlot) {
+      var url = "{% url 'fetch_categories' %}?slot_id=" + selectedSlot;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var uniqueCategories = Array.from(new Set(data.map(category => category.id))).map(id => {
+            return data.find(category => category.id === id);
+          });
+
+          uniqueCategories.forEach(category => {
+            var option = document.createElement("option");
+            option.value = category.id;
+            option.text = category.text2;
+            categoryDropdown.appendChild(option);
+          });
+
+          categoriesLoaded = true;
+        });
+    }
+  }
+  function fetchTicket() {
+    var selectedEvent = $("#eventDropdown").val();
+    var selectedSlot = $("#slotSelect").val();
+    var selectedCategory = $("#categorySelect").val();
+    var searchInput1 = $("#searchInput1").val().toLowerCase(); // Get the search input value
+    var ticketTable = $("#tableticket tbody");
+    ticketTable.empty();
+
+    if (selectedEvent && !selectedSlot && !selectedCategory) {
+      $.getJSON("{% url 'fetch_ticket' %}?event_id=" + selectedEvent, function (tickets) {
+        displayEvent(tickets); // Pass the search input to the displayEvent function
+      });
+    } else if (selectedEvent && selectedSlot && !selectedCategory) {
+      $.getJSON("{% url 'fetch_ticket' %}?event_id=" + selectedEvent + "&slot_id=" + selectedSlot, function (tickets) {
+        displaySlot(tickets); // Pass the search input to the displaySlot function
+      });
+    } else if (selectedEvent && selectedSlot && selectedCategory) {
+      $.getJSON(
+        "{% url 'fetch_ticket' %}?event_id=" + selectedEvent + "&slot_id=" + selectedSlot + "&ticket_id=" + selectedCategory,
+        function (tickets) {
+          displayCategory(tickets); // Pass the search input to the displayCategory function
+        }
+      );
+    } else {
+      ticketTable.empty();
+    }
+  }
+
+
+  function displayEvent(tickets) {
+    var ticketTable = $("#tableticket");
+    ticketTable.find("thead").empty();
+    ticketTable.find("tbody").empty();
+
+    var tableHeaders = $("<tr>");
+      $("<th>").text("Ticket Number").appendTo(tableHeaders);
+    $("<th>").text("Expiry Date").appendTo(tableHeaders);
+    $("<th>").text("Ticket Status").appendTo(tableHeaders);
+    $("<th>").text("Event ID").appendTo(tableHeaders);
+    $("<th>").text("Slot ID").appendTo(tableHeaders);
+    $("<th>").text("Category ID").appendTo(tableHeaders);
+    $("<th>").text("Actions").appendTo(tableHeaders);
+    ticketTable.find("thead").append(tableHeaders);
+
+    tickets.forEach(function (ticket) {
+      // var eventName = ticket.text ? ticket.text.name : "";
+      // var startDate = ticket.text ? ticket.text.start_date : "";
+      // var endDate = ticket.text ? ticket.text.end_date : "";
+
+
+      var ticketNumber = ticket.text ? ticket.text.ticket_number : "";
+      var expiryDate = ticket.text ? ticket.text.expiry_date : "";
+      var ticketStatus = ticket.text ? ticket.text.ticket_status : "";
+      var eventId = ticket.text ? ticket.text.event_master_id : "";
+      var slotId = ticket.text ? ticket.text.event_slots_id : "";
+      var categoryId = ticket.text ? ticket.text.event_ticket_category_id : "";
+
+   
+      // Apply the search filter
+      // if (
+      //   eventName.toLowerCase().includes(searchInput1) ||
+      //   startDate.toLowerCase().includes(searchInput1) ||
+      //   endDate.toLowerCase().includes(searchInput1)
+      // ) {
+        var ticketRow = $("<tr>");
+
+        // $("<td>").text(eventName).appendTo(ticketRow);
+        // $("<td>").text(startDate).appendTo(ticketRow);
+        // $("<td>").text(endDate).appendTo(ticketRow);
+          $("<td>").text(ticketNumber).appendTo(ticketRow);
+      $("<td>").text(expiryDate).appendTo(ticketRow);
+      $("<td>").text(ticketStatus).appendTo(ticketRow);
+      $("<td>").text(eventId).appendTo(ticketRow);
+      $("<td>").text(slotId).appendTo(ticketRow);
+      $("<td>").text(categoryId).appendTo(ticketRow);
+
+        var actionsCell = $("<td>");
+
+        var viewButton = $("<button>")
+          .text("Cancel")
+          .attr("data-ticket-id", ticket.id); // Add a data attribute to store the ticket ID
+        actionsCell.append(viewButton);
+
+        ticketRow.append(actionsCell);
+        ticketTable.append(ticketRow);
+      // }
+    });
+
+    // Attach click event to dynamically added "View" buttons
+    $("#tableticket").on("click", "button[data-ticket-id]", function () {
+      var ticketId = $(this).attr("data-ticket-id");
+      viewTicket(ticketId);
+    });
+  }
+
+
+
+  function displaySlot(tickets) {
+    var ticketTable = $("#tableticket");
+    ticketTable.find("thead").empty();
+    ticketTable.find("tbody").empty();
+
+    var tableHeaders = $("<tr>");
+    $("<th>").text("Ticket Number").appendTo(tableHeaders);
+    $("<th>").text("Expiry Date").appendTo(tableHeaders);
+    $("<th>").text("Ticket Status").appendTo(tableHeaders);
+    $("<th>").text("Event ID").appendTo(tableHeaders);
+    $("<th>").text("Slot ID").appendTo(tableHeaders);
+    $("<th>").text("Category ID").appendTo(tableHeaders);
+    $("<th>").text("Actions").appendTo(tableHeaders);
+    ticketTable.find("thead").append(tableHeaders);
+
+    tickets.forEach(function (ticket) {
+      var ticketRow = $("<tr>");
+
+      var ticketNumber = ticket.text ? ticket.text.ticket_number : "";
+      var expiryDate = ticket.text ? ticket.text.expiry_date : "";
+      var ticketStatus = ticket.text ? ticket.text.ticket_status : "";
+      var eventId = ticket.text ? ticket.text.event_master_id : "";
+      var slotId = ticket.text ? ticket.text.event_slots_id : "";
+      var categoryId = ticket.text ? ticket.text.event_ticket_category_id : "";
+
+      $("<td>").text(ticketNumber).appendTo(ticketRow);
+      $("<td>").text(expiryDate).appendTo(ticketRow);
+      $("<td>").text(ticketStatus).appendTo(ticketRow);
+      $("<td>").text(eventId).appendTo(ticketRow);
+      $("<td>").text(slotId).appendTo(ticketRow);
+      $("<td>").text(categoryId).appendTo(ticketRow);
+
+      var actionsCell = $("<td>");
+
+      var viewButton = $("<button>").text("Cancel").attr("onclick", "viewTicket(" + ticket.id + ")");
+      actionsCell.append(viewButton);
+
+      ticketRow.append(actionsCell);
+      ticketTable.append(ticketRow);
+    });
+  }
+
+  function displayCategory(tickets) {
+    var ticketTable = $("#tableticket");
+    ticketTable.find("thead").empty();
+    ticketTable.find("tbody").empty();
+
+    var tableHeaders = $("<tr>");
+    $("<th>").text("Ticket Number").appendTo(tableHeaders);
+    $("<th>").text("Expiry Date").appendTo(tableHeaders);
+    $("<th>").text("Ticket Status").appendTo(tableHeaders);
+    $("<th>").text("Event ID").appendTo(tableHeaders);
+    $("<th>").text("Slot ID").appendTo(tableHeaders);
+    $("<th>").text("Category ID").appendTo(tableHeaders);
+    $("<th>").text("Actions").appendTo(tableHeaders);
+    ticketTable.find("thead").append(tableHeaders);
+
+    tickets.forEach(function (ticket) {
+      var ticketRow = $("<tr>");
+
+      $("<td>").text(ticket.text.ticket_number).appendTo(ticketRow);
+      $("<td>").text(ticket.text.expiry_date).appendTo(ticketRow);
+      $("<td>").text(ticket.text.ticket_status).appendTo(ticketRow);
+      $("<td>").text(ticket.text.event_master_id).appendTo(ticketRow);
+      $("<td>").text(ticket.text.event_slots_id).appendTo(ticketRow);
+      $("<td>").text(ticket.text.event_ticket_category_id).appendTo(ticketRow);
+
+      var actionsCell = $("<td>");
+
+      var viewButton = $("<button>").text("Cancel").attr("onclick", "viewTicket(" + ticket.id + ")");
+      actionsCell.append(viewButton);
+
+      ticketRow.append(actionsCell);
+      ticketTable.find("tbody").append(ticketRow);
+    });
+  }
+
+  function updateTicketStatus(ticketId, newStatus) {
+    console.log('Updating ticket status...');
+    $.ajax({
+      url: "{% url 'update_ticket_status' %}",
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      data: JSON.stringify({
+        ticket_id: ticketId,
+        new_status: newStatus
+      }),
+      success: function (response) {
+        console.log("Response from updateTicketStatus:", response);
+        if (response.success) {
+          console.log("Ticket status updated successfully");
+          showMessage("Ticket status updated successfully");
+
+          // Update the status in the table
+          $("#tableticket tbody #ticket-" + ticketId + " .ticket-status").text(newStatus); // this assumes you have a td with class 'ticket-status'
+        } else {
+          console.log("Failed to update ticket status:", response.error);
+          showMessage("Failed to update ticket status: " + response.error);
+        }
+      },
+      error: function (error) {
+        console.error('Error in updateTicketStatus:', error);
+        showMessage('Error in updateTicketStatus: ' + error);
+      }
+    });
+  }
+
+  function deleteTicket(ticketId) {
+    console.log('Deleting ticket...');
+    $.ajax({
+      url: "{% url 'delete_ticket' %}",
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      data: JSON.stringify({
+        ticket_id: ticketId
+      }),
+      success: function (response) {
+        console.log("Response from deleteTicket:", response);
+        if (response.success) {
+          console.log("Ticket deleted successfully");
+          showMessage("Ticket deleted successfully");
+          location.reload();
+
+          // Remove the row from the table
+          $("#tableticket tbody #ticket-" + ticketId).remove();
+          location.reload();
+        } else {
+          console.log("Failed to delete ticket:", response.error);
+          showMessage("Failed to delete ticket: " + response.error);
+        }
+      },
+      error: function (error) {
+        console.error('Error in deleteTicket:', error);
+        showMessage('Error in deleteTicket: ' + error);
+      }
+    });
+  }
+
+
+
+  function showMessage(message) {
+    var messageBox = $("<div>")
+      .attr("id", "statusMessage")
+      .text(message)
+      .css({
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        backgroundColor: "#ddd",
+        padding: "20px",
+        zIndex: "10001",
+      });
+
+    $("body").append(messageBox);
+
+    setTimeout(function () {
+      $("#statusMessage").remove();
+    }, 2000);
+  }
+
+
+
+  function viewTicket(ticketId) {
+    if ($("#confirmationModal").length > 0) {
+      return; // Return early if the popup message is already displayed
+    }
+
+    // Create the confirmation modal
+    var confirmationModal = $("<div>")
+      .attr("id", "confirmationModal")
+      .css({
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        zIndex: "10000",
+      });
+
+    // Create the message element
+    var message = $("<div>")
+      .text("Are you sure you want to cancel this ticket?")
+      .css({
+        margin: "20px 0",
+      });
+
+    // Create the confirm button
+    var confirmButton = $("<button>")
+      .text("Cancel & Reuse")
+      .addClass("popup-button cancel-reuse")
+      .attr("data-ticket-id", ticketId)
+      .css({
+        backgroundColor: "green",
+        color: "white",
+        padding: "10px 20px",
+        margin: "10px",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+      });
+
+    // Create the cancel button
+    var cancelButton = $("<button>")
+      .text("Cancel & Delete")
+      .addClass("popup-button cancel-delete")
+      .attr("data-ticket-id", ticketId)
+      .css({
+        backgroundColor: "red",
+        color: "white",
+        padding: "10px 20px",
+        margin: "10px",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+      });
+
+    // Add the message and buttons to the modal
+    confirmationModal.append(message, confirmButton, cancelButton);
+
+    // Add the modal to the body of the page
+    $("body").append(confirmationModal);
+
+    // Attach event handlers to the "Cancel & Reuse" and "Cancel & Delete" buttons
+    $(".cancel-reuse").on("click", function () {
+      var ticketId = $(this).attr("data-ticket-id");
+      updateTicketStatus(ticketId, 10); // Call the function to update ticket status
+      $("#confirmationModal").remove(); // Remove the popup message
+    });
+
+    $(".cancel-delete").on("click", function () {
+      var ticketId = $(this).attr("data-ticket-id");
+      deleteTicket(ticketId);
+      $("#confirmationModal").remove(); // Remove the popup message
+    });
+  }
+
+
+
+  $.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+
+     
+
+
+</script>
+
+<script>
+  function performSearch() {
+    var searchInput1 = document.getElementById('searchInput1').value.toLowerCase();
+    var tableRows = document.querySelectorAll('#  tr');
+
+    tableRows.forEach(function (row) {
+      var cells = row.getElementsByTagName('td');
+      var found = false;
+
+      for (var i = 0; i < cells.length; i++) {
+        var cellText = cells[i].textContent.toLowerCase();
+        if (cellText.includes(searchInput1)) {
+          found = true;
+          break;
+        }
+      }
+
+      if (found) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  document.getElementById('searchInput1').addEventListener('input', performSearch);
+
+  // Search functionality
+  // let searchInput1 = document.getElementById('searchInput1');
+  // let tableRows = document.querySelectorAll('#mytable1 tr');
+
+  // searchInput1.addEventListener('input', function () {
+  //   let filter = searchInput1.value.toLowerCase();
+
+  //   tableRows.forEach(function (row) {
+  //     let cells = row.getElementsByTagName('td');
+  //     let found = false;
+
+  //     for (let i = 0; i < cells.length; i++) {
+  //       let cellText = cells[i].textContent.toLowerCase();
+  //       if (cellText.includes(filter)) {
+  //         found = true;
+  //         break;
+  //       }
+  //     }
+
+  //     if (found) {
+  //       row.style.display = '';
+  //     } else {
+  //       row.style.display = 'none';
+  //     }
+  //   });
+  // });
+</script>
+
+{% endblock rightcontent %}

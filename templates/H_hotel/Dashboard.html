@@ -1,0 +1,83 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+
+{% else %}
+
+{% endif %}
+
+
+{% block header %}
+<style>
+.chart-container {
+  margin-top: 40px;
+  width: 50%; 
+  float: left; 
+  padding: 20px; 
+  box-sizing: border-box; 
+}
+.chart-img {
+  width: 100%; 
+  display: block; 
+  margin-bottom: 20px; 
+}
+.form-container {
+  margin-top: 60px;
+  margin-right: 100px;
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  padding: 10px; 
+}
+.btn {
+  margin-right: 0px;
+  position: relative;
+  right: -70px;
+
+}
+</style>
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="chart-container">
+    <h2>Yearly Customer Ratings</h2>
+      <img class="chart-img" src="data:image/png;base64,{{ rating_graph }}" alt="Monthly Customer Ratings">  
+</div>
+  
+<div class="chart-container">
+    <h2>Yearly Customer Complaints</h2>
+      <img class="chart-img" src="data:image/png;base64,{{ complaint_graph }}" alt="Monthly Complaints">
+</div>
+
+<div class="form-container">
+  <form method="POST" action="{% url 'Dashboard' %}">
+      {% csrf_token %}
+
+      <select name="hotel_dropdown" style=" height: 36px; width: 130px;">
+        <option value="" selected disabled>Choose Hotel</option>
+        {% for hotel in hotels %}
+            <option value="{{ hotel.hotel_name }}">{{ hotel.hotel_name }}</option>
+        {% endfor %}
+    </select>
+      <select name="year_dropdown" style=" height: 36px; width: 80px;">
+          {% for year in years %}
+              <option value="{{ year }}">{{ year }}</option>
+          {% endfor %}
+      </select>
+      
+      <select name="dropdown" style=" height: 36px; width: 80px;">
+          <option value="Number">Number</option>
+          <option value="Percentage">Percentage</option>
+      </select>
+      
+      <input type="submit" value="Submit" class="btn btn-success">
+  </form>
+</div>
+
+
+{% endblock rightcontent %}

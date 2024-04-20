@@ -1,0 +1,80 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{ user.username }} {% endblock title %}
+{% else %}
+    <!-- If not authenticated -->
+{% endif %}
+
+{% block header %}
+    <!-- Header content -->
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="centerDiv">
+    <p>{{campUrl}}</p>
+      <p>{{campText}}</p>  
+        
+
+    <!-- WhatsApp link -->
+    <p id="whatsapp-link" style="display: none;">https://wa.me/{{ fb_whatsapp_number }}/?text=Search_key={{ campKey }}</p>
+    <canvas id="qr-code"></canvas>
+    <button id="goBackButtonGn"><img src="{% static 'img/menuClose.png' %}" alt=""></button>
+</div>
+   
+    <!-- Add JsBarcode library -->
+
+   
+    <script src="https://unpkg.com/bwip-js"></script>
+
+    <!-- Script to generate QR code using bwip-js -->
+    <script>
+        // Get the WhatsApp link from the HTML element
+        var whatsappLink = document.getElementById('whatsapp-link').innerText;
+    
+        // Generate QR code using bwip-js
+        bwipjs.toCanvas('qr-code', {
+            bcid: 'qrcode',        // QR code type
+            text: whatsappLink,    // Text to encode
+            scale: 3,               // Scaling factor
+        });
+
+        document.getElementById('goBackButtonGn').addEventListener('click', function() {
+        window.history.back();
+    });
+    </script>
+    <!-- Display the barcode -->
+   
+{% endblock rightcontent %}
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $(".nameInput").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#leve1Descrip").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#leve1ShortDes").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        // $("#leve1Descrip").emojioneArea({
+        //     pickerPosition: "bottom"
+        // });
+    });
+</script>
+
+{% endblock script %}

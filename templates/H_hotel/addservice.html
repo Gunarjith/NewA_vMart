@@ -1,0 +1,112 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitservices'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitservices'  %}{% endif %}"method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add services </h4>
+            </span>
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="hotelserviceimage">Service Type Image</label>
+        <input type="file" id="hotelserviceimage" name="serviceimage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="hotelservicevideo">Service Type vedio</label>
+            <input type="file" id="hotelservicevideo" name="servicevideo" class="fileInput" accept="file/*">
+            <span class="validatevideo"></span>
+        </span>
+        <span>
+            <label for="service_name">Service Name</label>
+            <input type="text" id="service_name" name="name"
+                placeholder="Enter Service name" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="Servicestart_time">Start Time</label>
+            <input type="time" id="Servicestarttime" name="starttime" placeholder="Enter your Service Strat time ">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="Serviceend_time">End Time</label>
+            <input type="time" id="Serviceend_time" name="endtime" placeholder="Enter your Service end time ">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="hotelservicediscription">Service Discription</label>
+            <input type="text" id="hotelservicediscription" name="servicediscription"
+                placeholder="Enter Service Discription" >
+            <span class="charCount"></span>
+        </span>
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

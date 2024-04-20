@@ -1,0 +1,603 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+{% block header %}
+<style>
+    /* .dcOneLeftSection ul li::before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        padding-top: 5px;
+        background: url({% static 'img/lslist.png' %}) no-repeat center center;
+        background-size: contain;
+        margin-right: 10px;
+    } */
+</style>
+
+{% endblock header %}
+
+
+{% block body %}
+
+
+<section>
+    <div class="sectionOneMainDIv">
+        <div class="sectionImgLeft" style="width: 50%;">
+            <div class="sectionMainOne">
+                <h1>
+                    Power Your Customer Engagement Through <span style="color: 	#075e54;">WhatsApp</span>
+                </h1>
+            </div>
+
+            <!-- <div class="sectionOneJs">
+                <h1 id="output"> </h1>
+
+            </div> -->
+            <div class="btnFlex">
+                <a href="{% url 'login' %}">
+                    <button class="activeBtn">
+                        Log in
+                    </button>
+                </a>
+
+                <a href="{% url 'demo' %}">
+                    <button>
+                        Request Demo
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="sectionImgRight" style="width: 50%;">
+            <img src="{% static 'img/section1Img.png' %}" alt="">
+        </div>
+    </div>
+
+
+
+</section>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Digital transactions are growing exponentially and are gradually becoming a mainstay channel of commerce for
+        many enterprises and small businesses alike. The diversity of the world brings together some unique challenges
+        to digital adoption but solutions that are simple, scalable, and designed with local considerations in mind have
+        been able to make a mark in this growing market
+        <br>
+        <br>
+        WhatsApp with its 450M+ strong user base, is the leading social media messaging platform in the market today. In
+        India's diverse population, where traditional digital platforms have limited reach among rural and less educated
+        individuals, WhatsApp's simple yet intuitive interface offers great opportunities for businesses to overcome
+        customer engagement challenges
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+<div class="section2_1">
+    <div style="width: 50%;">
+        <img src="{% static 'img/secc3Img.png' %}" alt="">
+    </div>
+    <div style="width: 60%;">
+        <p>
+            Brillion1 combines WhatsApp's ease and prevalence to help businesses improve customer experience and expand
+            outreach. Our mantra is that every customer interaction is a moment of truth for the businesses, which will
+            contribute to retention and acquisition. Our goal is to aid businesses in reaching all customers and
+            delivering a seamless experience at every touchpoint.
+            <br>
+            <br>
+            Brillion1 is a cloud-based platform offering "Ready-to-Go WhatsApp Business Products" that are secure,
+            scalable, and user-friendly for business users. Whether you need real-time customer surveys on WhatsApp,
+            seat bookings for events on WhatsApp, or a simple engagement platform for patients of all backgrounds,
+            Brillion1 is the solution for you.
+        </p>
+    </div>
+</div>
+
+
+<!-- ---  -->
+
+<div class="sectionServicesBg">
+    <div class="section3" style="margin-top: 0;padding-top: 30px;">
+        <div style=" display: flex;
+                    align-items: center;
+                    justify-content: center;">
+            <h2>Brillion1 Services</h2>
+        </div>
+
+        <div class="sectionContainer">
+            <div class="sectionServ" style="width: 80%;">
+                <p>
+                    We provide a dedicated set of services to elevate access
+                    to business transactions through seamless integration
+                    of WhatsApp over a secure layer of existing enterprise
+                    applications
+                </p>
+                <a href="{% url 'servicesPage' %}">
+                    <button class="activeBtn">Know more</button></a>
+            </div>
+            <div class="sectionServ" style="width: 120%;">
+                <ul>
+                    <li>
+                        Automation Efficiency
+                    </li>
+                    <li class="secLiServ">
+                        Secured Transactions
+                    </li>
+                    <li>
+                        Personalized Interaction
+
+                    </li>
+                    <li>
+                        Real Time Engagement
+                    </li>
+                    <li>
+                        Optimized Workflows
+                    </li>
+                    <li>
+                        Multi Language Support
+                    </li>
+                    <li>
+                        Seamless Integration
+                    </li>
+                    <li>
+                        Cost Effective
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<div class="section3">
+    <div style=" display: flex;
+                align-items: center;
+                justify-content: center;">
+        <h2>Brillion1 Solutions</h2>
+    </div>
+
+    <div class="sectionContainer" style="position: relative;">
+
+        <ul id="myList" style="width: 300px;">
+            <li onclick="showDetails('detail1')" class="active">Brillion1 Appointment</li>
+            <li onclick="showDetails('detail2')">Brillion1 Campaign</li>
+            <li onclick="showDetails('detail3')">Brillion1 Dipstick</li>
+            <li onclick="showDetails('detail4')">Brillion1 Donation</li>
+            <li onclick="showDetails('detail5')">Brillion1 Healthwatt</li>
+            <li onclick="showDetails('detail6')">Brillion1 Ticket</li>
+        </ul>
+        <span class="sec3Absolute" style="">
+            <h3 style="font-size: 24px;">Platforms</h3>
+
+        </span>
+        <div id="detailssectionContainer">
+            <div id="detail1" class="details active">
+
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57%;">
+                        <h3>Brillion1 Appointment</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                Doctors and clinics can use WhatsApp for patient appointment scheduling
+                                <!-- </p> -->
+                            </li>
+                            <li>
+                                Patients can schedule appointments with their preferred doctor at their convenience
+                            </li>
+                        </ul>
+
+                        <a href="{% url 'appointmentPage' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img id="myImage1" src="{% static 'img/img1slideNew.png' %}" alt="">
+                        <!-- <img id="myImage1" src="img/img1New.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+            <div id="detail2" class="details">
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57%;">
+                        <h3>Brillion1 Campaign</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                Effortlessly initiate customized marketing campaigns on WhatsApp with just a single
+                                click. <!-- </p> -->
+                            </li>
+                            <li>
+                                Break the language barrier and reach customers across India.
+                            </li>
+                            <li>
+                                Use Analytics to gain insights and customize messages to match customer preferences.
+                            </li>
+                        </ul>
+
+                        <a href="{% url 'campaignPage' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img src="{% static  'img/img2New.png' %}" alt="">
+                        <!-- <img  src="img/img2New.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+            <div id="detail3" class="details">
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57% ;">
+                        <h3>Brillion1 Dipstick</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                Conduct simple and user-friendly surveys on WhatsApp to collect valuable customer
+                                feedback. <!-- </p> -->
+                            </li>
+
+                            <li>
+                                Draw insights across various customer segments, campaigns, and geographies.
+
+                            </li>
+
+                        </ul>
+
+                        <a href="{% url 'dipstickPage' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img id="myImage2" src="{% static 'img/img3.1New.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="detail4" class="details">
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57% ;">
+                        <h3>Brillion1 Donation</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                A marketplace where Medium and Large NGOs can launch their donation through WhatsApp.
+                                <!-- </p> -->
+                            </li>
+                            <li>
+                                WhatsApp for donations also makes the process easier, more interactive, and more
+                                transparent.
+                            </li>
+
+                        </ul>
+
+                        <a href="{% url 'donationPage' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img id="myImage3" src="{% static 'img/img5New.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="detail5" class="details">
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57% ;">
+                        <h3>Brillion1 Healthwatt</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                Healthwatt offers a unique approach for patients to engage in their entire healthcare
+                                journey, from enrolment to discharge.
+
+                            </li>
+                            <li>
+                                Patients can sign up, schedule appointments, receive responses, and access reports on
+                                WhatsApp.
+
+                            </li>
+                        </ul>
+
+                        <a href="{% url 'healthwatt' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img id="myImage4" src="{% static 'img/img8New.png' %}" alt="">
+                        <!-- <img id="myImage4" src="img/img8New.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+            <div id="detail6" class="details">
+                <div class="mainDcSection marginZero">
+                    <div class="dcOneLeftSection marginZero" style="width: 57% ;">
+                        <h3>Brillion1 Ticket</h3>
+                        <ul>
+                            <li>
+                                <!-- <p> -->
+                                A WhatsApp-based platform for theatres, party halls, and event organizers to sell seats
+                                to customers.
+                                <!-- </p> -->
+                            </li>
+                            <li>
+                                Customers can reserve seats, make online payments, and receive tickets through WhatsApp.
+
+                            </li>
+
+                        </ul>
+
+                        <a href="{% url 'ticketPage' %}">
+                            <button class="activeBtn">Know more</button></a>
+                    </div>
+                    <div class="imgWidthSec">
+                        <img id="myImage5" src="{% static 'img/img11New.png' %}" alt="">
+                        <!-- <img id="myImage5" src="img/img11New.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ---  -->
+
+<div class="sectionServicesBg">
+    <div class="section3" style="margin-top: 0;padding-top: 30px;">
+
+
+        <div class="sectionContainer">
+            <div class="sectionServ" style="width: 100%;">
+                <h3>Our Platforms Benefits</h3>
+                <p style="font-size: 18px;line-height: 24.43px;">
+                    Brillion1 platforms are focused on providing ready-to-use solutions that can meet enterprises of all
+                    sizes. Platforms are hosted on secure cloud infrastructure with high standards of security, local
+                    language support, and payment gateway integration.
+                </p>
+
+            </div>
+            <div class="sectionServ sectionServGrid" style="width: 100%;">
+                <div class="serviceItem">
+                    <div class="serviceItemeSub">
+                        <div style="width: 100%;">
+
+                            <img src="{% static 'img/img17New.png' %}" alt="img17New">
+                        </div>
+                        <h2>Local language
+                            support </h2>
+                        <p style="font-size: 16px;">
+                            Brillion1 is available in all major regional languages. This allows businesses to reach all
+                            customer segments.
+                        </p>
+                    </div>
+                </div>
+                <div class="serviceItem">
+                    <div class="serviceItemeSub">
+                        <div style="width: 100%;">
+
+                            <img src="{% static 'img/img18New.png' %}" alt="img17New">
+                        </div>
+                        <div style="width: 100%;">
+                            <h2>Secure Access </h2>
+                        </div>
+                        <p style="font-size: 16px;">
+                            Brillion1 utilizes secure cloud access. All your customer data is protected by a two-factor
+                            authentication mechanism.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="serviceItem">
+                    <div class="serviceItemeSub">
+                        <div style="width: 100%;">
+
+                            <img src="{% static 'img/img19New.png' %}" alt="img17New">
+                        </div>
+                        <div style="width: 100%;">
+                            <h2>Cost Effective </h2>
+                        </div>
+                        <p style="font-size: 16px;">
+                            Pricing options aligned with your requirements. This helps businesses of all sizes to access
+                            our services affordably.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="serviceItem">
+                    <div class="serviceItemeSub">
+                        <div style="width: 100%;">
+
+                            <img src="{% static 'img/img20New.png' %}" alt="img17New">
+                        </div>
+                        <div style="width: 100%;">
+                            <h2>Ready to go</h2>
+                        </div>
+                        <p style="font-size: 16px;">
+                            Brillion1 allows businesses to launch their services and reach millions of customers
+                            instantly through WhatsApp. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="section3">
+    <h2 style="font-size: 32px;
+    align-items: center;
+    justify-content: center; margin-bottom: 30px;">Engage with your customers in their language</h2>
+
+    <div class="flexImgLan">
+        <img class="flexImgLanImg" src="{% static 'img/Homeimg5New.png' %}" alt="Homeimg5New">
+        <img class="flexImgLanImg" src="{% static 'img/Homeimg1New.png' %}" alt="Homeimg1New">
+        <img class="flexImgLanImg" src="{% static 'img/Homeimg8New.png' %}" alt="Homeimg8New">
+    </div>
+</div>
+
+
+<div class="partnerThird">
+    <h2>
+        Run your business on WhatsApp
+    </h2>
+    <p>
+        Start your WhatsApp application by signing up.
+    </p>
+    <div class="btnBtmFlex">
+        <a href="{% url 'demo' %}"><button class="activeBtnBtm">Sign Up</button></a>
+        <a href="{% url 'demo' %}"><button class="BtnBtm">Request a demo</button></a>
+    </div>
+
+    {% endblock body %}
+    {% block script %}
+    <script>
+        sliderIndexCoversion = 0;
+        sliderCon();
+
+        function sliderCon() {
+            i = 0;
+            slides = document.getElementsByClassName("sliderVailoConversion");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"
+            }
+            sliderIndexCoversion++;
+            if (sliderIndexCoversion > slides.length) {
+                sliderIndexCoversion = 1
+            }
+            slides[sliderIndexCoversion - 1].style.display = "block"
+            setTimeout(sliderCon, 2000)
+        }
+    </script>
+    <script>
+        const slider = document.querySelector("[data-slider]");
+        const track = slider.querySelector("[data-slider-track]");
+        const prev = slider.querySelector("[data-slider-prev]");
+        const next = slider.querySelector("[data-slider-next]");
+
+        function resizeTrack() {
+            const containerWidth = slider.clientWidth;
+            const slideWidth = track.firstElementChild.clientWidth + 20; // 20px for column-gap
+            const numCompleteContainers = Math.floor(containerWidth / slideWidth);
+            const visibleTrackWidth = numCompleteContainers * slideWidth;
+            track.style.width = visibleTrackWidth + "px";
+        }
+
+        if (track) {
+            // Call resizeTrack when the page loads and when the window is resized
+            window.addEventListener("load", resizeTrack);
+            window.addEventListener("resize", resizeTrack);
+
+            prev.addEventListener("click", () => {
+                next.removeAttribute("disabled");
+
+                track.scrollTo({
+                    left: track.scrollLeft - track.clientWidth,
+                    behavior: "smooth",
+                });
+            });
+
+            next.addEventListener("click", () => {
+                prev.removeAttribute("disabled");
+
+                track.scrollTo({
+                    left: track.scrollLeft + track.clientWidth,
+                    behavior: "smooth",
+                });
+            });
+
+            track.addEventListener("scroll", () => {
+                prev.removeAttribute("disabled");
+                next.removeAttribute("disabled");
+
+                if (track.scrollLeft <= 0) {
+                    prev.setAttribute("disabled", "");
+                }
+
+                if (track.scrollLeft >= track.scrollWidth - track.clientWidth) {
+                    next.setAttribute("disabled", "");
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function showDetails(detailId) {
+            const detailssectionContainer = document.getElementById('detailssectionContainer');
+            const detailsElements = detailssectionContainer.getElementsByClassName('details');
+
+            for (const detailsElement of detailsElements) {
+                detailsElement.classList.remove('active');
+            }
+
+            const selectedDetail = document.getElementById(detailId);
+            selectedDetail.classList.add('active');
+
+            const listElements = document.getElementById('myList').getElementsByTagName('li');
+
+            for (const listElement of listElements) {
+                listElement.classList.remove('active');
+            }
+
+            const selectedListElement = document.querySelector(`#myList li[onclick="showDetails('${detailId}')"]`);
+            selectedListElement.classList.add('active');
+        }
+    </script>
+
+    <script>
+        var imageElements = [
+            document.getElementById('myImage1'),
+            document.getElementById('myImage2'),
+            document.getElementById('myImage3'),
+            document.getElementById('myImage4'),
+            document.getElementById('myImage5'),
+        ];
+
+        var imagePaths = [
+            [
+                "{% static 'img/img1_1slideNew.png' %}",
+                "{% static 'img/img1_1new.png' %}",
+                "{% static 'img/img1slideNew.png' %}",
+
+            ],
+            [
+                "{% static 'img/img3.2New.png' %}",
+                "{% static 'img/img3.1New.png' %}",
+
+            ],
+            [
+                "{% static 'img/img5New.png' %}",
+                "{% static 'img/img6New.png' %}",
+                "{% static 'img/img7New.png' %}",
+            ],
+            [
+                "{% static 'img/img8New.png' %}",
+                "{% static 'img/img9New.png' %}",
+                "{% static 'img/img10New.png' %}",
+            ],
+            [
+                "{% static 'img/img11New.png' %}",
+                "{% static 'img/img12New.png' %}",
+                "{% static 'img/img13New.png' %}",
+            ]
+
+        ];
+
+        var currentIndex = [0, 0, 0, 0, 0];
+
+        // Change the images every 5 seconds
+        setInterval(function () {
+            for (var i = 0; i < imageElements.length; i++) {
+                imageElements[i].src = imagePaths[i][currentIndex[i]];
+                currentIndex[i] = (currentIndex[i] + 1) % imagePaths[i].length;
+            }
+        }, 3000);
+    </script>
+
+
+
+    {% endblock script %}

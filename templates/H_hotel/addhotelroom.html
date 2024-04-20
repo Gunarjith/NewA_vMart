@@ -1,0 +1,135 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitroomlist' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submitroomlist' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add Type </h4>
+            </span>
+<span class="formOne inputGridThree">
+    <span class="formOne" style="padding-bottom:0 ;">
+        <label for="hotelfoodimage">Room Image</label> 
+        <input type="file" id="hotelfoodimage" name="RoomImage" class="imageInput"
+            accept="image/*" >
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="l_room_type"> Room Type</label>
+            <input type="text" id="l_room_type" name="lroomtype"
+                placeholder="Enter a Room type" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_type">Room Category </label>
+            <select id="room_type" name="roomtype" aria-placeholder="Select a type">
+                <option value="">Select Room type</option>
+                <option value="NONAC">nonac</option>
+                <option value="AC">ac</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+
+
+        <span>
+            <label for="bed">Bed</label>
+            <input type="text" id="bed" name="roombed"
+                placeholder="Enter type of bed  " >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_price">Room Price</label>
+            <input type="number" id="room_price" name="roomprice"
+              placeholder="Enter a room price" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_price_unit"> Room Price Unit </label>
+            <select id="room_price_unit" name="roompriceunit" >
+                <option value="">Select price Unit</option>
+                <option value="EUR">Euros</option>
+                <option value="GBP">British Pound</option>
+                <option value="INR">Indian Rupees</option>
+                <option value="USD">US Dollar</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="room_info">Room Info</label>
+            <input type="text" id="room_info" name="roominfo"
+              placeholder="Eneter a about a room">
+            <span class="charCount"></span>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    var id = $(this).val();
+   
+    console.log("filepath",id);
+    console.log($(this).siblings(".validationMessageImg"))
+    console.log($(this).siblings(".validationMessageImg").text("Image selected."))
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

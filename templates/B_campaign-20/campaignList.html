@@ -1,0 +1,249 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory">List of Campaign</h3>
+
+        <div class="searchBar" style="padding: 10px;">
+            <input type="text" id="searchInput" style="padding: 5px;border-radius: 5px;" placeholder="Search.." />
+        </div>
+
+
+        <span style="display: flex; justify-content: space-between; column-gap: 10px;">
+            <!-- <a style="margin: 5px;" href="{% url 'addBCampaign' %}">
+                <button>
+                    Add Campaign
+                </button>
+              
+            </a> -->
+
+            {% if marketplaces %}
+            <a style="margin: 5px;" href="{% url 'addBCampaign' id=marketplaces %}">
+                {% else %}
+                <a style="margin: 5px;" href="{% url 'addBCampaign' %}">
+                    {% endif %}
+                    <button>
+                        Add Campaign
+                    </button>
+                </a>
+    
+    </div>
+
+
+</div>
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>{{marketplaces}}</tr>
+            <tr>
+
+                <th>Name</th>
+                <!-- <th>Campaign Description</th> -->
+                <th>Image</th>
+                <th>Message</th>
+                <th>Footer</th>
+                <th style="text-align: center;">Action</th>
+         
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in listCampaign %}
+            <tr style="margin: 50px;">
+
+                <td>{{a.Campaign_Name}}</td>
+                <!-- <td>{{a.Campaign_Description}}</td> -->
+                <td>{{a.Campaign_short_message}}</td>
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Image}}">
+                </td>
+                <td>{{a.Campaign_message}}</td>
+
+                <td>
+                    <span class="editDeleteTd">
+                        {% if marketplaces is not none %}
+                        <a href="{% url 'templateBCampaign' id=marketplaces %}?generic_campaign_info_id={{ a.id }}&marketplace_id={{ marketplaces }}">
+                         {% else %}
+                         <a href="{% url 'templateBCampaignmkNo' id=a.id %}" >
+                         {% endif %}
+                            <button>
+                                <img style="width: 20px;" src="{% static 'img/assignIcon.png' %}" alt="assignIcon">
+
+                            </button>
+
+                        </a>
+                        <a href="{% url 'assignBCampaign' a.id %}">
+                            <img style="width: 20px;" src="{% static 'img/assignIcon.png' %}" alt="assignIcon">
+                        </a>
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'updateBCamaign' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <!-- </span> -->
+                        <!-- <span style="display: flex; align-items: center;"> -->
+                        <a href="{% url 'deleteBCampaign' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                        <!-- </span> -->
+                        <a href="">
+
+                            <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                        </a>
+                    </span>
+                </td>
+
+                <!-- <td style="text-align: center;" >
+                    {% if subclient_preferences %}
+                    {% if subclient_preferences.marketplace_id %}
+
+
+
+                    <a href="{% url 'GenerateCampId' subclient_preferences.marketplace_id %}">
+                        <button>with id</button>
+                    </a>
+
+
+                    <a href="{% url 'GenerateCampkey' subclient_preferences.marketplace_id %}">
+                        <button>with key</button>
+                    </a>
+
+
+                    <a href="{% url 'generateCampKeyBarcode' subclient_preferences.marketplace_id %}">
+                        <button>Qr with Id</button>
+                    </a>
+
+
+
+                    <a href="{% url 'GeneratecampIdBar' subclient_preferences.marketplace_id %}">
+                        <button>Qr with key</button>
+                    </a>
+
+
+                    {% else %}
+                    {% endif %}
+                    {% endif %}
+
+                </td> -->
+
+
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="historyCustmerList" id="listHistoryCustmer">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>City</th>
+                <th>Date</th>
+                <th>Campaign Name</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in custmerCampaign %}
+            <tr style="margin: 50px;">
+                <td>{{a.Customer_First_Name}}</td>
+                <td>{{a.Customer_Whatsapp_Number}}</td>
+                <td>{{a.Customer_City}}</td>
+                <td>{{a.vailo_record_last_update}}</td>
+                <td>{{a.campaign_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="historyCustmerList" id="listHistoryCampaign">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+
+                <th>Image</th>
+                <th>Message</th>
+                <th>Footer</th>
+                <th>Date</th>
+                <!-- <th style="text-align: center;">Action</th> -->
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in infoCampaign %}
+            <tr style="margin: 50px;">
+                <td>{{a.Campaign_Name}}</td>
+                <td class="imgTd">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Header_Image}}">
+                </td>
+                <td>{{a.Campaign_Message_Text}}</td>
+                <td>{{a.Campaign_Footer_Text}}</td>
+                <td>{{a.vailo_record_last_update}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+
+    // Search functionality
+    let searchInput = document.getElementById('searchInput');
+    let tableRows = document.querySelectorAll('#mytable tr');
+
+    searchInput.addEventListener('input', function () {
+        let filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(function (row) {
+            let cells = row.getElementsByTagName('td');
+            let found = false;
+
+            for (let i = 0; i < cells.length; i++) {
+                let cellText = cells[i].textContent.toLowerCase();
+                if (cellText.includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+
+
+
+
+</script>
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

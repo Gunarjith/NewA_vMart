@@ -1,0 +1,84 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Bar
+   Chart Graphs</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+  /* Style for container divs */
+  .chart-container {
+    width: 50%; /* Each chart takes 50% of the width */
+    float: left; /* Float the containers to the left */
+    padding: 20px; /* Add padding */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  /* Style for images */
+  .chart-img {
+    width: 100%; /* Make the images fill their container */
+    display: block; /* Make sure the images are displayed as blocks */
+    margin-bottom: 20px; /* Add some space below each image */
+  }
+  .dropdown-container {
+            position: fixed;
+            right: 20px; /* Adjust as needed */
+            top: 20px; /* Adjust as needed */
+  }
+  .year{
+    height:60px;
+    width: 250px;
+    /* border:2px red solid; */
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly ;
+
+
+  }
+</style>
+</head>
+<body>
+
+<!-- First chart container -->
+<div class="chart-container">
+  <h2>Yearly Customer Graph Ratings</h2>
+  <!-- <h1>Monthly Customer Ratings</h1> -->
+        <!-- Display the plot -->
+    <img class="chart-img" src="data:image/png;base64,{{ graph }}" alt="Monthly Customer Ratings">
+    <!-- <img class="chart-img" src="data:image/png;base64,INSERT_BASE64_DATA_HERE" alt="Chart 1"> -->
+</div>
+
+<!-- Second chart container -->
+<div class="chart-container">
+  <h2>Yearly Customer Complaints</h2>
+  <!-- <h1>!!! Yearly Complaints !!!</h1> -->
+        <!-- Display the plot -->
+    <img class="chart-img" src="data:image/png;base64,{{ image_base64 }}" alt="Monthly Complaints">
+    <!-- <img class="chart-img" src="data:image/png;base64,INSERT_BASE64_DATA_HERE" alt="Chart 2"> -->
+</div>
+
+<div style="position: fixed; top: 10px; right: 10px;">
+  <form method="GET" action="">
+    
+        <div class="year">
+        <label><p style="font-size: 22px; font-weight: 600; margin-top: 18px; ">Year</p></label>
+      <select name="selected_year" id="yearDropdown"  style=" height: 36px; width: 80px; ">
+          {% for year in year_range %}
+              <option value="{{ year }}" {% if year == selected_year %} selected {% endif %} >{{ year }}</option>
+          {% endfor %}
+      </select>
+      <input type="Submit" class="btn btn-success value="submit">
+    </div>
+  </form>  
+</div>
+<!-- Include Bootstrap JS and its dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

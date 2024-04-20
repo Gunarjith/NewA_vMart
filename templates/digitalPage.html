@@ -1,0 +1,243 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<!-- <style>
+    .dcSectionOne {
+    background: url("{% static 'img/dcBackTicketgroundImg.png' %}");
+}
+</style> -->
+
+<style>
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+
+
+<div class="bg1">
+    <div class="section2" style="margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Digital Divide to digital
+                            Democracy
+
+                        </h1>
+
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Embracing communcation, interaction, transaction via whatsapp
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/digitalPageImg11.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        WhatsApp has become a levelling platform, connecting individuals across diverse socio-economic backgrounds and
+        geographical locations. Its availability on smartphones and feature phones alike has made it an accessible
+        communication tool for people with varying levels of technological resources. WhatsApp also stands as a
+        testament to the potential of technology to bridge gaps, foster inclusivity, and contribute to the evolution of
+        a more democratic and accessible digital landscape.
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+
+
+
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            The evolution from the digital divide to digital democracy signifies progress toward inclusivity and
+            equitable access to technology. Technological advancements like 5G, affordable internet, and government
+            investment in digital infrastructure have played pivotal roles in narrowing this gap. The rise of
+            digital tools, particularly WhatsApp, has significantly contributed to this transition. </p>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/digitalPageImg2.png' %}" alt="">
+    </div>
+
+</div>
+
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img src="{% static 'img/digitalPageImg3.png' %}" alt="">
+    </div>
+    <div class="dcOneLeftSection widthSixty">
+
+
+        <p>
+            WhatsApp has emerged as a powerful communication tool, transcending barriers and connecting people
+            across demographics. Its widespread adoption has transformed it into more than just a messaging app.
+            People use it not only for personal communication but also for business purposes, ranging from staying
+            in touch with friends and family to running small-scale enterprises. The accessibility of WhatsApp, its
+            user-friendly interface, and its wide-reaching capabilities have facilitated its integration into daily
+            life, especially in regions where access to traditional internet services might be limited.
+            <br>
+            Moreover, the opening up of WhatsApp's APIs (Application Programming Interfaces) has empowered
+            businesses to leverage its functionalities to connect with their customers more effectively. We at
+            Brillion1 have leveraged on this opportunity, offering platforms, products, solutions, and services that
+            enable businesses to harness WhatsApp's potential for inclusive and efficient customer engagement.
+        </p>
+
+
+    </div>
+</div>
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            By leveraging these WhatsApp APIs through platforms provided by Brillion1, businesses can leapfrog in
+            their digital journey. They can engage with customers in a more personalized, interactive, and inclusive
+            manner, irrespective of demographic barriers. This transformation not only bridges the digital gap but
+            also fosters a digital democracy, where technology becomes an enabler for equal opportunities and
+            inclusive participation in the digital realm.
+
+        </p>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd heightthreeHOne">
+        <img src="{% static 'img/digitalPageImg4.png' %}" alt="">
+    </div>
+
+</div>
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img src="{% static 'img/digitalPageImg5.png' %}" alt="">
+    </div>
+
+    <div class="dcOneLeftSection widthSixty">
+        <p>
+            This movement towards digital democracy signifies a shift from mere access to technology towards
+            utilizing it as a tool for empowerment, connectivity, and economic advancement. As technology continues
+            to evolve and become more accessible, the journey from the digital divide to digital democracy is
+            becoming increasingly attainable, enabling individuals and communities to harness its benefits for
+            collective progress.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+<div class="bottomAbsolute">
+    <a href="{% url 'blogPage' %}">
+        <img src="{% static 'img/blogBottomImg.png' %}" alt="">
+    </a>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

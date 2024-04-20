@@ -1,0 +1,133 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+<style>
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+</style>
+
+
+
+
+
+{% block rightcontent %}
+
+{% include 'A_Appointment/marketplacesettings.html' %}
+
+
+
+
+<div class="mT15">
+<h3>Group Name </h3>
+    <div class="headFlex">
+
+        <a href="{% url 'appointementgeneric' %}">
+            <button>
+                Generic flow
+            </button>
+        </a>
+        <a href="{% url 'appointementspecific' %}">
+            <button>
+                Speicific flow
+            </button>
+        </a>
+        <a href="{% url 'myappointement' %}">
+            <button>
+                MyAppointment flow
+            </button>
+        </a>
+        
+
+        <a href="{% url 'AddGroupsForm' %}">
+            <button>
+                Add  Group
+            </button>
+        </a>
+    </div>
+</div>
+
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>
+
+                <th>Group Name</th>
+                <th>Group Type</th>
+                <th>Group Category</th>
+                <th>Group Location</th>
+                <th>Group Description</th>
+                <th>Group Contact_number</th>
+                <th>Configuration</th>
+                <th>Payment</th>
+                <th style="text-align: center;">Edit / Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in addgroupMarketPlace %}
+            <tr>
+                <td>{{a.group_name}}</td>
+                <td>{{a.group_type}}</td>
+                <td>{{a.group_category}}</td>
+                <td>{{a.group_location}}</td>
+                <td>{{a.group_description}}</td>
+                <td>{{a.group_contact_number}}</td>
+                <td><a href="{% url 'AppointmentInfo' a.id %}"><button>add/edit</button></a></td>
+                <td>
+                    {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+
+                    <a href="{% url 'Appointmentpayment' a.id %}" >
+                        <button class="">Payment</button>
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                <td>              
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editgroupname' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deletegroupmane' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,1 @@
+web: gunicorn A_vMart.wsgi

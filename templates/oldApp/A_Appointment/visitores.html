@@ -1,0 +1,130 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="frmCenter">
+    <div>
+    <form class="profileForm" action="" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>visitorsinfo</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="welcomemessagetextId">Name</label>
+                    <input type="text" id="nametextId" name="name"
+                        placeholder="Enter Your Name" class="mainInput ">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="welcomefootertextId">Email</label>
+                    <input type="text" id="visitoreEmailtextId" name="booking_button_name"
+                        placeholder="Enter Your Email" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Contact number</label>
+                    <input type="number" id="Contact_number" name="visitoreContactnumber"
+                        placeholder="Enter Your Contact number" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Whatsapp number</label>
+                    <input type="number" id="Whatsapp_number" name="visitoreWhatsappnumber"
+                        placeholder="Enter Your Whatsapp number" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">City</label>
+                    <input type="text" id="Visitor_City" name="VisitorCity"
+                        placeholder="Enter Your City" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Address Line1</label>
+                    <input type="text" id="Address_Line1" name="AddressLine1"
+                        placeholder="Enter Your Address Line1 " class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Address Line2</label>
+                    <input type="text" id="Address_Line2" name="AddressLine2"
+                        placeholder="Enter Your Address Line2" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Landmark</label>
+                    <input type="text" id="Address_Landmark" name="AddressLandmark"
+                        placeholder="Enter Your Landmark" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Address Pincode</label>
+                    <input type="number" id="Address_Pincode" name="AddressPincode"
+                        placeholder="Enter Your Address Pincode " class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">State</label>
+                    <input type="text" id="Visitor_State" name="VisitorState"
+                        placeholder="Enter Your State" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Country</label>
+                    <input type="text" id="Visitor_Country" name="VisitorCountry"
+                        placeholder="Enter Your Country" class="buttonInput button2 " required>
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit" style="margin-left: 47% ;">
+
+        </span>
+    </form>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function() {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

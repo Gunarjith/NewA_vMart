@@ -1,0 +1,548 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+{% for k in eventdash %}
+
+<div class="frmCenter">
+    <div>
+    <form action="{% url 'editsettingsinfo' %}" class="AddEventFormMaster" method="post" enctype="multipart/form-data"
+        class="profileForm" style="position: relative;">
+
+        {% csrf_token %}
+        <div class="profileForm profileForm1">
+            <!-- <span class="headFlex">
+            <h3>Event information</h3>
+        </span> -->
+            <span class="headFlex">
+                <h4>Support Number</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label>Support Number</label>
+                    <input type="number" name="reticketsecondnumber" value="{{k.second_number}}"
+                        placeholder="Enter Second Number">
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Welcome message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.welcome_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if k.welcome_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputInfo1('id_rewelcomeImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="rewelcomeImage" id="id_rewelcomeImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="rewelcomemessagetext" value="{{k.welcome_message_text}}"
+                        placeholder="Enter Welcome message Text" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Footer</label>
+                    <input type="text" name="rewelcomefootertext" value="{{k.welcome_message_footer}}"
+                        placeholder="Enter Welcome Footer Text" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>1st Button Name</label>
+                    <input type="text" name="rebookingbuttonname" value="{{k.booking_button_name}}"
+                        placeholder="Enter Booking Button Name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>2nd Button Name</label>
+                    <input type="text" name="rebookingmyticketname" value="{{k.booking_myticket_button_name}}"
+                        placeholder="Enter MyTicket Button Name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>3rd Button Name</label>
+                    <input type="text" name="rebookingcancelticketname" value="{{k.booking_cancel_ticket_button_name}}"
+                        placeholder="Enter Cancel Ticket Button Name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Booking Message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.booking_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output2">
+                            {% if k.booking_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputbookImage('id_rewelcomebookImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="rewelcomebookImage" id="id_rewelcomebookImage" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label>Header</label>
+                    <input type="text" name="rebookingheadertext" value="{{k.booking_header_text}}"
+                        placeholder="Enter Bookin Header Text" class="headerInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="rebookingmessagetext" value="{{k.booking_message_text}}"
+                        placeholder="Enter Booking Message Text" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Footer</label>
+                    <input type="text" name="rebookingmessagefooter" value="{{k.booking_message_text}}"
+                        placeholder="Enter Booking Message footer" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Button</label>
+                    <input type="text" name="reeventbuttonname" value="{{k.event_list_event_button_name}}"
+                        placeholder="Enter Event Button Name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>My Tickets</h4>
+            </span>
+            <span class="formOne">
+                <!-- <span>
+                <label>1st Button Name</label>
+                <input type="text" name="reusebuttonname" value="{{k.use_button_name}}"
+                    placeholder="Enter use button name">
+            </span> -->
+                <span>
+                    <label>Button Name</label>
+                    <input type="text" name="retransferbuttonname" value="{{k.transfer_button_name}}"
+                        placeholder="Enter transfer button name" class="buttonInput" required>
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Cancel message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.cancel_ticket_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output3">
+                            {% if k.cancel_ticket_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputCancelImage('id_reCancelImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reCancelImage" id="id_reCancelImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output3').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="recancelmessagebody" value="{{k.cancel_ticket_message_body}}"
+                        placeholder="Enter cancel ticket message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Confirmation message</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.ticket_conformation_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output4">
+                            {% if k.ticket_conformation_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearReConformationImage('id_reConformationImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reConformationImage" id="id_reConformationImage" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output4').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+
+                <span></span>
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="reticketconformationmessagebody"
+                        value="{{k.ticket_conformation_message_body}}" placeholder="Enter ticket conformation message"
+                        class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+        </div>
+
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Failure message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.ticket_payment_failure_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output5">
+                            {% if k.ticket_payment_failure_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearRefailureImage('id_refailureImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="refailureImage" id="id_refailureImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output5').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+
+                <span></span>
+
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="repaymentfailuremessagebody" class="mainInput"
+                        value="{{k.ticket_failure_message_body}}" placeholder="Enter ticket failure message">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Contact message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.contactheaderimage}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output6">
+                            {% if k.contactheaderimage %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="contactImage('idContactImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                  
+                    <input type="file" name="reContactImage" id="idContactImage" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output6').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="contactMessagebodyId">Main Message</label>
+                    <input type="text" id="contactMessagebodyId" name="recontactmessagebody"
+                        placeholder="Enter Contact Main message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="contactButtonnameId">Button Name</label>
+                    <input type="text" id="contactButtonnameId" name="recontactbuttonname"
+                        placeholder="Enter Contact button name" class="buttonInput">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Ticket Count</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label for="ticketcount1_descId">ticketcount1_desc</label>
+                    <input type="text" id="ticketcount1_descId" name="reticketcount1_desc"
+                        value="{{k.ticketcount1_desc}}" placeholder="ticketcount1_desc">
+                </span>
+                <span>
+                    <label for="ticketcount2_descId">ticketcount2_desc</label>
+                    <input type="text" id="ticketcount2_descId" name="reticketcount2_desc"
+                        value="{{k.ticketcount2_desc}}" placeholder="ticketcount2_desc">
+                </span>
+                <span>
+                    <label for="ticketcount3_descId">ticketcount3_desc</label>
+                    <input type="text" id="ticketcount3_descId" name="reticketcount3_desc"
+                        value="{{k.ticketcount3_desc}}" placeholder="ticketcount3_desc">
+                </span>
+                <span>
+                    <label for="ticketcount4_descId">ticketcount4_desc</label>
+                    <input type="text" id="ticketcount4_descId" name="reticketcount4_desc"
+                        value="{{k.ticketcount4_desc}}" placeholder="ticketcount4_desc">
+                </span>
+                <span>
+                    <label for="ticketcount5_descId">ticketcount5_desc</label>
+                    <input type="text" id="ticketcount5_descId" name="reticketcount5_desc"
+                        value="{{k.ticketcount5_desc}}" placeholder="ticketcount5_desc">
+                </span>
+                <span>
+                    <label for="ticketcount6_descId">ticketcount6_desc</label>
+                    <input type="text" id="ticketcount6_descId" name="reticketcount6_desc"
+                        value="{{k.ticketcount6_desc}}" placeholder="ticketcount6_desc">
+                </span>
+                <span>
+                    <label for="ticketcount7_descId">ticketcount7_desc</label>
+                    <input type="text" id="ticketcount7_descId" name="reticketcount7_desc"
+                        value="{{k.ticketcount7_desc}}" placeholder="ticketcount7_desc">
+                </span>
+                <span>
+                    <label for="ticketcount8_descId">ticketcount8_desc</label>
+                    <input type="text" id="ticketcount8_descId" name="reticketcount8_desc"
+                        value="{{k.ticketcount8_desc}}" placeholder="ticketcount8_desc">
+                </span>
+                <span>
+                    <label for="ticketcount9_descId">ticketcount9_desc</label>
+                    <input type="text" id="ticketcount9_descId" name="reticketcount9_desc"
+                        value="{{k.ticketcount9_desc}}" placeholder="ticketcount9_desc">
+                </span>
+
+
+                <!-- <span>
+                <label>Image</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.use_header_image}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output6">
+                        {% if k.use_header_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearReUseImage('id_reUseImage')"></img>
+                        {% endif %}
+                    </span>
+                </span>
+                <input type="file" name="reUseImage" id="id_reUseImage"
+                    onchange="document.getElementById('output6').src=window.URL.createObjectURL(this.files[0])">
+            </span>
+
+
+            <span>
+                <label>Main Message</label>
+                <input type="text" name="reusemessagebody" value="{{k.use_message_text}}"
+                    placeholder="Enter Use Message Body">
+            </span> -->
+
+            </span>
+        </div>
+
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Ticket Not available Message</h4>
+            </span>
+            <span class="formOne">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img
+                            src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.tickets_not_availble_header_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output7">
+                            {% if k.tickets_not_availble_header_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearRenotavailableImage('id_renotavailableImage')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="renotavailableImage" id="id_renotavailableImage" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output7').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label>Main Message</label>
+                    <input type="text" name="renotavailablemessagebody" value="{{k.tickets_not_available_message_body}}"
+                        placeholder="Enter not available tickets message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+
+            </span>
+        </div>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Update" style="margin-left: 47% ;">
+
+
+        </span>
+        {% endfor %}
+
+   
+    </form>
+
+    <div class="frmCenter">
+        <form class="profileForm prfBtnRt" action="{% url 'levelSeting_page' %}" method="post" enctype="multipart/form-data"
+          style="position: relative;    width: 100%;">
+          {% csrf_token %}
+          <span class="headFlex">
+            <h4>SELECT LEVEL</h4>
+          </span>
+        
+          <span class="formOne profileFormSpan">
+            <select name="level_settings">
+                <option value="none" {% if selected_level_settings == 'none' %}selected{% endif %}>Northing to Skip</option>
+                <option value="skiplevel1" {% if selected_level_settings == 'skiplevel1' %}selected{% endif %}>Skip Level 1</option>
+                <option value="skiplevel1and2" {% if selected_level_settings == 'skiplevel1and2' %}selected{% endif %}>Skip Level 1 and 2</option>
+            </select>
+        
+          </span>
+          <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+          </span>
+        </form>
+    </div>
+
+
+    </div>
+    <!-- </div> -->
+    
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let inputs = document.querySelectorAll('input');
+        let mainMessage = document.getElementsByClassName('mainMessage');
+
+        for (let i = 0; i <= length.inputs; i++) {
+
+        }
+    })
+</script>
+<script>
+    function clearFileInputInfo1(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+<script>
+    function clearFileInputbookImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output2');
+        img.src = '';
+    }
+    function clearFileInputCancelImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output3');
+        img.src = '';
+    }
+    function clearReConformationImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output4');
+        img.src = '';
+    }
+    function clearRefailureImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output5');
+        img.src = '';
+    }
+    function clearReUseImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output6');
+        img.src = '';
+    }
+    function clearRenotavailableImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output7');
+        img.src = '';
+    }
+    function contactImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output6');
+        img.src = '';
+    }
+</script>
+
+<script>
+    //   document.addEventListener("DOMContentLoaded", function() {
+    //     let inputs = document.querySelectorAll('input[required]');
+
+    //     inputs.forEach(function(input) {
+    //         let label = document.querySelector('label[for="' + input.id + '"]');
+    //         label.textContent += ' *';
+    //     });
+    // });
+
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,238 @@
+{% extends "vmart.html" %}
+
+{% load static %}
+
+{% block title %}payment{% endblock title %}
+
+{% block header %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% endblock header %}
+
+
+
+
+ {% block bottumcontent %}
+
+<style>
+    .col-md-6,.col-md-12{
+        padding-top:3px;
+    }
+
+    .col-md-6 label{
+        margin-bottom:2px;
+
+    }
+    .checkoutform label{
+        font-size:14px;
+        font-weight:600;
+    }
+
+
+    .checkoutform input{
+        font-size:14px;
+
+    }
+</style>
+<div>
+    <h3 style="padding-top:100px; margin:10px;">{{contt}}</h3>
+</div>
+<div style="padding-top:10px; margin:10px;">
+<form action="{% url 'payment_order' %}" method="POST">
+    {% csrf_token %}
+    <div class="container mt-3">
+    <div class="row">
+    {% if 'online' is paymentCliend %}
+
+        <div class="col-md-7">
+            <div class="card shadow checkoutform">
+                <div class="card-body">
+                    <h6>Address Details</h6>
+                    <hr>
+                    {% for i in address %}
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                            <input type="text" class="form-control" value="{{i.customer_name}}" name="fname" placeholder="Enter first name">
+                        </div>
+                        <div class="col-md-6">
+                            <label>WhatsApp Number</label>
+                            <input type="text" class="form-control" value="{{i.customer_number}}" name="wtnum" placeholder="Enter whatsapp number">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label>Address</label>
+                            <textarea class="form-control" name="address">{{i.customer_addressline1}}</textarea>
+                        </div>
+                         <div class="col-md-6">
+                            <label>Area/Landmark</label>
+                            <input type="text" class="form-control" value="{{i.customer_area}}" name="area" placeholder="Enter area/landmark">
+                        </div>
+                         <div class="col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" class="form-control" value="{{i.customer_pincode}}" name="pincode" placeholder="Enter pincode">
+                        </div>
+
+                        
+                    </div>
+                  
+                    {% endfor %}
+                </div>
+            </div>
+           
+        </div>
+        {% endif %}
+        <div class="col-md-5">
+             <div class="card shadow">
+                <div class="card-body">
+                    <h6>Order Summary</h6>
+                    <hr>
+
+                    <table class="table table-stripeds table-bordereds">
+                        <thead>
+                        <tr>
+
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+                        {% for i1 in cart_p %}
+
+                        <tr>
+                            <td>
+                                <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{i1.product_image}}" alt="imge" class="me-2" style=" height:50px; width:50px;">
+                                {{i1.product_name}}
+                            </td>
+                            <td style="padding-top:20px;">{{i1.product_qty}}</td>
+                            <td style="padding-top:20px;">{{i1.product_price}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                    <h6 class="fw-bold">Total Price
+                        <span class="float-end"> Rs.{{total}}</span>
+                    </h6>
+                    <div class="mt-3">
+                        <button href="#" class="My_paybutton btn btn-success  w-100">Pay</button>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+</div>
+
+</form>
+</div>
+
+
+
+
+
+ {% endblock bottumcontent %}
+
+
+{% block script %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script>
+           $(document).ready(function(){
+
+    $('.My_paybutton').click(function(e){
+        e.preventDefault();
+
+        var fname=$("[name='fname']").val();
+        var address=$("[name='address']").val();
+        var area=$("[name='area']").val();
+        var wtnum='{{user_nu}}';
+        var pincode=$("[name='pincode']").val();
+        var token=$("[name='csrfmiddlewaretoken']").val();
+        var ttf=0
+        console.log(fname);
+        console.log(address);
+        console.log(area);
+        console.log(wtnum);
+        console.log(pincode);
+    if (fname == '' || address=='' || area=='' || wtnum=='' || pincode==''){
+        swal("Alert!", "Invalid Fields", "error");
+        return false;
+    }
+    else{
+        var options = {
+    "key": "{{pay_key}}", // Enter the Key ID generated from the Dashboard
+    "amount": "{{total_p}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "{{contt}}",
+    "description": "Test Transaction",
+    "image": "https://ubotnext.herokuapp.com/static/image/l3-01.png",
+    "order_id": "{{ payment.id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1-->
+
+    "handler": function (response){
+
+            data={
+                "client_id":'{{clikl}}',
+                "clientStatus":'{{paymentCliend}}',
+                "fname":fname,
+                "address":address,
+                "area":area,
+                "wtnum":wtnum,
+                "pincode":pincode,
+                "payment_mode":"Razorpay",
+                "razorpay_order_id":response.razorpay_order_id,
+                "razorpay_payment_id":response.razorpay_payment_id,
+                "razorpay_signature":response.razorpay_signature,
+                csrfmiddlewaretoken:token
+            }
+            $.ajax({
+                method:"POST",
+                url:"{% url 'payment_order' %}",
+                data:data,
+                success:function(post_1){
+
+                    if (post_1.status=='your Order id successful!'){
+                        swal(post_1.status, "success").then((value)=>{
+                        window.location.href='/payments/payment_success'
+                       });
+                    }else{
+                        swal(post_1.status, "error").then((value)=>{
+                        window.location.href='/payments/payment_failed'
+                        });
+                    }
+                }
+
+            });
+
+        //alert(response.razorpay_payment_id);
+        //console.log(response.razorpay_payment_id);
+        //alert(response.razorpay_order_id);
+        //alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": fname,
+        "contact": '{{user_nu}}',
+        'email':'exambl@gmail.com',
+    },
+    "notes": {
+        "address": " Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+};
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    });
+});
+    </script>
+
+{% endblock script %}

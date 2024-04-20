@@ -1,0 +1,124 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% block title %} payment{% endblock title %}
+
+{% block header %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% endblock header %}
+
+
+
+ {% block bottumcontent %}
+
+<style>
+    .col-md-6,.col-md-12{
+        padding-top:3px;
+    }
+
+    .col-md-6 label{
+        margin-bottom:2px;
+
+    }
+    .checkoutform label{
+        font-size:14px;
+        font-weight:600;
+    }
+
+
+    .checkoutform input{
+        font-size:14px;
+
+    }
+</style>
+<div style="padding-top:100px; margin:10px;">
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow checkoutform">
+                <div class="card-body">
+                    <h6>Address Details</h6>
+                    <hr>
+                    {% for i in address %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Enter first name">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <input type="text" class="form-control" placeholder="Enter email">
+                        </div>
+                         <div class="col-md-12 mt-2">
+                            <label>Address</label>
+                             <textarea class="form-control" placeholder="Enter address" style="font-weight:600;"></textarea>
+                        </div>
+                         <div class="col-md-6">
+                            <label>Area/Landmark</label>
+                            <input type="text" class="form-control"  placeholder="Enter area/landmark">
+                        </div>
+                         <div class="col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" class="form-control" placeholder="Enter pincode">
+                        </div>
+                        <div class="col-md-6">
+                            <label>WhatsApp Number</label>
+                            <input type="text" class="form-control" placeholder="Enter whatsapp number">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+             <div class="card shadow">
+                <div class="card-body">
+                    <h6>Order Summary</h6>
+                    <hr>
+
+                    <table class="table table-stripeds table-bordereds">
+                        <thead>
+                        <tr>
+
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+                        <tr>
+                                <h6>Empty Cart</h6>
+                        </tr>
+
+                        </tbody>
+
+
+                    </table>
+                    <h6 class="fw-bold">Total Price
+                        <span class="float-end"> Rs.0</span>
+                    </h6>
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-success w-100">Pay</a>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+
+        {% endblock bottumcontent %}
+
+
+
+
+

@@ -1,0 +1,66 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock header %}
+
+{% block rightcontent %}
+<select id="eventDropdown" name="event" onchange="fetchTicket()">
+  <option disabled selected>Select</option>
+    <option value="all">All</option>
+  {% for event in data %}
+    <option value="{{ event.id }}">{{ event.text }}</option>
+  {% endfor %}
+</select>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<!--<div> <button id="resultDisplay" onclick="fetchTicket()">Search</button></div>-->
+<div>
+    {{ ticket_html|safe }}
+</div>
+
+<div>
+    {{customer_html|safe}}
+</div>
+<div>
+    {{campaign_html|safe}}
+</div>
+<div>
+    {{status_html|safe}}
+</div>
+
+{% endblock rightcontent %}
+
+{% block script %}
+<script>
+function fetchTicket() {
+  var eventDropdown = document.getElementById("eventDropdown");
+  var selectedEventId = eventDropdown.value;
+  var url = window.location.href.split('?')[0];
+  if (selectedEventId !== "default") {
+    url = url + "?event_id=" + selectedEventId;
+  } else if (selectedEventId === "all") {
+    // Redirect to the URL for displaying the graph for all events
+    window.location.href = "{% url 'dashboard' %}";
+    return; // Prevent further execution of the function
+  }
+
+  window.location.href = url;
+}
+</script>
+
+
+
+
+
+{% endblock script %}

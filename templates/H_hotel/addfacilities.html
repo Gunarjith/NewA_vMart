@@ -1,0 +1,118 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitfacilitylist' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitfacilitylist' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add Facilites </h4>
+            </span>
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="hotelplaceimage">  Image</label>
+        <input type="file" id="hotelplaceimage" name="facilityimage" class="imageInput"
+            accept="image/*" required>
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="hotelplacevideo"> vedio</label>
+            <input type="file" id="hotelplacevideo" name="facilityvideo" class="fileInput" accept="file/*">
+            <span class="validatevideo"></span>
+        </span>
+        <span>
+            <label for="facility_name">Facilite Name</label>
+            <input type="text" id="facility_name" name="name"
+                placeholder="Enter facility name" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="start_time"> Start time</label>
+            <input type="time" id="start_time" name="starttime" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="end_time">End time</label>
+            <input type="time" id="end_time" name="endtime" >
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="facilitesdiscription">discription</label>
+            <input type="text" id="discription" name="discription" placeholder="Enter facility discription">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="facility_location">Facility Location</label>
+            <input type="text" id="facility_location" name="facilitylocation" placeholder="Enter a Location ">
+            <span class="charCount"></span>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

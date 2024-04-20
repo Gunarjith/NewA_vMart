@@ -1,0 +1,50 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% if admin_permission_obj and admin_permission_obj.client_marketplace  == 'yes' %}
+<div class="frmCenter" style="margin: 10px 10px;">
+    {{marketplace_id}}
+<form class ="profileForm1" action="{% if marketplace_id %}{% url 'submiteditcomplaintcategories' Complaint_settings_obj.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submiteditcomplaintcategories' Complaint_settings_obj.id %}{% endif %}" method="POST" style="position: relative">
+    {% csrf_token %}
+    <span class="formOne" >
+    <h3 for="Complaint Category">Edit Complaint Category</h3>
+    <input type="text" name="Edit_Complaint_Category"  placeholder="Complaint Category" value="{{Complaint_settings_obj.Complaint_category}}" style="padding:15px; font-size:18px">                   
+    <span class="charCount"></span>   
+        <span class="spanSubmitForm">
+            <input type="submit" value="Edit Complaint Category" name='resubmit_button' style="margin-left: 85% ; margin-bottom:-5px">
+            </span>
+  </span>
+</form>
+</div>
+
+{%endif%}
+{% if admin_permission_obj and admin_permission_obj.client_marketplace  != 'yes' %}
+<div class="frmCenter" style="margin: 10px 10px;">
+    {{marketplace_id}}
+<form class ="profileForm1" action="{% if marketplace_id %}{% url 'submiteditcomplaintcategories' Complaint_settings_obj.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submiteditcomplaintcategories' Complaint_settings_obj.id %}{% endif %}" method="POST" style="position: relative">
+    {% csrf_token %}
+    <span class="formOne" >
+    <h3 for="Complaint Category">Edit Complaint Category</h3>
+    <input type="text" name="Edit_Complaint_Category"  placeholder="Complaint Category" value="{{Complaint_settings_obj.Complaint_category}}" style="padding:15px; font-size:18px">                   
+    <span class="charCount"></span>   
+        <span class="spanSubmitForm">
+            <input type="submit" value="Edit Complaint Category" name='resubmit_button' style="margin-left: 85% ; margin-bottom:-5px">
+            </span>
+  </span>
+</form>
+</div>
+
+{%endif%}
+{% endblock rightcontent %}

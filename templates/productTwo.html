@@ -1,0 +1,90 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+
+{% block title %}vailo.ai-Product {% endblock title %}
+
+{% block body %}
+
+<section  class="marginTopPrd">
+    <div class="sectionFour sectionTwo">
+        <div class="leftSectionFour">
+            <h2>Restaurant scan to menu</h2>
+            <br>
+            <p>Vailo Scan-to-Menu is revolutionizing the way dine. By simply scanning a QR code with your smartphone, you can access the restaurant's digital menu instantly through Whatsapp. This contactless approach ensures a safer dining experience while providing convenience and efficiency. With vibrant images, detailed descriptions, and real-time updates.</p>
+        </div>
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productTwoImgOne.png' %}" alt="productTwoImgOne">
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo sectionFive">
+        
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productTwoImgtwo.png' %}" alt="productTwoImgtwo">
+
+        </div>
+        <div class="leftSectionFour">
+            <h2>Restaurant Dashboard</h2>
+            <br>
+            <p>You are Centralized hub for managing and optimizing your work for your Restaurant Scan to menu. Were you able to easily modify their menus in real-time, adding seasonal offerings, removing out-of-stock items, or adjusting prices. This ensures that customers always have access to the most up-to-date menu and easily generate leads, promotion, campaign, offer.</p>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo">
+        <div class="leftSectionFour sectionThreeUl">
+            <span>
+                <h2>Whatsapp Scan to Menu</h2>
+                <ul>
+                    <li>Save our WhatsApp Restaurant number in your contacts or Scan Q/R Code.</li>
+                    <li>Start a conversation with us on WhatsApp.</li>
+                    <li>Access the digital menu in your Whatsapp.</li>
+                    <li>Explore the Menu and View Dish.</li>
+                    <li>Customize your order.</li>
+                    <li>Add item to your order.</li>
+                    <li>Proceed to checkout, place your order and Make Payments.</li>
+                    <li>Dish will be serve on your table..</li>
+                </ul>
+                </span>
+                
+        </div>
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productTwoImgThree.png' %}" alt="productTwoImgThree">
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo sectionFive">
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productTwoImgFour.png' %}" alt="productTwoImgFour">
+
+        </div>
+        <div class="leftSectionFour">
+            <h2>Q/R Bar Code scanning</h2>
+            <br>
+            <p>Scan-to-Menu presents various advantages for restaurants, ranging from improved customer experience and operational efficiency to data-driven insights and branding opportunities. By leveraging this technology, businesses can stay competitive, meet changing customer expectations and drive growth in the increasingly digitalized restaurant industry.</p>
+        </div>
+        
+    </div>
+</section>
+
+
+{% endblock body %}
+
+
+{% block script %}
+<script>
+  const toggleBtn = document.querySelectorAll('.toggle-btn');
+
+  toggleBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentNode.classList.toggle('active')  //only toggles the parent node which is the '.faq-card' here
+    })
+  })
+</script>
+
+{% endblock script %}

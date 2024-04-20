@@ -1,0 +1,138 @@
+{% extends "admindash.html" %}
+{% load static %}
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div style="margin: 15px;">
+{% for a in update_permission %}
+<form action="{% url 'updatepermisions' a.client_id %}" method="POST" enctype="multipart/form-data"
+   style="position: relative;">
+   {% csrf_token %}
+   <span class="formOne inputGridThree">
+
+      <span>
+         <label> Service Type</label>
+         <select id="serviceselect" name="selectservice">
+            <option>{{a.client_service_type}}</option>
+            <option value="commerce">COMMERCE</option>
+            <option value="ticket">TICKET</option>
+            <option value="scanner">SCANNER</option>
+            <option value="donation">DONATION</option>
+            <option value="campaign">CAMPAIGN</option>
+            <option value="Appointment">Appointment</option>
+            <option value="survey">Survey</option>
+            <option value="hotel">Hotel</option>
+         </select>
+      </span>
+
+      <span>
+         <label> Client Type</label>
+         <select id="typeselect" name="selecttype">
+            <option>{{a.client_type}}</option>
+            <option value="online">ONLINE</option>
+            <option value="offline">OFFLINE</option>
+            <option value="both">BOTH</option>
+         </select>
+      </span>
+
+      <span>
+         <label> Market Place</label>
+         <select id="marketselect" name="marketselect">
+            <option>{{a.client_marketplace}}</option>
+            <option value="yes">YES</option>
+            <option value="no">NO</option>
+         </select>
+      </span>
+
+
+      <span>
+         <label> Client Permission Status</label>
+         <select id="permissionselect" name="permissiontype">
+            <option>{{a.client_permission_status}}</option>
+            <option value="True">TRUE</option>
+            <option value="False">False</option>
+         </select>
+      </span>
+
+
+      <span>
+
+         <label> Login Allowed</label>
+         <select id="loginallowed" name="loginallowed">
+            <option>{{a.login_allowed}}</option>
+            <option value="True">TRUE</option>
+            <option value="False">False</option>
+         </select>
+
+      </span>
+      <span>
+         <label for="billing_amount1">billing_amount1</label>
+
+         <input type="number" name="billing_amount1" value="{{a.billing_amount1}}" id="billing_amount1">
+      </span>
+      <span>
+         <label for="billing_amount2">billing_amount2</label>
+         <input type="number" name="billing_amount2" value="{{a.billing_amount2}}" id="billing_amount2">
+      </span>
+      <span>
+         <label for="billing_amount3">billing_amount3</label>
+         <input type="number" name="billing_amount3" value="{{a.billing_amount3}}" id="billing_amount3">
+      </span>
+      <span>
+         <label for="billing_campaign_sent_rate">billing_campaign_sent_rate</label>
+         <input type="number" name="billing_campaign_sent_rate" value="{{a.billing_campaign_sent_rate}}"
+            id="billing_campaign_sent_rate">
+      </span>
+
+      <span>
+         <label>billing_currency</label>
+         <select id="billing_currency_select" name="billing_currency">
+             <option>{{a.billing_currency}}</option>
+             <option value="1">INR</option>
+             <option value="2">USD</option>
+             <option value="3">GBP</option>
+             <option value="4">EUR</option>
+         </select>
+     </span>
+     
+      <span>
+         <label for="billing_message_received_rate">billing_message_received_rate</label>
+         <input type="number" name="billing_message_received_rate" value="{{a.billing_message_received_rate}}"
+            id="billing_message_received_rate">
+      </span>
+      <span>
+         <label for="billing_message_sent_rate">billing_message_sent_rate</label>
+         <input type="number" name="billing_message_sent_rate" value="{{a.billing_message_sent_rate}}"
+            id="billing_message_sent_rate">
+      </span>
+      <span>
+         <label for="billing_monthly_charge">billing_monthly_charge</label>
+         <input type="number" name="billing_monthly_charge" value="{{a.billing_monthly_charge}}"
+            id="billing_monthly_charge">
+      </span>
+      <span>
+         <label for="billing_new_client_rate">billing_new_client_rate</label>
+         <input type="number" name="billing_new_client_rate" value="{{a.billing_new_client_rate}}"
+            id="billing_new_client_rate">
+      </span>
+      <span>
+         <label for="billing_new_customer_lead_rate">billing_new_customer_lead_rate</label>
+         <input type="number" name="billing_new_customer_lead_rate" value="{{a.billing_new_customer_lead_rate}}"
+            id="billing_new_customer_lead_rate">
+      </span>
+   </span>
+
+   <span class="spanSubmitForm">
+      <input type="submit" value="Submit">
+   </span>
+   {% endfor %}
+</form>
+</div>
+
+{% endblock rightcontent %}

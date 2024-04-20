@@ -1,0 +1,51 @@
+
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+{% for a in modifyslot %}
+<form action="{% url 'updateslot' a.id %}" method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+<table>
+     <tr>
+        <th>Id</th>
+        <td><input type="text" name="id" value="{{a.id}}" readonly></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td><input type="text" name="reslotname" value="{{a.Slot_Name}}"></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td><input type="text" name="reslotdesc" value="{{a.Slot_Description}}"></td>
+    </tr>
+
+</table>
+
+
+ <input type="submit" value="Update"/>
+ </form>
+{% endfor %}
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,94 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+<div id="innernav1">
+  <div class="newProductPage" id="formContain">
+    <div class="newProductformCategory">
+      <label for="buttonsOfProducts"> To add Category :</label>
+      <a href="{% url 'product_category_fun' %}" class="buttonsOfProducts">Add Category</a>
+    </div>
+    <form action="{% url 'uploadproduct' %}" novalidate method="POST" enctype="multipart/form-data"
+      class="newProductform">
+      {% csrf_token %}
+      <input type="text" id="input-product_original_name" name="product_original_name"
+        placeholder="Enter Full Item name" required>
+
+      <input type="text" id="input-product_name" name="product_name" placeholder="Enter name" required>
+
+      <input type="number" placeholder="Enter productId" id="input-product_id" name="product_id" required>
+
+      <input type="text" id="input-product_net_unit" name="product_net_unit" placeholder="Enter Net Unit(Ex:1Kg)"
+        required>
+
+      <input type="text" id="input-product_description" name="product_description" placeholder="Product description"
+        required>
+
+      <input type="number" id="input-product_mrp" name="product_mrp" placeholder="Product mrp" required>
+
+      <input type="number" id="input-product_price" name="product_price" placeholder="Product price" required>
+
+      <input type="number" id="input-product_unit" name="product_unit" placeholder="Product unit" required>
+
+      <select id="input-product_category_id" name="product_category_id" required>
+        <option value="" selected="true" disabled="disabled">----Select One Category----</option>
+        {% for i in form %}
+        <option name="product_category_id" value="{{i.id}}">
+          {{i.product_category_name}}</option>
+        {% endfor %}
+      </select>
+      <!-- <input type="checkbox"> -->
+      <input type="file" id="input-product_image" name="product_image" required>
+      <div class="liveorHoldswitchMainFlex">
+        <div class="liveorHoldswitchMain">
+          <h3>Switch</h3>
+          <!-- <div class="liveorHoldswitch">
+            <input type="checkbox" value="" id="invalidCheck myonoffswitch" name="liveorHoldswitch" class="liveorHoldswitch-checkbox"
+              checked>
+            <label class="liveorHoldswitch-label" for="myonoffswitch">
+              <span class="liveorHoldswitch-inner"></span>
+              <span class="liveorHoldswitch-switch"></span>
+            </label>
+          </div> -->
+          <div class="liveorHoldswitch">
+            <input type="checkbox" name="yes_no"data-on="Live" data-off="Hold" data-onstyle="success"
+            data-offstyle="danger" class="liveorHoldswitch-checkbox"
+                id="myonoffswitch" checked>
+            <label class="liveorHoldswitch-label" for="myonoffswitch">
+                <span class="liveorHoldswitch-inner"></span>
+                <span class="liveorHoldswitch-switch"></span>
+            </label>
+        </div>
+        </div>
+        <input type="submit" id="submit" value="Live">
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

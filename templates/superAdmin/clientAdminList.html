@@ -1,0 +1,88 @@
+{% extends "admindash.html" %}
+{% load static %}
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+{% endblock header %}
+
+
+{% block rightcontent %}
+<div>
+  <div class="eventBtnsSliderFlex" style="width: 84%;">
+
+    <h3>List of Clients</h3>
+
+
+    <a href="{% url 'registerpage' %}">
+      <button>
+        Add Client
+      </button>
+    </a>
+
+    <form class="adminFormsub" action="{% url 'generate_bill' %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="Generate Bill">
+    </form>
+    <form class="adminFormsub" action="{% url 'update_ticket' %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="release block">
+    </form>
+
+
+    <form class="adminFormsub" action="{% url 'process_expiry' %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="ProcessExpiry">
+    </form>
+
+
+  </div>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Active Status</th>
+        <th>Super User Status</th>
+        <th>Date of joined</th>
+
+
+        <th style="text-align: center;">Login Required</th>
+      </tr>
+    </thead>
+    <tbody id="mytable">
+      {% for user in clientList %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.is_active }}</td>
+        <td>{{ user.is_superuser }}</td>
+        <td>{{ user.date_joined}}</td>
+
+        </td>
+        <td style="text-align:center;">
+          <span class="slotEditBtn">
+            <a href="{% url 'update_client' user.id %}">
+              <button>Approve</button>
+            </a>
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+</div>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

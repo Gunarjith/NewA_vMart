@@ -1,0 +1,119 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+{% for a in modifyAvailablity %}
+
+<div class="frmCenter">
+    <div>
+    <form class="profileForm" action="{% url 'updateavailablity' a.id }" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Update Consultant Availability</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="day">Day</label>
+                    <select id="day" name="reday_of_week" value="{{a.day_of_week}}">
+                        <option value="{{a.day_of_week}}"> Select week day</option>
+                        <option value="1">Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                        <option value="7">Sunday</option>
+                    </select>
+                </span>
+                <span></span>
+                <span>
+                    <label for="consultant_starttime">Start time</label>
+                    <input type="" id="consultant_starttime" name="restart_time" value="{{a.start_time}}">
+              
+                </span>
+                <span>
+                    <label for="consultant_endtime">End time</label>
+                    <input type="" id="consultant_endtime" name="reend_time" value="{{a.end_time}}">
+                    
+                </span>
+            </span>
+        </div>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit" style="margin-left: 47% ;">
+
+        </span>
+    </form>
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+<script>
+    $(document).ready(function() {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function() {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+
+<!-- <emoji>-->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+     -->
+    
+    <!-- <script>
+        function validateForm(event) {
+        }
+        $(document).ready(function () {
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+    
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+        });
+    </script> -->
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

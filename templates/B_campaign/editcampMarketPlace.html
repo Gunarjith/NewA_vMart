@@ -1,0 +1,171 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+<!-- {% include 'N_donation/ConfigNav.html' %} -->
+{% for a in modifyCamp %}
+<div class="mT15">
+    <div class="headFlex">
+        <h3>Edit Campaign</h3>
+    </div>
+<div class="frmCenter" style="margin: 0 10px;">
+
+    
+
+        <form class="profileForm" action="{% url 'updateCampMarketPlace' a.id %}" method="POST" enctype="multipart/form-data"
+            style="position: relative; width: 100%;">
+            <span class="headFlex">
+                <h3>Edit Campaign</h3>
+            </span>
+
+            {% csrf_token %}
+            <span class="formOne inputGridThree">
+                <span>
+                    <label>Name</label>
+                    <input type="text" name="reCampnName" class="nameInput emoji-input" value="{{a.campaign_name}}">
+                    <span class="charCount"></span>
+                </span>
+                
+                <span>
+                    <label>Type</label>
+                    <input type="text" name="reCampType" class="headerInput" value="{{a.campaign_type}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Category</label>
+                    <input type="text" name="reCampCategory" class="headerInput" value="{{a.campaign_category}}">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Location</label>
+                    <input type="text" name="reCampLocation" class="headerInput" value="{{a.campaign_location}}">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Description</label>
+                    <input type="text" name="reCampdesc" class="descriptionInput emoji-input"
+                        value="{{a.campaign_description}}">
+
+                    <span class="charCount"></span>
+                </span>
+                
+                <span>
+                    <label>Campaign Link Text</label>
+                    <input type="text" name="reCamp_link_text" class="descriptionInput emoji-input"
+                        value="{{a.campaign_link_text}}">
+
+                    <span class="charCount"></span>
+                </span>
+                
+                <span>
+                    <label>Campaign Url</label>
+                    <input type="text" name="reCamp_url" class="descriptionInput emoji-input"
+                        value="{{a.campaign_url}}">
+
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Campaign_id</label>
+                    <input type="text" name="campaign_id" class="descriptionInput emoji-input"
+                        value="{{a.reCamp_id}}">
+
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Campaign key</label>
+                    <input type="text" name="rekey" class="descriptionInput emoji-input"
+                        value="{{a.campaign_key}}">
+
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Contact Number</label>
+                    <input type="text" name="reCampContactNumber" class="descriptionInput emoji-input"
+                        value="{{a.campaign_contact_number}}">
+
+                    <span class="charCount"></span>
+                </span>
+
+
+
+                
+            </span>
+
+            <span class="spanSubmitForm" style="margin-top: 50px;">
+
+                <input type="submit" value="Update">
+            </span>
+        </form>
+    
+
+
+
+
+
+</div>
+<a href="{% url 'GenerateCampId' a.id %}">
+    <button>Generate with id</button>
+</a>
+<a href="{% url 'GenerateCampkey' a.id %}">
+<button>Generate with key</button>
+</a>
+<a href="{% url 'generateCampKeyBarcode' a.id %}">
+<button>Generate Qr with Id</button>
+</a>
+<a href="{% url 'GeneratecampIdBar' a.id %}">
+<button>Generate Qr with key</button>
+</a>
+<!-- <a href="{% url 'GenerateId' a.id %}">
+    <button>Generate with id</button>
+</a>
+<a href="{% url 'Generatekey' a.id %}">
+<button>Generate with key</button>
+</a>
+<a href="{% url 'generateKeyBarcode' a.id %}">
+<button>Generate Qr with Id</button>
+</a>
+<a href="{% url 'GenerateIdBar' a.id %}">
+<button>Generate Qr with key</button>
+</a> -->
+
+
+
+</div>
+
+
+{% endfor %}
+<script>
+    function clearFileInput(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output2');
+        img.src = '';
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

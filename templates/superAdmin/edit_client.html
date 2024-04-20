@@ -1,0 +1,81 @@
+{% extends "admindash.html" %}
+
+{% load static %}
+
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+
+
+
+
+   
+    <form method="post" class="requires-validation" novalidate style="width: -webkit-fill-available; margin: 20px 5px;">
+        {% csrf_token %}
+        <div class="regGlassVailo">
+            <div class="regLeftVailo">
+                <div class="regLeft">
+
+                    <div class="regMail">
+                        <label for="username">Name</label>
+                        {{ form.username }}
+                    </div>
+
+
+                    <div class="regMail">
+                        <label for="Email">Email</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="regPasss">
+                        <label for="password1">Password</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="regPasss">
+                        <label for="password2">Re -Password</label>
+                        {{ form.password2 }}
+                    </div>
+
+                    <!-- <div class="regPasss">
+                        <label for="password">Re-Enter Password</label>
+                        {{form.password2}}
+                        <i class="far fa-eye-slash" id="togglePassword"
+                            style="margin: 20px 0px 0 -40px;cursor: pointer;position: absolute;"></i>
+                    </div> -->
+
+
+                    <button type="submit" class="submitReg">Save Changes</button>
+
+                
+
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

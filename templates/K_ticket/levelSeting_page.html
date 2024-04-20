@@ -1,0 +1,50 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mainContent">
+
+
+
+<div class="frmCenter">
+    <form class="profileForm prfBtnRt" action="{% url 'levelSeting_page' %}" method="post" enctype="multipart/form-data"
+      style="position: relative;">
+      {% csrf_token %}
+      <span class="headFlex">
+        <h4>SELECT LEVEL</h4>
+      </span>
+    
+      <span class="formOne profileFormSpan">
+        <select name="level_settings">
+            <option value="none" {% if selected_level_settings == 'none' %}selected{% endif %}>Northing to Skip</option>
+            <option value="skiplevel1" {% if selected_level_settings == 'skiplevel1' %}selected{% endif %}>Skip Level 1</option>
+            <option value="skiplevel1and2" {% if selected_level_settings == 'skiplevel1and2' %}selected{% endif %}>Skip Level 1 and 2</option>
+        </select>
+    
+      </span>
+      <span class="spanSubmitForm">
+        <input type="submit" value="Submit">
+      </span>
+    </form>
+    </div>
+</div>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

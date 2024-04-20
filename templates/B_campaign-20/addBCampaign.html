@@ -1,0 +1,112 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <!-- <form class="profileForm" action="{% if marketplaces %}{% url 'addBCampaignSubmit' id=marketplaces %}{% else %}{% url 'addBCampaignSubmit' %}{% endif %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')"> -->
+        <form class="profileForm" action="{% url 'addBCampaignSubmit' %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Campaign</h3>
+        </span>
+        {{marketplace_id}}
+        <span class="formOne inputGridThree">
+            <!-- <span class="eventImgFileFlex"> -->
+            <span>
+
+                <label for="cName">Campaign Name</label>
+                <input type="text" name="campaignName" class="nameInput" placeholder="Enter Campaign name" id="cName">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+
+                <label for="cdesc">Campaign short description</label>
+                <input type="text" name="campaignDescription" class="mainInput" placeholder="Enter Campaign name"
+                    id="cdesc">
+                <span class="charCount"></span>
+            </span>
+
+
+<span>
+            <span>
+                <label for="cImg">Image</label>
+                <input type="file" name="campaignImg" id="cImg" class="imageInput" accept="image/*">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+        
+            <span>
+                <label for="cMainMessage">Main Message</label>
+                <input type="text" id="cMainMessage" name="campaignMessageText" class="mainInput"
+                    placeholder="Enter Campaign Message">
+                <span class="charCount"></span>
+            </span>
+
+  
+
+            <span>
+
+                <label for="c1stButton">1st Button Name</label>
+                <input type="text" id="c1stButton" name="campaignButton1" class="buttonInput"
+                    placeholder="Campaign 1st Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="c2ndButton">2nd Button Name</label>
+                <input type="text" id="c2ndButton" name="campaignButton2" class="buttonInput"
+                    placeholder="Campaign 2nd Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="c3rdButton">3rd Button Name</label>
+                <input type="text" id="c3rdButton" name="campaignButton3" class="buttonInput"
+                    placeholder="Campaign 3rd Button Name">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="cStatus">Campaign Status</label>
+                <input type="number" id="cStatus" name="campaignStatus" placeholder="Enter Campaign Status">
+            </span>
+            <input type="hidden" name="marketplace_id" value="{{ marketplace_id }}">
+        </span>
+
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

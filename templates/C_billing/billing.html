@@ -1,0 +1,107 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<div class="adminBillingDashboard">
+    <div class="buttonsOfBillingsDiv">
+        <a href="{% url 'payment' %}" class="buttonsOfBillings">TopUp</a>
+        <a href="{% url 'paymenthis' %}" class="buttonsOfBillings">Topup History</a>
+    </div>
+
+    <!-- <div class="adminBillingDashboard"> -->
+    <!-- <div> -->
+
+
+    <p>Today Recive messages :<b> {{re}}</b></p>
+
+
+    <p>Today send messages : <b>{{se}}</b></p>
+
+
+
+    <div>
+        {% for k in pointde %}
+        <!--<p>Last Up date : <b>{{k.payment_date}}</b></p>-->
+        <p>Available Points :<b> {{k.wallet_balance_point}}</b></p>
+        <!--<p>Top Up date : <b>{{k.payment_balance}}</b></p>-->
+
+        {% endfor %}
+    </div>
+
+</div>
+
+        <div class="adminBillingDashboardTables" id="formContain">
+
+            <div class="adminBillingDashboardTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Sending msg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for j in send %}
+                        <tr>
+                            <th>{{ forloop.counter }}</th>
+                            <td>{{j.message_date}}</td>
+                            <td>{{j.s_day_count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div  class="adminBillingDashboardTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Receive msg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in reci %}
+                        <tr>
+                            <th>{{ forloop.counter }}</th>
+                            <td>{{i.message_date}}</td>
+                            <td>{{i.r_day_count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,144 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+             
+        <h3>Hotel Configuration </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/foodconfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Food Category</h3>
+        <a href="{% if marketplace_id %}{% url 'addcategory' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addcategory' %}{% endif %}">
+            <button>
+                Add Food Category 
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Category Name</th>
+               
+                <th style="text-align: center;"> Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in foodtypedata %}
+                <tr>
+                    <td>{{a.category_name}}</td>
+
+                    
+                    <td>
+                        <span class="editDeleteTd">
+
+                            <a href="{% url 'deletevalue' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,178 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'addBCampaignSubmit' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addBCampaignSubmit' %}{% endif %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Campaign</h3>
+        </span>
+        <span class="formOne inputGridOne" style="width: 30%;">
+            <span>
+                <label for="cName">Campaign Name:</label>
+                <input type="text" name="campaignName" class="nameInput1" placeholder="Enter Campaign name" id="cName"  >
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <h3><label for="template_name">Template Name:</label></h3>
+                <input type="text" id="template_name cName" name="template_name" placeholder="Enter template name" required>
+                    <label style="color: rgba(27, 20, 20, 0.324);">Use only lowercase alphanumeric characters and underscores</label> 
+            </span>
+            <span>
+                <label>Header type</label>
+                <select id="serviceselect" name="selectsoptionbtn" onchange="showHideFields(this.value)">
+                    <option selected hidden>Select Type</option>
+                    <option value="Text">Text</option>
+                    <option value="Image">Image</option>
+                    <option value="Video">Video</option>
+                    <option value="Document">Document</option>
+                </select>
+            </span>
+
+            <span id="textOption" style="display: none;">
+                <label for="template_header_text">Template Header </label>
+                        <input type="text" id="inputField"  name="nameInput"  placeholder="No emojis supported " >
+                <p id="charCount1">0/60</p>
+            </span>
+
+            <span id="mediaInputField" style="display: none;">
+                <label for="mediaFile">Upload </label>
+                <input type="file" id="mediaFile" name="mediaFile" accept="image/*, video/*, .pdf, .doc, .docx">
+                <span style="color: rgba(27, 20, 20, 0.324);">Before approving the template, WhatsApp will assess this media to ensure it complies with its guidelines.</span>
+
+            </span>           
+            <span>
+                <label for="template_body_message">Template Body Message:</label>
+                <textarea id="inputField2" name="template_body_message" class="emoji" placeholder="Enter template body message" rows="8" cols="80"></textarea>
+                <p id="charCount3">0/1024</p>
+                <br>
+                <p style="color: rgba(27, 20, 20, 0.324);">Bold: *text*  <br>
+                Italics: _text_<br>
+                Strikethrough: ~text~ <br>
+                Monospace: ```text```<br>
+                </p>
+            </span>
+            <span>
+                <h3><label for="template_name">Template Footer: (Optional)</label></h3>
+                <input type="text" id="inputField1" name="footer_name" placeholder="No emojis supported " >
+                <p id="charCount2">0/60</p>
+            </span>
+<span></span>
+<span></span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+    </form>
+
+</div>
+
+
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+<!-- <emoji>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+    
+    
+
+
+
+    <script>
+        function showHideFields(value) {
+            if (value === "Text") {
+                document.getElementById("textOption").style.display = "block";
+                document.getElementById("mediaInputField").style.display = "none";
+            } else if (value === "Image" || value === "Video" || value === "Document") {
+                document.getElementById("textOption").style.display = "none";
+                document.getElementById("mediaInputField").style.display = "block";
+            } else {
+                document.getElementById("textOption").style.display = "none";
+                document.getElementById("mediaInputField").style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        var inputField = document.getElementById("inputField");
+        var charCount = document.getElementById("charCount1");
+    
+        inputField.addEventListener("input", function() {
+            var inputValue = inputField.value;
+            var remainingChars = 59 - inputValue.length;
+    
+            charCount.textContent = inputValue.length + "/" + 59;
+    
+            if (remainingChars >= 1) {
+                charCount.textContent += " (" + remainingChars + " characters remaining)";
+            } else {
+                charCount.textContent += " (0 characters remaining)";
+                inputField.value = inputValue.substring(1, 59); // Truncate input if exceeded limit
+            }
+        });
+    </script>
+
+    <script>
+        var inputField1 = document.getElementById('inputField1');
+        var charCount2 = document.getElementById('charCount2');
+        
+        inputField1.addEventListener('input', function(){
+            var inputValue = inputField1.value;
+            var remainingChars = 59 - inputValue.length;
+
+            charCount2.textContent = inputValue.length +"/" + 59;
+
+            if (remainingChars >=1){
+                charCount2.textContent += "(" + remainingChars + " characters remaining )";
+            } else {
+                charCount2.textContent += "(0 characters remaining)";
+                inputField1.value = inputValue.substring(1, 59);
+            }
+        });
+    </script>
+    <script>
+        var inputField2 = document.getElementById('inputField2');
+        var charCount3 = document.getElementById('charCount3');
+        
+        inputField2.addEventListener('input', function(){
+            var inputValue = inputField2.value;
+            var remainingChars =1024 - inputValue.length;
+
+            charCount3.textContent = inputValue.length +"/" + 1024;
+
+            if (remainingChars >=1){
+                charCount3.textContent += "(" + remainingChars + " characters remaining )";
+            } else {
+                charCount3.textContent += "(0 characters remaining)";
+                inputField2.value = inputValue.substring(1, 1024);
+            }
+        });
+    </script>
+    <script>
+        function validateForm(event) {
+        }
+        $(document).ready(function () {
+            $("#inputField2").emojioneArea({
+                pickerPosition: "bottom"
+            });
+    
+
+        });
+    </script>
+ 
+{% endblock script %}

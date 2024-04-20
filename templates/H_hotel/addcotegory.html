@@ -1,0 +1,82 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <form class="profileForm myForm" action="{% if marketplace_id %}{% url 'submitcategory' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submitcategory' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Food Category</h3>
+        </span>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="category_name">Name</label>
+                <input type="text"  name="categoryname" class="category_name" placeholder="Name" required>
+                <span class="charCount"></span>
+            </span>
+            
+         
+        </span>
+
+
+        <span class="spanSubmitForm">
+
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

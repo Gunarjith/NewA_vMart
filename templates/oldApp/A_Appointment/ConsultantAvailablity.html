@@ -1,0 +1,180 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_authenticated %}
+    {{ user.username }}
+  {% else %}
+    Your Title Here
+  {% endif %}
+{% endblock title %}
+
+{% block header %}
+<style>
+    #addButton1 {
+        display: block;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+    #submitButton1{
+        display: none;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+    #submitButton {
+        display: none; /* Hide the Submit button initially */
+    }
+</style>
+{% endblock header %}
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+
+<div class="mT15">
+</div>
+
+<div style="overflow-y: scroll;">
+    
+    <table>
+        <thead>
+            <tr>  
+                
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in ConsultantAvailablity %}
+            <tr>
+                <td>{{a.day_of_week}}</td>
+                <td>{{a.start_time}}</td>
+                <td>{{a.end_time}}</td>
+                <td>
+                    <span class="editDeleteTd">
+                        <a href="{% url 'editavailablity' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                        <a href="{% url 'deleteavailablity' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  
+</div>
+
+
+
+<div class="frmCenter">
+    <form class="profileForm myForm"   action="{% url 'submitavailablity' id %}"   method="post" enctype="multipart/form-data" style="position: relative;">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Consultant Availability</h3>
+        </span>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody id="timeSlots">
+            </tbody>
+    
+        </table>
+        <span class="formOne">
+            <div id="inputFields1" style="display: none;">
+                <span>
+                    <label for="day">Day</label>
+                    <select id="day" name="day_of_week">
+                        <option value=""> Select week day</option>
+                        <option value="1">Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                        <option value="7">Sunday</option>
+                    </select>
+                </span>
+                <span>
+                    <label for="consultant_starttime">Start time</label>
+                    <input type="time" id="consultant_starttime" name="start_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span>
+                    <label for="consultant_endtime">End time</label>
+                    <input type="time" id="consultant_endtime" name="end_time">
+                    <span class="validationMessageImg"></span>
+                </span>
+            </div>
+        </span>
+        <button type="button" id="addButton1">Add</button>
+        <span class="spanSubmitForm">
+            <input type="button" id="submitButton" value="Submit">
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+ 
+
+
+<script>
+    const addButton = document.getElementById('addButton1');
+    const inputFields = document.getElementById('inputFields1');
+    const submitButton = document.getElementById('submitButton');
+    const submitButton1 = document.getElementById('submitButton1');
+
+    addButton.addEventListener('click', function () {
+        inputFields.style.display = 'block';
+        addButton.style.display = 'none'; 
+        submitButton.style.display = 'none'; 
+        submitButton1.style.display='none';
+    });
+
+    submitButton.addEventListener('click', function () {
+        const day = document.getElementById('day').value;
+        const startTime = document.getElementById('consultant_starttime').value;
+        const endTime = document.getElementById('consultant_endtime').value;
+
+        if (day && startTime && endTime) {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${day}</td>
+                <td>${startTime}</td>
+                <td>${endTime}</td>
+            `;
+
+            document.getElementById('timeSlots').appendChild(newRow);
+
+            // Clear input fields
+            document.getElementById('day').value = '';
+            document.getElementById('consultant_starttime').value = '';
+            document.getElementById('consultant_endtime').value = '';
+
+            // Hide input fields and show the "Add" button after submission
+            inputFields.style.display = 'none';
+            addButton.style.display = 'block';
+            submitButton.style.display = 'none'; // Hide the Submit button again
+            submitButton1.style.display='block';
+        } else {
+            alert('Please fill in all fields.');
+        }
+    });
+</script>
+{% endblock rightcontent %}
+
+{% block script %}
+{% endblock script %}

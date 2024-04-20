@@ -1,0 +1,118 @@
+{
+  "version": "2.1",
+  "screens": [
+    {
+      "id": "Registration_Form",
+      "title": "Registration Form",
+      "data": {},
+      "terminal": true,
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "form",
+            "children": [
+              {
+                "type": "TextInput",
+                "label": "Name",
+                "input-type": "text",
+                "name": "text_0",
+                "required": true
+              },
+              {
+                "type": "TextInput",
+                "label": "Mobile Number",
+                "input-type": "number",
+                "name": "number_1",
+                "required": false
+              },
+              {
+                "type": "TextInput",
+                "label": "Email",
+                "name": "email_2",
+                "input-type": "email",
+                "required": false
+              },
+              {
+                "type": "Dropdown",
+                "label": "Location",
+                "required": false,
+                "name": "select_3",
+                "data-source": [
+                  {
+                    "id": "Bangalore",
+                    "title": "Bangalore"
+                  },
+                  {
+                    "id": "Chennai",
+                    "title": "Chennai"
+                  },
+                  {
+                    "id": "Secundrabad",
+                    "title": "Secundrabad"
+                  }
+                ]
+              },
+              {
+                "type": "Dropdown",
+                "label": "Call Back time",
+                "required": false,
+                "name": "select_4",
+                "data-source": [
+                  {
+                    "id": "10:00 AM-12:00PM",
+                    "title": "10:00 AM-12:00PM"
+                  },
+                  {
+                    "id": "1:00 PM-3:00PM",
+                    "title": "1:00 PM-3:00PM"
+                  },
+                  {
+                    "id": "3:00 PM-5:00 PM",
+                    "title": "3:00 PM-5:00 PM"
+                  }
+                ]
+              },
+              {
+                "type": "Dropdown",
+                "label": "Preffered Language",
+                "required": false,
+                "name": "select_5",
+                "data-source": [
+                  {
+                    "id": "English",
+                    "title": "English"
+                  },
+                  {
+                    "id": "Telugu",
+                    "title": "Telugu"
+                  },
+                  {
+                    "id": "Kannada",
+                    "title": "Kannada"
+                  }
+                ]
+              },
+              {
+                "type": "Footer",
+                "label": "Done",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "text_0": "${form.text_0}",
+                    "number_1": "${form.number_1}",
+                    "email_2": "${form.email_2}",
+                    "select_3": "${form.select_3}",
+                    "select_4": "${form.select_4}",
+                    "select_5": "${form.select_5}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

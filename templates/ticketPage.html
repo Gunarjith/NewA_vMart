@@ -1,0 +1,253 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .sectionOneMainDIv {
+        background: url("{% static 'img/ticketbg.png' %}") center no-repeat;
+    }
+
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+
+
+<div class="bg1">
+    <div class="section2" style="margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Brillion1 Ticket
+
+                        </h1>
+                        <img src="{% static 'img/headerImgTicket.png' %}" alt="" style="width: fit-content;">
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Extend sales of your e-tickets with increased reach
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/ticketPageImg.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Brillion1 offers an innovative ticketing platform that transforms the way event organizers interact with their
+        audience and streamlines ticket sales through WhatsApp. At the heart of Brillion1's innovation lies its
+        integration of a registered WhatsApp number as an additional ticket sales channel. This inventive method not
+        only eliminates the need for navigating through multiple platforms but also allows for a personalized and direct
+        communication channel.
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+<div class="mainDcSection flexReverce">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+        <p>
+            Booking tickets through WhatsApp presents a streamlined and user-friendly approach for individuals looking
+            to secure their reservations. This multifaceted approach simplifies the process of buying tickets and
+            enhances the overall event experience for both organizers and attendees. The integration allows event
+            organizers to embed ticket-purchasing options seamlessly within their diverse marketing campaigns. Whether
+            on social media, print, or television, potential attendees can easily access and purchase event tickets
+            directly through WhatsApp.  
+        </p>
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/img11NewT.png' %}" alt="">
+    </div>
+
+</div>
+
+
+<div class="mainDcSection">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img id="myImage1D" src="{% static 'img/img12Newt.png' %}" alt="">
+    </div>
+    <div class="dcOneLeftSection widthSixty" style="padding-right: 0 !important;">
+
+
+        <p>
+            Businesses, particularly those in the travel, entertainment, or event industries, can leverage the
+            widespread use of WhatsApp to allow customers to book tickets effortlessly. This approach not only enhances
+            accessibility but also adds a level of convenience to the overall ticket-booking experience.
+        </p>
+        <!-- <div class="dcOneLeftSection marginZero" style="width: 57% !important;">
+                            <h3>Brillion1 Ticket</h3> -->
+        <ul>
+            <li>
+                Users can explore various ticket options, complete secure transactions, and instantly
+                receive their e-tickets easily in WhatsApp.
+            </li>
+            <li>
+                Organizers can customize ticket categories, set prices, and manage distribution seamlessly.
+
+
+            </li>
+            <li>
+                Reminders and updates leading up to the event contribute to improved customer engagement and
+                satisfaction.
+            </li>
+
+            <li>
+                Brillion1 swiftly verifies e-tickets to prevent fraud and duplicates, ensuring secure event entry.
+
+            </li>
+            <li>
+                Brillion1 integrates ticket verification into the platform, reducing entry queues and enhancing the
+                event experience.
+
+            </li>
+            <li>
+                Brillion1 prevents double bookings and overbookings, ensuring accurate ticket inventory and preventing
+                logistical nightmares.
+            </li>
+
+
+
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+<div class="sectionParagraph">
+    <p style="font-size: 16px; line-height: 21.82px;">
+        In summary, Brillion1's comprehensive and end-to-end WhatsApp-enabled e-ticketing system represents a quantum
+        leap in event ticketing technology. Its seamless integration across multiple marketing channels, user-friendly
+        interface, robust verification processes,
+    </p>
+</div>
+
+
+
+
+<script>
+
+    var imageElements = [
+        document.getElementById('myImage1D'),
+
+
+    ];
+
+    var imagePaths = [
+        [
+            "{% static 'img/img13Newt.png' %}",
+            "{% static 'img/img14Newt.png' %}",
+            "{% static 'img/img12Newt.png' %}",
+        ],
+
+
+
+    ];
+
+    var currentIndex = [0, 0, 0, 0, 0];
+
+    // Change the images every 5 seconds
+    setInterval(function () {
+        for (var i = 0; i < imageElements.length; i++) {
+            imageElements[i].src = imagePaths[i][currentIndex[i]];
+            currentIndex[i] = (currentIndex[i] + 1) % imagePaths[i].length;
+        }
+    }, 3000);
+</script>
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

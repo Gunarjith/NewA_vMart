@@ -1,0 +1,14 @@
+<div class="mT15">
+
+    <div class="eventBtnsSliderFlex">
+        <div class="btnConLevel">
+            <a href="{% if id is not None %}{% url 'AppointmentInfo' id=id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'AppointmentInfo' %}{% endif %}">
+                <button class="{% if 'AppointmentInfo' in request.path %}activeNavDash{% endif %}">Main</button>
+            </a>
+            <a href="{% if marketplace_id %}{% url 'AppointmentMaster' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'AppointmentMaster' %}{% endif %}">
+                <button class="{% if 'AppointmentMaster' in request.path or 'editAppointment' in request.path or 'AddAppointment' in request.path %}activeNavDash{% endif %}">Consultant Type</button>
+            </a>
+            
+        </div>
+    </div>
+</div>

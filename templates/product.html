@@ -1,0 +1,89 @@
+{% extends "vailo.html" %}
+{% load static %}
+
+
+{% block title %}vailo.ai-Product {% endblock title %}
+
+{% block body %}
+
+<section class="marginTopPrd">
+    <div class="sectionFour sectionTwo">
+        <div class="leftSectionFour">
+            <h2>Ticket Platform</h2>
+            <br>
+            <p>Vailo ticket booking service on WhatsApp! We're excited to offer you a convenient and efficient way to secure your tickets for various events, shows, and experiences. Whether you're looking for concert tickets, movie screenings, sports events, or any other entertainment options, we've got you covered. With our WhatsApp ticket booking service, you can say goodbye to long queues and frustrating online forms. We understand the value of your time.</p>
+        </div>
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productPageImgOne.png' %}" alt="productPageImgOne">
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo sectionFive">
+        
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productPageImgTwo.png' %}" alt="productPageImgTwo">
+
+        </div>
+        <div class="leftSectionFour">
+            <h2>Ticket Dashboard</h2>
+            <br>
+            <p>You are Centralized hub for managing and optimizing your work for your event or concert. Were you able to sell tickets for your event or concert on a single platform and easily generate leads, promote your event, and sell tickets.</p>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo">
+        <div class="leftSectionFour sectionThreeUl">
+            <span>
+                <h2>Whatsapp Ticket Booking</h2>
+                <ul>
+                    <li>Save our WhatsApp booking number in your contacts.</li>
+                    <li>Start a conversation with us on WhatsApp.</li>
+                    <li>Let us know which event you're interested in attending.</li>
+                    <li>Share details such as the event name, date, location and the number of tickets you require.</li>
+                    <li>Complete the payment process through the secure payment link we provide.</li>
+                    <li>Once the payment is confirmed, we'll send you an e-ticket or booking confirmation directly to your WhatsApp.</li>
+                    <li>You're all set for the event!</li>
+                </ul>
+                </span>
+                
+        </div>
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productPageImgThree.png' %}" alt="productPageImgThree">
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="sectionFour sectionTwo sectionFive">
+        <div class="rightSectionFour">
+            <img src="{% static 'img/productPageImgFour.png' %}" alt="productPageImgFour">
+
+        </div>
+        <div class="leftSectionFour">
+            <h2>Q/R Bar Code scanning</h2>
+            <br>
+            <p>We are pleased to introduce our seamless QR code ticket verification system, designed to enhance the efficiency and security of event entry. With our QR code technology, accessing your event you are easily able to identify fake ticket, Speed up the entry process, reducing waiting time and enhanced data collection of the event.</p>
+        </div>
+        
+    </div>
+</section>
+
+
+{% endblock body %}
+
+
+{% block script %}
+<script>
+  const toggleBtn = document.querySelectorAll('.toggle-btn');
+
+  toggleBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentNode.classList.toggle('active')  //only toggles the parent node which is the '.faq-card' here
+    })
+  })
+</script>
+
+{% endblock script %}

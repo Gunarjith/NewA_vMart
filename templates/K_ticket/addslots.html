@@ -1,0 +1,91 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 15px;">
+
+    <form class="profileForm" action="{{BASE_DIR}}/Eventmaster/submitslot/{{eventId}}/" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        <span class="headFlex">
+            <h3>Level-2</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne inputGridThree">
+            <span>
+                <label for="leve2Name">Name</label>
+                <input type="text" id="leve2Name" name="SlotName" class="nameInput" placeholder="Enter Name" required>
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label for="leve2Descrip">Slot Description</label>
+                <input type="text" id="leve2Descrip" name="SlotDescription" class="descriptionInput" placeholder="Enter Descriptions" required>
+                <span class="charCount"></span>
+            </span>
+            <span>
+            <span>
+                <label for="leve2Image">Image</label>
+                <input type="file" id="leve2Image" name="SlotHeaderImage" class="imageInput" accept="image/*" required>
+                <span class="validationMessageImg"></span>
+            </span>
+            <span></span>
+        </span>
+            <span>
+                <label for="leve2Header">Header</label>
+                <input type="text" id="leve2Header" name="slotheadertext" class="headerInput" placeholder="Enter Message Header">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve2Body">Body</label>
+                <input type="text" id="leve2Body" name="slotbodytext" class="mainInput" placeholder="Enter Message Body">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve2Footer">footer</label>
+                <input type="text" id="leve2Footer" name="slotfootertext" class="footerInput" placeholder="Enter Message footer">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve2Btn">Level-3 Button Name</label>
+                <input type="text" id="leve2Btn" name="slotcategorybuttonname" class="buttonInput" placeholder="Enter Level-3 Button Name">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve1Status">Status</label>
+                <select id="leve1Status" name="status">
+                    <option value="none" selected disabled hidden>Select an Option</option>
+                    <option value="1">Active</option>
+                    <option value="2">Inactive</option>
+                </select>
+            </span>
+
+        
+        </span>
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+</div>
+{% endblock rightcontent %}
+
+
+{% block script %}
+<script>
+
+    </script>
+
+{% endblock script %}

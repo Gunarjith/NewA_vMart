@@ -1,0 +1,86 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <!-- <form class="profileForm" action="{% if marketplaces %}{% url 'addBCampaignSubmit' id=marketplaces %}{% else %}{% url 'addBCampaignSubmit' %}{% endif %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')"> -->
+        <form class="profileForm" action="{% url 'addBtnBCampaignSubmit' %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Button Info</h3>
+        </span>
+        {{template_info_id}}
+        <span class="formOne inputGridThree">
+            <!-- <span class="eventImgFileFlex"> -->
+            <span>
+
+                <label for="btnNum">Button Number</label>
+                <input type="text" name="btnNum" class="nameInput" placeholder="Enter Button name" id="btnNum">
+                <span class="charCount"></span>
+            </span>
+            <span>
+
+                <label for="btnName">Button Name</label>
+                <input type="text" name="btnName" class="nameInput" placeholder="Enter Button name" id="btnName">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+
+                <label for="cdesc">Button Type</label>
+                <input type="text" name="template_button_type" class="mainInput" placeholder="Enter Button type"
+                    id="cdesc">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+
+                <label for="cdesc1">Button Type</label>
+                <input type="text" name="template_additional_info" class="mainInput" placeholder="Enter additional info"
+                    id="cdesc1">
+                <span class="charCount"></span>
+            </span>
+
+
+
+        
+
+            <input type="hidden" name="template_info_id" value="{{ template_info_id }}">
+   
+        </span>
+
+
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+
+
+<script>
+
+</script>
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

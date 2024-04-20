@@ -1,0 +1,846 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+    {% block title %} {{user.username}} {% endblock title %}
+{% else %}  
+
+{% endif %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/help.css' %}">
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+<section class="tablecontent">
+    <div class="tableusercontent">
+        <div class="index">
+            <div class="indextable">
+                <!-- <div class="heder">
+                    <img class="mainlogo" src="{% static 'img/help/Vailo-blue.png' %}" alt="">
+                </div> -->
+                <div class="bodycontecnt">
+
+                    <h4>Table of contents</h4>
+
+
+                    <div class="Introduction">
+                        <h5>1
+                           <a href="#Introduction"> Introduction</a>
+                        </h5>
+                        <a href="#Aboutvailo"><p>1.1 About
+                            vailo.ai
+                        </p></a>
+                       <a href="#Benefitsofusingvailo"><p> 1.2 Benefits of using
+                            vailo.ai
+                        </p></a>
+
+                        <a href="Supportedverticals"><p>1.3 supported vertical in web application</p></a>
+
+                    </div>
+
+                    <div class="Requirements">
+                        <h5>2
+                           <a href="#Requirements">Requirements</a> 
+                        </h5>
+                        <a href="#MinimumPC"><p>2.1 Minimum PC
+                            requirements
+                        </p></a>
+                       <a href="#Supportedweb"><p>2.2 Supported web
+                            browser
+                        </p></a> 
+                    </div>
+                    <div class="workthrough">
+                        <a href="#Letseehow"><h5>3 Let’s see how vailo.ai works through what’s app</h5></a>
+                        <a href="#ProcessofBooking"><h6>3.1 Process of booking Ticket through what’s app</h6></a>
+                        <a href="#Ticket booking"><p>3.1.1 Ticket booking by customer through what’s app</p></a>
+                        <a href="#Selectparticularevent"><p>3.1.2 Select particular event</p></a>
+                        <a href="#Selectlocation"><p>3.1.3 Select particular location</p></a>
+                        <a href="#Selectparticularticketcategory"><p>3.1.4 Select particular ticket category</p></a>
+                        <a href="#Selectnumberofticket"><p>3.1.5 Select number of ticket</p></a>
+                        <a href="#Paymentprocess"><p>3.1.6 Payment process</p></a>
+                        <a href="#confirmationmessage"><p>3.1.7 confirmationmessage</p></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#myticket"><h6>3.2 My ticket</h6></a>
+                       <a href="#Viewticket"><p>3.2.1 View ticket</p></a>
+                        <a href="#UseTicket"><p>3.2.2 Use Ticket Or Transfer Ticket</p></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#Cancelticket"><h6>3.3 Cancel Ticket</h6></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#Gettingstart"><h5>4 Getting Started</h5></a>
+                        <h6 id="#Signup">4.1 Sign up</h6>
+                        <h6 id="#Logintovailo">4.2 Login to vailo.ai</h6>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#seehownewbusiness"><h5>5 Let’s see how new Business can set up their event</h5></a>
+                        <a href="#Setting"><h6>5.1 Settings</h6></a>
+                        <a href="#Businesscanedit"><p>5.1.1 Edit Profile</p></a>
+                        <a href="#Setupface"><p>5.1.2 Set up Face book account</p></a>
+                        <a href="#Setuppayment"><p>5.1.3 Set up Payment</p></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#Configuration"><h6>5.2 Configuration</h6></a>
+                        <a href="#main"><h6>5.2.1 Main</h6></a>
+                        <a href="#Welcomemessage"><p>5.2.1.1 Set up Welcome message</p></a>
+                        <a href="#Bookticket"><p>5.2.1.2 Set up Booking Ticket</p></a>
+                        <a href="#Paymentconfirmation"><p>5.2.1.3 set up payment confirmation & payment failure</p></a>
+                        <a href="#Myticket"><p>5.2.1.4 Set up My Ticket & cancel ticket</p></a>
+                        <a href="#Ticketnotavailable"><p>5.2.1.5 Set up Use ticket & ticket not available</p></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#ListofLevel"><h6>5.2.2 List of level</h6></a>
+                        <a href="#Level1"><p>5.2.2.1 Level 1</p></a>
+                        <a href="#Level2"><p>5.2.2.2 Level 2</p></a>
+                        <a href="#Level3"><p>5.2.2.3 Level 3</p></a>
+                    </div>
+
+                    <div class="workthrough">
+                        <a href="CustomerLeads"><h5>5.3 Customer Leads</h5></a>
+                    </div>
+
+                    <div class="workthrough">
+                        <a href="#Campaign"><h5>5.4 Campaign</h5></a>
+                        <a href="#CreateCampaign"><p> 5.4.1 Create campaign</p></a>
+                        <a href="#ListofCampaign"><p> 5.4.2 List of campaign</p></a>
+                    </div>
+
+                    <div class="workthrough">
+                        <a href="#Ticket"><h6>5.5Ticket</h6></a></a>
+                    </div>
+                    <div class="workthrough">
+                        <a href="#Scanner"><h5>6Scanner</h5></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn">
+            <img class="menubtn" src="{% static 'img/help/menu.png' %}" alt="menu">
+
+        </div>
+        <div class="bodycontent">
+            <h3>VAILO.AI USER MANUAL</h3>
+            <div class="workthrough">
+                <h5 id="Introduction">1 Introduction</h5>
+                <h6 id="Aboutvailo">1.1 About vailo.ai</h6>
+                <p>Vailo.ai is an intelligent automation platform using what’s app. Reach your business everywhere
+                    using
+                    what’s app.
+                    Vailo.ai platform is a pioneer in bringing next generation experience to day today commerce. By
+                    leveraging Vailo.ai
+                    businesses have easy way of converting their social media foot falls into sales into direct
+                    sales.
+                    Businesses have
+                    direct access to their own customer data for future engagements. Businesses can have a truly
+                    direct
+                    commerce channel
+                    with customers. Vailo.ai solution runs on a fully secured platform along with end to end
+                    encryption.
+                </p>
+
+                <p>Vailo.ai is the idea behind making Direct Commerce a reality. It helps to automate Business
+                    processes,
+                    workflow and tasks. You can easily customize your data through the vailo.ai Dashboard. There are
+                    numerous solutions accessible right now that deal with the idea of direct commerce in bits and
+                    pieces,
+                    but it is obvious that there is a lack of a workable solution that deals with all elements.
+                    Vailo.ai
+                    offers software as a service that is reasonably priced and easy to acquire, launch, and use. In
+                    the
+                    initial roadmap, we are releasing a solution that gives you a head start on your Direct Commerce
+                    journey. It has a number of innovative feature additions to keep you current and competitive in
+                    the
+                    Direct Commerce industry as a whole.</p>
+
+                <p> Vailo.ai main area of interest is using the most recent technology to address problems in the
+                    real
+                    world
+                    in an easy and economical way. With Vailo.ai business can manage repetitive task such as
+                    Sourcing,
+                    Screening and Scheduling. Enhance your business with the power of what’s app and Telegram Bring
+                    next
+                    generation customer experience to your business with our unique solution.</p>
+                <p>This manual is divided into several sections that cover the various features and functionalities
+                    of
+                    Vailo.ai. Each section provides detailed instruction on how to use a particular features and
+                    functionality. Whether you are new to Vailo.ai or experienced user</p>
+            </div>
+            <div class="workthrough">
+                <H6 id="Benefitsofusingvailo">1.2 Benefits of using vailo.ai</H6>
+                <ul>
+                    <li>It helps to save your time and energy</li>
+                    <li>Easy to show your catalogue to your customer</li>
+                    <li>Unlimited changes in catalogue through self portal services</li>
+                    <li>Don’t required any additional app and website</li>
+                    <li>Don’t required any technical knowledge to leverage the platform</li>
+                    <li>You can use any web-enabled devices such as Laptop, computer, Tablet or
+                        mobile</li>
+                </ul>
+            </div>
+
+            <div class="workthrough">
+                <H6 id="Supportedverticals">1.3 Supported verticals in web application </H6>
+
+                <ul>
+                    <li>Ticket :</li>
+                    <p class="subheder">1. Business can setup their Event information in vailo.ai Dashboard to
+                        generate ticket in register what’s app number.</p>
+                    <p class="subheder">2. Customers can Book their event ticket using what’s app</p>
+                    <p>Note : Scanner</p>
+                    <p class="subheder">1. Business can use scanner to verify the generated Ticket QR
+                        CODE. It will help to identify right person.</p>
+                    <p class="subheder">2. Customers have to show the generated QR CODE to scan.</p>
+                </ul>
+                <ul>
+                    <li>Restaurant :</li>
+                    <p class="subheder">1. Business can set up their catalogue in vailo.ai dashboard to get
+                        result in register what’s app number.</p>
+                    <p class="subheder">2. Customers can order food/drink using what’s app.</p>
+                    <p>Note : Scanner</p>
+                    <p class="subheder">1. Business can set up their menu using vailo.ai dashboard, they
+                        get QR CODE to get response in what’s app</p>
+                    <p class="subheder">2. To order food/drinks customers has to scan that QR CODE
+                        provided in the restaurant to get menu.</p>
+                    <p class="subheder">3. Customers can order food/drinks using what’s app.</p>
+                    <p class="subheder">4. Customers didn’t wait for servers to order food/drinks.</p>
+                </ul>
+            </div>
+
+            <div class="workthrough">
+                <h5 id="Requirements">2 Requirements</h5>
+                <h6 id="MinimumPC">2.1 Minimum PC Requirements</h6>
+                <p>The minimum Requirement to use vailo.ai listed below</p>
+                <ul>
+                    <li>Internet connection</li>
+                    <li>Microsoft windows</li>
+                    <li>Android</li>
+                </ul>
+            </div>
+
+
+            <div class="workthrough">
+                <h6 id="Supportedweb">2.2 Supported web browser include</h6>
+                <ul>
+                    <li>Google chrome</li>
+                    <li>Mozilla Firefox</li>
+                    <li>Microsoft IE 8 or greater</li>
+                </ul>
+            </div>
+
+            <div class="workthrough">
+                <h5 id="Letseehow">3 Let’s see how vailo.ai works through what’sApp</h5>
+                    <h6 id="ProcessofBooking">3.1 Process of Booking Ticket through what’sApp:</h6>
+                    <p>When customer send ‘Hi’ to register what’s app number of Business
+                        to book ticket they will receive A1-Image, A2-header, A3-footer, A4
+                        to A6-Button Name. Welcome message customised by business using
+                        dashboard <a href="#Welcomemessage"><span class="linkable">(Refer serial number<span
+                                    class="arrow">&rarr;</span>5.2.1
+                                <span class="arrow">&rarr;</span> 1.1).</span></a> For example customer
+                        will get </p>
+
+                    <img class="phoneimg" src="{% static 'img/help/1.png' %}" alt="">
+
+                    <p>After getting this page customer will select the option like </p>
+                    <ul>
+                        <li>Book Ticket: If the customers visiting 1st time they
+                            will book event ticket by clicking Book Ticket. </li>
+                        <li>My Ticket: Here customers booked ticket will available to see.They
+                            can use or transfer the event ticket.</li>
+                        <li>Cancel Booking: Customers can cancel the ticket.</li>
+                    </ul>
+               
+                <div class="ProcessofBooking2">
+                    <h6 id="Ticket booking">3.1.1 Ticket booking by customer through what’s app:</h6>
+                    <p>After clicking Book ticket, customers will get Event List. If business setup more than 1
+                        Event
+                        using
+                        dashboard <a href="#ListofLevel"><span class="linkable">(Refer serial number<span
+                                    class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>level
+                                1).</span></a>
+                        customer will get
+                        B1-Image, B2-Message, B3-footer,
+                        B4-button to select particular Event in what’s app. </p>
+
+                    <img class="phoneimg" src="{% static 'img/help/2.png' %}" alt="">
+                </div>
+
+                <div class="ProcessofBooking3">
+                    <h6 id="Selectparticularevent">3.1.2 Select particular event </h6>
+                    <p>Business setup Events using dashboard <a href="#ListofLevel"><span class="linkable">(Refer
+                                serial
+                                number<span class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>Level
+                                1).</span></a> customer will get Event list to select particular Event in what’s app
+                    </p>
+
+                    <img class="phoneimg" src="{% static 'img/3.png' %}" alt="">
+                    <ul>
+                        <li>Note : If the business set up only one event customer will not get option to select the
+                            particular event.</li>
+                    </ul>
+                </div>
+
+                <div class="ProcessofBooking4">
+                    <h6 class="Selectlocation"> 3.1.3 Select particular location</h6>
+                    <p>A) After selecting Event name, Customer has to select location set up by business
+                        using
+                        vailo.ai
+                        dashboard <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>Level
+                            2).</span> customer will get D1-Image, D2-header, D3-message,
+                        D4-footer, D5-button to select location</p>
+
+
+                    <img class="phoneimg" src="{% static 'img/4.png' %}" alt="">
+
+
+                    <p>B) After clicking select location customer will get the location list set up by the
+                        business
+                        vailo.ai
+                        dashboard <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>level
+                            2).</span>
+                        customer will get
+                        D1-Image, D2-header, D3-message,
+                        D4-footer, D5-button to select location</p>
+
+                    <img class="phoneimg" src="{% static 'img/help/5.png' %}" alt="">
+                </div>
+                <div class="workthrough">
+                    <h6 id="Select particular ticket category "> 3.1.4 Select particular ticket category </h6>
+                    <p>A)After selecting Event name, Event location Customer has to select ticket category set up by
+                        business using vailo.ai dashboard <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>level 3)
+                        </span>
+                        customer will get Image, message, header, footer, button to select slots </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/6.png' %}" alt="">
+
+                    <p>B) After clicking select Event slots customer will get the slots list set up by the business
+                        vailo.ai
+                        dashboard <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.2<span class="arrow">&rarr;</span>level 2).</span>
+                    </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/7.png' %}" alt="">
+                </div>
+
+                <div class="workthrough">
+                    <h6 id="Selectnumberofticket"> 3.1.5 Select number of ticket</h6>
+                    <p>A) After selecting ticket category Customer has to select the number of Tickets that they
+                        would
+                        like
+                        to book to watch the event set up by business using Dashboard </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/8.png' %}" alt="">
+
+                    <p>B) After clicking select number of ticket customer will get the list set up by the business
+                        vailo.ai
+                        dashboard </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/9.png' %}" alt="">
+
+                    <p>C) If all ticket sold out but some customers trying to book the event ticket they will get
+                        N4-Image,
+                        N5-message <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.1<span class="arrow">&rarr;</span>1.5<span
+                                class="arrow">&rarr;</span>B).</span></p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/10.png' %}" alt="">
+                </div>
+
+                <div class="workthrough">
+                    <h6 id="Paymentprocess">3.1.6 Payment process</h6>
+                    <p>A) After selecting number of ticket customer has to make payment for generate an event ticket
+                        set
+                        up
+                        by business using vailo.ai Dashboard <span class="linkable">(Refer serial number<span
+                                class="arrow">&rarr;</span>5.2.1<span class="arrow">&rarr;</span>1.3<span
+                                class="arrow">&rarr;</span>E to
+                            H)..</span></p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/11.png' %}" alt="">
+
+                    <p>B) After clicking Pay button customer will get the payment details set up by the business in
+                        Razor
+                        pay <span class="linkable">(Refer serial number<span class="arrow">&rarr;</span>4.4.2<span
+                                class="arrow">&rarr;</span>level 2)</span></p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/12.png' %}" alt="">
+
+                    <p>C) After clicking the Proceed to pay button customer will get page to confirm phone number.
+                        Which
+                        number has phone pay OR Google pay </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/13.png' %}" alt="">
+
+                    <p>D) After filling phone number customer will get the option to select the payment method which
+                        is
+                        comfortable to customer. </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/14.png' %}" alt="">
+
+                    <p>After filling phone number customer will get the option to select the payment method which is
+                        comfortable to customer. </p>
+                </div>
+
+                <div class="workthrough">
+                    <h6 id="confirmationmessage">3.1.7 confirmation message</h6>
+                    <p>After completing payment process customer will get confirmation message, generated Ticket
+                        with QR
+                        CODE set up by Business using Dashboard<span class="linkable">(Refer serial
+                            number<span class="arrow">&rarr;</span>5.2.1<span class="arrow">&rarr;</span>1.3<span
+                                class="arrow">&rarr;</span>A).</span></p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/15.png' %}" alt="">
+                </div>
+
+                <div class="workthrough">
+                    <h5 id="myticket">3.2 My Ticket</h5>
+                    <h6 id="Viewticket">3.2.1 1 View ticket</h6>
+                    <p>If the customers book two tickets they can view both ticket and also they can view their all
+                        previous
+                        booked ticket here. Set up by business using Dashboard <span class="linkable">(Refer serial
+                            number<span class="arrow">&rarr;</span>5.2.1<span class="arrow">&rarr;</span>1.4<span
+                                class="arrow">&rarr;</span>A).</span> </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/16.png' %}" alt="">
+                </div>
+                <div class="workthrough">
+                    <h6 id="UseTicket">3.2.2 Use Ticket Or Transfer Ticket</h6>
+                    <p>Customer will get the option to “Use” OR “transfer”. If customers want to see event they can
+                        use
+                        the
+                        ticket, If customers wants to transfer their generated ticket to someone they can transfer
+                        their
+                        ticket. Set up by business using Dashboard <span class="linkable">(Refer serial
+                            number<span class="arrow">&rarr;</span>5.2.1<span class="arrow">&rarr;</span>1.5<span
+                                class="arrow">&rarr;</span>A).</span></p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/17.png' %}" alt="">
+                </div>
+                <div class="workthrough">
+                    <h5 id="Cancelticket">3.3 Cancel Ticket</h5>
+                    <p>If the Customer wants to cancel the generated ticket they have to select cancel booking they
+                        will get
+                        U1-Image, U2-Message set up by business using vailo.ai dashboard <span
+                            class="linkable">(Refer
+                            serial number<span class="arrow">&rarr;</span>5.2.1<span
+                                class="arrow">&rarr;</span>1.4<span class="arrow">&rarr;</span>B).</span> </p>
+
+                    <img class="phoneimg" src ="{% static 'img/help/18.png' %}" alt="">
+                </div>
+            </div>
+
+            <div class="workthrough">
+                <h5 id="Gettingstart">4 Getting start</h5>
+                <h6 id="Signup">4.1 Sign up</h6>
+                <p>A) Business has to Visit <a href="https://vailo.ai/" style="color: blue;">https://vailo.ai/</a>to
+                    create account in vailo.ai.</p>
+
+                <img class="lapimg" src ="{% static 'img/help/19.png' %}" alt="">
+
+                <p>B) Press Sign up button to create account. Business have to give some information such as
+                    Name,
+                    company name, Business email Id, contact number and Job title.</p>
+
+                <img class="lapimg" src ="{% static 'img/help/20.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Logintovailo">4.2 Login to vailo.ai</h6>
+                <p>A) After creating account Business can login using mail Id and password</p>
+
+                <img class="lapimg" src ="{% static 'img/help/21.png' %}" alt="">
+
+
+                <p>B) Business login to vailo.ai Dashboard will Display. Business can set up their Event using
+                    vailo.ai
+                    Dashboard to get response in what’s app.</p>
+
+                <img class="lapimg" src ="{% static 'img/help/22.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h5 id="seehownewbusiness">5 Let’s see How New Business can set up their Event</h5>
+                <h6 id="Setting">5.1 Setting</h6>
+                <h6 id="Businesscanedit">5.1.1 Business can edit their profile </h6>
+                <p>A) In profile Business can view their name, mail id, Clint Id, secret key it is create by the
+                    management, Clint Id and secret key automatically generate when Business create their
+                    account in
+                    vailo.ai. for example</p>
+
+                <img class="lapimg" src ="{% static 'img/help/23.png' %}" alt="">
+
+                <p>B) Business can reset Password which is comfortable to them. For example </p>
+
+                <img class="lapimg" src ="{% static 'img/help/24.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Setupface">5.1.2 Set up face book account</h6>
+                <p>A) To connect web application to what’s app New Business need face book APIS.</p>
+
+                <img class="lapimg" src ="{% static 'img/help/25.png' %}" alt="">
+
+
+                <p>B) To get Phone number Id, Access token to continue the process Business have to create face
+                    book
+                    business account .Visit <a href="https://developers.facebook.com/"
+                        style="color: blue;">https://developers.facebook.com/</a></p>
+
+                <img class="lapimg" src ="{% static 'img/help/26.png' %}" alt="">
+
+
+                <p>C) After creating account in face book developer Business has select my apps button to
+                    continue.
+                    Business will get for example</p>
+
+                <img class="lapimg" src ="{% static 'img/help/27.png' %}" alt="">
+
+                <p>If the business already created apps it will show here, otherwise business has to select
+                    create
+                    app
+                </p>
+
+
+
+                <p>D) After clicking create app business will get for example</p>
+
+
+                <img class="lapimg" src ="{% static 'img/help/28.png' %}" alt="">
+
+                <p>Click on set up face book login and press next button to continue.</p>
+
+
+                <p>E) To create apps business has to select the platform for example.</p>
+                <img class="lapimg" src ="{% static 'img/help/29.png' %}" alt="">
+                <ul>
+                    <li>Business has to select website because business are creating account in face
+                        book developer to get connect what’s app to get response. </li>
+                    <li>Select No, I’m not building a game because business are not building any game .they are
+                        connecting their business to get response in what’s app.</li>
+                </ul>
+
+
+                <p>F) Business has to login to Face book </p>
+                <img class="lapimg" src ="{% static 'img/help/30.png' %}" alt="">
+                <p>Business has to fill the information like app name means your business name, Mail ID,
+                    business
+                    account for the security purpose and press create app to get face book login.</p>
+
+
+                <p>G) Confirm business Face book account</p>
+                <img class="lapimg" src ="{% static 'img/help/31.png' %}" alt="">
+                <p>Business has entire face book password to confirm their business.</p>
+
+                <p>H) Face book developer Dashboard</p>
+                <img class="lapimg" src ="{% static 'img/help/32.png' %}" alt="">
+
+                <p>I) Select use cases, to get option to set up what’s app response</p>
+                <img class="lapimg" src ="{% static 'img/help/33.png' %}" alt="">
+
+                <p>J) Business has to select app type</p>
+                <img class="lapimg" src ="{% static 'img/help/34.png' %}" alt="">
+                <p>Business has to select Business and press submit button to get next page</p>
+
+                <p>K) To confirm app name business has to give once again app name, mail Id</p>
+                <img class="lapimg" src ="{% static 'img/help/30.png' %}" alt="">
+
+                <p> L) Business has to connect their business to web hooks to get response in what’s app</p>
+                <img class="lapimg" src ="{% static 'img/help/36.png' %}" alt="">
+                <p>Business has to select web hooks setup</p>
+
+                <p>M) Business will get access Token and phone number ID</p>
+                <img class="lapimg" src ="{% static 'img/help/37.png' %}" alt="">
+                <p>Copy the S1-phone number Id and S2-access token paste in vailo.ai-Dashboard-Setting-face
+                    book.
+                </p>
+
+                <p>N) Business has to fill the information of access Token and phone number Id </p>
+                <img class="lapimg" src ="{% static 'img/help/38.png' %}" alt="">
+                <p>After filling access Token and phone number Id business will get call back URL and verify
+                    token
+                    to
+                    verify web hooks</p>
+
+                <p>o) Business has fill call back URL and verify token to get response in what’s app</p>
+                <img class="lapimg" src ="{% static 'img/help/39.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Set up payment">5.1.3 Set up payment process</h6>
+                <img class="lapimg" src ="{% static 'img/help/40.png' %}" alt="">
+                <p>To get payment directly from customers business has to create his account in Razor pay to get
+                    your Id
+                    and secret key book </p>
+
+                <p>A) Business has to sign up in Razor pay</p>
+                <img class="lapimg" src ="{% static 'img/help/41.png' %}" alt="">
+                <p>After creating account login to Razor pay to get your Id and secret key </p>
+
+                <p>B) Razor pay Dashboard</p>
+                <img class="lapimg" src ="{% static 'img/help/42.png' %}" alt="">
+                <p>Business has to select Account & settings to get your Id and secret key </p>
+
+                <p>C) Business profile </p>
+                <img class="lapimg" src ="{% static 'img/help/43.jpeg' %}" alt="">
+                <p>Press API keys to get your Id and secret key </p>
+
+                <p>D) Business will get your Id and secret key.</p>
+                <img class="lapimg" src ="{% static 'img/help/44.png' %}" alt="">
+
+                <p>E) Set message template to get payment directly from customers.</p>
+                <img class="lapimg" src ="{% static 'img/help/45.png' %}" alt="">
+                <p>To get message template go to face book developer Dashboardwhat’s appAPI Setup. </p>
+
+                <p>F) Create template</p>
+                <img class="lapimg" src ="{% static 'img/help/46.png' %}" alt="">
+                <p>Press create template to get payment directly from customers </p>
+
+                <p>G) Business has to fill template name and select language</p>
+                <img class="lapimg" src ="{% static 'img/help/47.png' %}" alt="">
+
+                <p>H) Message template<span class="linkable">(Refer serial number 3.1<span
+                            class="arrow">&rarr;</span>1.6<span class="arrow">&rarr;</span>(A)).</span></p>
+                <img class="lapimg" src ="{% static 'img/help/48.png' %}" alt="">
+                <img class="lapimg" src ="{% static 'img/help/49.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h5 id="Configuration">5.2 Configuration </h5>
+                <p>In configuration Business has to give all their Event information to get response in what’s
+                    app
+                    like.<span class="linkable">(Refer serial number 3.1 to 3.3).</span> </p>
+            </div>
+
+            <div class="workthrough">
+                <h5 id="main">5.2.1 Main </h5>
+                <h6 id="Welcomemessage">5.2.1.1 Welcome message</h6>
+                <p>Business has to fill event information such as “supported number, A1-welcome Images,
+                    A2-message,
+                    A3-footer, A4 to A6-Button name.”</p>
+                <img class="lapimg" src ="{% static 'img/help/50.png' %}" alt="">
+                <p>The information for customers to get response in what’s app should be provided here <span
+                        class="linkable">(Refer serial number 3.1)..</span> </p>
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Bookticket">5.2.1.2 set up Book ticket</h6>
+                <p>In welcome message 1st button is Book now. Business has to fill information like “B1-Images,
+                    B2-message, Header (optional), B3-footer (optional), B4-button name to select particular
+                    event.
+                    How
+                    customer will get response in what’s app<span class="linkable">(Refer serial number
+                        3.1<span class="arrow">&rarr;</span>1.1).</span>
+                </p>
+                <img class="lapimg" src ="{% static 'img/help/51.png' %}" alt="">
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Paymentconfirmation">5.2.1.3 set up Payment confirmation & Payment Failure </h6>
+                <img class="lapimg" src ="{% static 'img/help/53.png' %}" alt="">
+
+                <p>A) Payment confirmation (N1 to N2): Business has to give the information to customers to get
+                    confirmation after payment <span class="linkable">(Refer serial number 3.1<span
+                            class="arrow">&rarr;</span>1.1).</span>
+                </p>
+                <p>B) Payment failure (N3 to N4): Business has to give the information to customers to get
+                    failure
+                    message if payment failure
+                </p>
+            </div>
+
+            <div class="workthrough">
+                <h6 id="Myticket">5.2.1.4 set up My Ticket and Cancel ticket </h6>
+                <img class="lapimg" src ="{% static 'img/help/53.png' %}" alt="">
+
+                <p>A) My Ticket: In welcome message 2st button is my ticket Business has to give information to
+                    view
+                    customers all ticket and customer will get 2 buttons like Use and transfer ticket. <span
+                        class="linkable">. (Refer serial number 3.2).</span>
+                </p>
+                <ul>
+                    <li>Use Ticket(P3) :Customers can use their generated ticket</li>
+                    <li>Transfer ticket(P4): Customers can transfer their ticket to some one</li>
+                </ul>
+
+
+                <p>B) Cancel Ticket: Business has to give the ticket cancellation option to customers. Customers
+                    will
+                    get the option to cancel the generated ticket like Images (U1), cancelation Instruction
+                    (U2)<span class="linkable">.(Refer serial number 3.3).</span>
+                </p>
+
+
+                <h6 id="Ticketnotavailable"> Set up Use Ticket and Ticket not available</h6>
+                <p>A) Use ticket: Business will set up Images (R1), Message (R2) .Customers will get like <span
+                        class="linkable">. (Refer serial number 3.2<span class="arrow">&rarr;</span>1.2)</span>
+                </p>
+                <p>B) Ticket not available: Business will set up ticket not available to show the message to who
+                    are
+                    trying book the ticket after expire date. Customers will get like Images (R1), Message (R2).
+                    <span class="linkable">.(Refer serial number 3.1-1.5-C).</span>
+                </p>
+                <img class="lapimg" src ="{% static 'img/help/53.png' %}" alt="">
+
+                <h5 id="ListofLevel">5.2.2 List of Level</h5>
+                <h5>New and Existing Business can set up their Event details </h5>
+                <h6 id="Level1">5.2.2.1 Level 1</h6>
+                <p>In level 1 Business can set up Event information </p>
+                <img class="lapimg" src ="{% static 'img/help/55.png' %}/" alt="">
+                <p>Press Add level 1 to set up Event <span class="linkable">.(Refer serial number 3.11.2)
+                    </span>how
+                    customers get response in what’s app
+                </p>
+
+                <img class="lapimg" src ="{% static 'img/help/56.png' %}" alt="">
+                <img class="lapimg" src ="{% static 'img/help/57.png' %}" alt="">
+
+                <p>After filling all about event name and description business will get all event list </p>
+
+                <ul>
+                    <li>If business wants to add one more event they can add by clicking Add
+                        level 1.</li>
+                    <li>If business wants to edit current event they can use edit button</li>
+                    <li>If business wants to delete current event they can use delete button</li>
+                    <li>If business wants to move on level 2 they has to use edit button they will get level 2 to add about location in each event.</li>
+                </ul>
+                <img class="lapimg" src ="{% static 'img/help/58.png' %}" alt="">
+
+
+                <h6 id="Level3">5.2.2.2 Level 2</h6>
+                <p>Business has to give information of event Location if Business organizing event in different
+                    location, for example <span class="linkable">(Refer serial number 3.11.3) </span> </p>
+                <img class="lapimg" src ="{% static 'img/help/59.png' %}" alt="">
+
+                <p>After filling about all location business will get like</p>
+                <ul>
+                    <li>If business wants to add one more location they can add by clicking Add
+                        level 2.</li>
+                    <li>If business wants to edit current location they can use edit button</li>
+                    <li>If business wants to delete current location they can use delete button</li>
+                    <li>If business wants to move on level 3 they has to use edit button they
+                        will get level 3 to add about ticket category in each location.</li>
+                </ul>
+                <img class="lapimg" src ="{% static 'img/help/60.png' %}" alt="">
+
+                <H6 id="Level3">5.2.2.3 Level 3</H6>
+                <P>In level 3 Business has to fill the information like ticket category, price of the ticket,
+                    N3-ticket
+                    Image, H1-header Image, H2-header, H3-Body <span class="linkable">(Refer serial number
+                        3.1<span class="arrow">&rarr;</span>1.4)
+                    </span>how customers will get response in what’s app.
+                </P>
+                <img class="lapimg" src ="{% static 'img/help/61.png' %}" alt="">
+
+
+                <p>After filling about all ticket category business will get like</p>
+                <ul>
+                    <li>If business wants to add one more ticket category they can add by clicking Add level 3.</li>
+                    <li>If business wants to edit current ticket category they can use edit button </li>
+                    <li>If business wants to delete current ticket category they can use delete button </li>
+                </ul>
+                <img class="lapimg" src ="{% static 'img/help/62.png' %}" alt="">
+
+                <P><SPan>&#8226;</SPan>If business wants to add ticket they can use edit button they will get to
+                    add
+                    ticket in each category. </P>
+                <img class="lapimg" src ="{% static 'img/help/63.png' %}" alt="">
+
+                <P>After adding ticket number and expire date publish the ticket to generate QR code for each
+                    available
+                    ticket.</P>
+                <img class="lapimg" src ="{% static 'img/help/64.png' %}" alt="">
+
+
+                <h5 id="CustomerLeads">5.3 Customer Leads</h5>
+                <P>In customer Leads business can view customers list along with their contact number, initial
+                    contact
+                    date, resent contact date, Email Id, address and their current status.</P>
+                <img class="lapimg" src ="{% static 'img/help/65.png' %}" alt="">
+
+                <h5 id="Campaign">5.4 Campaign</h5>
+                <H6 id="CreateCampaign">5.4.1 Create Campaign</H6>
+                <P>To reach Business targeted audience create Campaign, fill required information such as Name,
+                    Description, message text, header image, footer text, 1st 2nd 3rd Button name, campaign
+                    status
+                    and
+                    submit.</P>
+                <img class="lapimg" src ="{% static 'img/help/66.png' %}" alt="">
+
+                <H6 id="ListofCampaign">5.4.2 List of Campaign</H6>
+                <P>Business can view all campaign List in campaign such as campaign name, campaign Description,
+                    campaign
+                    header, campaign message text, campaign footer text, assign, Edit/delete and send.</P>
+                <img class="lapimg" src ="{% static 'img/help/67.png' %}" alt="">
+
+
+                <h5 id="Ticket">5.5 Ticket</h5>
+                <P>In ticket Business can view the list of events. The following information will be shown event
+                    name,
+                    event description, slot name, slot message, ticket, ticket description, ticket price, ticket
+                    status,
+                    ticket QR CODE.</P>
+                <img class="lapimg" src ="{% static 'img/help/68.png' %}" alt="">
+
+
+                <h5 id="Scanner">6 Scanner</h5>
+                <P>Before using scanner New Business have to create your account. Visit <a href="https://vailo.ai/ "
+                        style="color: blue;">https://vailo.ai/ </a>Main use of scanner
+                    is to verify the generated
+                    Ticket. It will save the Time and energy.</P>
+                <img class="lapimg" src ="{% static 'img/help/69.jpeg' %}" alt="">
+
+
+                <p>After scanning the ticket, Scanner gives you 3 Result </p>
+                <ul>
+                    <li>Allowed –when 1st user scan the ticket QR CODE they get allowed
+                        notification.</li>
+                    <li>Not Allowed – when Ticket QR CODE used by different person they get
+                        notification. </li>
+                    <li>In valid – When someone use Different QR CODE they will get this
+                        notification </li>
+                </ul>
+
+                <p>NOTE: After completing the process of booking Ticket in what’s app the visiting
+                    customer
+                    will
+                    get QR
+                    CODE <span class="linkable">Refer serial number “3 to step 5”
+                    </span> .That QRCODE Customer has to scan. Business will get who
+                    actually booked ticket OR who are trying to visit without booking the ticket you can easily
+                    find.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    var btn = document.querySelector(".btn");
+btn.addEventListener("click", function(){
+    document.querySelector("body").classList.toggle("active");
+})
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

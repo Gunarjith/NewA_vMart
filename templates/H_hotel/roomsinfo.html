@@ -1,0 +1,111 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+{% include 'H_hotel/roomconfig.html' %}
+
+
+<div class="mT15">
+    <div class="headFlex">
+        <h3>List of Room Types</h3>
+       
+        <a href="{% if marketplace_id %}{% url 'addhotelrooms' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addhotelrooms' %}{% endif %}">
+            <button>
+                Add  Rooms Type
+            </button>
+        </a>
+    </div>
+</div>
+<!--table-->
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Room Image</th>
+                <th> Room Type</th>
+                <th>Room Category </th>
+                <th>Single/Bubble Bed</th>
+                <th>Room Price</th>
+                <th> Room Price Unit</th>
+                <th>Room Info</th>
+   
+                <th style="text-align: center;">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in roomsdata %}
+                <tr>
+                    <td>{{a.Hotel_room_image}}</td>
+                    <td>{{a.l_room_type}}</td>
+                    <td>{{a.room_type}}</td>
+                    <td>{{a.bed}}</td>
+                    <td>{{a.room_price}}</td>
+                    <td>{{a.room_price_unit}}</td>
+                    <td>{{a.room_info}}</td>
+                   
+
+                    <td>
+                        <span class="editDeleteTd">
+                            <a href="{% url 'editroomslist' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                            </a>
+                            <a href="{% url 'deleterooms' a.id %}?marketplace_id={{marketplace_id}}">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

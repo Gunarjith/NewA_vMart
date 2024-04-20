@@ -1,0 +1,143 @@
+{% extends "appointmentDash.html" %}
+
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'A_Appointment/marketplacesettings.html' %}
+
+{% for a in MarketplacemainData %}
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% url 'editmarketplacemain' %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Welcome message</h4>
+            </span>
+            <span class="formOne inputGridTwo">
+                <!-- <span> -->
+                <span>
+                    <label for="welcomeheaderimageId">Welcome Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.marketplace_welcome_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if a.marketplace_welcome_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputInfo1('id_rewelcomeImage')"></img>
+                            {% endif %}
+                        </span>
+                        <input type="file" id="rewelcomeheaderimageId" name="reappointmentmainImage" class="imageInput"
+                            accept="image/*"
+                            onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                    </span>
+                    <span></span>
+                </span>
+            </span>
+
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="welcomemessageheaderId">Welcome Message</label>
+            <input type="text" id="welcomemessageheaderId" name="reappointmentwelcomemessage"
+               value="{{a.marketplace_welcome_message_body}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="welcomemessagetextId">Welcome message footer</label>
+            <input type="text" id="welcomemessagetextId" name="reappointmentDescription"
+               value="{{a.marketplace_welcome_message_footer}}" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="welcomefootertextId">Generic Flow Name</label>
+            <input type="text" id="welcomefootertextId" name="reappointmentFooter"
+              value="{{a.generic_flow_cta_name}}">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="bookingbuttonnameId">Specific Flow Name</label>
+            <input type="text" id="bookingbuttonnameId" name="reappintmentNowButtonName"
+              value="{{a.specific_flow_cta_name}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingbuttonnameId">Myappointment Flow Name</label>
+            <input type="text" id="bookingbuttonnameId" name="reappintmentsupportnumber"
+               value="{{a.myappointment_flow_cta_name}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingmyticketnameId">Myappointment flow id</label>
+            <input type="text" id="bookingmyticketnameId" name="remyappointmentButtonName"
+              value="{{a.generic_flow_id}}">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="bookingmyticketnameId1">Specific Flow id</label>
+            <input type="text" id="bookingmyticketnameId1" name="recontactUsButtonName"
+              value="{{a.specific_flow_id}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="bookingappointmentticketnameId1">Generic Flow id </label>
+            <input type="text" id="bookingappointmentticketnameId1" name="recontactUsAddresName"
+               value="{{a.my_appointment_flow_id}}">
+            <span class="charCount"></span>
+        </span>
+</div>
+
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+{% endfor %}
+</form>
+
+</div>
+</div>
+
+
+
+
+<script>
+$(document).ready(function () {
+// Show validation message when an image is selected
+$(".imageInput").on("change", function () {
+if (this.files && this.files[0]) {
+// Display the message inside the corresponding span
+$(this).siblings(".validationMessageImg").text("Image selected.");
+} else {
+// Clear the message
+$(this).siblings(".validationMessageImg").text("");
+}
+});
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

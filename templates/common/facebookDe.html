@@ -1,0 +1,114 @@
+{% extends "common/commonSetting.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block bodyCommon %}
+
+
+
+
+<div class="frmCenter" style="margin: 10px;">
+{% for i in data %}
+<form class="profileForm ajax-form" action="{% url 'facebook_info' %}" method="POST" style="position: relative;">
+  {% csrf_token %}
+  <span class="headFlex">
+    <h4>Facebook details</h4>
+  </span>
+  <span class="formOne inputGridThree">
+    <span>
+      <label>Phone number ID</label>
+      <input type="number" value="{{i.fb_phone_number_id}}" name="fb_phone_number_idRe" aria-describedby="emailHelp"
+        placeholder="Enter Phone number ID" required>
+    </span>
+    <span>
+      <label>Whatsapp number</label>
+      <input type="number" value="{{i.fb_whatsapp_number}}" name="fb_whatsapp_numberRe" aria-describedby="emailHelp"
+        placeholder="Whatsapp Number" required>
+    </span>
+    <span>
+      <label>Access token</label>
+      <input type="password" value="{{i.fb_access_token}}" name="fb_access_tokenRe" aria-describedby="emailHelp"
+        placeholder="Enter access_token" required>
+    </span>
+  </span>
+  <span class="spanSubmitForm">
+    <input type="submit">
+  </span>
+
+  {% endfor %}
+</form>
+</div>
+<div style="margin: 0 10px;">
+  <span class="formOne inputGridTwo">
+    <span>
+    <h4>Call Back URL</h4>
+    {{CallbackUrl}}
+  </span>
+  <span>
+    <h4>Verify Token</h4>
+    {{VerifyToken}}
+  </span>
+</span>
+</div>
+<!-- <div class="frmCenter">
+
+  <span class="formOne">
+    <h4>Verify Token</h4>
+    {{VerifyToken}}
+  </span>
+
+</div> -->
+
+<script>
+  $(document).ready(function () {
+  // Intercept form submissions for forms with the "ajax-form" class
+  $(".ajax-form").submit(function (e) {
+      e.preventDefault(); // Prevent the default form submission behavior
+      
+      // Serialize form data (convert form fields to a format suitable for submission)
+      var formData = $(this).serialize();
+
+      // Define the URL where you want to submit the form data
+      var formUrl = $(this).attr("action");
+
+      // Reference to the current form element
+      var currentForm = $(this);
+
+      // Send the form data using AJAX POST request
+      $.ajax({
+          type: "POST", // Use POST method
+          url: formUrl, // The URL to submit to
+          data: formData, // The serialized form data
+          success: function (response) {
+              // Load the response content into the parent container of the current form
+              currentForm.closest(".mainContent").html(response);
+          },
+          error: function (xhr, status, error) {
+              // Handle any errors that occur during the AJAX request
+              console.error(error);
+          }
+      });
+  });
+});
+</script>
+{% endblock bodyCommon %}
+
+
+{% block script %}
+
+
+{% endblock script %}

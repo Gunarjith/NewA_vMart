@@ -1,0 +1,391 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %}Payment Details{% endblock title %}
+{% else %}
+{% endif %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="frmCenter">
+
+  <form action="{% url 'payment_page' %}"  method="post" enctype="multipart/form-data" class="profileForm" style="position: relative; width: 95%;">
+    {% csrf_token %}
+    
+    <span class="formOne" id="preferedPayment">
+      <span for="">Preferred Payment Method</span>
+      <select name="payment_method" id="payment_method">
+        <option value="0" disabled>Select method</option>
+        <option value="rozorpay" {% if payment_gatewa and payment_gatewa.0.payment_gateway == 'rozorpay' %}selected{% endif %}>Rozor Pay Details</option>
+        <option value="cashfree" {% if payment_gatewa and payment_gatewa.0.payment_gateway == 'cashfree' %}selected{% endif %}>Cashfree Details</option>
+        <option value="paypal" {% if payment_gatewa and payment_gatewa.0.payment_gateway == 'paypal' %}selected{% endif %}>Paypal Details</option>
+        <option value="stripe" {% if payment_gatewa and payment_gatewa.0.payment_gateway == 'stripe' %}selected{% endif %}>Stripe Details</option>
+      </select>
+    </span>
+    <span style="position: relative;">
+  <span class="overflow-y: scroll;">
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Gateway_id</th>
+          <th>Gateway_key</th>
+          <th>Currency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if not payment_gatewa %}
+          <tr id="rozorpay_details" class="payment-details-row">
+            <td>Rozor Pay</td>
+            <td><input type="text" name="rozorpay_gateway_id"></td>
+            <td><input type="text" name="rozorpay_gateway_key"></td>
+            <td>
+              <select name="rozorpay_currency">
+                <option value="Rupees">Rupees</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="cashfree_details" class="payment-details-row">
+            <td>Cashfree</td>
+            <td><input type="text" name="cashfree_gateway_id"></td>
+            <td><input type="text" name="cashfree_gateway_key"></td>
+            <td>
+              <select name="cashfree_currency">
+                <option value="Rupees">Rupees</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="paypal_details" class="payment-details-row">
+            <td>Paypal</td>
+            <td><input type="text" name="paypal_gateway_id"></td>
+            <td><input type="text" name="paypal_gateway_key"></td>
+            <td>
+              <select name="paypal_currency">
+                <option value="Rupees">Rupees</option>
+                <option value="Dollar">Dollar</option>
+                <option value="Pounds">Pounds</option>
+                <option value="Euros">Euros</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="stripe_details" class="payment-details-row">
+            <td>Stripe </td>
+            <td><input type="text" name="stripe_gateway_id"></td>
+            <td><input type="text" name="stripe_gateway_key"></td>
+            <td>
+              <select name="stripe_currency">
+                <option value="Rupees">Rupees</option>
+                <option value="Dollar">Dollar</option>
+                <option value="Pounds">Pounds</option>
+                <option value="Euros">Euros</option>
+              </select>
+            </td>
+          </tr>
+        {% else %}
+          {% for gateway in payment_gatewa %}
+            <tr id="{{ gateway.payment_gateway }}_details" class="payment-details-row">
+              <td>{{ gateway.payment_gateway }} </td>
+              <td><input type="text" name="{{ gateway.payment_gateway }}_gateway_id" value="{{ gateway.gateway_id }}"></td>
+              <td><input type="text" name="{{ gateway.payment_gateway }}_gateway_key" value="{{ gateway.gateway_key }}"></td>
+              <td>
+                <select name="{{ gateway.payment_gateway }}_currency">
+                  <option value="Rupees" {% if gateway.currency == 'Rupees' %}selected{% endif %}>Rupees</option>
+                  <option value="Dollar" {% if gateway.currency == 'Dollar' %}selected{% endif %}>Dollar</option>
+                  <option value="Pounds" {% if gateway.currency == 'Pounds' %}selected{% endif %}>Pounds</option>
+                  <option value="Euros" {% if gateway.currency == 'Euros' %}selected{% endif %}>Euros</option>
+                </select>
+              </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  
+  </span>
+  <span class="" style="position: absolute; bottom: -75px;
+  right: 70px;">
+      <input type="submit" value="Submit">
+    </span>
+  </span>
+  </form>
+  
+<!-- <form action="{% url 'payment_page' %}"  method="post" enctype="multipart/form-data" class="profileForm" style="position: relative;">
+  {% csrf_token %}
+  <span class="formOne" id="preferedPayment">
+    <label for="">Preferred Payment Method</label>
+    <select name="payment_method" id="payment_method">
+      <option value="0" default>Select method</option>
+      <option value="rozorpay">Rozor Pay Details</option>
+      <option value="cashfree">Cashfree Details</option>
+      <option value="paypal">Paypal Details</option>
+      <option value="stripe">Stripe Details</option>
+    </select>
+  </span> -->
+
+  <!-- <span class="paymentPageGrid" id="paymentPageGridId">
+    <span class="formOne" id="rozorpay_details">
+      <span class="headFlex">
+        <h3>Rozor Pay Details</h3>
+      </span>
+
+      <span>
+        <label for="rozorpayGateway_id">gateway_id</label>
+        <input type="text" id="rozorpayGateway_id" name="rozorpay_gateway_id" placeholder="" required>
+      </span>
+      <span>
+        <label for="rozorpaGateway_key">gateway_key</label>
+        <input type="text" id="rozorpaGateway_key" name="rozorpay_gateway_key" placeholder="" required>
+      </span>
+      <span>
+        <label for="rozorpayCurrency">currency</label>
+        <select name="rozorpay_currency" id="rozorpay_currency">
+          <option value="Rupees">Rupees</option>
+
+        </select>
+      </span>
+    </span>
+
+    <span class="formOne" id="cashfree_details">
+      <span class="headFlex">
+        <h3>Cashfree Details</h3>
+      </span>
+      <span>
+        <label for="cashfreeGateway_id">gateway_id</label>
+        <input type="text" id="cashfreeGateway_id" name="cashfree_gateway_id" placeholder="" required>
+      </span>
+      <span>
+        <label for="cashfreeGateway_key">gateway_key</label>
+        <input type="text" id="cashfreeGateway_key" name="cashfree_gateway_key" placeholder="" required>
+      </span>
+      <span>
+        <label for="cashfreeCurrency">currency</label>
+        <select name="cashfree_currency" id="cashfree_currency">
+          <option value="Rupees">Rupees</option>
+
+        </select>
+      </span>
+    </span>
+
+    <span class="formOne" id="paypal_details">
+      <span class="headFlex">
+        <h3>Paypal Details</h3>
+      </span>
+      <span>
+        <label for="paypalGateway_id">gateway_id</label>
+        <input type="text" id="paypalGateway_id" name="paypal_gateway_id" placeholder="" required>
+      </span>
+      <span>
+        <label for="paypalGateway_key">gateway_key</label>
+        <input type="text" id="paypalGateway_key" name="paypal_gateway_key" placeholder="" required>
+      </span>
+      <span>
+        <label for="paypalCurrency">currency</label>
+        <select name="paypal_currency" id="paypal_currency">
+          <option value="Rupees">Rupees</option>
+          <option value="Dollar">Dollar</option>
+          <option value="Pounds">Pounds</option>
+          <option value="Euros">Euros</option>
+        </select>
+      </span>
+    </span>
+
+    <span class="formOne" id="stripe_details">
+      <span class="headFlex">
+        <h3>Stripe Details</h3>
+      </span>
+      <span>
+        <label for="stripeGateway_id">gateway_id</label>
+        <input type="text" id="stripeGateway_id" name="stripe_gateway_id" placeholder="" required>
+      </span>
+      <span>
+        <label for="stripe_gateway_key">gateway_key</label>
+        <input type="text" id="stripeGateway_key" name="stripe_gateway_key" placeholder="" required>
+      </span>
+      <span>
+        <label for="stripeCurrency">currency</label>
+        <select name="stripe_currency" id="stripe_currency">
+          <option value="Rupees">Rupees</option>
+          <option value="Dollar">Dollar</option>
+          <option value="Pounds">Pounds</option>
+          <option value="Euros">Euros</option>
+        </select>
+      </span>
+    </span>
+  </span> -->
+    
+<!--   
+  
+<table>
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Gateway_id</th>
+    <th>Gateway_key</th>
+    <th>Currency</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Rozor Pay Details</td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td>   <select name="rozorpay_currency" id="rozorpay_currency">
+  <option value="Rupees">Rupees</option>
+
+</select>
+</span></td>
+</tr>
+  <tr>
+    <td>Cashfree Details</td>
+<td>
+  <input type="text">
+</td>
+<td><input type="text"></td>
+<td>
+  <select name="rozorpay_currency" id="rozorpay_currency">
+    <option value="Rupees">Rupees</option>
+  
+  </select>
+</td>
+</tr>
+  <tr>
+    <td>Paypal Details</td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td> <select name="" id="">
+  <option value="Rupees">Rupees</option>
+  <option value="Dollar">Dollar</option>
+  <option value="Pounds">Pounds</option>
+  <option value="Euros">Euros</option>
+</select></td>
+</tr>
+  <tr>
+    <td>Stripe Details</td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><select name="" id="">
+  <option value="Rupees">Rupees</option>
+  <option value="Dollar">Dollar</option>
+  <option value="Pounds">Pounds</option>
+  <option value="Euros">Euros</option>
+</select></td>
+</tr>
+</tbody>
+</table>
+
+  
+  <span class="spanSubmitForm ">
+      <input type="submit" value="Submit">
+    </span>
+  
+</form> -->
+</div>
+
+<script>
+  document.getElementById('payment_method').addEventListener('change', function() {
+    var selectedMethod = this.value;
+    var paymentDetailsRows = document.getElementsByClassName('payment-details-row');
+    for (var i = 0; i < paymentDetailsRows.length; i++) {
+      var row = paymentDetailsRows[i];
+      if (row.id === selectedMethod + '_details') {
+        makeFieldsRequired(row);
+      } else {
+        removeFieldsRequired(row);
+      }
+    }
+  });
+
+  function makeFieldsRequired(row) {
+    var inputs = row.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].required = true;
+    }
+    var selects = row.getElementsByTagName('select');
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].required = true;
+    }
+  }
+
+  function removeFieldsRequired(row) {
+    var inputs = row.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].required = false;
+    }
+    var selects = row.getElementsByTagName('select');
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].required = false;
+    }
+  }
+</script>
+<!-- <script>
+  // Set the default payment method as the selected option on page load
+  var defaultPaymentMethod = document.getElementById('payment_method').value;
+  document.getElementById('payment_method').value = defaultPaymentMethod;
+
+  // Show the selected payment method's details on page load
+  var selectedPaymentDetails = document.getElementById(defaultPaymentMethod + '_details');
+  selectedPaymentDetails.style.display = 'block';
+  selectedPaymentDetails.classList.add('selected');
+
+  // Highlight the preferred payment method
+  document.getElementById('payment_method').addEventListener('change', function () {
+    // Remove the 'selected' class from previously selected payment method details
+    var previouslySelectedMethod = document.querySelector('.selected');
+    if (previouslySelectedMethod) {
+      previouslySelectedMethod.classList.remove('selected');
+    }
+
+    // Show the selected payment method's details
+    var selectedMethod = this.value;
+    var selectedPaymentDetails = document.getElementById(selectedMethod + '_details');
+    selectedPaymentDetails.style.display = 'block';
+    selectedPaymentDetails.classList.add('selected');
+  });
+</script> -->
+<!-- <script>
+  // Show or hide the payment details based on the selected payment method
+  document.getElementById('payment_method').addEventListener('change', function() {
+    var selectedMethod = this.value;
+
+    // Hide all payment details
+    var paymentDetails = document.getElementsByClassName('formOne');
+    for (var i = 0; i < paymentDetails.length; i++) {
+      paymentDetails[i].style.display = 'none';
+    }
+
+    // Reset required attribute for all fields
+    var allFields = document.querySelectorAll('.formOne input, .formOne select');
+    for (var i = 0; i < allFields.length; i++) {
+      allFields[i].removeAttribute('required');
+    }
+
+    // Show the selected payment method's details
+    var selectedPaymentDetails = document.getElementById(selectedMethod + '_details');
+    let preferedPayment = document.getElementById('preferedPayment');
+    let paymentPageGridId = document.getElementById('paymentPageGridId')
+    selectedPaymentDetails.style.display = 'block';
+    preferedPayment.style.display = 'block';
+    paymentPageGridId.style.gridTemplateColumns = 'none'
+
+    // Set required attribute for the selected payment method's fields
+    var selectedFields = selectedPaymentDetails.querySelectorAll('input, select');
+    for (var i = 0; i < selectedFields.length; i++) {
+      selectedFields[i].setAttribute('required', 'required');
+    }
+  });
+
+  // Form submission
+  document.querySelector('.profileForm').addEventListener('submit', function(event) {
+    var selectedMethod = document.getElementById('payment_method').value;
+
+    // Check if a payment method is selected
+    if (selectedMethod === '0') {
+      event.preventDefault(); // Prevent form submission
+      alert('Please select a payment method.'); // Display an error message
+    }
+  });
+</script> -->
+{% endblock rightcontent %}

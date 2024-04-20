@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .containerReceipt {
+
+            margin: 15px;
+        }
+
+        .cantainerRow {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+
+
+        .cantainerColumn {
+            flex: 0 0 66.666667%;
+            max-width: 66.666667%;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+            border-top: 5px solid #1C1CDE;
+        }
+
+        .footerRecipt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1C1CDE;
+        }
+
+        .footerRecipt p {
+            color: #ffffff;
+            padding: 2% 4% 2% 4%;
+        }
+
+        .marginReceipt {
+            padding: 3% 4% 9% 4%;
+        }
+
+        .logoCenter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 15px;
+            position: relative;
+        }
+
+        .logoCenterSpan {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .logoCenterSpan img {
+            width: inherit;
+            aspect-ratio: 1/1;
+            object-fit: scale-down;
+        }
+
+        .rightToReceipt {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+
+        }
+
+        .rightToReceipt p {
+            text-align: right;
+        }
+
+        .bottomNAvReceipt {
+            border-bottom: 5px solid #1C1CDE;
+        }
+
+        .markHead {
+            color: #1e1e35;
+        }
+/* 
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            margin: 1rem 0;-->
+<!--            color: #212529;-->
+<!--            vertical-align: top;-->
+<!--            border-collapse: collapse;-->
+<!--            border: 0;-->
+<!--            font-size: 16px;-->
+<!--        }--> */
+
+
+
+        table th {
+            padding: 10px;
+            vertical-align: top;
+            /* border-top: 1px solid #dee2e6; */
+        }
+
+        .theadLight th {
+            background-color: #f0f0f0;
+            text-align: left;
+            color: #1C1CDE;
+        }
+
+
+        .table2Receipt {
+            position: absolute;
+            /* left: 45%; */
+            background: #1C1CDE;
+            right: 4%;
+        }
+
+        .signReceipt {
+            /* margin-top: 11%; */
+        }
+
+        .signReceipt img {
+            width: 150px;
+            height: 100px;
+        }
+
+        .add td {
+            /* color: #c5c4c4; */
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .tableHight {
+            height: 250px;
+        }
+
+
+        @media screen and (max-width: 1300px) {
+            .rightToReceipt {
+                position: relative !important;
+                margin: 5px 10%;
+                /* top: 10px;
+            right: 20px; */
+            }
+
+            .rightToReceipt p {
+                text-align: start;
+            }
+
+            table th {
+                padding: auto !important;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+
+            /* Adjust font sizes and margins for small screens */
+            h2 {
+                font-size: 18px;
+            }
+
+            /* .signReceipt {
+        margin-top: 60%;
+    } */
+            .tableLayout {
+                table-layout: fixed;
+            }
+
+            .add td {
+                font-size: 10px;
+                /* Adjust the font size */
+                padding: 5px;
+                /* Adjust padding to control spacing */
+                word-break: break-all;
+                /* Allow long words to wrap */
+            }
+
+            th {
+                font-size: 12px;
+            }
+
+            .tableHight {
+                height: 420px !important;
+            }
+        }
+
+        @media screen and (min-width: 401px) and (max-width: 500px) {
+            /* Adjust font sizes and margins for small screens */
+
+            .tableHight {
+                height: 450px ;
+            }
+        }
+
+
+        /* Add a media query for screens between 400px and 600px */
+        @media screen and (min-width: 401px) and (max-width: 600px) {
+
+            /* Adjust font sizes, margins, and other styles for screens between 400px and 600px */
+            h2 {
+                font-size: 24px;
+            }
+
+            /* .signReceipt {
+        margin-top: 30%;
+    } */
+
+            .table2Receipt {
+                /* Adjust position for better alignment */
+                right: 2%;
+            }
+
+            .table2Receipt table {
+                font-size: 14px;
+            }
+
+            .tableLayout {
+                table-layout: fixed;
+            }
+
+            .tableHight {
+                height: 350px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerReceipt">
+        <div class="cantainerRow">
+            <div class="cantainerColumn">
+                <div class="card">
+                    <span class="bottomNAvReceipt">
+
+                        <div class="marginReceipt" style="padding: 3% 4% 3% 4%;">
+
+
+                            <div class="logoCenter">
+
+                                <span class="logoCenterSpan">
+                                    <img
+                                src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{json_data.ngo_logo}}">
+
+                                </span>
+                                <h2 style="word-wrap: break-word; white-space: normal;">{{json_data.ngo_name}}</h2>
+
+                            </div>
+                            <div class="rightToReceipt">
+                                <p>Transaction reference :{{json_data.reference_id}}</p>
+                                <p>GSTIN : {{json_data.ngo_gstin}}
+                                </p>
+                                <p>PAN : {{json_data.ngo_pan}}</p>
+                                <p>Date : {{json_data.donation_date}} </p>
+
+                            </div>
+
+                        </div>
+                    </span>
+                    <div class="marginReceipt">
+
+                        <span>
+                            <b>Receieved From :</b>
+
+                            <p><span class="markHead">Name :</span> {{json_data.donar_name}}</p>
+
+                            <p><span class="markHead">Email :</span>{{json_data.donar_email}}</p>
+                            <!-- <p><span class="markHead">PAN :</span> {{json_data.ngo_pan}}</p> -->
+                            <p><span class="markHead">Ph no :</span>{{json_data.donar_phone}}</p>
+
+                        </span>
+                        <div style="padding: 3% 0 ;">
+                            <b>Information</b>
+                        </div>
+                        <span style="padding: 4% 0 0;">
+                            <b>Donor Header notes :</b>
+
+                            <p>{{json_data.ngo_header_notes}}</p>
+
+                        </span>
+
+                            <table>
+                                <thead>
+                                    <tr class="theadLight">
+                                        <th>
+                                            DESCRIPTION
+                                        </th>
+                                        <th style="text-align: center;">
+                                            AMOUNT
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {{json_data.donation_short_desc}}
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <!-- {{json_data.donation_amount}} -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{json_data.donation_name}}
+                                        </td>
+                                        <td style="text-align: right;">
+                                            {{json_data.donation_amount}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{json_data.donation_desc}}
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <!-- {{json_data.donation_amount}} -->
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <span class="table2Receipt">
+                                <table class="tableLayout" style="margin: 5px;">
+                                    <tr>
+                                        <td>
+                                            <p style="color: #fff;">Total</p>
+
+                                        </td>
+                                        <td style="color: #fff;">
+                                            {{json_data.donation_amount}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </span>
+
+
+                        <div class="signReceipt">
+                            <span style="padding: 4% 0 0;display: flex;align-items: center;justify-content: center;">
+                                <!-- <b>Donor Footer notes :</b> -->
+
+                                <p style="word-wrap: break-word; white-space: normal;">{{json_data.ngo_footer_notes}}</p>
+
+                            </span>
+                            <table>
+                                <tbody>
+                                    <tr class="add">
+                                        <td>{{json_data.ngo_signatureHeader}}</td>
+                                    </tr>
+                                    <tr class="content">
+                                        <td><img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{json_data.ngo_signatureImage}}"
+                                                width="150" height="100p" class="img-fluid" alt="ngo_signatureImage">
+                                            <br>
+                                            {{json_data.ngo_Footer}}
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="footerRecipt"
+                        style="display: flex;align-items: center;justify-content: center;background: #1C1CDE;">
+                        <p style="text-align:center;"> {{json_data.invoiceFooter}}</p><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

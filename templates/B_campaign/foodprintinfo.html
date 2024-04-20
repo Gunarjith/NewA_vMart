@@ -1,0 +1,60 @@
+<!-- foodprintinfo.html -->
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}                                                    
+{% endblock title %}
+
+{% block header %}
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="mT15">
+    <div style="overflow-y:scroll;">
+        <form method="GET" action="{% url 'search_results' %}">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="text" name="campaign_name" placeholder="Campaign name..."></th>
+                    <th><input type="text" name="button" placeholder="Button..."></th>
+                    <th><input type="text" name="number" placeholder="Number..."></th>
+                    <th><input type="date" name="start_date"></th>
+                    <th><input type="date" name="end_date"></th>
+                    <th><button type="submit">Search</button></th>
+                </tr>
+            </thead>
+        </table>
+        </form>
+    </div>
+</div>
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+                <th>Campaign Name</th>
+                <th>Number</th>
+                <th>Button</th>
+                <th>Date</th>
+                <th>Time</th>
+            
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for data in foodprintdata %}
+            <tr>
+                <td>{{data.campaign_name}}</td>
+                <td>{{data.From_number}}</td>
+                <td  style="text-transform: none;">{{data.button}}</td>
+                <td>{{data.date}}</td>
+                <td>{{data.time}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock rightcontent %}

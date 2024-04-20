@@ -1,0 +1,48 @@
+{% extends "admindash.html" %}
+{% load static %}
+
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>CLIENT PERMISSIONS</th>
+        <!-- add more columns here as needed -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for permission in permissions %}
+        <tr>
+          <td>{{ permission.id }}</td>
+          <td>{{ permission.client }}</td>
+          <td>{{ permission.client_permission }}</td>
+          <!-- add more columns here as needed -->
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>      
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

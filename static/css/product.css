@@ -1,0 +1,97 @@
+.product-btns{
+    display:flex;
+    flex-direction:row;
+    color: #fff !important;
+}
+
+
+#product-btns a{
+    background-color: #39c0ed !important;
+    color: #fff;
+        }
+
+
+
+
+    .product-count{
+      margin: 2rem;
+    }
+    .product-label{
+      color: #ffff;
+    }
+    header .product-count h4{
+      font-size: 20px;
+      color: #fff;
+    }
+    .product-count h3{
+      font-size: 16px;
+      background: #fff;
+      color: #000;
+    }
+   .products{
+      margin: 20px 0px;
+   }
+   .products .product-in{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 3rem;
+      grid-auto-rows: minmax(200px,auto);
+   }
+   .products .product-in .product-detail{
+      /* border: 2px solid #0da5c0; */
+      /* border-radius: 30px;  */
+      box-shadow: 5px 4px 5px 1px rgb(77 90 125 / 75%);
+    -webkit-box-shadow: 5px 4px 5px 1px rgb(77 90 125 / 75%);
+    padding: 0px;
+   }
+   .products .product-in .product-detail .pro-image{
+      width: 100%;
+      height: 180px;
+   }
+   .products .product-in .product-detail .pro-image img{
+      width: 100%;
+      height: 100%;
+   }
+   .products .product-in .product-detail h2{
+      background-color: #fff;
+      padding: 10px 20px;
+      margin: 0px;
+      font-size: 26px;
+      color: #041E42;
+   }
+   .products .product-in .product-detail h3{
+      background-color: #fff;
+      padding: 0px 20px;
+      margin: 0px;
+      font-size: 22px;
+      color: #041E42;
+   }
+   .products .product-in .product-detail h4{
+      background-color: #fff;
+      padding: 0px 20px;
+      margin: 0px;
+      font-size: 20px;
+      color: #041E42;
+   }
+   .total-product{
+      margin: 10px;
+   }
+   .total-product .product-value{
+      color: #fff;
+      text-align: center;
+   }
+
+   @media (max-width: 991.98px) {
+   .products .product-in .product-detail h2 {
+padding: 0px 10px ;
+font-size: 18px;
+   }
+   .products .product-in .product-detail h3 {
+    padding:0px 10px;
+    font-size: 16px;
+   }
+
+   .products .product-in .product-detail .pro-image {
+    height: 135px;
+   }
+  }

@@ -1,0 +1,206 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="frmCenter" style="margin: 10px;">
+
+        <form class="profileForm" action="{% url 'addBtnBCampaignSubmit' id %}" method="post" enctype="multipart/form-data" style="position: relative;" onsubmit="return validateForm('form1')">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Add Button Info</h3>
+        </span>
+        <span class="formOne inputGridThree">
+            <span>
+
+                <label for="btnNum">Button Number</label>
+                <input type="number" name="btnNum" class="nameInput" placeholder="Enter Button number" id="btnNum">
+                <span class="charCount"></span>
+            </span>
+            <span>
+
+                <label for="btnName">Button Name</label>
+                <input type="text" name="btnName" class="nameInput" placeholder="Enter Button name" id="btnName">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+                <label>Select Button type</label>
+                <select id="serviceselect" name="template_button_type" onchange="showAdditionalField(this.value)">
+                    <option value="" hidden> Select a Button type </option>
+                    <option value="URL">Url</option>
+                    <option value="IMAGE">Image</option>
+                    <option value="VIDEO">Video</option>
+                    <option value="DOCUMENT">Document</option>
+                    <option value="PHONE_NUMBER">Phone Number</option>
+                    <option value="STOP">Stop</option>
+                    <option value="FORM">Form</option>
+                    <option value="INFLOW">Inflow</option>
+                    <option value="CAMPAIGN">Campaign</option>
+                </select>
+            </span>
+            
+            <span id="fileInputSpan" style="display: none;">
+                <label for="fileInput">Select image</label>
+                <input type="file" name="fileInput1" id="fileInput">
+                <span>Maximum size: 5MB </span>
+                <span>Supported File Types: JPG, JPEG, and PNG</span>
+            </span>
+            
+            <span id="videoInputSpan" style="display: none;">
+                <label for="videoInput">Select video</label>
+                <input type="file" name="fileInput2" id="videoInput">
+                <span>Maximum  Size: 16MB</span>
+                <span>Supported File Types: MP4 and 3GP</span>
+            </span>
+            
+            <span id="documentInputSpan" style="display: none;">
+                <label for="documentInput">Select Document</label>
+                <input type="file" name="fileInput3" id="documentInput">
+                <span>Maximum File Size: 100MB</span>
+                <span>Supported File Types: (.txt), (.pdf), (.docx), (.pptx)</span>
+            </span>
+            
+            <span id="urlInputSpan" style="display: none;">
+                <label for="urlInput">URL</label>
+                <input type="text" name="urlInput" id="urlInput" placeholder="https://">
+            </span>
+            
+            <span id="phoneNumberInputSpan" style="display: none;">
+                <label for="phoneNumberInput">Phone Number</label>
+                <input type="text" name="phoneNumberInput" id="phoneNumberInput" placeholder="Phone number with country code">
+            </span>
+            
+            <span id="stopInputSpan" style="display: none;">
+                <label for="stopInput">Stop</label>
+                <input type="text" name="stopInput" id="stopInput">
+            </span>
+            
+            <span id="formInputSpan" style="display: none;">
+                <label for="formInput">Forms</label>
+                <select id="groupName" name="formInput" >
+                {% for group in formdata %}
+                        <option value="{{ group.id }}" hidden>Select Form name</option>
+                        <option value="{{ group.id }}">{{ group.form_name}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            <span id="formInputSpan1" style="display: none;">
+                <label for="formInput">campaign Name</label>
+                <select id="groupName" name="template_id" >
+                    {% for group in templatedata %}
+                        <option value="{{ group.id }}" hidden>Select Campaign name</option>
+                        <option value="{{ group.id }}">{{ group.generic_campaign_info.Campaign_Name}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            <span id="stopInputSpan1" style="display: none;">
+                <!-- <label for="stopInput">inflow</label> -->
+                <!-- <input type="text" name="stopInput1" id="stopInput"> -->
+            </span>
+            <!-- <span id="adtionalinfo"></span> -->
+            
+
+        </span>
+
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </form>
+
+</div>
+
+<script>
+    function showAdditionalField(value) {
+        var fileInputSpan = document.getElementById('fileInputSpan');
+        var videoInputSpan = document.getElementById('videoInputSpan');
+        var documentInputSpan = document.getElementById('documentInputSpan');
+        var urlInputSpan = document.getElementById('urlInputSpan');
+        var phoneNumberInputSpan = document.getElementById('phoneNumberInputSpan');
+        var stopInputSpan = document.getElementById('stopInputSpan');
+        var stopInputSpan1 = document.getElementById('stopInputSpan1');
+
+        var formInputSpan = document.getElementById('formInputSpan');
+        var formInputSpan1 = document.getElementById('formInputSpan1');
+
+
+
+        fileInputSpan.style.display = 'none';
+        videoInputSpan.style.display = 'none';
+        documentInputSpan.style.display = 'none';
+        urlInputSpan.style.display = 'none';
+        phoneNumberInputSpan.style.display = 'none';
+        stopInputSpan.style.display = 'none';
+        stopInputSpan1.style.display = 'none';
+
+        formInputSpan.style.display = 'none';
+        formInputSpan1.style.display ='none';
+
+        if (value === 'IMAGE') {
+            fileInputSpan.style.display = 'block';
+        } else if (value === 'VIDEO') {
+            videoInputSpan.style.display = 'block';
+        } else if (value === 'DOCUMENT') {
+            documentInputSpan.style.display = 'block';
+        } else if (value === 'URL') {
+            urlInputSpan.style.display = 'block';
+        } else if (value === 'PHONE_NUMBER') {
+            phoneNumberInputSpan.style.display = 'block';
+        } else if (value === 'STOP') {
+            stopInputSpan.style.display = 'block';
+        } else if (value === 'FORM') {
+            formInputSpan.style.display = 'block';
+        } else if (value === 'CAMPAIGN') {
+            formInputSpan1.style.display = 'block';
+        } else if (value === 'INFLOW'){
+            stopInputSpan1.style.display = 'block';
+        }
+    }
+</script>
+<!-- <emoji>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+    
+    
+    <script>
+        function validateForm(event) {
+        }
+        $(document).ready(function () {
+            $(".nameInput").emojioneArea({
+                pickerPosition: "bottom"
+            });
+    
+            $("#leve1Descrip").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("#leve1ShortDes").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            // $("#leve1Descrip").emojioneArea({
+            //     pickerPosition: "bottom"
+            // });
+        });
+    </script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

@@ -1,0 +1,60 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+{% include 'common/viewDetail.html' %}
+
+    
+
+<!-- <script>
+  let addressLine1 = document.getElementById("addressLine1").textContent;
+  let addressLine2 = document.getElementById("addressLine2").textContent;
+  let addressLandMark = document.getElementById("addressLandMark").textContent;
+  let addressPincode = document.getElementById("addressPincode").textContent;
+  let addressCity = document.getElementById("addressCity").textContent;
+  let addressState = document.getElementById("addressState").textContent;
+  let addressCountry = document.getElementById("addressCountry").textContent;
+
+  let addressfull = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("addressfull").textContent = addressfull;
+  console.log(addressfull); // prints the concatenated name
+
+
+
+</script> -->
+<!-- <script>
+      let firstName = document.getElementById("firstName").textContent;
+  let middleName = document.getElementById("middleName").textContent;
+  let lastName = document.getElementById("lastName").textContent;
+  let fullName = `${firstName} ${middleName} ${lastName}`;
+  document.getElementById("fullName").textContent = fullName;
+  console.log(fullName); // prints the concatenated name
+
+</script> -->
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

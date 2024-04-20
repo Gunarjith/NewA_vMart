@@ -1,0 +1,138 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submitplacelist'  %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitplacelist'  %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Add Places </h4>
+            </span>
+    <span class="formOne inputGridThree">
+
+    <span class="formOne" style="padding-bottom:0 ;">
+         <label for="hotelplaceimage">Place  Image</label>
+          
+         <img src="" id="image">
+        <input type="file" id="hotelplaceimage" name="placeimage" class="imageInput"
+            accept="image/*"  onchange="document.getElementById('image').src=window.URL.createObjectURL(this.files[0])" required>
+        <span class="validationMessageImg"></span>
+        </span>
+        <span></span>
+    </span>
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+        <span>
+            <label for="hotelplacevideo">Place video</label>
+            <input type="file" id="hotelplacevideo" name="placevideo" class="fileInput" accept="file/*">
+            <span class="validatevideo"></span>
+        </span>
+        <span>
+            <label for="place_name">Place Name</label>
+            <input type="text" id="place_name" name="name"
+                placeholder="Enter Place name" >
+            <span class="charCount"></span>
+        </span>
+ 
+        <span>
+            <label for="place_type">Place Type </label>
+            <select id="place_type" name="placetype" aria-placeholder="Select a type">
+                <option value="">select type</option>
+                <option value="AIRPORT">airport</option>
+                <option value="HISTORICAL">historical</option>
+                <option value="HOSPITAL">hospital</option>
+                <option value="METRO">metro</option>
+                <option value="MUSEUM">museum</option>
+                <option value="RAILWAY STATION">railway station</option>
+                <option value="TEMPLE">temple</option>
+                <option value="WATER FALLS">Water falls</option>
+                <option value="ZOO">zoo</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="distance">distance</label>
+            <input type="number" id="distance" name="distance" placeholder="Enter a distance ">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="distance_unit">Distance Unit</label>
+            <select for="distance_unit" id="distance_unit" name="distanceunit" aria-placeholder="Select type">
+                <option value="">Select type</option>
+                <option value="KM">Kilometers</option>
+                <option value="MILES">miles</option>
+            </select>
+            <span class="charCount"></span>
+        </span>
+
+
+        <span>
+            <label for="Discription"> Discription</label>
+            <input type="text" id="Discription" name="discription"
+                placeholder="Enter food Discription" >
+            <span class="charCount"></span>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

@@ -1,0 +1,230 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<!-- <style>
+    .dcSectionOne {
+    background: url("{% static 'img/dcBackTicketgroundImg.png' %}");
+}
+</style> -->
+
+<!-- <style>
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style> -->
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+
+
+<div class="bg1">
+    <div class="section2" style="margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Brillion1 Use Cases
+
+                        </h1>
+
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Integrating businesses with WhatsApp
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/useCasePageMainImg.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Brillion1 transforms consumer commerce by seamlesslyintegrating a messaging platform into e-commerce, turning
+        WhatsApp into adirect sales channel. This innovative approach enables businesses to engagecustomers, facilitate
+        transactions, and provide a personalized shoppingexperience within the chat interface. Embracing the versatility
+        ofWhatsApp, Brillion1 pioneers’ platforms, products, and solutions that bridgesocial and geographical gaps. As
+        experts in WhatsApp's robust APIs, Brillion1streamlines customer engagement, offering tailored solutions for
+        medium andlarge enterprises to respond effectively to unlimited WhatsApp messages.
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+
+
+
+
+
+
+
+<div class="mainDcSection flexReverce bgBlog">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+        <h2>Integrating diverse workforce</h2>
+
+        <p>
+            Integrating the HR system with WhatsApp streamlines routinetasks, making it convenient and efficient.
+            Employees can easily interact withcompany systems through WhatsApp.
+
+        </p>
+
+        <span style="display: flex; justify-content: flex-start;">
+            <a href="{% url 'hrSystem' %}" style="color: #000079;display: flex;justify-content: center;
+            align-items: center; column-gap: 10px; font-weight: 600; font-size: 18px;">Know More<img
+                    src="{% static 'img/arrowRight.png' %}" alt=""></a>
+        </span>
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/useCasePageImg1.png' %}" alt="">
+    </div>
+
+</div>
+
+
+<div class="mainDcSection bgBlog">
+
+    <div class="dcTwoRightSection widthThirty">
+        <img src="{% static 'img/useCasePageImg2.png' %}" alt="">
+    </div>
+    <!-- <div class="dcOneLeftSection widthSixty"> -->
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-right: 0 !important;">
+        <h2>Improved loyalty at Salon Chain</h2>
+
+        <p>
+            Integrating a salon with WhatsApp offers a modern andconvenient solution for enhancing customer
+            communication and service efficiency.
+
+        </p>
+
+        <span style="display: flex; justify-content: flex-start;">
+            <a href="{% url 'salon' %}" style="color: #000079;display: flex;justify-content: center;
+            align-items: center; column-gap: 10px; font-weight: 600; font-size: 18px;">Know More<img
+                    src="{% static 'img/arrowRight.png' %}" alt=""></a>
+        </span>
+    </div>
+
+
+
+    <!-- </div> -->
+</div>
+
+
+<div class="mainDcSection flexReverce bgBlog">
+
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+
+        <h2>Enhanced Service Desk accessibility</h2>
+
+        <p>
+            WhatsApp integration with ServiceNow brings a powerfulcombination of real-time communication and service
+            management to streamlineorganizational workflows.
+
+        </p>
+
+        <span style="display: flex; justify-content: flex-start;">
+            <a href="{% url 'serviceNow' %}" style="color: #000079;display: flex;justify-content: center;
+            align-items: center; column-gap: 10px; font-weight: 600; font-size: 18px;">Know More<img
+                    src="{% static 'img/arrowRight.png' %}" alt=""></a>
+        </span>
+
+
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img src="{% static 'img/useCasePageImg3.png' %}" alt="">
+    </div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

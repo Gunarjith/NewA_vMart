@@ -1,0 +1,266 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% block title %} {{ user.username }} {% endblock title %}
+
+{% block header %}
+<!-- Header code here -->
+{% endblock header %}
+
+{% block rightcontent %}
+<div class="frmCenter">
+    <div class="assignCamFlex">
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                <h3>All Customer</h3>
+
+                {% for a in subUpdateCamaign %}
+
+                <button onclick="moveSelectedItems(this, '{{ a.id }}')">Move Selected</button>
+                {% endfor %}
+            </span>
+            <div style="overflow: scroll;WIDTH: initial;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAllCheckbox">
+                            </th>
+                            <!-- <th>client</th> -->
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable">
+                        {% for item in assignCampaign %}
+                        <tr data-item-id="{{ item.id }}">
+                            <td>
+                                <input type="checkbox" class="itemCheckbox">
+                            </td>
+                            <td style="display: none;">{{ item.client }}</td>
+                            <td>{{ item.Customer_First_Name }}</td>
+                            <td>{{ item.Customer_Whatsapp_Number }}</td>
+
+
+                            <td>{{ item.Customer_City }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- {% for item in campaignList %}
+        <tr>
+            
+            <td>{{ item.Customer_Phone_Number }}</td>
+            <td>{{ item.Customer_Whatsapp_Number }}</td>
+            <td>{{ item.Customer_City }}</td>
+        </tr>
+
+    {% endfor %} -->
+        <div class="campignListFlexRight profileFormTable">
+            <span class="headFlex">
+                {% for a in subUpdateCamaign %}
+
+                <h3>Assigned Customers for Campaign "{{a.Campaign_Name}}" </h3>
+
+                {% endfor %}
+            </span>
+            <div style="overflow: scroll;WIDTH: initial;">
+
+                <table id="selectedTable">
+                    <thead>
+                        <tr>
+                            <!-- <th>client</th> -->
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tbody id="selectedItemsBody">
+
+                        {% for list in campaignList %}
+                        <tr>
+                            <!-- <td>{{ list.client }}</td> -->
+                            <td>{{ list.Customer_First_Name }}</td>
+                            <td>{{ list.Customer_Whatsapp_Number }}</td>
+                            <td>{{ list.Customer_City }}</td>
+                            <td>
+                                <span class="editDeleteTd">
+                                    <a href="{% url 'deleteCampaignList' list.id %}">
+                                        <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% for item in selectedItems %}
+                        <tr data-item-id="{{ item.id }}">
+                            <td style="display: none !important;">{{ itme.client }}</td>
+
+                            <td>{{ item.Customer_First_Name }}</td>
+                            <td>{{ item.Customer_Whatsapp_Number }}</td>
+                            <td>{{ item.Customer_City }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="eventAlertTemplate" id="confirmationBlockCampaignList" style="display: none;">
+    <div class="flexEventAlertTemplate">
+        <div>Are you sure you want to assign the selected ite
+            ms?</div>
+        <button id="confirmButton">Confirm</button>
+        <button id="cancelButton">Cancel</button>
+    </div>
+</div>
+
+<div id="duplicate-entry-modal" class="eventAlertTemplate" style="display: none;">
+    <div class="flexEventAlertTemplate">
+    <div id="duplicate-entry-messages"><p>There are similar list of items already existing in table </p></div>
+    <button id="ok-button">OK</button>
+</div>
+</div>
+
+
+<script>
+    function moveSelectedItems(element, campaignId) {
+        var checkboxes = document.getElementsByClassName("itemCheckbox");
+        var selectedItems = [];
+
+        // Loop through all checkboxes
+        for (var i = 0; i < checkboxes.length; i++) {
+            var checkbox = checkboxes[i];
+
+            // Check if the checkbox is selected
+            if (checkbox.checked) {
+                var row = checkbox.parentNode.parentNode;
+
+                // Get the corresponding values from the original table
+                var ticketCustomerMasterId = row.getAttribute("data-item-id");
+                var client = row.cells[1].textContent;
+                var name = row.cells[2].textContent;
+                var whatsappNumber = row.cells[3].textContent;
+                var city = row.cells[4].textContent;
+
+                // Add the data of the current row to the selected items array
+                selectedItems.push({
+                    ticket_customer_master_id: ticketCustomerMasterId,
+                    client: client,
+                    name: name,
+                    whatsappNumber: whatsappNumber,
+                    city: city
+                });
+            }
+        }
+
+        if (selectedItems.length > 0) {
+
+            // Show the confirmation block
+            var confirmationBlockCampaignList = document.getElementById("confirmationBlockCampaignList");
+            confirmationBlockCampaignList.style.display = "block";
+            var modal = document.getElementById("duplicate-entry-modal");
+           var okButton = document.getElementById("ok-button");
+
+            // Add event listener to the Confirm button
+            var confirmButton = document.getElementById("confirmButton");
+            confirmButton.addEventListener("click", function () {
+                // Hide the confirmation block
+                confirmationBlockCampaignList.style.display = "none";
+
+                // Send the data to the server
+                var data = {
+                    campaignId: campaignId,  // Replace with the appropriate campaign ID value
+                    selected_items: selectedItems
+                };
+
+                fetch(`/Eventmaster/pulishCampaignList/${campaignId}/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Success, do something
+                            console.log("Items moved successfully");
+                            location.reload();
+                        } else {
+                            // Error, display duplicate entry messages
+                            console.log("Failed to move items");
+                            if (data.duplicate_entries && data.duplicate_entries.length > 0) {
+                                data.duplicate_entries.forEach(duplicate => {
+                                    // Display duplicate entry message in the frontend
+                                    modal.style.display = "block";
+                                });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("An error occurred:", error);
+                    });
+            });
+            //   Add event listener to the Cancel button
+            var cancelButton = document.getElementById("cancelButton");
+            cancelButton.addEventListener("click", function () {
+                // Hide the confirmation block
+                confirmationBlockCampaignList.style.display = "none";
+            });
+        } else {
+            console.log("No selected items found.");
+        }
+    }
+
+    var modal = document.getElementById("duplicate-entry-modal");
+    var okButton = document.getElementById("ok-button");
+
+    // Function to display the duplicate entry messages in the modal
+    function displayDuplicateEntries(entries) {
+        var messagesContainer = document.getElementById("duplicate-entry-messages");
+        messagesContainer.innerHTML = "";
+
+        entries.forEach(function(entry) {
+            var message = document.createElement("p");
+            message.textContent = entry;
+            messagesContainer.appendChild(message);
+        });
+
+        modal.style.display = "block";
+    }
+
+    okButton.addEventListener("click", function() {
+        // Perform the desired action here
+        // For example, reload the page
+        location.reload();
+    });
+
+
+    // Handle select all checkbox click event
+    document.getElementById("selectAllCheckbox").addEventListener("change", function () {
+        var checkboxes = document.getElementsByClassName("itemCheckbox");
+
+        // Set the checked property of each checkbox to match the select all checkbox
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    });
+
+
+
+</script>
+{% endblock rightcontent %}
+
+{% block script %}
+<!-- Your additional JavaScript code goes here -->
+{% endblock script %}

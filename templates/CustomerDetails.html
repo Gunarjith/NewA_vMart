@@ -1,0 +1,58 @@
+{% extends "vmart.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+            <div  class="Customerdetails">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for i in customerdetails %}
+                        <tr>
+                            <th>{{ i.id}}</th>
+                            <td>{{i.customer_name}}</td>
+                            <td>{{i.customer_number}}</td>
+                            <td>{{i.customer_addressline1}} {{i.customer_addressline2}} {{i.customer_area}} {{i.customer_pincode}}</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+    
+
+
+
+
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

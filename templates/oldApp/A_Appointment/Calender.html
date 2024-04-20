@@ -1,0 +1,338 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+
+{% block header %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    
+    .calendar {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    
+    .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+    
+    .day {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
+    .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .weekday {
+        text-align: center;
+        padding: 5px;
+    }
+    
+</style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    #calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .day {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    .event {
+        background-color: #007bff;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin-bottom: 2px;
+        font-size: 12px;
+    }
+</style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .week-calendar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    table {
+        width: calc(14.2857% - 10px); /* 7 days in a week */
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<!--<div class="calendar">
+    <div class="controls">
+        <button id="prevMonth">Previous Month</button>
+        <select id="months">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+        </select>
+        <input type="number" id="year" placeholder="Year">
+        <button id="nextMonth">Next Month</button>
+    </div>
+    <div class="weekdays">
+        <div class="weekday">Sun</div>
+        <div class="weekday">Mon</div>
+        <div class="weekday">Tue</div>
+        <div class="weekday">Wed</div>
+        <div class="weekday">Thu</div>
+        <div class="weekday">Fri</div>
+        <div class="weekday">Sat</div>
+    </div>
+    <div class="days"></div>
+</div>-->
+
+
+<div class="container">
+    <h1>Day Event Calendar</h1>
+    <div id="date"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Event</th>
+            </tr>
+        </thead>
+        <tbody id="event-list">
+            <!-- Events will be dynamically added here using JavaScript -->
+        </tbody>
+    </table>
+</div>
+<script>
+    // Get today's date
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+
+    // Display the date
+    document.getElementById('date').textContent = formattedDate;
+
+    // Add sample events (you can replace this with your own data)
+    const events = [
+        { time: '09:00 AM', event: 'Meeting with Client' },
+        { time: '12:30 PM', event: 'Lunch' },
+        { time: '03:00 PM', event: 'Project Presentation' },
+    ];
+
+    // Populate the event table
+    const eventList = document.getElementById('event-list');
+    events.forEach(event => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${event.time}</td>
+            <td>${event.event}</td>
+        `;
+        eventList.appendChild(row);
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const monthsSelect = document.getElementById("months");
+        const yearInput = document.getElementById("year");
+        const prevMonthBtn = document.getElementById("prevMonth");
+        const nextMonthBtn = document.getElementById("nextMonth");
+        const daysContainer = document.querySelector(".days");
+    
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+    
+        function updateCalendar() {
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    
+            daysContainer.innerHTML = "";
+          
+            // Create empty boxes for days before the 1st of the month
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyDay = document.createElement("div");
+                emptyDay.classList.add("day");
+                daysContainer.appendChild(emptyDay);
+            }
+    
+            // Create day boxes for the current month
+            for (let i = 1; i <= daysInMonth; i++) {
+                const day = document.createElement("div");
+                day.classList.add("day");
+                day.textContent = i;
+                daysContainer.appendChild(day);
+            }
+        }
+    
+        function updateMonthAndYear() {
+            monthsSelect.selectedIndex = currentMonth;
+            yearInput.value = currentYear;
+        }
+    
+        updateMonthAndYear();
+        updateCalendar();
+    
+        monthsSelect.addEventListener("change", () => {
+            currentMonth = parseInt(monthsSelect.value);
+            updateCalendar();
+        });
+    
+        yearInput.addEventListener("input", () => {
+            currentYear = parseInt(yearInput.value);
+            updateCalendar();
+        });
+    
+        prevMonthBtn.addEventListener("click", () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateMonthAndYear();
+            updateCalendar();
+        });
+    
+        nextMonthBtn.addEventListener("click", () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateMonthAndYear();
+            updateCalendar();
+        });
+    });
+
+
+
+    // Inside the updateCalendar function, before creating day boxes
+function updateCalendar() {
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+    daysContainer.innerHTML = "";
+
+    // Create week headers
+    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    for (let day of weekdays) {
+        const weekdayHeader = document.createElement("div");
+        weekdayHeader.classList.add("weekday");
+        weekdayHeader.textContent = day;
+        daysContainer.appendChild(weekdayHeader);
+    }
+
+    // Create empty boxes for days before the 1st of the month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyDay = document.createElement("div");
+        emptyDay.classList.add("day");
+        daysContainer.appendChild(emptyDay);
+    }
+
+    // Create day boxes for the current month
+    for (let i = 1; i <= daysInMonth; i++) {
+        const day = document.createElement("div");
+        day.classList.add("day");
+        day.textContent = i;
+        daysContainer.appendChild(day);
+    }
+}
+
+    
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+{% endblock script %}

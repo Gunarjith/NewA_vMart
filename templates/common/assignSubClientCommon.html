@@ -1,0 +1,250 @@
+{% extends "common/commonSetting.html" %}
+{% load static %}
+{% block title %}Assign Sub Client{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+{% endblock header %}
+{% block bodyCommon %}
+<div class="mT15" style="margin: 10px;">
+    <div class="frmCenter">
+        <!-- <form method="post" class="profileForm specialForm ajax-form" action="{% url 'assignSubClientCommon' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign User Permission</h3>
+            </span>
+            <span class="formOne">
+                <label>Preferences</label>
+                {% for choice in SUBCLIENT_CHOICE %}
+                    {% if choice.0 == 'donation' and client_service_type == 'donation' %}
+                        <label>
+                            <div style="display: flex;">
+                            <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                           <p>{{ choice.1 }}</p> 
+                        </div>
+                        </label>
+                        {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+                        <label>
+                            <div style="display: flex;">
+                                <input type="checkbox" name="preferencesmk" value="{{addNgoMarketPlace.ngo_name}}" {% if preferencesmk and choice.0 in preferencesmk.preferencesmk %}checked{% endif %}>
+                                <p>{{ addNgoMarketPlace.ngo_name }}</p> 
+                            </div>
+                        </label>
+                    {% endif %}
+                    {% endif %}
+                    {% if choice.0 != 'donation' and client_service_type == 'ticket' %}
+                        <label>
+                            <div style="display: flex;">
+                            <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                            <p>{{ choice.1 }}</p>
+                            </div>
+                        </label>
+                    {% endif %}
+                    {% if client_service_type == 'campaign' %}
+                        <label>
+                            
+                            <div style="display: flex;">
+                            <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                            <p>{{ choice.1 }}</p>
+                            </div>
+                        </label>
+                    {% endif %}
+                {% endfor %}
+                {{preferences.preferencesmk}}
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form> -->
+
+
+        <form method="post" class="profileForm specialForm ajax-form"
+            action="{% url 'assignSubClientCommon' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign User Permission</h3>
+            </span>
+            <span class="formOne">
+                <label>Preferences</label>
+                {% for choice in SUBCLIENT_CHOICE %}
+                {% if choice.0 == 'donation' and client_service_type == 'donation' %}
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                        <p>{{ choice.1 }}</p>
+                    </div>
+                </label>
+                <!-- {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+                            {% for marketplace in addNgoMarketPlace %}
+                                <label>
+                                    <div style="display: flex;">
+                                        <input type="checkbox" name="preferencesmk" value="{{ marketplace.id }}" {% if preferencesmk and marketplace.id in preferencesmk %}checked{% endif %}>
+                                        <p>{{ marketplace.ngo_name }}</p> 
+                                    </div>
+                                </label>
+                            {% endfor %}
+                        {% endif %} -->
+                {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+                {% for marketplace in addNgoMarketPlace %}
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferencesmk" value="{{ marketplace.id }}" {% if preferencesmk and marketplace.id in preferencesmk %}checked{% endif %}>
+                        <p>{{ marketplace.ngo_name }}</p>
+                    </div>
+                </label>
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+                {% if choice.0 != 'donation' and client_service_type == 'ticket' %}
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                        <p>{{ choice.1 }}</p>
+                    </div>
+                </label>
+                {% endif %}
+                {% if choice.0 != 'donation' and choice.0 != 'ticket' and choice.0 != 'scanner' and client_service_type == 'campaign' %}
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferences" value="{{ choice.0 }}" {% if preferences and choice.0 in preferences.preference %}checked{% endif %}>
+                        <p>{{ choice.1 }}</p>
+                    </div>
+                </label>
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferencesHistory" value="history" {% if preferences and 'history' in preferences.history_preference %}checked{% endif %}>
+                        <p>history</p>
+                    </div>
+                </label>
+                {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+                {% for marketplace in addcmpMarketPlace %}
+                <label>
+                    <div style="display: flex;">
+                        <input type="checkbox" name="preferencesmk" value="{{ marketplace.id }}" {% if preferencesmk and marketplace.id in preferencesmk %}checked{% endif %}>
+                        <p>{{ marketplace.campaign_name }}</p>
+                    </div>
+                </label>
+                {% endfor %}
+                
+                {% endif %}
+            {% endif %}
+            
+                {% endfor %}
+                {{ preferences.preferencesmk }}
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form>
+
+
+
+
+    </div>
+    <!-- 
+        <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+            <span class="formOne">
+                <label>Preference</label>
+                {% for choice in SUBCLIENT_CHOICE %}
+                    <label>
+                        <input type="radio" name="preference" value="{{ choice.0 }}" {% if preferences and preferences.preference == choice.0 %}checked{% endif %}>
+                        {{ choice.1 }}
+                    </label>
+                {% endfor %}
+            </span>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form> -->
+
+    <!-- <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+            <span class="formOne">
+                <label for="preference">Preference</label>
+                <select id="preference" name="preference">
+                    <option value="none" {% if preferences and preferences.preference == 'none' %}selected{% endif %}>None</option>
+                    <option value="campaign" {% if preferences and preferences.preference == 'campaign' %}selected{% endif %}>Campaign</option>
+                    <option value="ticket" {% if preferences and preferences.preference == 'ticket' %}selected{% endif %}>Ticket</option>
+                    <option value="scanner" {% if preferences and preferences.preference == 'scanner' %}selected{% endif %}>Scanner</option>
+                </select>
+            </span>
+        
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form>
+         -->
+
+    <!-- <form method="post" class="profileForm" action="{% url 'assignSubClient' subclient.id %}"
+            style="position: relative;" novalidate>
+            {% csrf_token %}
+            <span class="headFlex">
+                <h3>Assign Sub-Client Permission</h3>
+            </span>
+         <span class="formOne">
+                <span class="radioSUb">
+                    <label >Campaign</label>
+                    <input type="checkbox" id="campaign" name="campaign" {% if preferences and preferences.campaign%}checked{% endif %}>
+                    
+                </span>
+                <span class="radioSUb">
+                    <label >Ticket</label>
+                    <input type="checkbox" id="ticket" name="ticket" {% if preferences and preferences.ticket%}checked{% endif %}>
+                    
+                </span>
+                <span class="radioSUb">
+                    <label >Scanner</label>
+                    <input type="checkbox" id="scanner" name="scanner" {% if preferences and preferences.scanner%}checked{% endif %} >
+                    
+                </span>
+            </span>
+
+            
+            <span class="spanSubmitForm">
+                <input type="submit" value="Submit">
+            </span>
+        </form> -->
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Intercept form submissions for forms with the "ajax-form" class
+        $(".ajax-form").submit(function (e) {
+            e.preventDefault(); // Prevent the default form submission behavior
+
+            // Serialize form data (convert form fields to a format suitable for submission)
+            var formData = $(this).serialize();
+
+            // Define the URL where you want to submit the form data
+            var formUrl = $(this).attr("action");
+
+            // Reference to the current form element
+            var currentForm = $(this);
+
+            // Send the form data using AJAX POST request
+            $.ajax({
+                type: "POST", // Use POST method
+                url: formUrl, // The URL to submit to
+                data: formData, // The serialized form data
+                success: function (response) {
+                    // Load the response content into the parent container of the current form
+                    currentForm.closest(".mainContent").html(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors that occur during the AJAX request
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock bodyCommon %}

@@ -1,0 +1,77 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="mT15">
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>                
+                <th>Visitor_Name</th>
+                <th>Visitor_email</th>
+                <th>Whatsapp_Number</th>
+                <th>Visitor_City</th>
+                <th>Visitor_Address_Line1</th>
+                <th>Visitor_Address_Line2</th>
+                <th>Visitor_Address_Landmark</th>
+                <th>Visitor_Address_Pincode</th>
+                <th>Visitor_State</th>
+                <th>Visitor_Country</th>
+
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in visitorsinfo %}
+            <tr>
+                <td>{{a.Visitor_Name}}</td>
+                <td>{{a.Visitor_email}}</td>
+                <td>{{a.Visitor_Whatsapp_Number}}</td>
+                <td>{{a.Visitor_City}}</td>
+                <td>{{a.Visitor_Address_Line1}}</td>
+                <td>{{a.Visitor_Address_Line2}}</td>
+                <td>{{a.Visitor_Address_Landmark}}</td>
+                <td>{{a.Visitor_Address_Pincode}}</td>
+                <td>{{a.Visitor_State}}</td>
+                <td>{{a.Visitor_Country}}</td> 
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("document").ready(function () {
+        $('#search').keyup(function () {
+            var value = $(this).val().toLowerCase()
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

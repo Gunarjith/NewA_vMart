@@ -1,0 +1,38 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+{% block title %}Update Confirmation{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+{% endblock header %}
+{% block rightcontent %}
+<div>
+    <span class="headFlex">
+        <h3>Update Confirmation</h3>
+    </span>
+    <form method="post" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+        {% csrf_token %}
+        <span class="preferences">
+            <span>
+                <input type="checkbox" id="campaign" name="campaign" {% if campaign %}checked{% endif %}>
+                <label for="example_campaign">Campaign</label>
+            </span>
+            <span>
+                <input type="checkbox" id="ticket" name="ticket" {% if ticket %}checked{% endif %}>
+                <label for="ticket">ticket</label>
+            </span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="hidden" name="confirmed" value="true">
+            <input type="submit" value="Confirm Update">
+        </span>
+    </form>
+    <form method="post" action="{% url 'assignSubClient' subclient.id %}" style="position: relative;" novalidate>
+        {% csrf_token %}
+        <span class="spanSubmitForm">
+            <input type="hidden" name="confirmed" value="false">
+            <input type="submit" value="Cancel Update">
+        </span>
+    </form>
+</div>
+{% endblock rightcontent %}

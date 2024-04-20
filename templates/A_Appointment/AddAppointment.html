@@ -1,0 +1,239 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+<style>
+    .timezone-selector {
+        margin: 10px;
+    }
+    
+    label {
+        font-weight: bold;
+    }
+    
+    select {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+<div class="frmCenter" style="margin: 20px;">
+    <form class="profileForm myForm" action="{% if marketplace_id %}{% url 'submitConsultantAppointment' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'submitConsultantAppointment' %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative;">
+        {% csrf_token %}
+        <!----About A Consultant -->
+        <span class="headFlex">
+            <h3>Consultant</h3>
+        </span>
+        
+    <p>Marketplace ID: {{marketplace_id }}</p>
+        <span class="formOne inputGridThree">
+
+            <span>
+                <label for="leve1Name">Name</label>
+                <input type="text"  name="consultant_name" class="nameInput" placeholder=" Enter Your Name" required>
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="welcomeheaderimageId">Consultant Person Photo</label>
+                <input type="file" id="consultant_Person_photo" name="consultant_photo" class="imageInput" accept="image/*">
+                <span class="validationMessageImg"></span>
+            </span>
+            <span>
+                <label for="welcomeheaderimageId">Consultant Image</label>
+                <input type="file" id="consultant_work_image" name="consultant_image" class="imageInput" accept="image/*" >
+                <span class="validationMessageImg"></span>
+            </span>
+
+            <span>
+                <label for="leve1ShortDes">Consultant Email</label>
+                <input type="text" id="leve1ShortDes" name="consultant_email"  placeholder=" Enter Your Email" >
+            </span>
+            <span>
+                <label for="leve1Descrip">Consultant Phone number</label>
+                <input type="number" id="leve1Descrip" name="	consultant_phone" placeholder="Enter Your Contact number"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve1Descrip">consultant support number</label>
+                <input type="number" id="leve1Descrip" name="consultant_support_number" placeholder="Enter Your support number"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve1Descrip"> location Address</label>
+                <input type="text" id="leve1Descrip" name="location_address" placeholder="Enter Your Contact number"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+            <span>
+                <label for="leve1Descrip"></label>location name</label>
+                <input type="text" id="leve1Descrip" name="location_name" placeholder="Enter Your Contact number"
+                    class="descriptionInput">
+                <span class="charCount"></span>
+            </span>
+
+            <span>
+            <label for="leve1EndDate">Slot Duration</label>
+            <select id="id_slot_duration" name="slot_duration" placeholder="Select slot ">
+                <option value="">Select Slot</option>
+                <option value="15 minutes">15 minutes</option>
+                <option value="30 minutes">30 minutes</option>
+                <option value="60 minutes">60 minutes</option>
+                <option value="120 minutes">120 minutes</option>
+                <option value="180 minutes">180 minutes</option>
+            </select>
+            </span>
+            <span>
+                <label for="leve1EndDate">Consultant Specialization</label>
+                <input type="text" name="consultant_specialization" placeholder="Enter Your Specialization" id="leve1EndDate">
+            </span>
+            <span>
+                <label for="timezone">Select Timezone:</label>
+                <select id="timezone" name="timezone">
+                    <option value="">Select your timezone</select></option>
+                </select>
+                
+            </span>
+            <span>
+                <label for="approval_mode">approval_mode</label>
+                <select id="id_approval_mode" name="approval_mode" placeholder="Select approval_mode ">
+                    <option value="">Select Mode</option>
+                    <option>Atomatic</option>
+                    <option>Manual</option>
+                </select>
+            </span>
+            <span>
+                <label for="leve1EndDate">Consultant Fee</label>
+                <input type="number" name="consultantFee" placeholder="Enter Your Fee" id="leve1EndDate">
+            </span>
+            <span>
+                <label for="leve1EndDate">Consultant Deatails</label>
+                <input type="text" name="consultantDeatails" placeholder="Enter Your Deatails" id="leve1EndDate">
+            </span>
+
+        </span>
+        
+        <span class="spanSubmitForm" style="margin-top: 50px;">
+            <input type="submit" value="Submit">
+        </span>
+
+    </form>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const timezoneSelect = document.getElementById("timezone");
+    
+        // Function to populate the dropdown with timezones
+        function populateTimezones() {
+            const timezones = Intl.supportedValuesOf("timeZone");
+            
+            timezones.forEach((tz) => {
+                const option = document.createElement("option");
+                option.text = tz;
+                option.value = tz;
+                timezoneSelect.appendChild(option);
+            });
+        }
+    
+        // Call the function to populate the dropdown
+        populateTimezones();
+    });
+</script>
+
+<script>
+    const addButton = document.getElementById('addButton');
+    const inputFields = document.getElementById('inputFields');
+    const submitButton = document.getElementById('submitButton');
+
+    addButton.addEventListener('click', function () {
+        inputFields.style.display = 'block';
+    });
+
+    submitButton.addEventListener('click', function () {
+        const day = document.getElementById('daySelect').value;
+        const startTime = document.getElementById('startTimeInput').value;
+        const endTime = document.getElementById('endTimeInput').value;
+
+        if (day && startTime && endTime) {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${day}</td>
+                <td>${startTime}</td>
+                <td>${endTime}</td>
+            `;
+
+            document.getElementById('timeSlots').appendChild(newRow);
+
+            // Clear input fields
+            document.getElementById('daySelect').value = '';
+            document.getElementById('startTimeInput').value = '';
+            document.getElementById('endTimeInput').value = '';
+
+            // Hide input fields after submission
+            inputFields.style.display = 'none';
+        } else {
+            alert('Please fill in all fields.');
+        }
+    });
+</script>
+<script>
+    function validateForm(event) {
+        const currentForm = event.target;
+        const inputs = currentForm.querySelectorAll('input, select');
+        let hasFilledField = false;
+
+        // Check each form field value to see if it's not empty
+        inputs.forEach(input => {
+            // Handle the date fields separately
+            if (input.type === 'date') {
+                if (input.value.trim() !== '') {
+                    hasFilledField = true;
+                }
+            } else {
+                if (input.value.trim() !== '' && input.type !== 'submit') {
+                    hasFilledField = true;
+                }
+            }
+        });
+
+        // If no field is filled, show an alert and prevent form submission
+        if (!hasFilledField) {
+            alert('Please fill at least one field before submitting the form.');
+            event.preventDefault();
+        }
+    }
+
+    // Use event delegation to handle form submission
+    document.addEventListener('submit', function (event) {
+        if (event.target.classList.contains('myForm')) {
+            validateForm(event);
+        }
+    });
+</script>
+
+
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+{% endblock script %}

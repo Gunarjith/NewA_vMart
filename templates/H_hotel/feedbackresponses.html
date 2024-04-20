@@ -1,0 +1,175 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% if admin_permission_obj and admin_permission_obj.client_marketplace  == 'yes' %}
+    
+    <form method="POST" action="{% url 'viewfeedbackresponses' %}">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+        <th><select name="hotelname" id="marketplace" style="width:150px">
+            {%if subclient_preferences%}
+            {% if particular_hotel %}
+            <option hidden value="{{particular_hotel.id}}">{{particular_hotel.hotel_name}}</option>
+            {% for hotel in hotelname %}
+                <option value="{{ hotel.id }}">{{ hotel.hotel_name }}</option>
+            {% endfor %}
+            {% else %}
+            <option hidden>Select Hotel </option>
+            {% for hotel in hotelname %}
+                <option value="{{ hotel.id }}">{{ hotel.hotel_name}}</option>
+            {% endfor %}
+            {% endif %}
+            {%else%}
+            {% if particular_hotel %}
+            <option hidden value="{{particular_hotel.id}}">{{particular_hotel.hotel_name}}</option>
+            {% for hotel in hotelname %}
+                <option value="{{ hotel.id }}">{{ hotel.hotel_name }}</option>
+            {% endfor %}
+            {% else %}
+            <option hidden>Select Hotel </option>
+            {% for hotel in hotelname %}
+                <option value="{{ hotel.id }}">{{ hotel.hotel_name }}</option>
+            {% endfor %}
+            {% endif %}
+            {%endif%}
+        </select></th>
+        <th> <select name="roomnumber" id="roommumber" style="width:150px" >
+            {% if Room_Number %}
+            
+            <option hidden value={{Room_Number.id}}>{{Room_Number.room_number}} </option>
+            {%else%}
+            <option hidden>Select Room Number</option>
+            {%endif%}
+            {% for Room in Rooms %}
+                <option value="{{ Room.id }}">{{Room.room_number}}</option>
+            {% endfor %}
+        </select></th>
+
+    <th><button type="submit" value="Submit" id="submitbutton">Submit</button></th></tr>
+    </thead>
+</table>
+</form>
+
+
+   
+       
+        <div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Phone Number</th>
+                <th>Question</th>
+                <th>Ratings</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            
+            {% for c_response in allresponses %}
+           
+           
+    
+                <tr>
+                    
+                    <td>{{c_response.Checkout_response_header.Guest_details.Phone_number}}</td>
+                    <td>{{c_response.Checkout_question.Question}}</td>
+                    <td>{{c_response.Checkout_response}}</td>
+                    <td>{{c_response.Checkout_response_header.Comment}}</td>
+                  
+                   
+                    
+                  
+                    
+                    
+                 
+                    {% endfor %}
+                </tr>
+                
+                
+        </tbody>
+    </table>
+</div>
+<script>
+    
+    // a=document.getElementById('marketplace').value  
+    // console.log(document.getElementById('marketplace').value)
+        
+    $(document).on('change', '#marketplace', function () {
+    // Generate URL without "id" bit
+    var id = $(this).val();
+    console.log(id);
+    
+    var url = "{% url 'feedbackresponses'  %}" + id;
+
+    
+    // Construct the full URL with "id"
+    document.location.href = url;
+});
+
+
+</script>
+
+{% endif %}
+
+
+{% if admin_permission_obj and admin_permission_obj.client_marketplace  != 'yes'  %}
+<div class="mT15">
+    <form method="POST" action="{% url 'viewfeedbackresponses' %}">
+        {% csrf_token %}
+<label for="roomnumber">Select Room Number:</label>
+<select name="roomnumber" id="roommumber" >
+    <option hidden>Select Room Number </option>
+    {% for Room in Rooms %}
+        <option value="{{ Room.id }}">{{ Room.room_number }}</option>
+    {% endfor %}
+</select><br><br>  
+
+    <input type="submit" value="Submit" id="submitbutton">
+
+</form>
+</div>
+<div style="overflow-y: scroll;">
+    <table>
+        <thead>
+            <tr>  
+                <th>Phone Number</th>
+                <th>Question</th>
+                <th>Ratings</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            
+            {% for c_response in allresponses %}
+           
+          
+    
+                <tr>
+                    
+                    <td>{{c_response.Checkout_response_header.Guest_details.Phone_number}}</td>
+                    <td>{{c_response.Checkout_question.Question}}</td>
+                    <td>{{c_response.Checkout_response}}</td>
+                    <td>{{c_response.Checkout_response_header.Comment}}</td>
+                    {% endfor %} 
+                
+                </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% endblock rightcontent %}

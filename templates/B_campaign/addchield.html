@@ -1,0 +1,147 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% for a in parentdata %}
+{{a.Parent_ID}}
+{% endfor %}
+
+<div class="frmCenter" style="margin: 10px;">
+
+    <form class="profileForm myForm" action="{% url 'submitchailddata' id %}" method="post" enctype="multipart/form-data" style="position: relative;">
+    {% csrf_token %}
+    <span class="headFlex">
+        <h3>Add Chield </h3>
+    </span>
+    <span class="formOne inputGridThree">
+        {% for a in parentdata %}
+        <span>
+            <label for="leve1Name">Child Name</label>
+            <input type="text"  name="ParentID" class="nameInput" value="{{a.id}}">
+            <span class="charCount"></span>
+        </span>
+   
+        <span>
+            <label for="leve1ShortDes"> Button Type</label>
+            <input type="text" id="leve1ShortDes" name="openbuttontype" placeholder="Button type">
+        </span>
+        <span>
+            <label for="leve1Name">Button Name</label>
+            <input type="text"  name="openbuttonname" class="nameInput" placeholder="Name" required>
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="leve1ShortDes">Title </label>
+            <input type="text" id="leve1ShortDes" name="shorttitle" value="{{a.short_title}}">
+        </span>
+        {% endfor %}
+        <span>
+            <label for="leve1Descrip">Description</label>
+            <input type="text" id="leve1Descrip" name="shortdescription" placeholder="short description"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="campaign_link_text">Additional Info</label>
+            <input type="text" id="leve1Descrip" name="additionalinfo" placeholder="additional info"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="campaign_link_text">Additional Info1</label>
+            <input type="text" id="leve1Descrip" name="additionalinfo1" placeholder="additional info1"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="campaign_link_text">Additional Info2</label>
+            <input type="text" id="leve1Descrip" name="additionalinfo2" placeholder="additional info2"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="campaign_url">Additional File</label>
+            <input type="file" id="leve1Descrip" name="additionalfilepath" placeholder="additional file path"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="campaign_url">Additional File1</label>
+            <input type="file" id="leve1Descrip" name="additionalfilepath1" placeholder="additional file path1"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="campaign_url">Additional File2</label>
+            <input type="file" id="leve1Descrip" name="additionalfilepath2" placeholder="additional file path2"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="campaign_id">Header Type </label>
+            <input type="text" id="leve1Descrip" name="inflowheadertype" placeholder="inflow header type"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        
+        <span>
+            <label for="campaign_id">Header text </label>
+            <input type="text" id="leve1Descrip" name="inflowheadertext" placeholder="inflow header text"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="campaign_url">Header File</label>
+            <input type="file" id="leve1Descrip" name="inflowheaderfilepath" placeholder="additional file path2"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="key">Body text</label>
+            <textarea type="text" id="leve1Descrip" name="inflowbodytext"  placeholder="inflow body text"
+            rows="8" cols="100" ></textarea>
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="key">Footer text</label>
+            <input type="text" id="leve1Descrip" name="inflowfootertext" placeholder="inflow footer text"
+                class="descriptionInput">
+            <span class="charCount"></span>
+        </span>
+    </span>
+    </span>
+    <span class="spanSubmitForm">
+        <input type="submit" value="Submit">
+    </span>
+</form>
+
+
+</div>
+
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+
+
+{% endblock script %}

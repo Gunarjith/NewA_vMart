@@ -1,0 +1,41 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% for groups in editgroupdata %}
+<form class="profileForm" action="{% url 'updatesubmitgrouptype' groups.id  %}" method="post" enctype="multipart/form-data" style="position:relative;">
+    {% csrf_token %}
+    <span class="headFlex">
+        <h3>Add group</h3>
+    </span>
+    <span class="formOne inputGridThree">
+        <span>
+            <label for="groupname">Group Name:</label>
+            <input type="text" name="regroupname" value="{{groups.group_name}}">
+            <span class="charcount"></span>
+        </span>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit">
+        </span>
+    </span>
+</form>
+{% endfor %}
+
+
+
+{% endblock rightcontent %}
+
+{% block script %}
+
+{% endblock script %}

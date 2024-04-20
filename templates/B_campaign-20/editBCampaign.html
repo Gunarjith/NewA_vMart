@@ -1,0 +1,146 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+<div class="frmCenter" style="margin: 10px;">
+  
+    {% for a in updateBCampaign %}
+    <form  class="profileForm" style="position: relative;" action="{% url 'subUpdateBCamaign' a.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="headFlex">
+            <h3>Edit Campaign</h3>
+        </span>
+        <!-- <span class="eventImgFileFlex"> -->
+            <span class="formOne inputGridThree">
+            <span>
+
+            <label>Campaign Name</label>
+            <input type="text" name="reCampaignName" class="nameInput"  placeholder="{{a.Campaign_Name}}">
+
+            <span class="charCount"></span>
+        </span>
+
+     
+
+        <span>
+
+            <label>Campaign short Description</label>
+            <input type="text" name="reCampaignDescription" class="descriptionInput"  placeholder="{{a.Campaign_short_message}}" >
+            <span class="charCount"></span>
+        </span>
+
+<!-- <
+        <span>
+
+            <label>Campaign Header Image</label>
+            <input type="file" 
+            onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])"
+             name="reCampaignHeaderImg" >
+             <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Header_Image}}">
+                <img src="" id="output1">
+        </span> -->
+
+        <span>
+
+            <label>Campaign message</label>
+            <input type="text" name="reCampaignMessageText" class="mainInput" placeholder="{{a.Campaign_message}}">
+            <span class="charCount"></span>
+        </span>
+
+        <!-- <span>
+
+            <label>Campaign Footer Text</label>
+            <input type="text" name="reCampaignFooterText" class="footerInput" placeholder="{{a.Campaign_Footer_Text}}">
+            <span class="charCount"></span>
+        </span> -->
+
+        <span>
+
+            <label>Campaign 1st Button Name</label>
+             <input type="text" name="reCampaignButton1" class="buttonInput" placeholder="{{a.Campaign_First_Button_Name}}" >
+             <span class="charCount"></span>
+            </span>
+        <span>
+
+            <label>Campaign 2nd Button Name</label>
+             <input type="text" name="reCampaignButton2" class="buttonInput" placeholder="{{a.Campaign_Second_Button_Name}}" >
+             <span class="charCount"></span>
+            </span>
+        <span>
+
+            <label>Campaign 3rd Button Name</label>
+             <input type="text" name="reCampaignButton3" class="buttonInput" placeholder="{{a.Campaign_Third_Button_Name}}" >
+             <span class="charCount"></span>
+            </span>
+   
+        <span>
+
+            <label>Campaign Status</label>
+            <input type="number" name="reCampaignStatus" placeholder="{{a.Campaign_Status}}">
+        </span>
+
+
+        <!-- </span> -->
+        <!-- <span class="eventImgFileFlex"> -->
+       
+      
+        <!-- </span> -->
+        <!-- <span class="eventImgFileFlex"> -->
+            <span style="width: max-content;">
+                <span>
+                    <label>Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Campaign_Image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if a.Campaign_Image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearCampHeaderImg('id_reCampaignHeaderImg')"></img>
+                            {% endif %}
+                        </span>
+                    </span>
+                    <input type="file" name="reCampaignHeaderImg" id="id_reCampaignHeaderImg" class="imageInput" accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+            </span>
+
+       
+        <!-- </span> -->
+        </span>
+        <span class="spanSubmitForm">
+        <input class="addeventSubmit" type="submit" value="Submit">
+        </span>
+    </form>
+    {% endfor %}
+</div>
+<script>
+    function clearCampHeaderImg(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

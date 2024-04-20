@@ -1,0 +1,117 @@
+
+'<div class="divInvoiceAdress"><div style="display: flex;justify-content: space-between;margin: auto;line-height: 1.5;font-size: 14px;color: #4a4a4a;"><p><b>Adress:</b> <br><p>'+customerName+'</p><p>'+customerAddressline1+'</p><p>'+customerArea+'</p><p>'+customerPincode+'</p></p><p><b>Order no:</b> <p>'+orderId+'</p></p><p><b>Mobile no:</b> <p>'+userNumber+'</p></p></div></div>'
+<hr style="border: 1px dashed rgb(131, 131, 131); margin: 25px auto">
+
+<div class="divInvoiceOrder"><table style="width: 100%; table-layout: fixed"><thead><tr><th style="width: 50px; padding-left: 0;">Sn.</th><th style="text-align: center; padding-right: 0;">Item Name</th><th style="text-align: right; padding-right: 0;">QTY</th><th style="text-align: right; padding-right: 0;">Price</th></tr></thead><tbody>_______</tbody></table><table style="width: 100%;background: #fcbd024f;border-radius: 4px;"><thead><tr><th>Total</th><th style="text-align: right; padding-right: 0;">Item (20)</th><th>&nbsp;</th><th style="text-align: right;">₹ 396</th></tr></thead></table><table style="width: 100%;margin-top: 15px;border: 1px dashed #00cd00;border-radius: 3px;"><thead><tr><td>Total Amount In Rs: </td><td style="text-align: right;">'+₹ 396+'</td></tr></thead></table></div>'
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Event information</h1>
+<form action="{% url 'generalinfo' %}" method="post">
+    {% csrf_token %}
+
+    <label>Welcome Message</label><br><br>
+    <input type="text" name="txtwelcomename" placeholder="Enter Welcome Message"><br><br>
+    <label>Display Name for List of Events</label><br>
+    <input type="text" name="txteventname" placeholder="Enter Display Name for List of Events"><br><br>
+    <label>Display Name for Slot Selection</label><br>
+    <input type="text" name="txtslotname" placeholder="Enter Display Name for Slot Selection"><br><br>
+    <label>Customer Name for Registration</label><br><br>
+    <select name="txtcustomer">
+        <option>Please Select</option>
+        <option>Yes</option>
+        <option>No</option>
+    </select><br><br>
+
+    <input type="submit" name="txtsubmit1">
+
+
+
+
+</form>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="leftbodyHeader">
+    <div class="userimage">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            class="img-cover" class="img-cover">
+    </div>
+    <div>
+        <h4>'+String(userNumber)+'</h4>
+    </div>
+    <ul class="userIcons">
+        <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+        <li><ion-icon name="chatbox"></ion-icon></li>
+        <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="productHead"><strong class="d-none d-md-block h6 my-2">Product Details
+            <hr class="d-none d-md-block my-2">
+        </strong></div>
+    <div class="productData">
+        <table class="table table-stripeds table-bordereds">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>'+productHtml+'</tbody>
+        </table>
+    </div>
+    <div class="totalPrice">
+        <h6>Total Price<span> Rs. '+totalAmount+'</span></h6>
+    </div>
+    <div class="productHead">
+        <hr class="d-none d-md-block my-2"><strong class="d-none d-md-block h6 my-2">User Details
+            <hr class="d-none d-md-block my-2">
+        </strong>
+    </div>
+    <div class="productData">
+        <address class="address text-end">
+            <p>'+customerName+'</p>
+            <p>'+customerAddressline1+'</p>
+            <p>'+customerArea+'</p>
+            <p>'+customerPincode+'</p>
+            <p>'+userNumber+'</p>
+        </address>
+    </div>
+    <hr class="d-none d-md-block my-2">
+    <div><button type="button" class="btn btn-success"
+            onclick="acceptFunction('+String(productOrderHeaderId)+')">Accept</button></div>
+    <hr class="d-none d-md-block my-2">
+</div>
+
+<a type="button" class="divInvoiceAdressButton"  onclick="acceptFunction('+String(productOrderHeaderId)+')">Accept</button>
+
+
+<tr><td class="tableTd1"><img src="'+productImage+'" alt="imge" class="me-2" height="50" width="50">'+productName+'</td><td class="tableTd2">'+String(productQuantity)+'</td><td class="tableTd3">'+String(productValues)+'</td></tr>

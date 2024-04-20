@@ -1,0 +1,134 @@
+{% extends "appointmentDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+{% include 'A_Appointment/AppointmentConfig.html' %}
+
+{% for k in AppointmentDash %}
+
+<div class="frmCenter">
+    <div>
+    <form class="profileForm" action="{% url 'editSubmitAppointmentinfo' %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div class="profileForm profileForm1">
+            <span class="headFlex">
+                <h4>Welcome message</h4>
+            </span>
+            <span class="formOne">
+
+                <span>
+                    <label for="welcomeheaderimageId">Image</label>
+                    <span class="formImgFlex">
+                        <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{k.welcome_image}}">
+                        <span class="formImgFlexDelete">
+                            <img src="" id="output1">
+                            {% if k.donation_image %}
+                            <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                onclick="clearFileInputInfo1('id_rewelcomeImage')"></img>
+                            {% endif %}
+                        </span>
+                    <input type="file" id="rewelcomeheaderimageId" name="rewelcome_image" class="imageInput" accept="image/*" onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])" >
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+                <span>
+                    <label for="welcomemessagetextId">Wellcome message</label>
+                    <input type="text" id="rewelcomemessagetextId" name="rewelcome_message" value="{{k.welcome_message}}"
+                        placeholder="Enter Wellcome message" class="mainInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="welcomefootertextId">Booking Name</label>
+                    <input type="text" id="rewelcomefootertextId" name="rebooking_button_name" value="{{k.booking_button_name}}"
+                        placeholder="Enter Booking Name" class="footerInput">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingbuttonnameId">My Booking</label>
+                    <input type="text" id="rebookingbuttonnameId" name="remy_bookings_button_name" value="{{k.my_bookings_button_name}}"
+                        placeholder="Enter My Booking" class="buttonInput button1">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label for="bookingmyticketnameId">Contact Us</label>
+                    <input type="text" id="rebookingmyticketnameId" name="recontact_us_button_name" value="{{k.contact_us_button_name}}"
+                        placeholder="Enter My Booking" class="buttonInput button2">
+                    <span class="charCount"></span>
+                </span>
+            </span>
+        </div>
+        <span class="spanSubmitForm">
+            <input type="submit" value="Submit" style="margin-left: 47% ;">
+
+        </span>
+        {% endfor %}
+    </form>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        // Show validation message when an image is selected
+        $(".imageInput").on("change", function() {
+            if (this.files && this.files[0]) {
+                // Display the message inside the corresponding span
+                $(this).siblings(".validationMessageImg").text("Image selected.");
+            } else {
+                // Clear the message
+                $(this).siblings(".validationMessageImg").text("");
+            }
+        });
+    });
+</script>
+
+<!-- <emoji>-->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+     -->
+    
+    <!-- <script>
+        function validateForm(event) {
+        }
+        $(document).ready(function () {
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+    
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+            $("").emojioneArea({
+                pickerPosition: "bottom"
+            });
+        });
+    </script> -->
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+
+{% endblock script %}

@@ -1,0 +1,267 @@
+{% extends "Bcampaign.html" %}
+{% load static %}
+
+{% block title %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+    {% endif %}
+{% endblock title %}
+<style>
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, adjust as needed */
+        max-width: 500px; /* Max width */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Box shadow */
+    }
+
+    /* Close button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{% block rightcontent %}
+<div class="mT15">
+    <div class="headFlex">
+        <h3 id="changeHistory">Campaigns</h3>
+
+
+
+        <span style="display: flex; justify-content: space-between; column-gap: 10px;">            
+            <a style="margin: 5px;" href="{% if marketplace_id %}{% url 'addBCampaign' %}?marketplace_id={{marketplace_id}}{% else %}{% url 'addBCampaign'  %}{% endif %}">
+                <button>
+                    Add Campaign
+                </button>
+            </a>
+        </span>
+    </div>
+</div>
+{% if message %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %}
+
+<div style="overflow-y: scroll;" id="campaignInfoList">
+    <table>
+        <thead>
+            <tr>
+                <th>Campaign Name</th>
+                <th>Template Name</th>
+                <th>body</th>
+                <th>Status</th>
+                <th>Created on</th>
+                <th style="text-align: center;">Action</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+            {% for a in templatedata %}
+            <tr>
+                <td>{{ a.generic_campaign_info.Campaign_Name }}</td>
+                <td>{{ a.template_name }}</td>
+                <td>
+                    {% if a.template_body_message %}
+                        {% if a.template_body_message|length > 25 %}
+                            <span id="templateBody_{{a.id}}">{{ a.template_body_message|slice:":25" }}...</span>
+                            <span id="viewMore_{{a.id}}" style="cursor: pointer; color: rgb(29, 29, 233);" onclick="showFullTemplate('templateBody_{{a.id}}','viewMore_{{a.id}}','fullTemplate_{{a.id}}')">View more</span>
+                            <span id="fullTemplate_{{a.id}}" style="display: none;">{{ a.template_body_message }}</span>
+                        {% else %}
+                            {{ a.template_body_message }}
+                        {% endif %}
+                    {% else %}
+                        No message available
+                    {% endif %}
+                </td>
+                
+                {% if a.status == 'CREATED' %}
+                <td>Submited</td>
+                {% elif a.status == 'APPROVED' %}
+                <td>Approved</td>
+                {% else %}
+                <td>Draft</td>
+                {% endif %}
+
+                <td>{{ a.generic_campaign_info.vailo_record_creation }}</td>
+
+                <div id="groupModal" class="modal" style="display: none;">
+                    <div class="modal-content" style="display: flex; justify-content: center; width: top; " >
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2>Select Group</h2>
+                        <form id="groupForm" method="POST" action="{% url 'sendcampaign'  %}">
+                            {% csrf_token %}
+                            <!-- Hidden input field to store the template_info_id -->
+                            <input type="hidden" id="templateIdInput" name="template_id" value="">
+                            <select id="groupName" name="group_name">
+                                <label for="groupName">Select Group:</label>
+                                {% for group in camgroups %}
+                                    <option hidden>Select group</option>
+                                    <option value="{{ group.id }}">{{ group.group_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <td>
+                    <span class="editDeleteTd">
+                        <span>
+                            <a href="{% url 'preview' a.id %}">
+                                <img src="{% static 'img/viewicon.png.jpg' %}" alt="editIcn">
+                                <!-- viewicon.png -->
+                            </a>
+                        </span>
+
+                        {% if  a.status == 'APPROVED' %}
+                        <span>
+                        <a href="#"  onclick="showEditMessage1()">
+                            <button>Generate template</button>
+                           </a>
+                        </span>
+                        {%  endif %}
+
+                        {% if a.status != 'APPROVED' %}
+                        <span>
+                           <a href="{% url 'createtemplate' a.id %}">
+                            <button>Generate template</button>
+                           </a>
+                        </span>
+                        {% endif %}
+
+                        {% if  a.status == 'APPROVED' %}
+                        <span>
+                        <a href="#" onclick="showEditMessage()">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                    </span>
+                        {% endif %}
+                        {% if  a.status != 'APPROVED' %}
+                        <span>
+                        <a href="{% url 'updateBCamaign' a.id %}">
+                            <img src="{% static 'img/editIcn.png' %}" alt="editIcn">
+                        </a>
+                    </span>
+                        {% endif %}
+
+                        {% if a.status == 'APPROVED' %}
+                        <span>
+                            <a href="#" onclick="showEditMessage2()">
+                                <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                            </a>
+                        </span>
+                        {% endif %}
+                        {% if a.status != 'APPROVED' %}
+                        <span>
+                        <a href="{% url 'deleteBCampaign' a.id %}">
+                            <img src="{% static 'img/deleteIcn.png' %}" alt="deleteIcn">
+                        </a>
+                    </span>
+                    {% endif %}
+                        <a href="#" onclick="showGroupModal('{{ a.id }}')">
+                            <img style="width: 20px;" src="{% static 'img/sendCamp.png' %}" alt="sendCamp">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    let searchInput = document.getElementById('searchInput');
+    let tableRows = document.querySelectorAll('#mytable tr');
+
+    searchInput.addEventListener('input', function () {
+        let filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(function (row) {
+            let cells = row.getElementsByTagName('td');
+            let found = false;
+
+            for (let i = 0; i < cells.length; i++) {
+                let cellText = cells[i].textContent.toLowerCase();
+                if (cellText.includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Modal functionality
+    function showGroupModal(templateId) {
+        document.getElementById('templateIdInput').value = templateId;
+        document.getElementById('groupModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('groupModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        let modal = document.getElementById('groupModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script>
+    function showEditMessage() {
+        alert("The generated template is final and cannot be modified again.");
+    }
+</script>
+<script>
+    function showEditMessage1() {
+        alert("The template has already been approved.");
+    }
+</script>
+<script>
+    function showEditMessage2() {
+        alert("This action is irreversible. Are you sure you want to delete the template?.");
+    }
+</script>
+<script>
+    function showFullTemplate(template,view,fullTemplate) {
+        document.getElementById(template).style.display = 'none';
+        document.getElementById(fullTemplate).style.display = 'inline';
+        document.getElementById(view).style.display = 'none';
+    }
+</script>
+
+{% endblock rightcontent %}

@@ -1,0 +1,161 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+{% include 'N_donation/ConfigNav.html' %}
+{% for a in modifyDonation %}
+<div class="frmCenter" style="margin: 0 10px;">
+
+    <div>
+        <form class="profileForm" action="{% if marketplace_id %}{% url 'updateDonation' a.id %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'updateDonation' a.id %}{% endif %}" method="POST" enctype="multipart/form-data" style="position: relative; width: 100%;">
+            {% csrf_token %}
+            <input type="hidden" name="marketplace_id" value="{{ marketplace_id }}">
+            <span class="formOne inputGridThree">
+                <span>
+                    <label>Name</label>
+                    <input type="text" name="reDonationName" class="nameInput emoji-input" value="{{a.donation_name}}">
+                    <span class="charCount"></span>
+                </span>
+                <span>
+                    <label>Short Description</label>
+                    <input type="text" name="reDonationShortdesc" class="descriptionInput emoji-input"
+                        value="{{a.donation_short_description}}">
+
+                    <span class="charCount"></span>
+                </span>
+
+
+
+                <!-- <span>
+                        <label>Start Date</label>
+                        <input type="text" name="restartdate" placeholder="{{a.Start_Date}}"
+                            onfocus="(this.type='date')">
+                    </span>
+                    <span>
+                        <label>End Date</label>
+                        <input type="text" name="reenddate" placeholder="{{a.End_Date}}" onfocus="(this.type='date')">
+                    </span> -->
+
+
+
+
+                <!-- <span class="eventImgFileFlexGridImg">
+                <label>Event Logo</label>
+                <input type="file" name="relogo"
+                onchange="document.getElementById('output').src=window.URL.createObjectURL(this.files[0])">
+                <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_Logo}}">
+                <img src="" id="output">
+           
+            </span>
+            -->
+
+
+                <!-- <span class="eventImgFileFlexGridImg">
+                <label>Event Ticket Image</label>
+                <input type="file" name="reticket"
+                onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+
+                <img class="eventImgFileGridTicketImg" src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.Event_ticket_image}}">
+                <img class="eventImgFileGridTicketImg" src="" id="output1">
+               
+            </span> -->
+
+                <span>
+                    <label>Amount</label>
+                    <input type="text" name="redonationAmount" class="headerInput" value="{{a.donation_amount}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <span>
+                    <label>Description</label>
+                    <input type="text" name="redonationDescription" class="mainInput emoji-input"
+                        value="{{a.donation_description}}">
+                    <span class="charCount"></span>
+                </span>
+
+                <!-- <span>
+                        <label>Footer</label>
+                        <input type="text" name="reeventmessagefootertext" class="footerInput" value="{{a.Event_Message_Footer_Text}}">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label>level-2 Button Name</label>
+                        <input type="text" name="reeventslotbuttonname" class="buttonInput" value="{{a.Event_slots_button_name}}">
+                        <span class="charCount"></span>
+                    </span> -->
+                <span style="width: max-content;">
+                    <span>
+                        <label>Image</label>
+                        <span class="formImgFlex">
+                            <img class="eventImgFileGridTicketImg"
+                                src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.donation_type_image}}">
+                            <span class="formImgFlexDelete">
+                                <img class="eventImgFileGridTicketImg" src="" id="output2">
+                                {% if a.donation_type_image %}
+                                <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                    onclick="clearFileInput('id_reEventMessageHeaderImage')"></img>
+                                {% endif %}
+                            </span>
+                        </span>
+                        <input type="file" name="reDonationTypeImage" class="imageInput" accept="image/*"
+                            id="id_reEventMessageHeaderImage"
+                            onchange="document.getElementById('output2').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                    </span>
+                    <span></span>
+                    <!-- <span>
+                        <label>Status</label>
+                        <select name="status">
+                            <option value="1" {% if a.status == 1 %}selected{% endif %}>Active</option>
+                            <option value="2" {% if a.status == 2 %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </span> -->
+                </span>
+            </span>
+
+            <span class="spanSubmitForm">
+
+                <input type="submit" value="Update">
+            </span>
+        </form>
+    </div>
+    {% endfor %}
+
+
+
+
+</div>
+
+<script>
+    function clearFileInput(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output2');
+        img.src = '';
+    }
+</script>
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

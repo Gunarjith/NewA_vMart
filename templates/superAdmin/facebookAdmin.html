@@ -1,0 +1,49 @@
+{% extends "admindash.html" %}
+{% load static %}
+
+
+{% block title %} register {% endblock title %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+{% endblock header %}
+
+
+
+
+
+
+{% block rightcontent %}
+
+
+<span>
+    <h4>Facebook details</h4>
+  <div class="facebookSettings">
+    <form  action="{% url 'facebook_info' %}" method="POST" >
+      {% csrf_token %}
+      <input type="text"  name="fb_name" aria-describedby="emailHelp" placeholder="Facebook name" required>
+      <input type="number"  name="fb_business_manager_id" aria-describedby="emailHelp" placeholder="Enter manager Id" required>
+      <input type="number"  name="fb_Whatsapp_business_account_id" aria-describedby="emailHelp" placeholder="Enter account Id" required>
+      <input type="number"  name="fb_phone_number_id" aria-describedby="emailHelp" placeholder="Enter Phone number ID" required>
+      <input type="number"  name="fb_whatsapp_number" aria-describedby="emailHelp" placeholder="Whatsapp Number" required>
+      <input type="password"  name="fb_access_token" aria-describedby="emailHelp" placeholder="Enter access_token" required>
+      <input type="text"  name="fb_auth_token" aria-describedby="emailHelp"  placeholder="Enter auth_token" required>
+      <input type="number" name="fb_app_id" aria-describedby="emailHelp"  placeholder="Enter app ID" required>
+      <input type="number"  name="fb_second_number" aria-describedby="emailHelp"  placeholder="Enter Second Number" required>
+      <input type="number"  name="fb_third_number" aria-describedby="emailHelp"  placeholder="Enter Third Number" required>
+     <span></span>
+      <input type="submit">
+    </form>
+  </div>
+  </span>
+   
+
+{% endblock rightcontent %}
+
+
+
+{% block script %}
+
+
+{% endblock script %}

@@ -1,0 +1,220 @@
+{% extends "vailo.html" %}
+{% load static %}
+<!-- {% load static %} -->
+
+{% block title %}aboutUs{% endblock title %}
+
+
+{% block header %}
+<style>
+    .bg1 {
+        background: url("{% static 'img/serviceImgBgSide.png' %}") no-repeat;
+    }
+</style>
+
+{% endblock header %}
+
+
+
+
+
+{% block body %}
+
+
+<div class="bg1">
+    <div class="section2" style="    margin: 0 90px;align-items: baseline;">
+
+
+        <div class="sectionOneMainDIv" style="padding: 30px 0">
+            <div class="sectionImgLeft">
+                <div class="sectionMainOne">
+                    <span style="display: flex; flex-direction: row; gap: 15px;">
+                        <h1>
+                            Integrating diverse
+                            workforce
+
+                        </h1>
+
+                    </span>
+                    <h2 style="font-size: 32px; line-height: 43.65px;">
+                        Empowering diverse workforce by integrating Whatsapp with HR systems
+                    </h2>
+
+                </div>
+
+
+
+            </div>
+            <div class="sectionImgRight">
+                <img src="{% static 'img/hrImg1.png' %}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+<div class="section2add" style="position: relative;">
+    <span style="width: 100%;position: absolute;right: -90px;">
+        <img src="{% static 'img/openQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-start;">
+    </span>
+    <p>
+        Integrating a Human Resources (HR) system with WhatsApp represents a progressive step toward enhancing
+        communication, efficiency, and engagement within an organization. This integration streamlines various HR
+        processes, fostering a more connected and responsive workplace. Real-time communication ensures that important
+        information reaches employees promptly, contributing to a more informed and engaged workforce.”
+
+    </p>
+    <span style="width: 100%;position: absolute;z-index: 111;bottom: 30px;left: -90px;">
+        <img src="{% static 'img/closeQuote1.png' %}" alt="openQuote1" style="display: flex;float: inline-end;">
+    </span>
+</div>
+
+<div class="sectionParagraph">
+    <p style="font-size: 18px; line-height: 21.82px;">
+        Integrating the HR system with WhatsApp can simplify and expedite routine HR tasks. Picture a scenario where any
+        employee, regardless of their technical prowess or device availability, effortlessly interacts with company
+        systems via WhatsApp. No special training, no complex procedures—just a simple chat interface, easily accessible
+        on the go. It's a paradigm shift where technology seamlessly bridges the gap between blue-collar workers and
+        complex systems, democratizing access to critical information and processes. Furthermore, this extends beyond
+        mere accessibility and involves addressing language barriers as well. Envision a user interface that can
+        effectively communicate with every employee in their native language, utilizing multilingual features on
+        WhatsApp to facilitate efficient communication across various languages. The real-time nature, accessibility,
+        and familiarity of WhatsApp contribute to a more connected, responsive, and engaged workforce, ultimately
+        fostering a positive HR environment within the organization.
+    </p>
+</div>
+
+
+
+
+
+<div class="mainDcSection">
+    <span style="width: 100%;text-align: center;">
+        <h2 style="text-align: center; font-size: 32px;">
+            Use cases of Integrating WhatsApp with the HR System
+
+        </h2>
+
+    </span>
+
+    <div class="dcOneLeftSection widthSixty" style="padding-left: 0 !important;">
+
+
+
+        <!-- <div class="dcOneLeftSection marginZero" style="width: 57% !important;">
+                            <h3>Brillion1 Ticket</h3> -->
+        <ul>
+            <li>
+                With the convenience of a single WhatsApp message, employees can easily log their work hours, submit
+                time-off requests, view their salary information, and seamlessly organize their schedules.
+            </li>
+            <li>
+                Employees can use WhatsApp to submit leave requests, access HR documents, or inquire about HR policies.
+
+            </li>
+            <li>
+                HR professionals can utilize WhatsApp for conducting surveys, gathering feedback, or disseminating
+                employee engagement initiatives, creating a more interactive and inclusive HR environment.
+            </li>
+            <li>
+                The integration also enhances the recruitment and onboarding processes. HR teams can leverage WhatsApp
+                for initial communication with job applicants, sending automated updates on application statuses and
+                interview schedules.
+
+            </li>
+            <li>
+                For new hires, WhatsApp can serve as a platform for sharing onboarding materials, training resources,
+                and essential company information.
+            </li>
+            <li>
+                Regardless of their position or technical expertise, employees can benefit from a tool that streamlines
+                their daily work interactions, boosts productivity, and fosters a more engaged and satisfied workforce.
+            </li>
+
+
+
+        </ul>
+
+    </div>
+
+    <div class="dcTwoRightSection widthThirty flexEnd">
+        <img id="myImage1H" src="{% static 'img/hrSystemImg1.png' %}" alt="">
+    </div>
+
+</div>
+
+
+<div class="bottomAbsolute">
+    <a href="{% url 'useCasePage' %}">
+        <img src="{% static 'img/useCaseBottom.png' %}" alt="">
+    </a>
+</div>
+
+<div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+{% block script %}
+
+{% endblock script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./index.js"></script>
+</body>
+
+</html>

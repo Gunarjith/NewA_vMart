@@ -1,0 +1,511 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+{% include 'N_donation/ConfigNav.html' %}
+
+{% if donationDash %}
+
+
+<div class="frmCenter" style="margin: 0 15px;">
+    <div>
+        <form
+            action="{% if marketplace_id %}{% url 'editSettingsDonation' %}?marketplace_id={{ marketplace_id }}{% else %}{% url 'editSettingsDonation' %}{% endif %}"
+            method="post" enctype="multipart/form-data" class="profileForm" style="position: relative;">
+
+            {% csrf_token %}
+            <div style="display: flex; gap: 25px; margin-bottom:10px;">
+                <input type="hidden" name="marketplace_id" value="{{ donationDash.marketplace_id }}">
+
+                <div class="profileForm profileForm1">
+                    <span class="headFlex">
+                        <h4>Welcome message</h4>
+                    </span>
+                    {{ donationDash.marketplace_id }}
+                    {{ donationDash }}
+                    <p>Marketplace ID: {{ donationDash.marketplace_id }}</p>
+                    <!-- Other fields... -->
+                </div>
+
+            </div>
+
+            <div style="display: flex; gap: 25px; margin-bottom:10px;">
+                <div class="profileForm profileForm1">
+                    <span class="headFlex">
+                        <h4>Welcome message</h4>
+                    </span>
+                    <span class="formOne" style="padding-bottom:0 ;">
+                        <label>Image</label>
+                        <span class="formImgFlex">
+                            <img
+                                src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{donationDash.donation_image}}">
+                            <span class="formImgFlexDelete">
+                                <img src="" id="output1" alt="">
+                                {% if donationDash.donation_image %}
+                                <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                    onclick="clearFileInputInfo1('id_rewelcomeImage')">
+                                {% endif %}
+
+                            </span>
+                        </span>
+                        <input type="file" name="redonationImage" id="id_rewelcomeImage" class="imageInput"
+                            accept="image/*"
+                            onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                        <span></span>
+                    </span>
+<span>
+    
+</span>
+                    <span class="formOne inputGridTwo" style="padding: 0 10px !important;">
+                        <span>
+                            <label>Donation Description</label>
+                            <input type="text" name="redonationDescription"
+                                value="{{donationDash.donation_description}}" placeholder="Enter Donation Description"
+                                class="mainInput emoji-input" id="redonationDescriptionid">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>Footer message</label>
+                            <input type="text" name="redonationFooter" value="{{donationDash.donation_footer}}"
+                                placeholder="Enter Footer Text" class="footerInput emoji-input" id="redonationFooterid">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label>Donate now button/donation button</label>
+                            <input type="text" name="redonationNowButtonName"
+                                value="{{donationDash.donation_now_button_name}}"
+                                placeholder="Enter Donation Now Button Name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>My Donate now button/donation button</label>
+                            <input type="text" name="remyDonationButtonName"
+                                value="{{donationDash.my_donation_button_name}}"
+                                placeholder="Enter MyDonation Button Name" class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>Contact Button Name</label>
+                            <input type="text" name="recontactUsButtonName" class="mainInput emoji-input"
+                                value="{{donationDash.contact_us_button_name}}" placeholder="Enter Contact Button Name">
+                            <span class="charCount"></span>
+                        </span>
+
+                    </span>
+                </div>
+                <div class="profileForm profileForm1">
+                    <!-- <div class="profileForm profileForm1" style="margin: 10px 0;"> -->
+                    <span class="headFlex">
+                        <h4>Donation</h4>
+                    </span>
+                    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+
+                        <span>
+                            <label>Header message</label>
+                            <input type="text" name="redonationListHeader" value="{{donationDash.donation_list_header}}"
+                                placeholder="Enter Donation Header Text" class="headerInput emoji-input"
+                                id="redonationListHeaderid">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>Body Message</label>
+                            <input type="text" name="redonationListBody" value="{{donationDash.donation_list_body}}"
+                                placeholder="Enter Body Message Text" class="mainInput emoji-input"
+                                id="redonationListBodyid">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>Footer</label>
+                            <input type="text" name="redonationListFooter" value="{{donationDash.donation_list_footer}}"
+                                placeholder="Enter Donation Message footer" class="footerInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label>Button</label>
+                            <input type="text" name="redonationListButtonName"
+                                value="{{donationDash.donation_list_button_name}}" placeholder="Enter Button Name"
+                                class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+
+                    </span>
+
+                    <span class="headFlex">
+                        <h4>My donation details</h4>
+                    </span>
+                    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+
+                        <span>
+                            <label for="donationDetailsid1">Button Name</label>
+                            <input type="text" id="donationDetailsid1" name="redonationDetailsButton1"
+                                placeholder="Enter Button Name" class="buttonInput emoji-input"
+                                value="{{donationDash.my_donation_details_button_name1}}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="donationDetailsid2">Button Name</label>
+                            <input type="text" id="donationDetailsid2" name="redonationDetailsButton2"
+                                placeholder="Enter button name" class="buttonInput emoji-input"
+                                value="{{donationDash.my_donation_details_button_name2}}">
+                            <span class="charCount"></span>
+                        </span>
+                        <span>
+                            <label for="donationDetailsid3">Button Name</label>
+                            <input type="text" id="donationDetailsid3" name="redonationDetailsButton3"
+                                placeholder="Enter  button name" class="buttonInput emoji-input"
+                                value="{{donationDash.my_donation_details_button_name3}}">
+                            <span class="charCount"></span>
+                        </span>
+                    </span>
+
+                    <div class="formOne inputGridTwo" style="padding-bottom:0 ;">
+                        <span>
+                            <span class="headFlex" style="padding: 0;">
+                                <h4>Conformation</h4>
+                            </span>
+                            <span>
+                                <span>
+                                    <label>Confirmation message/confirmation Notification</label>
+                                    <input type="text" name="redonationConformMessage"
+                                        value="{{donationDash.donation_conform_message}}"
+                                        placeholder="Enter conform Message" class="buttonInput emoji-input">
+                                    <span class="charCount"></span>
+                                </span>
+                            </span>
+                        </span>
+
+                        <span>
+                            <span class="headFlex" style="padding: 0;">
+                                <h4>Failure message</h4>
+                            </span>
+                            <span>
+                                <span>
+                                    <label>Main Message</label>
+                                    <input type="text" name="redonationFailureMessage"
+                                        value="{{donationDash.donation_failure_message}}"
+                                        placeholder="Enter Failure message" class="mainInput emoji-input">
+                                    <span class="charCount"></span>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+            <div class="profileForm profileForm1" style="margin: 10px 0; padding-bottom: 0;">
+                <span class="headFlex">
+                    <h4>Contact message</h4>
+                </span>
+                <span class="formOne inputGridTwo" style="padding-bottom: 0;">
+                    <span>
+
+                        <span>
+                            <label>Image</label>
+                            <span class="formImgFlex">
+                                <img
+                                    src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{donationDash.donation_contact_us_image }}">
+                                <span class="formImgFlexDelete">
+                                    <img src="" id="output30">
+                                    {% if donationDash.donation_contact_us_image %}
+                                    <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                        onclick="contactImage1('id_contactImage')"></img>
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <input type="file" name="recontactheaderimage" id="id_contactImage"
+                                class="imageContactInput" accept="image/*"
+                                onchange="document.getElementById('output30').src=window.URL.createObjectURL(this.files[0])">
+                            <span class="validationMessageImg"></span>
+                        </span>
+
+                        <span></span>
+                    </span>
+
+                    <span class="formOne inputGridTwo" style="padding-bottom:  0;">
+                        <span>
+                            <label>Main Message</label>
+                            <input type="text" name="redonationContactUsMessage" class="mainInput emoji-input"
+                                value="{{donationDash.donation_contact_us_message}}"
+                                placeholder="Enter Contact message">
+                            <span class="charCount"></span>
+                        </span>
+
+                        <span>
+                            <label>Button</label>
+                            <input type="text" name="reContactNowButtonName"
+                                value="{{donationDash.contact_us_details_button_name}}" placeholder="Enter Button Name"
+                                class="buttonInput emoji-input">
+                            <span class="charCount"></span>
+                        </span>
+                    </span>
+
+                </span>
+
+
+                </span>
+            </div>
+
+            <div class="profileForm profileForm1" style="margin:10px 0;">
+                <span class="headFlex">
+                    <h4>N G O</h4>
+                </span>
+                <span class="formOne inputGridTwo" style="padding-bottom: 0;">
+                    <span>
+                        <label>Logo</label>
+                        <span class="formImgFlex">
+                            <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{donationDash.ngo_logo}}">
+                            <span class="formImgFlexDelete">
+                                <img src="" id="output6">
+                                {% if donationDash.ngo_logo %}
+                                <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                    onclick="contactImage('idNgoImage')"></img>
+                                {% endif %}
+                            </span>
+                        </span>
+
+                        <input type="file" name="rengoLogo" id="idNgoImage" class="imageInput" accept="image/*"
+                            onchange="document.getElementById('output6').src=window.URL.createObjectURL(this.files[0])">
+                        <span class="validationMessageImg"></span>
+                        <span></span>
+                    </span>
+
+                    <span>
+                        <span>
+                            <label>Image</label>
+                            <span class="formImgFlex">
+                                <img
+                                    src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{donationDash.ngo_signature_image}}">
+                                <span class="formImgFlexDelete">
+                                    <img src="" id="output9">
+                                    {% if donationDash.ngo_signature_image %}
+                                    <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                                        onclick="clearFileInputInfo2('id_resignature')"></img>
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <input type="file" name="resignature" id="id_resignature" class="imageInput"
+                                accept="image/*"
+                                onchange="document.getElementById('output9').src=window.URL.createObjectURL(this.files[0])">
+                            <span class="validationMessageImg"></span>
+                        </span>
+                        <span></span>
+                    </span>
+
+
+                </span>
+
+                <span class="formOne inputGridThree">
+                    <span>
+                        <label for="ticketcount1_descId">Support Number</label>
+                        <input type="text" id="ticketcount1_descId" name="resupportNumber"
+                            value="{{donationDash.support_number}}" placeholder="Enter support Number">
+                    </span>
+
+
+                    <span>
+                        <label for="ticketcount2_descId">N G O Name</label>
+                        <input type="text" id="ticketcount2_descId" name="rengoName" value="{{donationDash.ngo_name}}"
+                            placeholder="Enter ngo Name" class="nameInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount3_descId">N G O Pan</label>
+                        <input type="text" id="ticketcount3_descId" name="rengoPan" value="{{donationDash.ngo_pan}}"
+                            placeholder="Enter N G O Pan">
+                    </span>
+
+                    <span>
+                        <label for="ticketcount4_descId">N G O Gstin</label>
+                        <input type="text" id="ticketcount4_descId" name="rengoGstin" value="{{donationDash.ngo_gstin}}"
+                            placeholder="ticketcount4_desc">
+                    </span>
+                    <span>
+                        <label for="ticketcount5_descId">N G O Header Notes</label>
+                        <input type="text" id="ticketcount5_descId" name="rengoHeaderNotes"
+                            value="{{donationDash.ngo_header_notes}}" placeholder="Enter N G O Header Notes"
+                            class="mainInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount6_descId">N G O Footer Notes</label>
+                        <input type="text" id="ticketcount6_descId" name="rengoFooterNotes"
+                            value="{{donationDash.ngo_footer_notes}}" placeholder="N G O Footer Notes"
+                            class="footerInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount7_descId">N G O Signature Header</label>
+                        <input type="text" id="ticketcount7_descId" name="rengoSignatureHeader"
+                            value="{{donationDash.ngo_signature_header}}" placeholder="Enter N G O Signature Footer"
+                            class="mainInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+
+                    <span>
+                        <label for="ticketcount8_descId">N G O Signature Footer</label>
+                        <input type="text" id="ticketcount8_descId" name="rengoSignatureFooter"
+                            value="{{donationDash.ngo_signature_footer}}" placeholder="ticketcount8_desc"
+                            class="footerInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+                    <span>
+                        <label for="ticketcount9_descId">Invoice Footer</label>
+                        <input type="text" id="ticketcount9_descId" name="reinvoiceFooter"
+                            value="{{donationDash.invoice_footer}}" placeholder="Enter Invoice Footer"
+                            class="mainInput emoji-input">
+                        <span class="charCount"></span>
+                    </span>
+
+                </span>
+            </div>
+
+
+            <div class="profileForm profileForm1" style="margin:10px 0;">
+                <span class="headFlex">
+                    <h4>Generate link</h4>
+                </span>
+                <span class="formOne inputGridThree" style="padding-bottom: 0;">
+                    <span>
+                        <label>Ngo Link Text</label>
+                        <input type="text" name="rengo_link_text" class="descriptionInput emoji-input"
+                        value="{{donationDash.ngo_link_text}}" >
+    
+                        <span class="charCount"></span>
+                    </span>
+                    
+                    <span>
+                        <label>Ngo Url</label>
+                        <input type="text" name="rengo_url" class="descriptionInput emoji-input"
+                        value="{{donationDash.ngo_url}}">
+    
+                        <span class="charCount"></span>
+                    </span>
+    
+
+
+                </span>
+            </div>
+            <span class="spanSubmitForm">
+                <input type="submit" value="Update" style="margin-left: 47% ;">
+            </span>
+           
+        </form>
+
+<span>
+    <a href="{% url 'GenerateLink' donationDash.id %}">
+        <button>Generate with url</button>
+    </a>
+    <a href="{% url 'GenerateBarLink' donationDash.id %}">
+    <button>Generate with Qr</button>
+    </a> 
+
+</span>
+
+    </div>
+  
+
+
+</div>
+
+{% endif %}
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let inputs = document.querySelectorAll('input');
+        let mainMessage = document.getElementsByClassName('mainMessage');
+
+        for (let i = 0; i <= length.inputs; i++) {
+
+        }
+    })
+</script>
+<script>
+    function clearFileInputInfo1(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output1');
+        img.src = '';
+    }
+</script>
+<script>
+    function clearFileInputInfo2(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output9');
+        img.src = '';
+    }
+</script>
+<script>
+
+    function contactImage(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output6');
+        img.src = '';
+    }
+    function contactImage1(id) {
+        var fileInput = document.getElementById(id);
+        fileInput.value = null;
+        var img = document.getElementById('output30');
+        img.src = '';
+    }
+</script>
+
+<script>
+    //   document.addEventListener("DOMContentLoaded", function() {
+    //     let inputs = document.querySelectorAll('input[required]');
+
+    //     inputs.forEach(function(input) {
+    //         let label = document.querySelector('label[for="' + input.id + '"]');
+    //         label.textContent += ' *';
+    //     });
+    // });
+
+</script>
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $("#redonationDescriptionid").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#redonationFooterid").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#redonationListHeaderid").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#redonationListBodyid").emojioneArea({
+            pickerPosition: "bottom"
+        });
+    });
+</script>
+
+{% endblock rightcontent %}
+
+
+{% block script %}
+
+
+{% endblock script %}

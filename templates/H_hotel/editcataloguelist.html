@@ -1,0 +1,130 @@
+{% extends 'hotelDash.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+<div class="mT15">
+
+    <div class="headFlex">
+        
+        <h3>Hotel Room infromation </h3>
+    </div>
+</div>
+
+
+{% include 'H_hotel/hotelConfig.html' %}
+
+{% for a in modifycatalogue %}
+<div class="frmCenter" style="margin: 15px; width: 100%;">
+    <div>
+    <form class="profileForm" action="{% if marketplace_id %}{% url 'submiteditcatelogulist' a.id %}?marketplace_id={{marketplace_id}}{% else %}{% url 'submiteditcatelogulist' a.id %}{% endif %}" method="post" enctype="multipart/form-data"
+        style="position: relative; width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; gap: 25px; margin-bottom:10px;">
+            <div class="profileForm profileForm1">
+
+
+
+    <span class="formOne inputGridTwo" style="padding-bottom:0 ;">
+
+        <span>
+            <label for="catalogue_name">Catalogue Name</label>
+            <input type="text" id="catalogue_name" name="rename"
+                value="{{a.catalogue_name}}" >
+            <span class="charCount"></span>
+        </span>
+
+        <span>
+            <label for="catalogue_discription">Catalogue Discription </label>
+            <input type="text" id="catalogue_discription" name="recataloguediscription" value="{{a.catalogue_discription}}" >
+            <span class="charCount"></span>
+        </span>
+
+
+        <span>
+            <label for="catalogue_set_id">Catalogue Set Id</label>
+            <input type="text" id="catalogue_set_id" name="recataloguesetid"
+              value="{{a.catalogue_set_id}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="start_time">Start Time</label>
+            <input type="time" id="start_time" name="restarttime"
+              value="{{a.start_time|time:'H:i'}}">
+            <span class="charCount"></span>
+        </span>
+        <span>
+            <label for="end_time">End Time</label>
+            <input type="time" id="end_time" name="reendtime"
+                value="{{a.end_time|time:'H:i'}}">
+            <span class="charCount"></span>
+        </span>
+
+        <span class="formOne inputGridTwo">
+            <!-- <span> -->
+            <span>
+                <label for="rehotelserviceimage"> Catalogue Image</label>
+                <span class="formImgFlex">
+                    <img src="https://s3.us-east-2.amazonaws.com/vailo.ai-bucket/{{a.catalogue_image}}">
+                    <span class="formImgFlexDelete">
+                        <img src="" id="output1">
+                        {% if a.catalogue_image %}
+                        <img class="imgDelete" src="{% static 'img/deleteIcn.png' %}"
+                            onclick="clearFileInputInfo1('foodimage')"></img>
+                        {% endif %}
+                    </span>
+                    <input type="file" id="rehotelserviceimage" name="reImage" class="imageInput"
+                        accept="image/*"
+                        onchange="document.getElementById('output1').src=window.URL.createObjectURL(this.files[0])">
+                    <span class="validationMessageImg"></span>
+                </span>
+                <span></span>
+            </span>
+        </span>
+
+</div>
+<span class="spanSubmitForm">
+<input type="submit" value="Submit" style="margin-left: 47% ;">
+</span>
+
+</form>
+</div>
+</div>
+{% endfor %}
+
+<script>
+    $(document).ready(function () {
+    // Show validation message when an image is selected
+    $(".imageInput").on("change", function () {
+    if (this.files && this.files[0]) {
+    // Display the message inside the corresponding span
+    $(this).siblings(".validationMessageImg").text("Image selected.");
+    } else {
+    // Clear the message
+    $(this).siblings(".validationMessageImg").text("");
+    }
+    });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
+    {% endblock rightcontent %}
+    
+    
+    {% block script %}
+    
+    
+    
+    {% endblock script %}

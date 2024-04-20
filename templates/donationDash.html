@@ -1,0 +1,781 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="shortcut icon" href="{% static 'img/tabLogo.png' %}">
+
+    <title>
+        Brillion.one
+
+       
+
+    </title>
+
+
+    <link rel="canonical" href="https://vailo.ai/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- 31-7-23  -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 31-7-23  -->
+    <!-- ---- -->
+
+    <!-- ___ new dashLinks __  -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/newDash.css' %}">
+    <!-- ___ new dashLinks __  -->
+    {% block header %}
+
+
+    {% endblock header %}
+
+
+
+</head>
+
+<body style="height:100% ;background-color: #ffff;" id="bodyId">
+
+    {% if user.is_authenticated %}
+
+    <!-- ... Other HTML and template code ... -->
+    <section id="sidebar">
+    {% if subclient_preferences %}
+    
+    <a href="{% url 'home' %}" class="brand">
+        <img src="{% static 'img/brillionDonationLogo.jpeg' %}" alt="VailoLogo" >
+    </a>
+    <ul class="side-menu top">
+        {% if subclient_preferences.preference == 'donation' %}
+           
+            <li>
+                <a href="{% url 'donorDetail' %}">
+                    <i class='bx bx-tachometer'></i>
+                    <span class="text">Donor List</span>
+                </a>
+            </li>
+           
+  
+        {% endif %}
+    
+    
+    {% if subclient_preferences.marketplace_id %}
+    <li>
+    <a href="{% url 'donationInfo' subclient_preferences.marketplace_id %}">
+        <i class='bx bx-tachometer'></i>
+        <span class="text">N G O</span>
+    </a>
+</li>
+{% else %}
+    <!-- Handle the case where marketplace_id is empty -->
+    
+{% endif %}
+    
+    </ul>
+{% else %}
+    
+    <a href="{% url 'home' %}" class="brand">
+        <img src="{% static 'img/brillionDonationLogo.jpeg' %}" alt="VailoLogo">
+      </a>
+    <ul class="side-menu top">
+        <li>
+            <a href="{% url 'doantiondashboard' %}">
+                <i class='bx bxs-dashboard'></i>
+
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+
+
+        <li>
+            <a href="{% url 'donorDetail' %}">
+                <i class='bx bx-tachometer'></i>
+
+                <span class="text">Donor List</span>
+            </a>
+        </li>
+
+  {% if admin_permission_obj and admin_permission_obj.client_marketplace == 'yes' %}
+      
+        <li>
+            <a href="{% url 'addNgoMarketPlace' %}">
+                <i class='bx bx-tachometer'></i>
+
+                <span class="text">Market Place</span>
+            </a> 
+        </li>
+    {% endif %}
+   
+        {% if admin_permission_obj and admin_permission_obj.client_marketplace != 'yes' %}
+        <li>
+            <a href="{% url 'donationInfo1' %}">
+                <i class='bx bxs-message-dots'></i>
+
+                <span class="text">Configuration</span>
+            </a>
+        </li>
+        {% endif %}
+       
+      
+          
+        {% include 'common/settingSide.html' %}
+
+
+
+        <!-- <li>
+            <span class="liDrop">
+                <i class='bx bxs-message-dots'></i>
+                <span class="text">Setting</span>
+            </span>
+        </li>
+
+
+        <li class="mL1" style="margin-left: 30%;">
+            <a href="{% url 'UpdateProfileDonation' %}" id="eventInfoDash">
+                <i class='bx bx-food-menu'></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        
+
+        <li class="mL1" style="margin-left: 30%;">
+            <a href="{% url 'nDonationFacebook' %}">
+                <i class='bx bxl-facebook-square'></i>
+
+                <span>Facebook</span>
+            </a>
+        </li>
+
+
+
+
+        <li class="mL1" style="margin-left: 30%;">
+            <a href="{% url 'subUserDonation' %}">
+                <i class='bx bx-wallet'></i>
+                <span>User</span>
+            </a>
+        </li>
+        <li class="mL1" style="margin-left: 30%;">
+            <a href="{% url 'nDonationPayment' %}">
+                <i class='bx bx-wallet'></i>
+                <span>Payment</span>
+            </a>
+        </li> -->
+
+
+
+        <li id=" " class="">
+            <a href="{% url 'billingDonation' %}">
+                <i class='bx bxs-message-dots'></i>
+                <span class="text">Billing</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'helpDonation' %}">
+                <i class='bx bxs-group'></i>
+                <span class="text">Help</span>
+            </a>
+        </li>
+    </ul>
+{% endif %}
+</section>
+    <!-- <section id="sidebar">
+      
+        {% if subclient_preferences %}
+            <a href="{% url 'home' %}" class="brand">
+                <img src="{% static 'img/vailoLogo.png' %}" alt="VailoLogo">
+            </a>
+            <ul class="side-menu top">
+                {% if subclient_preferences.preference == 'donation' %}
+                   
+                    <li>
+                        <a href="{% url 'donorDetail' %}">
+                            <i class='bx bx-tachometer'></i>
+                            <span class="text">Donor List</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% else %}
+            <a href="{% url 'home' %}" class="brand">
+              <img src="{% static 'img/vailoLogo.png' %}" alt="VailoLogo">
+            </a>
+            
+            <p>Error: No preferences detected</p>
+        {% endif %}
+    </section> -->
+           
+    <!-- ... Other HTML and template code ... -->
+
+
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <span class="spanNavLeft">
+                <i class='bx bx-menu'></i>
+                <a href="#" id="categoriesLink" class="nav-link"> </a>
+            </span>
+
+
+            <span class="spanNavRight">
+
+                <a href="#" class="profile">
+                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" id="userImage" alt="profile_pic">
+                </a>
+                <a href="{% url 'logout' %}">
+                    <!-- <box-icon type='solid' name='log-out-circle'></box-icon> -->
+                    <img class="imgDashSetting" style="width: 20px;" src="{% static 'img/dash11.png' %}">
+                </a>
+            </span>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <div class="mainContent" id="mainContent">
+            {% block rightcontent %}
+
+            {% endblock rightcontent %}
+        </div>
+
+        <!-- MAIN -->
+    </section>
+
+
+
+    <!-- _____ new dash template ______  -->
+    {% else %}
+
+
+    {% block bottumcontent %}
+
+    {% endblock bottumcontent %}
+
+
+
+    {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Add a click event listener to the special link
+        $("#specialLink").click(function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Load content into the main content area
+            $("#mainContent").load("{% url 'UpdateProfileCommon' %}", function () {
+                // Add a click event listener to links within the loaded content using event delegation
+                $("#mainContent").on("click", "a", function (e) {
+                    e.preventDefault(); // Prevent the default link behavior
+
+                    // Load the clicked link's content within the main content area
+                    var linkUrl = $(this).attr("href");
+                    $("#mainContent").load(linkUrl);
+                });
+            });
+            
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+    // Intercept form submissions for forms with the "ajax-form" class
+    $(".ajax-form").submit(function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
+        // Serialize form data (convert form fields to a format suitable for submission)
+        var formData1 = $(this).serialize();
+
+        // Define the URL where you want to submit the form data
+        var formUrl1 = $(this).attr("action");
+
+        // Reference to the current form element
+        var currentForm1 = $(this);
+
+        // Send the form data using AJAX POST request
+        $.ajax({
+            type: "POST", // Use POST method
+            url: formUrl1, // The URL to submit to
+            data: formData1, // The serialized form data
+            success: function (response) {
+                // Load the response content into the parent container of the current form
+                currentForm1.closest(".mainContent").html(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
+
+
+
+    <script>
+        const categoriesLink = document.getElementById('categoriesLink');
+        const sidebarLinks = document.querySelectorAll('#sidebar li a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                const selectedText = event.target.innerText;
+                localStorage.setItem('selectedText', selectedText);
+            });
+        });
+
+        // Retrieve selected text from localStorage on page load
+        const storedText = localStorage.getItem('selectedText');
+        // if (storedText) {
+        //     categoriesLink.innerText = storedText;
+        // }
+    </script>
+    <!-- <script>
+        const categoriesLink = document.getElementById('categoriesLink');
+      const sidebarLinks = document.querySelectorAll('#sidebar li a');
+      
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+          const selectedText = event.target.innerText;
+          categoriesLink.innerText = selectedText;
+        });
+      });
+      </script> -->
+
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function downArrow() {
+            document.getElementById("myDropdown").classList.toggle("show");
+            document.getElementById("helpDashBoard").className = "listSidebarDownSetting"
+            // alert(document.getElementById("helpDashBoard").style.marginTop )
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                        document.getElementById("helpDashBoard").className = "listSidebar";
+                    }
+                }
+
+            }
+        } 
+    </script>
+
+    <script>
+        function downArrowCon() {
+            var dropdown = document.getElementById("myDropdownCon");
+            dropdown.classList.toggle("show");
+            var helpDashBoard = document.getElementById("helpDashBoardCon");
+            if (dropdown.classList.contains('show')) {
+                helpDashBoard.className = "listSidebarDown";
+            } else {
+                helpDashBoard.className = "";
+            }
+        }
+    </script>
+
+
+
+
+    <script>
+        function abc() {
+            console.log('ih')
+        }
+    </script>
+
+    <script>
+
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll('.sideBarDashBoardVailoUl li a');
+
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].href === currentUrl) {
+                links[i].parentNode.classList.add('active');
+            }
+        }
+
+
+    </script>
+
+    <!-- ____ new dashScript___  -->
+    <script>
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        const configSidemenu = document.querySelectorAll('#sidebar .side-menu.top li .dropbtn #myDropdownCon a')
+
+
+        configSidemenu.forEach(item => {
+            let li = item.parentElement;
+            if (item.href === window.location.href) {
+                li.classList.add('active');
+            }
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            if (item.href === window.location.href) {
+                li.classList.add('active');
+            }
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        // TOGGLE SIDEBAR
+        // const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        // const sidebar = document.getElementById('sidebar');
+
+        // menuBar.addEventListener('click', function () {
+        //     sidebar.classList.toggle('hide');
+        // })
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+            const brandImg = document.querySelector('#sidebar .brand img');
+            if (sidebar.classList.contains('hide')) {
+                brandImg.style.width = '210px';
+                brandImg.style.padding = '12px';
+            } else {
+                brandImg.style.width = '80%';
+                brandImg.style.padding = '20px';
+            }
+        });
+
+
+
+
+
+
+
+        // const searchButton = document.querySelector('#content nav form .form-input button');
+        // const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
+        // const searchForm = document.querySelector('#content nav form');
+
+        // searchButton.addEventListener('click', function (e) {
+        //     if (window.innerWidth < 576) {
+        //         e.preventDefault();
+        //         searchForm.classList.toggle('show');
+        //         if (searchForm.classList.contains('show')) {
+        //             searchButtonIcon.classList.replace('bx-search', 'bx-x');
+        //         } else {
+        //             searchButtonIcon.classList.replace('bx-x', 'bx-search');
+        //         }
+        //     }
+        // })
+
+
+
+
+
+        // if (window.innerWidth < 768) {
+        //     sidebar.classList.add('hide');
+        // } else if (window.innerWidth > 576) {
+        //     searchButtonIcon.classList.replace('bx-x', 'bx-search');
+        //     searchForm.classList.remove('show');
+        // }
+
+
+        // window.addEventListener('resize', function () {
+        //     if (this.innerWidth > 576) {
+        //         searchButtonIcon.classList.replace('bx-x', 'bx-search');
+        //         searchForm.classList.remove('show');
+        //     }
+        // })
+
+
+
+
+
+
+        // const switchMode = document.getElementById('switch-mode');
+
+        // switchMode.addEventListener('change', function () {
+        //     if (this.checked) {
+        //         document.body.classList.add('dark');
+        //     } else {
+        //         document.body.classList.remove('dark');
+        //     }
+        // })
+
+
+
+    </script>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+        
+    <script>
+        function validateForm(event) {
+            // Your validation logic here
+        }
+        
+        $(document).ready(function () {
+            $(".emoji-input").emojioneArea({
+                pickerPosition: "bottom"
+            });
+        });
+    </script>
+
+    <!-- __ endOfNewDashScript__  -->
+
+    {% block script %}
+
+
+
+    {% endblock script %}
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var inputs = document.querySelectorAll('input');
+
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                var label = document.querySelector('label[for="' + input.id + '"]');
+
+                if (label) { // Add a null check for the label element
+
+                    if (input.hasAttribute('required')) {
+                        var asteriskSpan = document.createElement('span'); // Create a <span> element
+                        asteriskSpan.textContent = ' *';
+                        asteriskSpan.classList.add('required-asterisk'); // Add class to the <span> element
+                        label.appendChild(asteriskSpan); // Append the <span> element to the label
+
+
+                    } else {
+                        label.textContent += ' (optional)';
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let inputs = document.querySelectorAll('input');
+
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].addEventListener('input', function () {
+                    let characterLimit;
+
+                    if (this.classList.contains('mainInput')) {
+                        characterLimit = 1024; // Character limit for the main message
+                    } else if (this.classList.contains('footerInput')) {
+                        characterLimit = 60; // Character limit for the footer
+                    } else if (this.classList.contains('buttonInput')) {
+                        characterLimit = 20; // Character limit for the buttons
+                    } else if (this.classList.contains('descriptionInput')) {
+                        characterLimit = 72;
+                    } else if (this.classList.contains('headerInput')) {
+                        characterLimit = 60;
+                    } else if (this.classList.contains('nameInput')) {
+                        characterLimit = 24;
+                    }
+
+
+                    enforceCharacterLimit(this, characterLimit);
+                });
+            }
+
+            function enforceCharacterLimit(input, limit) {
+                let inputValue = input.value;
+
+                if (inputValue.length > limit) {
+                    input.value = inputValue.slice(0, limit);
+                }
+
+                let countDisplay = input.nextElementSibling;
+                if (countDisplay && countDisplay.classList.contains('charCount')) {
+                    countDisplay.textContent = limit - inputValue.length + ' characters remaining';
+                }
+            }
+        });
+    </script>
+
+    <script>
+        function validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan) {
+            const file = fileInput.files[0];
+
+            // Check if a file is selected
+            if (file) {
+                // Check the file size
+                if (file.size > maxSize) {
+                    const message = "Image size should be less than " + (maxSize / 1024 / 1024) + "MB.";
+
+
+                    const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                    if (messageSpanImg) {
+                        messageSpanImg.textContent = message;
+                    }
+
+                    fileInput.value = ""; // Clear the input field
+                    return;
+                }
+
+                // Read the image file to get width and height
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.onload = function () {
+                        // Check the image width and height
+                        if (img.width > maxWidth || img.height > maxHeight) {
+                            const message = "Image dimensions should be within " + maxWidth + "x" + maxHeight + " pixels. Current size: " + img.width + "x" + img.height + " pixels.";
+                            messageSpan.textContent = message;
+
+                            const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                            if (messageSpanImg) {
+                                messageSpanImg.textContent = message;
+                            }
+
+                            fileInput.value = ""; // Clear the input field
+                        } else {
+                            messageSpan.textContent = ""; // Clear any previous validation message
+                            const messageSpanImg = messageSpan.parentElement.querySelector(".validationMessageImg");
+                            if (messageSpanImg) {
+                                messageSpanImg.textContent = ""; // Clear any previous validation message in validationMessageImg
+                            }
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Get all elements with the class "imageInput"
+        const fileInputs = document.querySelectorAll(".imageInput");
+        const fileContactInputs = document.querySelectorAll(".imageContactInput");
+
+        // Loop through each file input element and add the event listener for change
+        fileInputs.forEach(function (fileInput) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const maxWidth = 871; // Example: maximum width allowed
+            const maxHeight = 566; // Example: maximum height allowed
+            const messageSpan = fileInput.parentElement.nextElementSibling; // Assuming the message span is the next sibling of the parent element
+
+            fileInput.addEventListener("change", function () {
+                validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan);
+            });
+        });
+        fileContactInputs.forEach(function (fileInput) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const maxWidth = 1211; // Example: maximum width allowed
+            const maxHeight = 1239; // Example: maximum height allowed
+            const messageSpan = fileInput.parentElement.nextElementSibling; // Assuming the message span is the next sibling of the parent element
+
+            fileInput.addEventListener("change", function () {
+                validateImageFile(fileInput, maxSize, maxWidth, maxHeight, messageSpan);
+            });
+        });
+    </script>
+
+    <!-- <script>
+        // Get all forms with the common class "dynamic-form"
+        const dynamicForms = document.querySelectorAll(".profileForm");
+
+        dynamicForms.forEach(form => {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Get all input fields within the current form
+                const inputFields = form.querySelectorAll("input");
+
+                // Check if any of the fields have a value
+                let isFormValid = false;
+                inputFields.forEach(field => {
+                    if (field.value.trim() !== "") {
+                        isFormValid = true;
+                        return; // Exit the loop early if any field is filled
+                    }
+                });
+
+                if (isFormValid) {
+                    // At least one field is filled, so submit the form
+                    event.target.submit();
+                } else {
+                    // All fields are empty, do not submit the form
+                    alert("Please fill in at least one field before submitting the form.");
+                }
+            });
+        });
+    </script> -->
+    <!-- <script>
+        function validateForm(event) {
+            const currentForm = event.target;
+            const inputs = currentForm.querySelectorAll('input, select');
+            let hasFilledField = false;
+    
+            // Check each form field value to see if it's not empty
+            inputs.forEach(input => {
+                // Handle the date fields separately
+                if (input.type === 'date') {
+                    if (input.value.trim() !== '') {
+                        hasFilledField = true;
+                    }
+                } else {
+                    if (input.value.trim() !== '' && input.type !== 'submit') {
+                        hasFilledField = true;
+                    }
+                }
+            });
+    
+            // If no field is filled, show an alert and prevent form submission
+            if (!hasFilledField) {
+                alert('Please fill at least one field before submitting the form.');
+                event.preventDefault();
+            }
+        }
+    
+        // Get all forms with class 'myForm' and attach the event listener
+        const forms = document.querySelectorAll('.myForm');
+        forms.forEach(form => {
+            form.addEventListener('submit', validateForm);
+        });
+    </script> -->
+   
+    <script type="text/javascript" src="{% static 'js/image.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!-- --  -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!--________________________________________________________________________________________________________-->
+</body>
+
+</html>

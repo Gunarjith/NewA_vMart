@@ -1,0 +1,51 @@
+{% extends "ticketDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+{% for a in modifyticket %}
+
+<div class="frmCenter" style="margin: 15px;">
+
+    <form action="{% url 'updatetickets' a.id %}" method="POST" enctype="multipart/form-data"
+      class="profileForm"  style="position: relative;">
+        <span class="headFlex">
+            <h3>Edit Tickets</h3>
+        </span>
+        {% csrf_token %}
+        <span class="formOne inputGridThree">
+            <span>
+                <label>Ticket Number</label>
+                <input type="text" name="reticketnumber" value="{{a.ticket_number}}">
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+            </span>
+
+            <span>
+                <label>Expiry Date</label>
+                <input type="text" name="redate" placeholder="{{a.Start_Date}}" onfocus="(this.type='date')">
+            </span>
+        </span>
+
+            <span class="spanSubmitForm">
+
+                <input type="submit" value="Update" />
+            </span>
+    </form>
+</div>
+{% endfor %}
+
+
+{% endblock rightcontent %}

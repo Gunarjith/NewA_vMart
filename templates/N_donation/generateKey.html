@@ -1,0 +1,67 @@
+{% extends "donationDash.html" %}
+{% load static %}
+
+{% if user.is_authenticated %}
+{% block title %} {{user.username}} {% endblock title %}
+{% else %}
+
+{% endif %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block rightcontent %}
+
+
+
+<div class="centerDiv">
+    <p>{{ngoUrl}}</p>
+      <p>{{ngoText}}</p>  
+        
+
+<p>https://wa.me/{{fb_whatsapp_number}}/?text=Search_key={{ngokey}}</p>
+
+<button id="goBackButtonGn"><img src="{% static 'img/menuClose.png' %}" alt=""></button>
+</div>
+{% endblock rightcontent %}
+
+
+{% block script %}
+<!-- <emoji>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" />
+
+
+<script>
+    function validateForm(event) {
+    }
+    $(document).ready(function () {
+        $(".nameInput").emojioneArea({
+            pickerPosition: "bottom"
+        });
+
+        $("#leve1Descrip").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        $("#leve1ShortDes").emojioneArea({
+            pickerPosition: "bottom"
+        });
+        // $("#leve1Descrip").emojioneArea({
+        //     pickerPosition: "bottom"
+        // });
+    });
+</script>
+
+<script>
+       document.getElementById('goBackButtonGn').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
+
+{% endblock script %}

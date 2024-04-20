@@ -1,0 +1,284 @@
+*{
+    font-family: 'Inter'; 
+    font-style: normal;
+    letter-spacing: .25px;
+}
+h2{
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 36px !important;
+    line-height: 44px;
+    color: #085394;
+}
+h3{
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    line-height: 27px;
+    color: #085394 !important;
+    text-transform: capitalize;
+}
+h4{
+    font-family: 'Cabin';
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 22px;
+    color: #000000 !important;
+    text-transform: capitalize;
+}
+p{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400 !important;
+font-size: 16px !important;
+line-height: 150%;
+text-align: justify;
+/* or 24px */
+
+text-transform: capitalize;
+
+color: #000000;
+}
+.iconLi{
+    width: 15px;
+    object-fit: contain;
+}
+
+.ulSpanVailoFirst ul{
+    margin: 10px 25px;
+}
+
+.ulSpanVailoFirst img{
+    width: 15px;
+    height: auto;
+    object-fit: contain;
+}
+.ulSpanVailoFirst li { 
+    list-style: none;
+    transform: matrix(1, 0.01, -0.01, 1, 0, 0);
+    display: flex;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 15px;
+    padding: 10px !important;
+    color: #FFFFFF;
+    align-items: center;
+}
+.ulSpanVailoFirst p {
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 10px;
+    color: #ffff;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* -pov-  */
+.pOv{
+    text-align: center;
+    margin: 0 100px;
+}
+
+.pOvSub{
+    display: flex;
+    margin: 10px 167px;
+}
+.pOvSubText p{
+    padding: 10px 0;
+}
+
+.pOvSubImg{
+    padding:0 0 0 15px;
+}
+.pOvSubImg1{
+    padding:0 15px 0 0 ;
+}
+.pOvSubImg img, .pOvSubImg1 img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+/* -- boost--  */
+.boostCustomerVailoMain h2{
+   color: #fff;
+   text-align: center;
+}
+.vailoBoostCart img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+.readMore{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 25px 10px 5px ;
+   
+}
+.readMore1{
+    margin: 10px 10px 5px ;
+
+}
+.readMore span{
+font-family: 'Cabin';
+font-weight: 400;
+font-size: 14px;
+line-height: 15px;
+text-transform: capitalize;
+color: #0B5394;
+}
+.readMore img{
+    width:12px;
+    height: 12px;
+    object-fit: contain;
+
+}
+
+/* -- about --  */
+.imgAboutMain {
+    display: flex;
+    margin:  100px 100px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.imgAboutMainLeft img{
+    width:100% !important;
+    height: auto;
+}
+.imgAboutMainRight img{
+    width: 100%;
+    height: auto;
+}
+/* -- demoPage --  */
+.flexPageRg{
+    display: flex;
+    margin: 125px 83px 83px;
+}
+.flexPageRgLeft{
+    width: 100%;
+    margin: 10px 0;
+}
+.flexPageRgRight{
+    width: 100%;
+}
+.flexPageRgLeft p{
+margin-top: 25px;
+}
+.flexPageRgLeft img {
+    width: 315px;
+    height: auto;
+    margin: 0 25%
+
+}
+.flexFirstName{
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    column-gap: 10px;
+}
+.flexPageRgRight .formOne{ 
+padding: 15px 60px 10px 25px;
+}
+.flexPageRgRight .frmCenter form .spanSubmitForm{
+    margin:0px 60px 10px 25px;
+}
+
+.flexPageRgRight .frmCenter form .spanSubmitForm button{
+    width: -webkit-fill-available;
+}
+
+@media screen and (max-width: 1050px){
+    .sectionVailoAboutMain {
+        flex-direction: column;
+    }
+    .pOv{
+        text-align: center;
+        margin: 20px 100px;
+    }
+    .pOvSub{
+        margin: 10px ;
+    }
+    .flexPageRg {
+        display: flex;
+        margin: 125px 83px 25px;
+        flex-direction: column;
+    }
+    .flexPageRgLeft img {
+        width: 400px;
+        height: auto;
+        margin: 0px 25%;
+    }
+    /* .flexFirstName{
+        flex-direction: column !important;
+    
+    }
+    .flexFirstName div:first-child{
+        margin-bottom: 10px;
+    } */
+}
+@media screen and (max-width: 600px) {
+    .testimonialSection {
+        display: grid;
+        grid-template-columns: repeat(1,1fr) !important;
+    }
+}
+@media screen and (max-width: 600px) {
+    .ulSpanVailoFirst p {
+    font-weight: 400;
+    font-size: 12px;
+    }
+    .pOv {
+        /* text-align: center; */
+        margin: 20px;
+    }
+    .pOv h2{
+       text-align: left;
+    }
+    .pOvSub1{
+        flex-direction: column !important;
+    }
+    .pOvSub{
+        margin: 10px 25px;
+        flex-direction: column-reverse;
+    }
+    .boostSlide-sliderBoost {
+        margin: 20px;
+  
+}
+.imgAboutMain{
+    margin: 100px 20px 10px;
+}
+.flexPageRg {
+    display: flex;
+    margin: 83px 20px 25px;
+    flex-direction: column;
+}
+.flexPageRgLeft img {
+    width: -webkit-fill-available;
+    height: auto;
+    margin: 0px 12.5%;
+}
+.flexFirstName{
+    flex-direction: column !important;
+
+}
+.flexFirstName div:first-child{
+    margin-bottom: 10px;
+}
+.flexPageRgRight .formOne {
+    padding: 0px 0px 0px 0px;
+}
+.flexPageRgRight .frmCenter form .spanSubmitForm {
+    margin: 15px 0px 0px 0px;
+}
+.flexPageRgRight .headFlex {
+    padding: 10px 0px;
+    height: auto;
+}
+.checkBoxDiv {
+    margin: 10px 0px !important;
+}
+}
+
