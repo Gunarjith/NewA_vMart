@@ -2389,3 +2389,6 @@ def Dashboard(request):
     # Use a dictionary to ensure uniqueness of hotel names
     years = Checkout_responses.objects.annotate(year=ExtractYear('vailo_record_creation')).values_list('year', flat=True).distinct()
     return render(request, 'H_hotel/Dashboard.html',{'years':years,'rating_graph':rating_graph,'complaint_graph':complaint_graph,'hotels':hotel,"admin_permission_obj":admin_permission_obj,"subclient_preferences":subclient_preferences})
+
+def process(request):
+    return HttpResponse("Response success")
