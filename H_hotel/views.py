@@ -250,6 +250,7 @@ def deletelisthotels(request,id):
 
 
 def marketplaceConfig(request):
+    print("marketplaceConfig")
     return render(request, 'H_hotel/marketplaceConfig.html')
 
 
