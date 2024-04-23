@@ -1,3 +1,5 @@
+
+
 from builtins import locals
 from pathlib import Path
 import os
@@ -14,21 +16,25 @@ SECRET_KEY = 'django-insecure-x%=)8%2w(##6u!gl^k)rbp4k3r-&w*%qqn(ifdz4%b7)(!zlz)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = ['*']
 
-DomainName = 'https://vmart.ai' + '/'
-
+DomainName = 'https://127.0.0.1:8000' + '/'
 # Application definition
 
 import logging
 
+LOGIN_REQUIRED = True
+LOGIN_URL = '/accounts/login/'
+# accounts/login/
 # Set Boto3's logging level to a higher level to suppress the detailed logs
 logging.getLogger('boto3').setLevel(logging.WARNING)
 logging.getLogger('botocore').setLevel(logging.WARNING)
 
 INSTALLED_APPS = [
     #  'jazzmin',
-    'django.contrib.admin', 
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,7 +47,6 @@ INSTALLED_APPS = [
     'D_facebook',
     'G_payment',
     'K_Ticket',
-    'E_product',
     's_survey',
     'H_hotel',
     'crispy_forms',
@@ -62,9 +67,6 @@ JAZZMIN_UI_TWEAKS = {
 
     "theme": "simplex",
 }
-
-LOGIN_REQUIRED = True
-LOGIN_URL = '/accounts/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,16 +127,17 @@ WSGI_APPLICATION = 'A_vMart.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vmartdb',
-        'USER': "admin",
-        'PASSWORD': 'vmart123db',
-        'HOST': 'vmartdb.c8w7n6nygazf.ap-south-1.rds.amazonaws.com',
+        'NAME': 'vailodb',
+        'USER': "root",
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
-        'OPTIONS':{
-           'init_command': "SET sql_mode='STRICT_TRANS_TABLES',foreign_key_checks = 0;",
-           'charset': 'utf8mb4',
-           'init_command': "SET collation_connection = 'utf8mb4_unicode_ci'",
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES',foreign_key_checks = 0;",
+            'charset': 'utf8mb4',
+            'init_command': "SET collation_connection = 'utf8mb4_unicode_ci'",
         }
+
     }
 }
 # Password validation
